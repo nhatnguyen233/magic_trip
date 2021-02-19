@@ -1,0 +1,43 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateAccommodationsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('accommodations', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->text('description');
+            $table->string('phone')->nullable();
+            $table->double('lowest_price')->nullable();
+            $table->integer('number_of_rooms')->nullable();
+            $table->integer('status')->nullable();
+            $table->unsignedBigInteger('province_id')->nullable();
+            $table->unsignedBigInteger('district_id')->nullable();
+            $table->unsignedBigInteger('country_id')->nullable();
+            $table->timestamps();
+//            $table->foreign('country_id')->references('id')->on('countries');
+//            $table->foreign('province_id')->references('id')->on('provinces');
+//            $table->foreign('district_id')->references('id')->on('districts');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('accommodations');
+    }
+}
