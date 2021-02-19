@@ -18,6 +18,7 @@ class CreateStaffsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('province_id')->nullable();
             $table->unsignedBigInteger('district_id')->nullable();
+            $table->unsignedBigInteger('ward_id')->nullable();
             $table->unsignedBigInteger('country_id')->nullable();
             $table->integer('level')->nullable();
             $table->unsignedBigInteger('bank_id')->nullable();
@@ -27,6 +28,7 @@ class CreateStaffsTable extends Migration
 //            $table->foreign('country_id')->references('id')->on('countries');
 //            $table->foreign('province_id')->references('id')->on('provinces');
 //            $table->foreign('district_id')->references('id')->on('districts');
+//            $table->foreign('ward_id')->references('id')->on('wards');
         });
     }
 
