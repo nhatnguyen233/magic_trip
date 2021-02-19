@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class RoomImage extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'room_id',
+        'url',
+    ];
 }

@@ -16,7 +16,9 @@ class CreateProvincesTable extends Migration
         Schema::create('provinces', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->unsignedBigInteger('country_id')->nullable();
             $table->timestamps();
+//            $table->foreign('country_id')->references('id')->on('countries');
         });
     }
 
