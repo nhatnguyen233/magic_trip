@@ -14,4 +14,9 @@ class Country extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function provinces()
+    {
+        $this->hasMany(Province::class, 'country_id', 'id');
+    }
 }

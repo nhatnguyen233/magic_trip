@@ -5,17 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Bank extends Model
+class Ward extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'name',
-        'short_name'
+        'district_id',
     ];
 
-    public function staff()
+    public function district()
     {
-        return $this->hasMany(Staff::class, 'bank_id', 'id');
+        $this->belongsTo(District::class, 'district_id', 'id');
     }
 }

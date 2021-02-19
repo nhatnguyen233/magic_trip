@@ -15,4 +15,9 @@ class Service extends Model
         'status',
         'room_id',
     ];
+
+    public function room()
+    {
+        return $this->belongsTo(Room::class, 'room_id', 'id');
+    }
 }

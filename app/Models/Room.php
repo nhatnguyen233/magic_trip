@@ -22,4 +22,9 @@ class Room extends Model
         'checkout',
         'accommodation_id'
     ];
+
+    public function images()
+    {
+        return $this->hasMany(RoomImage::class, 'room_id', 'id');
+    }
 }

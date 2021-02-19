@@ -13,4 +13,14 @@ class District extends Model
         'name',
         'province_id',
     ];
+
+    public function province()
+    {
+        $this->belongsTo(Province::class, 'province_id', 'id');
+    }
+
+    public function wards()
+    {
+        $this->hasMany(Ward::class, 'district_id', 'id');
+    }
 }

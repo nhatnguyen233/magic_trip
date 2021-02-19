@@ -23,11 +23,13 @@ class CreateAccommodationsTable extends Migration
             $table->integer('status')->nullable();
             $table->unsignedBigInteger('province_id')->nullable();
             $table->unsignedBigInteger('district_id')->nullable();
+            $table->unsignedBigInteger('ward_id')->nullable();
             $table->unsignedBigInteger('country_id')->nullable();
             $table->timestamps();
 //            $table->foreign('country_id')->references('id')->on('countries');
 //            $table->foreign('province_id')->references('id')->on('provinces');
 //            $table->foreign('district_id')->references('id')->on('districts');
+//            $table->foreign('ward_id')->references('id')->on('wards');
         });
     }
 

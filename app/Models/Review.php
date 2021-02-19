@@ -16,4 +16,9 @@ class Review extends Model
         'content',
         'rate'
     ];
+
+    public function images()
+    {
+        return $this->hasMany(ReviewImage::class, 'review_id', 'id');
+    }
 }
