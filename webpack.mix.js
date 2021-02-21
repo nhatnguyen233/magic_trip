@@ -16,3 +16,19 @@ mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         //
     ]);
+
+mix.copy('resources/assets/js/main.js', 'public/js/front')
+    .copy('resources/assets/js/moment.min.js', 'public/js/front')
+    .copy('resources/assets/js/common_scripts.js', 'public/js/front')
+    .copy('resources/assets/js/daterangepicker.js', 'public/js/front')
+    .copy('resources/assets/js/input_qty.js', 'public/js/front')
+    .copy('resources/assets/js/jquery-3.5.1.min.js', 'public/js/front');
+
+mix.copy('resources/assets/other/validate.js', 'public/js/front');
+
+mix.copy('resources/assets/css/custom.css', 'public/css/front/custom.css')
+    .copy('resources/assets/css/style.css', 'public/css/front/style.css')
+    .copy('resources/assets/css/vendors.css', 'public/css/front/vendors.css');
+
+mix.copy('resources/assets/img/', 'public/img/');
+mix.copy('resources/assets/icon_fonts/icon_fonts', 'public/css/front/icon_fonts');
