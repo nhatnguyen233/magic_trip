@@ -37,14 +37,14 @@
 
 <div id="page">
 
-    @include('layouts.header')
+    @include('layouts.user.header')
 
     <main>
         @yield('content')
     </main>
     <!-- /main -->
 
-    @include('layouts.footer')
+    @include('layouts.user.footer')
 </div>
 <!-- page -->
 
