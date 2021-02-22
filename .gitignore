@@ -15,6 +15,8 @@ yarn-error.log
 public/css/
 public/js/
 public/img/
+public/images/
 public/assets/
+public/admin/
 public/vendor/
 public/mix-manifest.json
