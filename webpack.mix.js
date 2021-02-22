@@ -13,10 +13,12 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
+    .sass('resources/sass/admin/admin.scss', 'public/css')
     .postCss('resources/css/app.css', 'public/css', [
         //
     ]);
 
+// User Page
 mix.copy('resources/assets/js/main.js', 'public/js/front')
     .copy('resources/assets/js/moment.min.js', 'public/js/front')
     .copy('resources/assets/js/common_scripts.js', 'public/js/front')
@@ -32,3 +34,11 @@ mix.copy('resources/assets/css/custom.css', 'public/css/front/custom.css')
 
 mix.copy('resources/assets/img/', 'public/img/');
 mix.copy('resources/assets/icon_fonts/icon_fonts', 'public/css/front/icon_fonts');
+
+// Admin Page
+mix.copy('resources/assets/admin/css/', 'public/admin/css/');
+mix.copy('resources/assets/admin/vendor/bootstrap/css', 'public/admin/css/');
+mix.copy('resources/assets/admin/vendor/', 'public/admin/vendor/');
+mix.copy('resources/assets/admin/vendor/bootstrap/js', 'public/admin/js/');
+mix.copy('resources/assets/admin/js/', 'public/admin/js/');
+mix.copy('resources/assets/admin/img/', 'public/admin/img/');
