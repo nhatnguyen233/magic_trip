@@ -23,7 +23,8 @@
                 </div>
             </div>
             <div class="col-lg-6">
-                <form action="#" method="POST">
+                <form action="{{ route('admin.login') }}" method="POST">
+                    @csrf
                     <div class="card2 card border-0 px-4 py-5">
                         <div class="row mb-4 px-3">
                             <h6 class="mb-0 mr-4 mt-2">Sign in with</h6>

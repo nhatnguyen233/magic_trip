@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,11 +13,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('admin.dashboard');
+Route::middleware('auth.admin')->group(function() {
+    Route::resource('/', DashboardController::class)->only(['index', 'show']);;
 });
 
-Route::get('/login', function () {
-    return view('admin.login');
-});
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('show_login');
+Route::post('/login', [AuthController::class, 'login'])->name('login');

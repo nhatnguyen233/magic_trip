@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class AuthController extends BaseAuthController
 {
-    protected $redirectTo = 'admin/dashboard';
+    protected $redirectTo = 'admincp';
 
     public function __construct()
     {
