@@ -13,7 +13,7 @@ class CreateAttractionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tourist_attractions', function (Blueprint $table) {
+        Schema::create('attractions', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('description')->nullable();
@@ -32,6 +32,6 @@ class CreateAttractionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tourist_attractions');
+        Schema::dropIfExists('attractions');
     }
 }
