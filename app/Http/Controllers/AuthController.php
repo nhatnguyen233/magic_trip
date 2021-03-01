@@ -17,7 +17,15 @@ class AuthController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth.' . $this->guardName);
+        $this->middleware('auth.' . $this->guardName)->except([
+            'showLoginForm',
+            'login',
+            'redirectToProvider',
+        ]);
+
+        $this->middleware('guest:' . $this->guardName)->except([
+            'logout',
+        ]);
     }
 
     public function guard()

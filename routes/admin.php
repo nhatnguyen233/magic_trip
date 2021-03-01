@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\DashboardController;
 |
 */
 Route::middleware('auth.admin')->group(function() {
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::resource('/', DashboardController::class)->only(['index', 'show']);;
 });
 
