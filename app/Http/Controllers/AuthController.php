@@ -44,11 +44,11 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
-        $credentials['is_active'] = true;
+//        $credentials['is_active'] = true;
         $credentials['role_id'] = $this->getRoleByGuard();
 
         if ($this->guard()->attempt($credentials, $request->filled('remember'))) {
-            return $this->sendLoginResponse($request);
+            return redirect()->intended($this->redirectPath());
         }
 
         return $this->sendFailedLoginResponse($request);
