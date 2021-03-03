@@ -101,7 +101,6 @@
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('admin/js/admin.js') }}"></script>
     <!-- Custom scripts for this page-->
-    <script src="{{ asset('admin/js/admin-charts.js') }}"></script>
-@yield('script')
+    @yield('script')
 </body>
 </html>

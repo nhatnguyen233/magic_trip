@@ -16,14 +16,21 @@ class CreateAttractionsTable extends Migration
         Schema::create('attractions', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('title');
             $table->string('description')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->unsignedBigInteger('country_id')->nullable();
             $table->unsignedBigInteger('province_id')->nullable();
             $table->unsignedBigInteger('district_id')->nullable();
             $table->unsignedBigInteger('ward_id')->nullable();
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
+            $table->string('zipcode')->nullable();
+            $table->string('address')->nullable();
             $table->string('avatar')->nullable();
             $table->string('thumbnail')->nullable();
             $table->timestamps();
+//            $table->foreign('category_id')->references('id')->on('category_attractions');
 //            $table->foreign('province_id')->references('id')->on('provinces');
 //            $table->foreign('country_id')->references('id')->on('countries');
 //            $table->foreign('district_id')->references('id')->on('districts');

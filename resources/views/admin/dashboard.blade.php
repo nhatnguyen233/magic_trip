@@ -84,3 +84,7 @@
         <canvas id="myAreaChart" width="100%" height="30" style="margin:45px 0 15px 0;"></canvas>
     </div>
 @endsection
+
+@section('script')
+    <script src="{{ asset('admin/js/admin-charts.js') }}"></script>
+@endsection
