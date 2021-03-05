@@ -1,34 +1,31 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Category\CategoriesRepository;
-use App\Repositories\Province\ProvinceRepository;
+use App\Repositories\District\DistrictRepository;
 use Illuminate\Http\Request;
 
-class AttractionController extends Controller
+class DistrictController extends Controller
 {
-    protected $categoryRepository;
-    protected $provinceRepository;
+    protected $districtRepository;
 
-    public function __construct(
-        CategoriesRepository $categoryRepository,
-        ProvinceRepository $provinceRepository
-    )
+    public function __construct(DistrictRepository $districtRepository)
     {
-        $this->categoryRepository = $categoryRepository;
-        $this->provinceRepository = $provinceRepository;
+        $this->districtRepository = $districtRepository;
     }
 
     /**
      * Display a listing of the resource.
+     * @param Request $request
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.attractions.index');
+        $district = $this->districtRepository->search($request->only(['province', 'page']));
+
+        return response()->json($district);
     }
 
     /**
@@ -38,10 +35,7 @@ class AttractionController extends Controller
      */
     public function create()
     {
-        $categories = $this->categoryRepository->all();
-        $provinces = $this->provinceRepository->all();
-
-        return view('admin.attractions.create', compact('categories','provinces'));
+        //
     }
 
     /**
@@ -52,7 +46,7 @@ class AttractionController extends Controller
      */
     public function store(Request $request)
     {
-
+        //
     }
 
     /**

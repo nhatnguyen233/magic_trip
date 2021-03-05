@@ -26,7 +26,7 @@
                     <div class="form-group">
                         <label for="title-attraction">Tiêu đề <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" placeholder="Hồ Đồng Đò yên bình, thơ mộng"
-                               name="title" id="title-attraction" required>
+                               name="title" id="title-attraction" value="{{ old('title') }}" required>
                     </div>
                 </div>
             </div>
@@ -35,7 +35,7 @@
                     <div class="form-group">
                         <label for="name-attraction">Tên địa điểm <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" placeholder="Hồ Đồng Đò"
-                               name="name" id="name-attraction" required>
+                               name="name" id="name-attraction" value="{{ old('name') }}" required>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -45,7 +45,10 @@
                             <select name="category" id="category-attraction">
                                 <option selected disabled>---- Chọn loại hình ----</option>
                                 @foreach($categories as $item)
-                                    <option value={{ $item->id }}>
+                                    <option @if(old('category') == $item->id)
+                                                selected
+                                            @endif
+                                            value={{ $item->id }}>
                                         {{ $item->name }}
                                     </option>
                                 @endforeach
@@ -59,13 +62,15 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="latitude-attraction">Vĩ độ</label>
-                        <input type="text" class="form-control" placeholder="13°19'43″N" name="latitude" id="latitude-attraction">
+                        <input type="text" class="form-control" placeholder="13°19'43″N" name="latitude"
+                               id="latitude-attraction" value="{{ old('latitude') }}" />
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="longitude-attraction">Kinh độ</label>
-                        <input type="text" class="form-control" placeholder="15°W" name="longitude" id="longitude-attraction">
+                        <input type="text" class="form-control" placeholder="15°W" name="longitude"
+                               value="{{ old('longitude') }}" id="longitude-attraction" />
                     </div>
                 </div>
             </div>
@@ -82,7 +87,7 @@
                     <div class="form-group">
                         <label for="attraction-thumbnail">Ảnh thu nhỏ <span class="text-danger">*</span></label>
                         <input type="file" class="form-control-file" id="attraction-thumbnail"
-                               placeholder="Ảnh thumbnail" name="thumbnail" required/>
+                               placeholder="Ảnh thumbnail" name="thumbnail" value="{{ old('thumbnail') }}" required/>
                     </div>
                 </div>
             </div>
@@ -93,7 +98,7 @@
                         <label>Ảnh album</label>
                         <div class="custom-file multi-file-images">
                             <label for="images" class="custom-file-label">Chọn ảnh</label>
-                            <input type="file" name="images[]" class="custom-file-input images" id="images">
+                            <input type="file" name="images[]" class="custom-file-input images" id="images" />
                         </div>
                         <a title="Thêm ảnh" href="javascript:" onclick="cloneFile(this)"
                            class="btn_1 red add-attraction-images mt-1">
@@ -111,7 +116,9 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Mô tả</label>
-                        <textarea name="description" class="editor" id="description" title="Mô tả thêm"></textarea>
+                        <textarea name="description" class="editor" id="description" title="Mô tả thêm">
+                            {{ old('description') }}
+                        </textarea>
                     </div>
                 </div>
             </div>
@@ -128,9 +135,7 @@
                         <label for="country-attraction">Chọn quốc gia <span class="text-danger">*</span></label>
                         <div class="styled-select">
                             <select name="country" id="country-attraction">
-                                <option value="1">Viet Nam</option>
-                                <option>Campuchia</option>
-                                <option>ThaiLand</option>
+                                <option value="1" selected>Viet Nam</option>
                             </select>
                         </div>
                     </div>
@@ -139,10 +144,16 @@
                     <div class="form-group">
                         <label for="province-attraction">Chọn Tỉnh/Thành <span class="text-danger">*</span></label>
                         <div class="styled-select">
-                            <select name="province" id="province-attraction"  required>
-                                <option value="1">Ha Noi</option>
-                                <option>Phnom Penh</option>
-                                <option>Bangkok</option>
+                            <select name="province" id="province-attraction" required>
+                                <option selected disabled>---- Chọn tỉnh/thành ----</option>
+                                @foreach($provinces as $item)
+                                    <option @if(old('province') == $item->id)
+                                                selected
+                                            @endif
+                                            value={{ $item->id }}>
+                                        {{ $item->name }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -155,9 +166,7 @@
                         <label for="district-attraction">Chọn Xã/Phường <span class="text-danger">*</span></label>
                         <div class="styled-select">
                             <select name="district" id="district-attraction" required>
-                                <option value="1">Ha Noi</option>
-                                <option>Phnom Penh</option>
-                                <option>Bangkok</option>
+                                <option selected disabled>Chọn quận,huyện</option>
                             </select>
                         </div>
                     </div>
@@ -165,7 +174,8 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="zipcode-attraction">Zip Code</label>
-                        <input type="text" class="form-control" name="zipcode" id="zipcode-attraction" />
+                        <input type="text" class="form-control" name="zipcode"
+                               id="zipcode-attraction" value="{{ old('zipcode') }}" />
                     </div>
                 </div>
             </div>
@@ -176,7 +186,7 @@
                     <div class="form-group">
                         <label for="address-attraction">Địa chỉ chi tiết</label>
                         <input type="text" class="form-control" name="address" id="address-attraction"
-                               placeholder="An Khánh, Hoài Đức, Hà Nội..." />
+                               placeholder="An Khánh, Hoài Đức, Hà Nội..." value="{{ old('address') }}" />
                     </div>
                 </div>
             </div>
@@ -213,6 +223,23 @@
         var i = $(this).prev('label').clone();
         var file = $(this)[0].files[0].name;
         $(this).prev('label').text(file);
+      });
+
+      $('#province-attraction').change(function () {
+        var url = new URL('{{ route('districts.index') }}');
+        var params = { province:$(this).val() };
+        Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+        fetch(url)
+            .then(response => response.json())
+            .then(result => {
+              $('#district-attraction').children().remove().end();
+              result.data.forEach(function (data) {
+                $("#district-attraction").append('<option value="' + data.id + '">'+ data.name + '</option>');
+              });
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
       });
 
       const cloneFile = (e) => {
