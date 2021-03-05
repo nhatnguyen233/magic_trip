@@ -3,10 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\Category\CategoriesRepository;
 use Illuminate\Http\Request;
 
 class AttractionController extends Controller
 {
+    protected $categoryRepository;
+
+    public function __construct(CategoriesRepository $categoryRepository)
+    {
+        $this->categoryRepository = $categoryRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +32,9 @@ class AttractionController extends Controller
      */
     public function create()
     {
-        return view('admin.attractions.create');
+        $categories = $this->categoryRepository->all();
+
+        return view('admin.attractions.create', compact('categories'));
     }
 
     /**
@@ -35,7 +45,7 @@ class AttractionController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+
     }
 
     /**

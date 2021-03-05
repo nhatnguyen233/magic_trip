@@ -30,7 +30,7 @@ class CreateAttractionsTable extends Migration
             $table->string('avatar')->nullable();
             $table->string('thumbnail')->nullable();
             $table->timestamps();
-//            $table->foreign('category_id')->references('id')->on('category_attractions');
+//            $table->foreign('category_id')->references('id')->on('categories');
 //            $table->foreign('province_id')->references('id')->on('provinces');
 //            $table->foreign('country_id')->references('id')->on('countries');
 //            $table->foreign('district_id')->references('id')->on('districts');

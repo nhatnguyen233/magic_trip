@@ -24,27 +24,31 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Tiêu đề</label>
-                        <input type="text" class="form-control" placeholder="Hồ Đồng Đò yên bình, thơ mộng" name="title">
+                        <label for="title-attraction">Tiêu đề <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="Hồ Đồng Đò yên bình, thơ mộng"
+                               name="title" id="title-attraction" required>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Tên đia điểm</label>
-                        <input type="text" class="form-control" placeholder="Hồ Đồng Đò" name="name">
+                        <label for="name-attraction">Tên địa điểm <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="Hồ Đồng Đò"
+                               name="name" id="name-attraction" required>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Loại hình</label>
+                        <label for="category-attraction">Loại hình</label>
                         <div class="styled-select">
-                            <select name="category">
-                                <option>Ẩm thực</option>
-                                <option>Thơ mộng</option>
-                                <option>Mạo hiểm</option>
-                                <option>Đa dạng văn hóa</option>
+                            <select name="category" id="category-attraction">
+                                <option selected disabled>---- Chọn loại hình ----</option>
+                                @foreach($categories as $item)
+                                    <option value={{ $item->id }}>
+                                        {{ $item->name }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -54,14 +58,14 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Vĩ độ</label>
-                        <input type="text" class="form-control" placeholder="13°19'43″N" name="latitude">
+                        <label for="latitude-attraction">Vĩ độ</label>
+                        <input type="text" class="form-control" placeholder="13°19'43″N" name="latitude" id="latitude-attraction">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Kinh độ</label>
-                        <input type="text" class="form-control" placeholder="15°W" name="longitude">
+                        <label for="longitude-attraction">Kinh độ</label>
+                        <input type="text" class="form-control" placeholder="15°W" name="longitude" id="longitude-attraction">
                     </div>
                 </div>
             </div>
@@ -69,14 +73,16 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="attraction-avatar">Ảnh chính</label>
-                        <input type="file" class="form-control-file" id="attraction-avatar" placeholder="Ảnh avatar" name="avatar"/>
+                        <label for="attraction-avatar">Ảnh chính <span class="text-danger">*</span></label>
+                        <input type="file" class="form-control-file" id="attraction-avatar" placeholder="Ảnh avatar"
+                               name="avatar" required/>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="attraction-thumbnail">Ảnh thu nhỏ</label>
-                        <input type="file" class="form-control-file" id="attraction-thumbnail" placeholder="Ảnh thumbnail" name="thumbnail"/>
+                        <label for="attraction-thumbnail">Ảnh thu nhỏ <span class="text-danger">*</span></label>
+                        <input type="file" class="form-control-file" id="attraction-thumbnail"
+                               placeholder="Ảnh thumbnail" name="thumbnail" required/>
                     </div>
                 </div>
             </div>
@@ -86,12 +92,16 @@
                     <div class="form-group">
                         <label>Ảnh album</label>
                         <div class="custom-file multi-file-images">
-                            <input type="file" name="images[]" class="custom-file-input images" id="images">
                             <label for="images" class="custom-file-label">Chọn ảnh</label>
+                            <input type="file" name="images[]" class="custom-file-input images" id="images">
                         </div>
                         <a title="Thêm ảnh" href="javascript:" onclick="cloneFile(this)"
-                           class="btn_1 gray add-attraction-images mt-1">
+                           class="btn_1 red add-attraction-images mt-1">
                             <i class="fa fa-fw fa-plus-circle"></i>Thêm ảnh
+                        </a>
+                        <a title="Lược bớt" href="javascript:" onclick="clearFile(this)"
+                           class="btn_1 gray remove-attraction-images mt-1">
+                            <i class="fa fa-fw fa-times-circle"></i>Lược bớt
                         </a>
                     </div>
                 </div>
@@ -100,8 +110,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label>Description</label>
-                        <div class="editor"></div>
+                        <label>Mô tả</label>
+                        <textarea name="description" class="editor" id="description" title="Mô tả thêm"></textarea>
                     </div>
                 </div>
             </div>
@@ -115,9 +125,9 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Chọn quốc gia</label>
+                        <label for="country-attraction">Chọn quốc gia <span class="text-danger">*</span></label>
                         <div class="styled-select">
-                            <select name="country">
+                            <select name="country" id="country-attraction">
                                 <option value="1">Viet Nam</option>
                                 <option>Campuchia</option>
                                 <option>ThaiLand</option>
@@ -127,9 +137,9 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Chọn Tỉnh/Thành</label>
+                        <label for="province-attraction">Chọn Tỉnh/Thành <span class="text-danger">*</span></label>
                         <div class="styled-select">
-                            <select name="province">
+                            <select name="province" id="province-attraction"  required>
                                 <option value="1">Ha Noi</option>
                                 <option>Phnom Penh</option>
                                 <option>Bangkok</option>
@@ -142,9 +152,9 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Chọn Xã/Phường</label>
+                        <label for="district-attraction">Chọn Xã/Phường <span class="text-danger">*</span></label>
                         <div class="styled-select">
-                            <select name="district">
+                            <select name="district" id="district-attraction" required>
                                 <option value="1">Ha Noi</option>
                                 <option>Phnom Penh</option>
                                 <option>Bangkok</option>
@@ -154,8 +164,8 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Zip Code</label>
-                        <input type="text" class="form-control" name="zipcode">
+                        <label for="zipcode-attraction">Zip Code</label>
+                        <input type="text" class="form-control" name="zipcode" id="zipcode-attraction" />
                     </div>
                 </div>
             </div>
@@ -164,8 +174,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label>Địa chỉ chi tiết</label>
-                        <input type="text" class="form-control" name="address" placeholder="An Khánh, Hoài Đức, Hà Nội...">
+                        <label for="address-attraction">Địa chỉ chi tiết</label>
+                        <input type="text" class="form-control" name="address" id="address-attraction"
+                               placeholder="An Khánh, Hoài Đức, Hà Nội..." />
                     </div>
                 </div>
             </div>
@@ -193,23 +204,31 @@
           ['fontsize', ['fontsize']],
           ['para', ['ul', 'ol', 'paragraph']]
         ],
-        placeholder: 'Write here your description....',
+        placeholder: 'Mô tả thêm về địa điểm....',
         tabsize: 2,
         height: 200
       });
-    </script>
-    <script>
-        const cloneFile = (e) => {
-          fileForm = $(".multi-file-images").eq(0).clone();
-          fileForm.find('input').val("");
-          fileForm.find('.custom-file-label').text("Chọn ảnh");
-          fileForm.insertBefore($(e));
-        }
 
-        $(function(){
-          $('input[type="file"]').change(function(e){
-            var fileName = e.target.files[0].name;
-          });
-        });
+      $(document).on('change', '#images', function () {
+        var i = $(this).prev('label').clone();
+        var file = $(this)[0].files[0].name;
+        $(this).prev('label').text(file);
+      });
+
+      const cloneFile = (e) => {
+        fileForm = $(".multi-file-images").eq(0).clone();
+        fileForm.find('input').val("");
+        fileForm.find('.custom-file-label').text("Chọn ảnh");
+        fileForm.insertBefore($(e));
+      }
+
+      function clearFile(e) {
+        if ($('.multi-file-images').length == 1) {
+          $(e).prevAll('input').val("");
+          $(e).prevAll('.custom-file-label').text("Chọn ảnh");
+        } else {
+          $(e).prev().prev('.multi-file-images').remove();
+        }
+      }
     </script>
 @endsection
