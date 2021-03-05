@@ -12,6 +12,24 @@
                 <span class="nav-link-text">Messages</span>
             </a>
         </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My listings">
+            <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseAttractions"
+               data-parent="#mylistings">
+                <i class="fa fa-fw fa-map-marker"></i>
+                <span class="nav-link-text">Địa điểm du lịch</span>
+            </a>
+            <ul class="sidenav-second-level collapse" id="collapseAttractions">
+                <li>
+                    <a href="{{ route('admin.attractions.index') }}">Danh sách</a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.attractions.create') }}">Thêm địa điểm</a>
+                </li>
+                <li>
+                    <a href="listings.html">Thống kê <span class="badge badge-pill badge-primary">6</span></a>
+                </li>
+            </ul>
+        </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Bookings">
             <a class="nav-link" href="bookings.html">
                 <i class="fa fa-fw fa-calendar-check-o"></i>

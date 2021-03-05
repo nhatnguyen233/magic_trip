@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Repositories\User;
+namespace App\Repositories\Province;
 
-use App\Models\User;
+use App\Models\Province;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Exceptions\RepositoryException;
 
-class UserRepositoryEloquent extends BaseRepository implements UserRepository
+class ProvinceEloquent extends BaseRepository implements ProvinceRepository
 {
     public function model()
     {
-        return User::class;
+        return Province::class;
     }
 
     /**
@@ -21,10 +21,5 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
-    }
-
-    public function updateBaseInfo(array $params, $user)
-    {
-
     }
 }
