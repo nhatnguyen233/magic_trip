@@ -16,8 +16,9 @@ class CreateAttractionsTable extends Migration
         Schema::create('attractions', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('title');
-            $table->string('description')->nullable();
+            $table->string('slug')->nullable();
+            $table->string('title')->nullable();
+            $table->text('description')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
             $table->unsignedBigInteger('country_id')->nullable();
             $table->unsignedBigInteger('province_id')->nullable();

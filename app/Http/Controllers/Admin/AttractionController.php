@@ -3,20 +3,25 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Category\CategoriesRepository;
+use App\Http\Requests\Admin\CreateAttractionRequest as Create;
+use App\Repositories\Attraction\AttractionRepository;
+use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Province\ProvinceRepository;
 use Illuminate\Http\Request;
 
 class AttractionController extends Controller
 {
+    protected $attractionRepository;
     protected $categoryRepository;
     protected $provinceRepository;
 
     public function __construct(
-        CategoriesRepository $categoryRepository,
+        AttractionRepository $attractionRepository,
+        CategoryRepository $categoryRepository,
         ProvinceRepository $provinceRepository
     )
     {
+        $this->attractionRepository = $attractionRepository;
         $this->categoryRepository = $categoryRepository;
         $this->provinceRepository = $provinceRepository;
     }
@@ -47,12 +52,16 @@ class AttractionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Create $request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Create $request)
     {
+        $attraction = $this->attractionRepository->createAttraction($request->validated());
+        $this->attractionRepository->updateAttractionImages($request->images, $attraction->id);
 
+        return redirect()->back()->with('success', 'Tạo địa điểm thành công');
     }
 
     /**

@@ -15,6 +15,20 @@
         </li>
         <li class="breadcrumb-item active">Thêm</li>
     </ol>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    @if(session()->has('success'))
+        <div class="alert alert-success">
+            {{ session()->get('success') }}
+        </div>
+    @endif
     <form action="{{ route('admin.attractions.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="box_general padding_bottom">
@@ -40,9 +54,9 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="category-attraction">Loại hình</label>
+                        <label for="category-attraction">Loại hình <span class="text-danger">*</span></label>
                         <div class="styled-select">
-                            <select name="category" id="category-attraction">
+                            <select name="category_id" id="category-attraction" required>
                                 <option selected disabled>---- Chọn loại hình ----</option>
                                 @foreach($categories as $item)
                                     <option @if(old('category') == $item->id)
@@ -134,7 +148,7 @@
                     <div class="form-group">
                         <label for="country-attraction">Chọn quốc gia <span class="text-danger">*</span></label>
                         <div class="styled-select">
-                            <select name="country" id="country-attraction">
+                            <select name="country_id" id="country-attraction">
                                 <option value="1" selected>Viet Nam</option>
                             </select>
                         </div>
@@ -144,10 +158,10 @@
                     <div class="form-group">
                         <label for="province-attraction">Chọn Tỉnh/Thành <span class="text-danger">*</span></label>
                         <div class="styled-select">
-                            <select name="province" id="province-attraction" required>
+                            <select name="province_id" id="province-attraction" required>
                                 <option selected disabled>---- Chọn tỉnh/thành ----</option>
                                 @foreach($provinces as $item)
-                                    <option @if(old('province') == $item->id)
+                                    <option @if(old('province_id') == $item->id)
                                                 selected
                                             @endif
                                             value={{ $item->id }}>
@@ -165,7 +179,7 @@
                     <div class="form-group">
                         <label for="district-attraction">Chọn Xã/Phường <span class="text-danger">*</span></label>
                         <div class="styled-select">
-                            <select name="district" id="district-attraction" required>
+                            <select name="district_id" id="district-attraction" required>
                                 <option selected disabled>Chọn quận,huyện</option>
                             </select>
                         </div>

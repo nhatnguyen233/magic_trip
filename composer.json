@@ -16,6 +16,8 @@
         "hoangphi/vietnam-maps": "^1.1",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
+        "laravel/ui": "^3.2",
+        "league/flysystem-aws-s3-v3": "^1.0",
         "prettus/l5-repository": "^2.7"
     },
     "require-dev": {
