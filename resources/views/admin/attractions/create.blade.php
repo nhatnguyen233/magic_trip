@@ -235,7 +235,7 @@
       });
 
       $('#province-attraction').change(function () {
-        var url = new URL('{{ route('districts.index') }}');
+        var url = new URL('{{ route('api.districts.index') }}');
         var params = { province:$(this).val() };
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
         fetch(url)

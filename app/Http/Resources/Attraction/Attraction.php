@@ -14,6 +14,16 @@ class Attraction extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'avatar' => $this->avatar_url,
+            'thumbnail' => $this->thumbnail_url,
+            'name' => $this->name,
+            'title' => $this->title,
+            'address' => $this->address,
+            'latitude' => $this->latitude,
+            'longitude' => $this->longitude,
+            'images' => $this->images,
+        ];
     }
 }

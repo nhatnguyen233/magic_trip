@@ -46,7 +46,7 @@
                             <td><img src="{{ $item->thumbnail_url }}" width="100px"/></td>
                             <td>
                                 <div class="d-flex justify-content-around">
-                                    <a class="btn btn-info text-white" data-toggle="modal"
+                                    <a class="btn btn-info text-white" data-toggle="modal" id="showAttractionDetail"
                                         data-target="#showAttractionModal" data-id="{{ $item->id }}">
                                         <i class="fa fa-info-circle"></i>
                                     </a>
@@ -68,10 +68,34 @@
         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
     </div>
     <!-- /tables-->
-    @include('admin.attractions.modals.show')
-    @include('admin.attractions.modals.remove')
+    @include('admin.attractions.modals._show_detail_attraction')
+    @include('admin.attractions.modals._remove_modal_attraction')
 @endsection
 
 @section('script')
     <script src="{{ asset('admin/js/admin-datatables.js') }}"></script>
+    <script>
+      $(document).on('click', '#showAttractionDetail', function () {
+        var id = $(this).data('id');
+        var url = '{{ Illuminate\Support\Facades\URL::to('/') }}' + '/api/attractions/' + id;
+        fetch(url)
+        .then(response => response.json())
+        .then(result => {
+          $('#attraction-name').val(result.data.name);
+          $('#attraction-address').val(result.data.address);
+          $('#attraction-latitude').val(result.data.latitude);
+          $('#attraction-longitude').val(result.data.longitude);
+          $('#attraction-images').children().remove().end();
+          result.data.images.forEach(function (data) {
+            $("#attraction-images").append('<div class="col-md-4">' +
+                '<img src="'+ data + '" width="100%" height="100%"/>'
+                +'</div>');
+          });
+          console.log('Data: ', result.data);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      });
+    </script>
 @endsection
