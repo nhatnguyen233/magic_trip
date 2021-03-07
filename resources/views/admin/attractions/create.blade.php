@@ -24,11 +24,6 @@
             </ul>
         </div>
     @endif
-    @if(session()->has('success'))
-        <div class="alert alert-success">
-            {{ session()->get('success') }}
-        </div>
-    @endif
     <form action="{{ route('admin.attractions.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="box_general padding_bottom">
@@ -59,7 +54,7 @@
                             <select name="category_id" id="category-attraction" required>
                                 <option selected disabled>---- Chọn loại hình ----</option>
                                 @foreach($categories as $item)
-                                    <option @if(old('category') == $item->id)
+                                    <option @if(old('category_id') == $item->id)
                                                 selected
                                             @endif
                                             value={{ $item->id }}>

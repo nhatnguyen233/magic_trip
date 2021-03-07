@@ -32,22 +32,22 @@ class Attraction extends Model
 
     public function category()
     {
-        $this->belongsTo(CategoryAttraction::class, 'category_id', 'id');
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
     public function country()
     {
-        $this->belongsTo(Country::class, 'country_id', 'id');
+        return $this->belongsTo(Country::class, 'country_id', 'id');
     }
 
     public function province()
     {
-        $this->belongsTo(Province::class, 'province_id', 'id');
+        return $this->belongsTo(Province::class, 'province_id', 'id');
     }
 
     public function district()
     {
-        $this->belongsTo(District::class, 'district_id', 'id');
+        return $this->belongsTo(District::class, 'district_id', 'id');
     }
 
     public function images()

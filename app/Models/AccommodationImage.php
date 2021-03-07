@@ -16,6 +16,6 @@ class AccommodationImage extends Model
 
     public function accommodation()
     {
-        $this->belongsTo(Accommodation::class, 'accommodation_id', 'id');
+        return $this->belongsTo(Accommodation::class, 'accommodation_id', 'id');
     }
 }

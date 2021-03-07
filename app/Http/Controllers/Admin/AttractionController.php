@@ -33,7 +33,9 @@ class AttractionController extends Controller
      */
     public function index()
     {
-        return view('admin.attractions.index');
+        $attractions = $this->attractionRepository->all();
+
+        return view('admin.attractions.index', compact('attractions'));
     }
 
     /**
@@ -61,7 +63,7 @@ class AttractionController extends Controller
         $attraction = $this->attractionRepository->createAttraction($request->validated());
         $this->attractionRepository->updateAttractionImages($request->images, $attraction->id);
 
-        return redirect()->back()->with('success', 'Tạo địa điểm thành công');
+        return redirect()->route('admin.attractions.index')->with('success', 'Tạo địa điểm thành công');
     }
 
     /**
