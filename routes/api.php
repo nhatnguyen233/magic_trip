@@ -20,4 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('districts', DistrictController::class)->only(['index', 'show',]);
-Route::resource('attractions', AttractionController::class)->only(['show','destroy',]);
+Route::resource('attractions', AttractionController::class)->only(['show',]);
+
+Route::middleware('auth.admin')->group(function() {
+    Route::resource('attractions', AttractionController::class)->only(['destroy',]);
+});

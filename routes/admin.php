@@ -17,7 +17,8 @@ use App\Http\Controllers\Admin\AttractionController;
 Route::middleware('auth.admin')->group(function() {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::resource('/', DashboardController::class)->only(['index', 'show']);;
-    Route::resource('/attractions', AttractionController::class)->only(['index', 'show', 'create', 'store']);;
+    Route::resource('/attractions', AttractionController::class)
+            ->only(['index', 'show', 'create', 'store', 'edit', 'update']);
 });
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('show_login');

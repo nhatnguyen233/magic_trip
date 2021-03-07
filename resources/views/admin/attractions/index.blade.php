@@ -50,9 +50,9 @@
                                         data-target="#showAttractionModal" data-id="{{ $item->id }}">
                                         <i class="fa fa-info-circle"></i>
                                     </a>
-                                    <button class="btn btn-warning text-white" data-id="{{ $item->id }}">
+                                    <a href="{{ route('admin.attractions.edit', $item->id) }}" class="btn btn-warning text-white" data-id="{{ $item->id }}">
                                         <i class="fa fa-edit"></i>
-                                    </button>
+                                    </a>
                                     <button class="btn btn-danger" data-toggle="modal" id="removeAttraction"
                                             data-target="#removeAttractionModal" data-id="{{ $item->id }}">
                                         <i class="fa fa-trash-o"></i>
