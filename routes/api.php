@@ -19,5 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('districts', DistrictController::class)->only(['index', 'show']);
-Route::resource('attractions', AttractionController::class)->only(['show']);
+Route::resource('districts', DistrictController::class)->only(['index', 'show',]);
+Route::resource('attractions', AttractionController::class)->only(['show','destroy',]);

@@ -53,7 +53,7 @@
                                     <button class="btn btn-warning text-white" data-id="{{ $item->id }}">
                                         <i class="fa fa-edit"></i>
                                     </button>
-                                    <button class="btn btn-danger" data-toggle="modal"
+                                    <button class="btn btn-danger" data-toggle="modal" id="removeAttraction"
                                             data-target="#removeAttractionModal" data-id="{{ $item->id }}">
                                         <i class="fa fa-trash-o"></i>
                                     </button>
@@ -96,6 +96,12 @@
         .catch(error => {
           console.error('Error:', error);
         });
+      });
+
+      $(document).on('click', '#removeAttraction', function () {
+        var id = $(this).data('id');
+        var url = '{{ Illuminate\Support\Facades\URL::to('/') }}' + '/api/attractions/' + id;
+        $('#form-remove-attraction').attr('action', url);
       });
     </script>
 @endsection

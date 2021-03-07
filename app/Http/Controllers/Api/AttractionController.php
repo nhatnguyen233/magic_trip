@@ -4,11 +4,18 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Attraction;
+use App\Repositories\Attraction\AttractionRepository;
 use Illuminate\Http\Request;
 use App\Http\Resources\Attraction\Attraction as AttractionResources;
 
 class AttractionController extends Controller
 {
+    protected $attractionRepository;
+
+    public function __construct(AttractionRepository $attractionRepository)
+    {
+        $this->attractionRepository = $attractionRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -83,6 +90,8 @@ class AttractionController extends Controller
      */
     public function destroy(Attraction $attraction)
     {
-        //
+        $this->attractionRepository->removeAttraction($attraction->id);
+
+        return redirect()->back()->with('success', 'Xóa địa điểm thành công');
     }
 }

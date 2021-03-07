@@ -60,13 +60,12 @@ class AttractionEloquent extends BaseRepository implements AttractionRepository
             }, ARRAY_FILTER_USE_KEY);
 
             $attraction = $this->create($data);
-
             DB::commit();
 
             return $attraction;
         } catch (Exception $exception) {
             Log::error($exception);
-            throw new Exception($exception);
+            DB::rollBack();
         }
     }
 
@@ -96,6 +95,48 @@ class AttractionEloquent extends BaseRepository implements AttractionRepository
             Log::error($exception);
             DB::rollBack();
         }
+    }
 
+    /**
+     * Remove Attraction
+     *
+     */
+    public function removeAttraction($id)
+    {
+        try {
+            DB::beginTransaction();
+
+            $attraction = $this->find($id);
+            if($attraction->images != null) {
+                foreach ($attraction->images()->get() as $item) {
+                    Storage::disk('s3')->delete($item->url);
+                }
+                $attraction->images()->delete();
+            }
+
+            if($attraction->thumbnail) {
+                Storage::disk('s3')->delete($attraction->thumbnail);
+            }
+
+            if($attraction->avatar) {
+                Storage::disk('s3')->delete($attraction->avatar);
+            }
+
+            if($attraction->images != null) {
+                foreach ($attraction->images()->get() as $item) {
+                    Storage::disk('s3')->delete($item);
+                }
+                $attraction->images()->delete();
+            }
+
+            $attraction->delete();
+
+            DB::commit();
+
+            return true;
+        } catch (Exception $exception) {
+            Log::error($exception);
+            DB::rollBack();
+        }
     }
 }

@@ -2,7 +2,8 @@
 <div class="modal fade" id="removeAttractionModal" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <form action="{{ route('admin.logout') }}" method="POST">
+        <form action="" method="POST" id="form-remove-attraction">
+            @method('DELETE')
             @csrf
             <div class="modal-content">
                 <div class="modal-header">
