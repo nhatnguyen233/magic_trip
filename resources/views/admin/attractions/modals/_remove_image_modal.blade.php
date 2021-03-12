@@ -2,7 +2,6 @@
 <div class="modal fade" id="removeImageModal" tabindex="-1" role="dialog" aria-labelledby="removeImageLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
-        @auth('admin')
         <form action="" method="POST" id="form-remove-image">
             @method('DELETE')
             @csrf
@@ -20,6 +19,5 @@
                 </div>
             </div>
         </form>
-        @endauth
     </div>
 </div>
