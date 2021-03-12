@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests\Admin\Attraction;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 
-class CreateAttractionRequest extends FormRequest
+class UpdateAttractionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +27,6 @@ class CreateAttractionRequest extends FormRequest
         return [
             'name' => [
                 'required',
-                'unique:attractions,name'
             ],
             'title' => [
                 'required',
@@ -69,12 +68,12 @@ class CreateAttractionRequest extends FormRequest
                 'nullable',
             ],
             'avatar' => [
-                'required',
+                'nullable',
                 'mimes:jpeg,png,jpg,gif,svg',
                 'max:5120',
             ],
             'thumbnail' => [
-                'required',
+                'nullable',
                 'mimes:jpeg,png,jpg,gif,svg',
                 'max:5120',
             ],

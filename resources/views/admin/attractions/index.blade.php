@@ -100,7 +100,7 @@
 
       $(document).on('click', '#removeAttraction', function () {
         var id = $(this).data('id');
-        var url = '{{ Illuminate\Support\Facades\URL::to('/') }}' + '/api/attractions/' + id;
+        var url = '{{ Illuminate\Support\Facades\URL::to('/') }}' + '/admincp/attractions/' + id;
         $('#form-remove-attraction').attr('action', url);
       });
     </script>

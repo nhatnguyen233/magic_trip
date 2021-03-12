@@ -24,7 +24,8 @@
             </ul>
         </div>
     @endif
-    <form action="{{ route('admin.attractions.store') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('admin.attractions.update', ['attraction' => $attraction->id]) }}" method="post" enctype="multipart/form-data">
+        @method('PUT')
         @csrf
         <div class="box_general padding_bottom">
             <div class="header_box version_2">
@@ -92,7 +93,7 @@
                                 <label for="attraction-avatar">Ảnh chính <span class="text-danger">*</span></label>
                                 <input type="file" class="form-control-file preview-image" id="attraction-avatar"
                                        data-target="#attraction-avatar-image" placeholder="Ảnh avatar"
-                                       name="avatar" required/>
+                                       name="avatar" />
                             </div>
                             <div>
                                 @if($attraction->avatar_url)
@@ -109,7 +110,7 @@
                                 <label for="attraction-thumbnail">Ảnh thu nhỏ <span class="text-danger">*</span></label>
                                 <input type="file" class="form-control-file preview-image" id="attraction-thumbnail"
                                        data-target="#attraction-thumbnail-image" placeholder="Ảnh thumbnail"
-                                       name="thumbnail" required/>
+                                       name="thumbnail" />
                             </div>
                             <div>
                                 @if($attraction->thumbnail_url)
@@ -126,22 +127,25 @@
                     <div class="form-group">
                         <label>Ảnh album</label>
                         @if($attraction->images)
-                            <div class="row">
-                                @foreach($attraction->images as $item)
-                                <div class="col-md-2">
-                                    <img src="{{ $item }}" width="100%" height="100%" />
+                            <div class="row list-attraction-images">
+                                @foreach($attraction->images()->get() as $item)
+                                <div class="col-md-2 col-6">
+                                    <img src="{{ $item->image_url }}" width="100%" height="100%" />
+                                    <div class="row m-auto justify-content-center">
+                                        <button class="btn btn-primary mt-1" data-toggle="modal"
+                                                id="removeImage"
+                                                data-target="#removeImageModal"
+                                                data-id="{{ $item->id }}">
+                                            Xóa</button>
+                                    </div>
                                 </div>
                                 @endforeach
                             </div>
                         @endif
-                        <div class="custom-file multi-file-images mt-3">
+                        <div class="custom-file multi-file-images mt-5">
                             <label for="images" class="custom-file-label">Chọn ảnh</label>
                             <input type="file" name="images[]" class="custom-file-input images" id="images" />
                         </div>
-                        <a title="Thêm ảnh" href="javascript:" onclick="cloneFile(this)"
-                           class="btn_1 red add-attraction-images mt-1">
-                            <i class="fa fa-fw fa-plus-circle"></i>Thêm ảnh
-                        </a>
                         <a title="Lược bớt" href="javascript:" onclick="clearFile(this)"
                            class="btn_1 gray remove-attraction-images mt-1">
                             <i class="fa fa-fw fa-times-circle"></i>Lược bớt
@@ -234,6 +238,8 @@
             <button type="submit" class="btn_1 medium">Save</button>
         </p>
     </form>
+
+    @include('admin.attractions.modals._remove_image_modal')
 @endsection
 
 @section('script')
@@ -261,6 +267,34 @@
         var i = $(this).prev('label').clone();
         var file = $(this)[0].files[0].name;
         $(this).prev('label').text(file);
+
+        if ($(this)[0].files[0]) {
+          var reader = new FileReader();
+          reader.onload = imageIsLoaded;
+          reader.readAsDataURL($(this)[0].files[0]);
+        }
+      });
+
+      $(function () {
+        var district = {{ $attraction->district_id ?? "1" }};
+        var url = new URL('{{ route('api.districts.index') }}');
+        var params = { province:$('#province-attraction').val() };
+        Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+        fetch(url)
+            .then(response => response.json())
+            .then(result => {
+              $('#district-attraction').children().remove().end();
+              result.data.forEach(function (data) {
+                if(district == parseInt(data.id)) {
+                  $("#district-attraction").append('<option value="' + district + '" selected>'+ data.name + '</option>');
+                } else {
+                  $("#district-attraction").append('<option value="' + data.id + '">'+ data.name + '</option>');
+                }
+              });
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
       });
 
       $('#province-attraction').change(function () {
@@ -295,11 +329,11 @@
         }
       });
 
-      const cloneFile = (e) => {
-        fileForm = $(".multi-file-images").eq(0).clone();
-        fileForm.find('input').val("");
-        fileForm.find('.custom-file-label').text("Chọn ảnh");
-        fileForm.insertBefore($(e));
+      function imageIsLoaded(e) {
+        var picture = '<div class="col-md-2 col-6">' +
+            '<img src="' + e.target.result + '" style="width:100%;height:100%;" id="attraction-images" />' +
+            '</div>'
+        $(".list-attraction-images").append(picture);
       }
 
       function clearFile(e) {
@@ -310,5 +344,11 @@
           $(e).prev().prev('.multi-file-images').remove();
         }
       }
+
+      $(document).on('click', '#removeImage', function () {
+        var id = $(this).data('id');
+        var url = '{{ Illuminate\Support\Facades\URL::to('/') }}' + '/admincp/attraction-images/' + id;
+        $('#form-remove-image').attr('action', url);
+      });
     </script>
 @endsection

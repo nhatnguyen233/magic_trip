@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\CreateAttractionRequest as Create;
+use App\Http\Requests\Admin\Attraction\CreateAttractionRequest as Create;
+use App\Http\Requests\Admin\Attraction\UpdateAttractionRequest as Update;
 use App\Models\Attraction;
 use App\Repositories\Attraction\AttractionRepository;
 use App\Repositories\Category\CategoryRepository;
@@ -62,7 +63,7 @@ class AttractionController extends Controller
     public function store(Create $request)
     {
         $attraction = $this->attractionRepository->createAttraction($request->validated());
-        $this->attractionRepository->updateAttractionImages($request->images, $attraction->id);
+        $this->attractionRepository->updateAttractionImages($request->images, $attraction->id, auth('admin')->id());
 
         return redirect()->route('admin.attractions.index')->with('success', 'Tạo địa điểm thành công');
     }
@@ -99,9 +100,12 @@ class AttractionController extends Controller
      * @param  Attraction  $attraction
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Attraction $attraction)
+    public function update(Update $request, Attraction $attraction)
     {
-        //
+        $this->attractionRepository->updateAttraction($request->validated(),$attraction->id);
+        $this->attractionRepository->updateAttractionImages($request->images, $attraction->id, auth('admin')->id());
+
+        return redirect()->route('admin.attractions.index')->with('success', 'Cập nhật địa điểm thành công');
     }
 
     /**
@@ -112,6 +116,8 @@ class AttractionController extends Controller
      */
     public function destroy(Attraction $attraction)
     {
-        //
+        $this->attractionRepository->removeAttraction($attraction->id);
+
+        return redirect()->back()->with('success', 'Xóa địa điểm thành công');
     }
 }

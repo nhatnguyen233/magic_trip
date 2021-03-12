@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AttractionController;
+use App\Http\Controllers\Admin\AttractionImageController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,7 +19,9 @@ Route::middleware('auth.admin')->group(function() {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::resource('/', DashboardController::class)->only(['index', 'show']);;
     Route::resource('/attractions', AttractionController::class)
-            ->only(['index', 'show', 'create', 'store', 'edit', 'update']);
+            ->only(['index', 'show', 'create', 'store', 'edit', 'update', 'destroy']);
+    Route::resource('/attraction-images', AttractionImageController::class)
+        ->only(['destroy',]);
 });
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('show_login');

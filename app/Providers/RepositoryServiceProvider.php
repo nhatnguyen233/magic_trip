@@ -7,6 +7,8 @@ use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryEloquent;
 use App\Repositories\Attraction\AttractionRepository;
 use App\Repositories\Attraction\AttractionEloquent;
+use App\Repositories\AttractionImage\AttractionImageRepository;
+use App\Repositories\AttractionImage\AttractionImageEloquent;
 use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Category\CategoryEloquent;
 use App\Repositories\Province\ProvinceRepository;
@@ -24,6 +26,10 @@ class RepositoryServiceProvider extends ServiceProvider
         [
             'abstract' => AttractionRepository::class,
             'concrete' => AttractionEloquent::class,
+        ],
+        [
+            'abstract' => AttractionImageRepository::class,
+            'concrete' => AttractionImageEloquent::class,
         ],
         [
             'abstract' => CategoryRepository::class,
