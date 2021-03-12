@@ -132,11 +132,11 @@
                                 <div class="col-md-2 col-6">
                                     <img src="{{ $item->image_url }}" width="100%" height="100%" />
                                     <div class="row m-auto justify-content-center">
-                                        <button class="btn btn-primary mt-1" data-toggle="modal"
+                                        <a class="btn btn-primary mt-1 text-white" data-toggle="modal"
                                                 id="removeImage"
                                                 data-target="#removeImageModal"
                                                 data-id="{{ $item->id }}">
-                                            Xóa</button>
+                                            Xóa</a>
                                     </div>
                                 </div>
                                 @endforeach
