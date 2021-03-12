@@ -16,6 +16,7 @@ class CreateAccommodationsTable extends Migration
         Schema::create('accommodations', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('slug')->nullable();
             $table->text('description');
             $table->string('phone')->nullable();
             $table->double('lowest_price')->nullable();

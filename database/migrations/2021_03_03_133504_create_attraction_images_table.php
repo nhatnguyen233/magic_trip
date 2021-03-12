@@ -15,9 +15,11 @@ class CreateAttractionImagesTable extends Migration
     {
         Schema::create('attraction_images', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('attraction_id');
             $table->string('url');
             $table->timestamps();
+//            $table->foreign('user_id')->references('id')->on('users');
 //            $table->foreign('attraction_id')->references('id')->on('attractions');
         });
     }

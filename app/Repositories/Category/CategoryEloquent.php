@@ -7,7 +7,7 @@ use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Exceptions\RepositoryException;
 
-class CategoriesEloquent extends BaseRepository implements CategoriesRepository
+class CategoryEloquent extends BaseRepository implements CategoryRepository
 {
     public function model()
     {

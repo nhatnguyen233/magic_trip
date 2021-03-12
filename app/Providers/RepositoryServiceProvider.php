@@ -5,8 +5,12 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryEloquent;
-use App\Repositories\Category\CategoriesRepository;
-use App\Repositories\Category\CategoriesEloquent;
+use App\Repositories\Attraction\AttractionRepository;
+use App\Repositories\Attraction\AttractionEloquent;
+use App\Repositories\AttractionImage\AttractionImageRepository;
+use App\Repositories\AttractionImage\AttractionImageEloquent;
+use App\Repositories\Category\CategoryRepository;
+use App\Repositories\Category\CategoryEloquent;
 use App\Repositories\Province\ProvinceRepository;
 use App\Repositories\Province\ProvinceEloquent;
 use App\Repositories\District\DistrictRepository;
@@ -20,8 +24,16 @@ class RepositoryServiceProvider extends ServiceProvider
             'concrete' => UserRepositoryEloquent::class,
         ],
         [
-            'abstract' => CategoriesRepository::class,
-            'concrete' => CategoriesEloquent::class,
+            'abstract' => AttractionRepository::class,
+            'concrete' => AttractionEloquent::class,
+        ],
+        [
+            'abstract' => AttractionImageRepository::class,
+            'concrete' => AttractionImageEloquent::class,
+        ],
+        [
+            'abstract' => CategoryRepository::class,
+            'concrete' => CategoryEloquent::class,
         ],
         [
             'abstract' => ProvinceRepository::class,

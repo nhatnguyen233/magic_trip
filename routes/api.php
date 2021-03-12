@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\DistrictController;
+use App\Http\Controllers\Api\AttractionController;
+use App\Http\Controllers\Api\AttractionImageController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,4 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('districts', DistrictController::class)->only(['index', 'show']);
+Route::resource('districts', DistrictController::class)->only(['index', 'show',]);
+Route::resource('attractions', AttractionController::class)->only(['show',]);
+Route::resource('attraction-images', AttractionImageController::class)->only(['show',]);

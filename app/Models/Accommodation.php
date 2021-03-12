@@ -23,21 +23,21 @@ class Accommodation extends Model
 
     public function province()
     {
-        $this->belongsTo(Province::class, 'province_id', 'id');
+        return $this->belongsTo(Province::class, 'province_id', 'id');
     }
 
     public function district()
     {
-        $this->belongsTo(District::class, 'district_id', 'id');
+        return $this->belongsTo(District::class, 'district_id', 'id');
     }
 
     public function country()
     {
-        $this->belongsTo(Country::class, 'country_id', 'id');
+        return$this->belongsTo(Country::class, 'country_id', 'id');
     }
 
     public function images()
     {
-        $this->hasMany(AccommodationImage::class, 'accommodation_id', 'id');
+        return $this->hasMany(AccommodationImage::class, 'accommodation_id', 'id');
     }
 }

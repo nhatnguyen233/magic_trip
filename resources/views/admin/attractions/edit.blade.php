@@ -13,7 +13,7 @@
         <li class="breadcrumb-item">
             <a href="#">Địa điểm</a>
         </li>
-        <li class="breadcrumb-item active">Thêm</li>
+        <li class="breadcrumb-item active">Sửa</li>
     </ol>
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -24,7 +24,8 @@
             </ul>
         </div>
     @endif
-    <form action="{{ route('admin.attractions.store') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('admin.attractions.update', ['attraction' => $attraction->id]) }}" method="post" enctype="multipart/form-data">
+        @method('PUT')
         @csrf
         <div class="box_general padding_bottom">
             <div class="header_box version_2">
@@ -35,7 +36,7 @@
                     <div class="form-group">
                         <label for="title-attraction">Tiêu đề <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" placeholder="Hồ Đồng Đò yên bình, thơ mộng"
-                               name="title" id="title-attraction" value="{{ old('title') }}" required>
+                               name="title" id="title-attraction" value="{{ $attraction->title }}" required>
                     </div>
                 </div>
             </div>
@@ -44,7 +45,7 @@
                     <div class="form-group">
                         <label for="name-attraction">Tên địa điểm <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" placeholder="Hồ Đồng Đò"
-                               name="name" id="name-attraction" value="{{ old('name') }}" required>
+                               name="name" id="name-attraction" value="{{ $attraction->name }}" required>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -54,8 +55,8 @@
                             <select name="category_id" id="category-attraction" required>
                                 <option selected disabled>---- Chọn loại hình ----</option>
                                 @foreach($categories as $item)
-                                    <option @if(old('category_id') == $item->id)
-                                                selected
+                                    <option @if($attraction->category_id == $item->id)
+                                            selected
                                             @endif
                                             value={{ $item->id }}>
                                         {{ $item->name }}
@@ -72,14 +73,14 @@
                     <div class="form-group">
                         <label for="latitude-attraction">Vĩ độ</label>
                         <input type="text" class="form-control" placeholder="13°19'43″N" name="latitude"
-                               id="latitude-attraction" value="{{ old('latitude') }}" />
+                               id="latitude-attraction" value="{{ $attraction->latitude }}" />
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="longitude-attraction">Kinh độ</label>
                         <input type="text" class="form-control" placeholder="15°W" name="longitude"
-                               value="{{ old('longitude') }}" id="longitude-attraction" />
+                               value="{{ $attraction->longitude }}" id="longitude-attraction" />
                     </div>
                 </div>
             </div>
@@ -87,16 +88,36 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="attraction-avatar">Ảnh chính <span class="text-danger">*</span></label>
-                        <input type="file" class="form-control-file" id="attraction-avatar" placeholder="Ảnh avatar"
-                               name="avatar" required/>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <label for="attraction-avatar">Ảnh chính <span class="text-danger">*</span></label>
+                                <input type="file" class="form-control-file preview-image" id="attraction-avatar"
+                                       data-target="#attraction-avatar-image" placeholder="Ảnh avatar"
+                                       name="avatar" />
+                            </div>
+                            <div>
+                                @if($attraction->avatar_url)
+                                <img src="{{ $attraction->avatar_url }}" width="130px" id="attraction-avatar-image" />
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="attraction-thumbnail">Ảnh thu nhỏ <span class="text-danger">*</span></label>
-                        <input type="file" class="form-control-file" id="attraction-thumbnail"
-                               placeholder="Ảnh thumbnail" name="thumbnail" value="{{ old('thumbnail') }}" required/>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <label for="attraction-thumbnail">Ảnh thu nhỏ <span class="text-danger">*</span></label>
+                                <input type="file" class="form-control-file preview-image" id="attraction-thumbnail"
+                                       data-target="#attraction-thumbnail-image" placeholder="Ảnh thumbnail"
+                                       name="thumbnail" />
+                            </div>
+                            <div>
+                                @if($attraction->thumbnail_url)
+                                <img src="{{ $attraction->thumbnail_url }}" width="130px" id="attraction-thumbnail-image" />
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -105,14 +126,26 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Ảnh album</label>
-                        <div class="custom-file multi-file-images">
+                        @if($attraction->images)
+                            <div class="row list-attraction-images">
+                                @foreach($attraction->images()->get() as $item)
+                                <div class="col-md-2 col-6">
+                                    <img src="{{ $item->image_url }}" width="100%" height="100%" />
+                                    <div class="row m-auto justify-content-center">
+                                        <button class="btn btn-primary mt-1" data-toggle="modal"
+                                                id="removeImage"
+                                                data-target="#removeImageModal"
+                                                data-id="{{ $item->id }}">
+                                            Xóa</button>
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+                        @endif
+                        <div class="custom-file multi-file-images mt-5">
                             <label for="images" class="custom-file-label">Chọn ảnh</label>
                             <input type="file" name="images[]" class="custom-file-input images" id="images" />
                         </div>
-                        <a title="Thêm ảnh" href="javascript:" onclick="cloneFile(this)"
-                           class="btn_1 red add-attraction-images mt-1">
-                            <i class="fa fa-fw fa-plus-circle"></i>Thêm ảnh
-                        </a>
                         <a title="Lược bớt" href="javascript:" onclick="clearFile(this)"
                            class="btn_1 gray remove-attraction-images mt-1">
                             <i class="fa fa-fw fa-times-circle"></i>Lược bớt
@@ -126,7 +159,7 @@
                     <div class="form-group">
                         <label>Mô tả</label>
                         <textarea name="description" class="editor" id="description" title="Mô tả thêm">
-                            {{ old('description') }}
+                            {{ $attraction->description }}
                         </textarea>
                     </div>
                 </div>
@@ -156,8 +189,8 @@
                             <select name="province_id" id="province-attraction" required>
                                 <option selected disabled>---- Chọn tỉnh/thành ----</option>
                                 @foreach($provinces as $item)
-                                    <option @if(old('province_id') == $item->id)
-                                                selected
+                                    <option @if($attraction->province_id == $item->id)
+                                            selected
                                             @endif
                                             value={{ $item->id }}>
                                         {{ $item->name }}
@@ -184,7 +217,7 @@
                     <div class="form-group">
                         <label for="zipcode-attraction">Zip Code</label>
                         <input type="text" class="form-control" name="zipcode"
-                               id="zipcode-attraction" value="{{ old('zipcode') }}" />
+                               id="zipcode-attraction" value="{{ $attraction->zipcode }}" />
                     </div>
                 </div>
             </div>
@@ -195,7 +228,7 @@
                     <div class="form-group">
                         <label for="address-attraction">Địa chỉ chi tiết</label>
                         <input type="text" class="form-control" name="address" id="address-attraction"
-                               placeholder="An Khánh, Hoài Đức, Hà Nội..." value="{{ old('address') }}" />
+                               placeholder="An Khánh, Hoài Đức, Hà Nội..." value="{{ $attraction->address }}" />
                     </div>
                 </div>
             </div>
@@ -205,6 +238,8 @@
             <button type="submit" class="btn_1 medium">Save</button>
         </p>
     </form>
+
+    @include('admin.attractions.modals._remove_image_modal')
 @endsection
 
 @section('script')
@@ -232,6 +267,34 @@
         var i = $(this).prev('label').clone();
         var file = $(this)[0].files[0].name;
         $(this).prev('label').text(file);
+
+        if ($(this)[0].files[0]) {
+          var reader = new FileReader();
+          reader.onload = imageIsLoaded;
+          reader.readAsDataURL($(this)[0].files[0]);
+        }
+      });
+
+      $(function () {
+        var district = {{ $attraction->district_id ?? "1" }};
+        var url = new URL('{{ route('api.districts.index') }}');
+        var params = { province:$('#province-attraction').val() };
+        Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+        fetch(url)
+            .then(response => response.json())
+            .then(result => {
+              $('#district-attraction').children().remove().end();
+              result.data.forEach(function (data) {
+                if(district == parseInt(data.id)) {
+                  $("#district-attraction").append('<option value="' + district + '" selected>'+ data.name + '</option>');
+                } else {
+                  $("#district-attraction").append('<option value="' + data.id + '">'+ data.name + '</option>');
+                }
+              });
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
       });
 
       $('#province-attraction').change(function () {
@@ -251,11 +314,26 @@
             });
       });
 
-      const cloneFile = (e) => {
-        fileForm = $(".multi-file-images").eq(0).clone();
-        fileForm.find('input').val("");
-        fileForm.find('.custom-file-label').text("Chọn ảnh");
-        fileForm.insertBefore($(e));
+      $('.preview-image').change(function (e) {
+        if (e.currentTarget.files && e.currentTarget.files[0]) {
+          const reader = new FileReader();
+          const imageTarget = e.currentTarget.dataset.target;
+          reader.onload = function (e) {
+            $(imageTarget)
+                .attr('src', e.target.result)
+                .width(130)
+                .height('auto');
+          }
+
+          reader.readAsDataURL(e.currentTarget.files[0]);
+        }
+      });
+
+      function imageIsLoaded(e) {
+        var picture = '<div class="col-md-2 col-6">' +
+            '<img src="' + e.target.result + '" style="width:100%;height:100%;" id="attraction-images" />' +
+            '</div>'
+        $(".list-attraction-images").append(picture);
       }
 
       function clearFile(e) {
@@ -266,5 +344,11 @@
           $(e).prev().prev('.multi-file-images').remove();
         }
       }
+
+      $(document).on('click', '#removeImage', function () {
+        var id = $(this).data('id');
+        var url = '{{ Illuminate\Support\Facades\URL::to('/') }}' + '/admincp/attraction-images/' + id;
+        $('#form-remove-image').attr('action', url);
+      });
     </script>
 @endsection

@@ -25,7 +25,7 @@ class CreateTourAttractionsTable extends Migration
             $table->timestamp('limit_time')->nullable();
             $table->integer('order_number')->nullable();
             $table->timestamps();
-//            $table->foreign('attraction_id')->references('id')->on('tourist_attractions');
+//            $table->foreign('attraction_id')->references('id')->on('attractions');
 //            $table->foreign('tour_id')->references('id')->on('tours');
 //            $table->foreign('accommodation_id')->references('id')->on('accommodations');
         });

@@ -3,20 +3,27 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Category\CategoriesRepository;
+use App\Http\Requests\Admin\Attraction\CreateAttractionRequest as Create;
+use App\Http\Requests\Admin\Attraction\UpdateAttractionRequest as Update;
+use App\Models\Attraction;
+use App\Repositories\Attraction\AttractionRepository;
+use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Province\ProvinceRepository;
 use Illuminate\Http\Request;
 
 class AttractionController extends Controller
 {
+    protected $attractionRepository;
     protected $categoryRepository;
     protected $provinceRepository;
 
     public function __construct(
-        CategoriesRepository $categoryRepository,
+        AttractionRepository $attractionRepository,
+        CategoryRepository $categoryRepository,
         ProvinceRepository $provinceRepository
     )
     {
+        $this->attractionRepository = $attractionRepository;
         $this->categoryRepository = $categoryRepository;
         $this->provinceRepository = $provinceRepository;
     }
@@ -28,7 +35,9 @@ class AttractionController extends Controller
      */
     public function index()
     {
-        return view('admin.attractions.index');
+        $attractions = $this->attractionRepository->all();
+
+        return view('admin.attractions.index', compact('attractions'));
     }
 
     /**
@@ -47,21 +56,25 @@ class AttractionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Create $request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Create $request)
     {
+        $attraction = $this->attractionRepository->createAttraction($request->validated());
+        $this->attractionRepository->updateAttractionImages($request->images, $attraction->id, auth('admin')->id());
 
+        return redirect()->route('admin.attractions.index')->with('success', 'Tạo địa điểm thành công');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Attraction  $attraction
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Attraction $attraction)
     {
         //
     }
@@ -69,34 +82,42 @@ class AttractionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Attraction  $attraction
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Attraction $attraction)
     {
-        //
+        $categories = $this->categoryRepository->all();
+        $provinces = $this->provinceRepository->all();
+
+        return view('admin.attractions.edit', compact('attraction', 'categories', 'provinces'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Attraction  $attraction
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Update $request, Attraction $attraction)
     {
-        //
+        $this->attractionRepository->updateAttraction($request->validated(),$attraction->id);
+        $this->attractionRepository->updateAttractionImages($request->images, $attraction->id, auth('admin')->id());
+
+        return redirect()->route('admin.attractions.index')->with('success', 'Cập nhật địa điểm thành công');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Attraction  $attraction
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Attraction $attraction)
     {
-        //
+        $this->attractionRepository->removeAttraction($attraction->id);
+
+        return redirect()->back()->with('success', 'Xóa địa điểm thành công');
     }
 }
