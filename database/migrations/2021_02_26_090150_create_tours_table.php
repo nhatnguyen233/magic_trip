@@ -17,6 +17,7 @@ class CreateToursTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('description')->nullable();
+            $table->string('vehicle')->nullable();
             $table->double('total_price')->nullable();
             $table->unsignedBigInteger('accommodation_id')->nullable();
             $table->timestamps();
