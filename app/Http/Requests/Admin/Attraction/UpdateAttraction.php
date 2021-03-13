@@ -5,7 +5,7 @@ namespace App\Http\Requests\Admin\Attraction;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 
-class UpdateAttractionRequest extends FormRequest
+class UpdateAttraction extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

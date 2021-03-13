@@ -19,9 +19,14 @@ class CreateAccommodationsTable extends Migration
             $table->string('slug')->nullable();
             $table->text('description');
             $table->string('phone')->nullable();
+            $table->string('address')->nullable();
             $table->double('lowest_price')->nullable();
             $table->integer('number_of_rooms')->nullable();
             $table->integer('status')->nullable();
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
+            $table->string('avatar')->nullable();
+            $table->string('thumbnail')->nullable();
             $table->unsignedBigInteger('province_id')->nullable();
             $table->unsignedBigInteger('district_id')->nullable();
             $table->unsignedBigInteger('ward_id')->nullable();

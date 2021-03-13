@@ -12,18 +12,36 @@
                 <span class="nav-link-text">Messages</span>
             </a>
         </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My listings">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Địa điểm du lịch">
             <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseAttractions"
                data-parent="#mylistings">
                 <i class="fa fa-fw fa-map-marker"></i>
-                <span class="nav-link-text">Địa điểm du lịch</span>
+                <span class="nav-link-text">Địa điểm tham quan</span>
             </a>
             <ul class="sidenav-second-level collapse" id="collapseAttractions">
                 <li>
-                    <a href="{{ route('admin.attractions.index') }}">Danh sách</a>
+                    <a href="{{ route('admin.attractions.index') }}">Danh sách tham quan</a>
                 </li>
                 <li>
                     <a href="{{ route('admin.attractions.create') }}">Thêm địa điểm</a>
+                </li>
+                <li>
+                    <a href="listings.html">Thống kê <span class="badge badge-pill badge-primary">6</span></a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Khách sạn, nhà nghỉ, homestay">
+            <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseAccommodations"
+               data-parent="#mylistings">
+                <i class="fa fa-fw fa-home"></i>
+                <span class="nav-link-text">Địa điểm nghỉ ngơi</span>
+            </a>
+            <ul class="sidenav-second-level collapse" id="collapseAccommodations">
+                <li>
+                    <a href="{{ route('admin.accommodations.index') }}">Danh sách nơi nghỉ</a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.accommodations.create') }}">Thêm nơi nghỉ</a>
                 </li>
                 <li>
                     <a href="listings.html">Thống kê <span class="badge badge-pill badge-primary">6</span></a>
