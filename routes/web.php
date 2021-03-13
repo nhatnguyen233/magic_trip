@@ -1,7 +1,7 @@
 <?php
 
+use Cornford\Googlmapper\Facades\MapperFacade as Mapper;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,4 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home');
+});
+
+Route::get('/map', function () {
+    $mapper = Mapper::map(21.008065, 105.712732);
+    return view('welcome', compact('mapper'));
 });
