@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Attraction\CreateAttractionRequest as Create;
-use App\Http\Requests\Admin\Attraction\UpdateAttractionRequest as Update;
+use App\Http\Requests\Admin\Attraction\CreateAttraction as Create;
+use App\Http\Requests\Admin\Attraction\UpdateAttraction as Update;
 use App\Models\Attraction;
 use App\Repositories\Attraction\AttractionRepository;
 use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Province\ProvinceRepository;
-use Illuminate\Http\Request;
 
 class AttractionController extends Controller
 {
@@ -47,7 +46,7 @@ class AttractionController extends Controller
      */
     public function create()
     {
-        $categories = $this->categoryRepository->all();
+        $categories = $this->categoryRepository->findWhere(['type' => 2]);
         $provinces = $this->provinceRepository->all();
 
         return view('admin.attractions.create', compact('categories','provinces'));
@@ -87,7 +86,7 @@ class AttractionController extends Controller
      */
     public function edit(Attraction $attraction)
     {
-        $categories = $this->categoryRepository->all();
+        $categories = $this->categoryRepository->findWhere(['type' => 2]);
         $provinces = $this->provinceRepository->all();
 
         return view('admin.attractions.edit', compact('attraction', 'categories', 'provinces'));

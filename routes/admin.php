@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AttractionController;
 use App\Http\Controllers\Admin\AttractionImageController;
+use App\Http\Controllers\Admin\AccommodationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,6 +21,8 @@ Route::middleware('auth.admin')->group(function() {
     Route::resource('/', DashboardController::class)->only(['index', 'show']);;
     Route::resource('/attractions', AttractionController::class)
             ->only(['index', 'show', 'create', 'store', 'edit', 'update', 'destroy']);
+    Route::resource('/accommodations', AccommodationController::class)
+        ->only(['index', 'show', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::resource('/attraction-images', AttractionImageController::class)
         ->only(['destroy',]);
 });
