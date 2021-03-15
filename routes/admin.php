@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AttractionController;
 use App\Http\Controllers\Admin\AttractionImageController;
 use App\Http\Controllers\Admin\AccommodationController;
+use App\Http\Controllers\Admin\CategoriesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,6 +20,8 @@ use App\Http\Controllers\Admin\AccommodationController;
 Route::middleware('auth.admin')->group(function() {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::resource('/', DashboardController::class)->only(['index', 'show']);;
+    Route::resource('/categories', CategoriesController::class)
+        ->only(['index', 'show', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::resource('/attractions', AttractionController::class)
             ->only(['index', 'show', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::resource('/accommodations', AccommodationController::class)
