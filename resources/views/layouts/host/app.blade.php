@@ -38,37 +38,37 @@
 </head>
 
 <body class="fixed-nav sticky-footer" id="page-top">
-    <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-default fixed-top" id="mainNav">
-        <!-- Header -->
-        @include('layouts.admin.header')
-        <!-- /Header-->
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-default fixed-top" id="mainNav">
+    <!-- Header -->
+@include('layouts.host.header')
+<!-- /Header-->
 
-        <!-- Sidebar -->
-        @include('layouts.admin.sidebar')
-        <!-- /Sidebar-->
-    </nav>
-    <!-- /Navigation-->
+    <!-- Sidebar -->
+@include('layouts.host.sidebar')
+<!-- /Sidebar-->
+</nav>
+<!-- /Navigation-->
 
-    <!-- Main Content -->
-    <div class="content-wrapper">
-        <div class="container-fluid">
-            @yield('content')
-        </div>
-        <!-- /.container-fluid-->
+<!-- Main Content -->
+<div class="content-wrapper">
+    <div class="container-fluid">
+        @yield('content')
     </div>
-    <!-- /Main Content -->
+    <!-- /.container-fluid-->
+</div>
+<!-- /Main Content -->
 
-    @include('layouts.admin.footer')
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fa fa-angle-up"></i>
-    </a>
-    <!-- Logout Modal-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <form action="{{ route('admin.logout') }}" method="POST">
+@include('layouts.host.footer')
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fa fa-angle-up"></i>
+</a>
+<!-- Logout Modal-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form action="{{ route('host.logout') }}" method="POST">
             @csrf
             <div class="modal-content">
                 <div class="modal-header">
@@ -83,24 +83,24 @@
                     <button class="btn btn-primary" type="submit">Đăng xuất</button>
                 </div>
             </div>
-            </form>
-        </div>
+        </form>
     </div>
-    <!-- Bootstrap core JavaScript-->
-    <script src="{{ asset('admin/vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('admin/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="{{ asset('admin/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-    <!-- Page level plugin JavaScript-->
-    <script src="{{ asset('admin/vendor/chart.js/Chart.js') }}"></script>
-    <script src="{{ asset('admin/vendor/datatables/jquery.dataTables.js') }}"></script>
-    <script src="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.js') }}"></script>
-    <script src="{{ asset('admin/vendor/jquery.selectbox-0.2.js') }}"></script>
-    <script src="{{ asset('admin/vendor/retina-replace.min.js') }}"></script>
-    <script src="{{ asset('admin/vendor/jquery.magnific-popup.min.js') }}"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="{{ asset('admin/js/admin.js') }}"></script>
-    <!-- Custom scripts for this page-->
-    @yield('script')
+</div>
+<!-- Bootstrap core JavaScript-->
+<script src="{{ asset('admin/vendor/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('admin/js/bootstrap.bundle.min.js') }}"></script>
+<!-- Core plugin JavaScript-->
+<script src="{{ asset('admin/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+<!-- Page level plugin JavaScript-->
+<script src="{{ asset('admin/vendor/chart.js/Chart.js') }}"></script>
+<script src="{{ asset('admin/vendor/datatables/jquery.dataTables.js') }}"></script>
+<script src="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.js') }}"></script>
+<script src="{{ asset('admin/vendor/jquery.selectbox-0.2.js') }}"></script>
+<script src="{{ asset('admin/vendor/retina-replace.min.js') }}"></script>
+<script src="{{ asset('admin/vendor/jquery.magnific-popup.min.js') }}"></script>
+<!-- Custom scripts for all pages-->
+<script src="{{ asset('admin/js/admin.js') }}"></script>
+<!-- Custom scripts for this page-->
+@yield('script')
 </body>
 </html>
