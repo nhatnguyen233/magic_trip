@@ -23,9 +23,6 @@
                     <a href="{{ route('admin.attractions.index') }}">Danh sách tham quan</a>
                 </li>
                 <li>
-                    <a href="{{ route('admin.attractions.create') }}">Thêm địa điểm</a>
-                </li>
-                <li>
                     <a href="listings.html">Thống kê <span class="badge badge-pill badge-primary">6</span></a>
                 </li>
             </ul>
@@ -39,9 +36,6 @@
             <ul class="sidenav-second-level collapse" id="collapseAccommodations">
                 <li>
                     <a href="{{ route('admin.accommodations.index') }}">Danh sách nơi nghỉ</a>
-                </li>
-                <li>
-                    <a href="{{ route('admin.accommodations.create') }}">Thêm nơi nghỉ</a>
                 </li>
                 <li>
                     <a href="listings.html">Thống kê <span class="badge badge-pill badge-primary">6</span></a>

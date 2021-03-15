@@ -15,6 +15,7 @@ class Accommodation extends Model
         'slug',
         'description',
         'phone',
+        'address',
         'lowest_price',
         'number_of_rooms',
         'status',
@@ -25,7 +26,8 @@ class Accommodation extends Model
         'district_id',
         'country_id',
         'avatar',
-        'thumbnail'
+        'thumbnail',
+        'category_id'
     ];
 
     protected $appends = ['thumbnail_url', 'avatar_url'];

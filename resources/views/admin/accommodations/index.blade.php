@@ -41,7 +41,6 @@
                             <td>{{ $item->address }}</td>
                             <td>{{ $item->lowest_price }}</td>
                             <td>{{ $item->number_of_rooms }}</td>
-                            <td>{{ $item->status_name }}</td>
                             <td><img src="{{ $item->avatar_url }}" width="100px"/></td>
                             <td>
                                 <div class="d-flex justify-content-around">

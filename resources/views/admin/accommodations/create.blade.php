@@ -57,7 +57,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="number-room-accommodation">Số lượng phòng <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="number_of_rooms"
+                        <input type="number" class="form-control" name="number_of_rooms"
                                id="number-room-accommodation" value="{{ old('number_of_rooms') }}" required>
                     </div>
                 </div>
@@ -105,11 +105,11 @@
                             <label for="images" class="custom-file-label">Chọn ảnh</label>
                             <input type="file" name="images[]" class="custom-file-input images" id="images" />
                         </div>
-                        <a phone="Thêm ảnh" href="javascript:" onclick="cloneFile(this)"
+                        <a title="Thêm ảnh" href="javascript:" onclick="cloneFile(this)"
                            class="btn_1 red add-accommodation-images mt-1">
                             <i class="fa fa-fw fa-plus-circle"></i>Thêm ảnh
                         </a>
-                        <a phone="Lược bớt" href="javascript:" onclick="clearFile(this)"
+                        <a title="Lược bớt" href="javascript:" onclick="clearFile(this)"
                            class="btn_1 gray remove-accommodation-images mt-1">
                             <i class="fa fa-fw fa-times-circle"></i>Lược bớt
                         </a>

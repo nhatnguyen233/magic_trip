@@ -3,6 +3,8 @@
 namespace App\Repositories\Accommodation;
 
 use App\Models\Accommodation;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Exception;
@@ -34,7 +36,38 @@ class AccommodationEloquent extends BaseRepository implements AccommodationRepos
      */
     public function createAccommodation(array $params)
     {
+        try {
+            DB::beginTransaction();
 
+            if (isset($params['avatar'])) {
+                $fileName = Str::uuid() . '.' . $params['avatar']->getClientOriginalExtension();
+                $fullPath = 'accommodations/avatars/' . time() . $fileName;
+                Storage::disk('s3')->put($fullPath, file_get_contents($params['avatar']), 'public');
+                $params['avatar'] = $fullPath;
+            }
+
+            if (isset($params['thumbnail'])) {
+                $fileName = Str::uuid() . '.' . $params['thumbnail']->getClientOriginalExtension();
+                $fullPath = 'accommodations/thumbnails/' . $fileName;
+                Storage::disk('s3')->put($fullPath, file_get_contents($params['thumbnail']), 'public');
+                $params['thumbnail'] = $fullPath;
+            }
+
+            $data = array_filter($params, function ($key) {
+                return in_array($key, ['name', 'slug', 'lowest_price', 'phone', 'ward_id', 'number_of_rooms',
+                    'description', 'country_id', 'province_id', 'district_id', 'latitude', 'longitude',
+                    'thumbnail', 'address', 'avatar', 'status']);
+            }, ARRAY_FILTER_USE_KEY);
+
+            $accommodation = $this->create($data);
+            DB::commit();
+
+            return $accommodation;
+        } catch (Exception $exception) {
+            Log::error($exception);
+            DB::rollBack();
+            throw $exception;
+        }
     }
 
     /**
@@ -54,5 +87,42 @@ class AccommodationEloquent extends BaseRepository implements AccommodationRepos
      */
     public function removeAccommodation($id)
     {
+    }
+
+    /**
+     * Insert Images Accommodation Album
+     *
+     * @param array $images
+     * @param int $id
+     * @param int $userId
+     */
+    public function insertAccommodationImages(array $images, $id, $userId)
+    {
+        try  {
+            DB::beginTransaction();
+            $accommodation = $this->find($id);
+
+            if (isset($images)) {
+                foreach ($images as $image) {
+                    $fileName = Str::uuid() . '.' . $image->getClientOriginalExtension();
+                    $fullPath = 'accommodations/images/' . $fileName;
+                    Storage::disk('s3')->put($fullPath, file_get_contents($image), 'public');
+
+                    $accommodation->images()->create([
+                        'user_id' => $userId,
+                        'accommodation_id' => $accommodation->id,
+                        'url' => $fullPath,
+                    ]);
+                }
+            }
+            DB::commit();
+
+            return true;
+        } catch (Exception $exception)
+        {
+            Log::error($exception);
+            DB::rollBack();
+            throw $exception;
+        }
     }
 }
