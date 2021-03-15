@@ -3,21 +3,21 @@
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
             <a class="nav-link" href="index.html">
                 <i class="fa fa-fw fa-dashboard"></i>
-                <span class="nav-link-text">Dashboard</span>
+                <span class="nav-link-text">Điều phối</span>
             </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">
             <a class="nav-link" href="messages.html">
                 <i class="fa fa-fw fa-envelope-open"></i>
-                <span class="nav-link-text">Messages</span>
+                <span class="nav-link-text">Tin nhắn</span>
             </a>
         </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Các danh mục">
-            <a class="nav-link" href="{{ route('admin.categories.index') }}">
-                <i class="fa fa-fw fa-list"></i>
-                <span class="nav-link-text">Các danh mục</span>
-            </a>
-        </li>
+{{--        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Các danh mục">--}}
+{{--            <a class="nav-link" href="{{ route('host.categories.index') }}">--}}
+{{--                <i class="fa fa-fw fa-list"></i>--}}
+{{--                <span class="nav-link-text">Các danh mục</span>--}}
+{{--            </a>--}}
+{{--        </li>--}}
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Địa điểm du lịch">
             <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseAttractions"
                data-parent="#mylistings">
@@ -26,91 +26,18 @@
             </a>
             <ul class="sidenav-second-level collapse" id="collapseAttractions">
                 <li>
-                    <a href="{{ route('admin.attractions.index') }}">Danh sách tham quan</a>
+                    <a href="">Danh sách tham quan</a>
                 </li>
                 <li>
                     <a href="listings.html">Thống kê <span class="badge badge-pill badge-primary">6</span></a>
                 </li>
             </ul>
         </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Khách sạn, nhà nghỉ, homestay">
-            <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseAccommodations"
-               data-parent="#mylistings">
-                <i class="fa fa-fw fa-home"></i>
-                <span class="nav-link-text">Địa điểm nghỉ ngơi</span>
-            </a>
-            <ul class="sidenav-second-level collapse" id="collapseAccommodations">
-                <li>
-                    <a href="{{ route('admin.accommodations.index') }}">Danh sách nơi nghỉ</a>
-                </li>
-                <li>
-                    <a href="listings.html">Thống kê <span class="badge badge-pill badge-primary">6</span></a>
-                </li>
-            </ul>
-        </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Bookings">
-            <a class="nav-link" href="bookings.html">
-                <i class="fa fa-fw fa-calendar-check-o"></i>
-                <span class="nav-link-text">Bookings <span
-                            class="badge badge-pill badge-primary">6 New</span></span>
-            </a>
-        </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My listings">
-            <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMylistings"
-               data-parent="#mylistings">
-                <i class="fa fa-fw fa-list"></i>
-                <span class="nav-link-text">My listings</span>
-            </a>
-            <ul class="sidenav-second-level collapse" id="collapseMylistings">
-                <li>
-                    <a href="listings.html">Pending <span class="badge badge-pill badge-primary">6</span></a>
-                </li>
-                <li>
-                    <a href="listings.html">Active <span class="badge badge-pill badge-success">6</span></a>
-                </li>
-                <li>
-                    <a href="listings.html">Expired <span class="badge badge-pill badge-danger">6</span></a>
-                </li>
-            </ul>
-        </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reviews">
-            <a class="nav-link" href="reviews.html">
-                <i class="fa fa-fw fa-star"></i>
-                <span class="nav-link-text">Reviews</span>
-            </a>
-        </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookmarks">
-            <a class="nav-link" href="bookmarks.html">
-                <i class="fa fa-fw fa-heart"></i>
-                <span class="nav-link-text">Bookmarks</span>
-            </a>
-        </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Add listing">
-            <a class="nav-link" href="add-listing.html">
-                <i class="fa fa-fw fa-plus-circle"></i>
-                <span class="nav-link-text">Add listing</span>
-            </a>
-        </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My profile">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Thông tin cá nhân">
             <a class="nav-link" href="user-profile.html">
                 <i class="fa fa-fw fa-user"></i>
-                <span class="nav-link-text">My Profile</span>
+                <span class="nav-link-text">Thông tin cá nhân</span>
             </a>
-        </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
-            <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents"
-               data-parent="#Components">
-                <i class="fa fa-fw fa-gear"></i>
-                <span class="nav-link-text">Components</span>
-            </a>
-            <ul class="sidenav-second-level collapse" id="collapseComponents">
-                <li>
-                    <a href="charts.html">Charts</a>
-                </li>
-                <li>
-                    <a href="tables.html">Tables</a>
-                </li>
-            </ul>
         </li>
     </ul>
     <ul class="navbar-nav sidenav-toggler">
