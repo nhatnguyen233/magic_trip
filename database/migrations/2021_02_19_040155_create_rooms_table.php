@@ -21,7 +21,7 @@ class CreateRoomsTable extends Migration
             $table->integer('room_number')->nullable();
             $table->string('acreages');
             $table->text('policy')->nullable();
-            $table->integer('number_max_guests');
+            $table->integer('number_max_customers');
             $table->integer('number_of_bathroom');
             $table->integer('number_of_kitchen');
             $table->timestamp('checkin')->nullable();

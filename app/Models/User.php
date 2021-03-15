@@ -62,14 +62,14 @@ class User extends Authenticatable
         return false;
     }
 
-    public function scopeOnlyStaff($query)
+    public function scopeOnlyHost($query)
     {
-        return $query->where('role_id', UserRole::STAFF);
+        return $query->where('role_id', UserRole::HOST);
     }
 
-    public function scopeOnlyGuest($query)
+    public function scopeOnlyCustomer($query)
     {
-        return $query->where('role_id', UserRole::GUEST);
+        return $query->where('role_id', UserRole::CUSTOMER);
     }
 
     public function setPasswordAttribute($password)

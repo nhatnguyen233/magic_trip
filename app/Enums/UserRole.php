@@ -11,7 +11,7 @@ use BenSampo\Enum\Enum;
  */
 final class UserRole extends Enum
 {
-    const GUEST = 1;
-    const STAFF = 2;
+    const CUSTOMER = 1;
+    const HOST = 2;
     const ADMINISTRATOR = 3;
 }

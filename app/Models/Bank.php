@@ -14,8 +14,8 @@ class Bank extends Model
         'short_name'
     ];
 
-    public function staff()
+    public function host()
     {
-        return $this->hasMany(Staff::class, 'bank_id', 'id');
+        return $this->hasMany(Host::class, 'bank_id', 'id');
     }
 }

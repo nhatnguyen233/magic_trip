@@ -38,10 +38,10 @@ class AuthController extends Controller
         $roles = Role::pluck('id', 'name')->toArray();
 
         switch ($this->guardName) {
-            case 'guest':
-                return $roles[Role::GUEST] ?? UserRole::GUEST;
-            case 'staff':
-                return $roles[Role::STAFF] ?? UserRole::STAFF;
+            case 'customer':
+                return $roles[Role::CUSTOMER] ?? UserRole::CUSTOMER;
+            case 'host':
+                return $roles[Role::HOST] ?? UserRole::HOST;
             case 'admin':
                 return $roles[Role::ADMINISTRATOR] ?? UserRole::ADMINISTRATOR;
             default:
