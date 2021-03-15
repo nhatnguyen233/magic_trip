@@ -23,10 +23,10 @@ class UserSeeder extends Seeder
             'role_id' => 1
         ]);
 
-        $staff = User::create([
-            'name' => 'staff',
+        $host = User::create([
+            'name' => 'host',
             'phone' => '9876543210',
-            'email' => 'staff@example.com',
+            'email' => 'host@example.com',
             'password' => '123456',
             'address' => 'Quận 1, TP. Hồ Chí Minh',
             'role_id' => 2

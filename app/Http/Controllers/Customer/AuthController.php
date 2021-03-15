@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Guest;
+namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\AuthController as BaseAuthController;
 use Illuminate\Http\Request;
@@ -12,7 +12,7 @@ class AuthController extends BaseAuthController
 
     public function __construct()
     {
-        $this->guardName = 'guest';
+        $this->guardName = 'customer';
         parent::__construct();
     }
 }

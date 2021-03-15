@@ -16,10 +16,10 @@ class RoleSeeder extends Seeder
     {
         DB::table('roles')->insert([
             [
-                'name'           => 'guest'
+                'name'           => 'customer'
             ],
             [
-                'name'           => 'staff'
+                'name'           => 'host'
             ],
             [
                 'name'           => 'administrator'

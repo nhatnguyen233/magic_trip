@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class StaffLanguage extends Model
+class HostLanguage extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'staff_id',
+        'host_id',
         'language_id',
     ];
 }
