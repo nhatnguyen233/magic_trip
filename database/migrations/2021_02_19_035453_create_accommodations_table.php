@@ -17,6 +17,7 @@ class CreateAccommodationsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->text('description');
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
@@ -32,6 +33,7 @@ class CreateAccommodationsTable extends Migration
             $table->unsignedBigInteger('ward_id')->nullable();
             $table->unsignedBigInteger('country_id')->nullable();
             $table->timestamps();
+//            $table->foreign('category_id')->references('id')->on('categories');
 //            $table->foreign('country_id')->references('id')->on('countries');
 //            $table->foreign('province_id')->references('id')->on('provinces');
 //            $table->foreign('district_id')->references('id')->on('districts');

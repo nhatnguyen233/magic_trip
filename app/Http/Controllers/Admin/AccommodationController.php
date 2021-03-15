@@ -8,6 +8,7 @@ use App\Repositories\Accommodation\AccommodationRepository;
 use App\Repositories\Province\ProvinceRepository;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\Accommodation\IndexAccommodation as Index;
+use App\Http\Requests\Admin\Accommodation\CreateAccommodation as Create;
 
 class AccommodationController extends Controller
 {
@@ -49,12 +50,15 @@ class AccommodationController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Create $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Create $request)
     {
-        //
+        $accommodation = $this->accommodationRepository->createAccommodation($request->validated());
+        $this->accommodationRepository->insertAccommodationImages($request->images, $accommodation->id, auth('admin')->id());
+
+        return redirect()->route('admin.accommodations.index')->with('success', 'Tạo địa điểm thành công');
     }
 
     /**

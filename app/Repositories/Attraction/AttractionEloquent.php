@@ -66,6 +66,7 @@ class AttractionEloquent extends BaseRepository implements AttractionRepository
         } catch (Exception $exception) {
             Log::error($exception);
             DB::rollBack();
+            throw $exception;
         }
     }
 
@@ -110,6 +111,7 @@ class AttractionEloquent extends BaseRepository implements AttractionRepository
         } catch (Exception $exception) {
             Log::error($exception);
             DB::rollBack();
+            throw $exception;
         }
     }
 
@@ -139,6 +141,7 @@ class AttractionEloquent extends BaseRepository implements AttractionRepository
         {
             Log::error($exception);
             DB::rollBack();
+            throw $exception;
         }
     }
 
@@ -182,6 +185,7 @@ class AttractionEloquent extends BaseRepository implements AttractionRepository
         } catch (Exception $exception) {
             Log::error($exception);
             DB::rollBack();
+            throw $exception;
         }
     }
 }
