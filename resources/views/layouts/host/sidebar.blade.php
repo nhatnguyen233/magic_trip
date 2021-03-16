@@ -12,12 +12,12 @@
                 <span class="nav-link-text">Tin nhắn</span>
             </a>
         </li>
-{{--        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Các danh mục">--}}
-{{--            <a class="nav-link" href="{{ route('host.categories.index') }}">--}}
-{{--                <i class="fa fa-fw fa-list"></i>--}}
-{{--                <span class="nav-link-text">Các danh mục</span>--}}
-{{--            </a>--}}
-{{--        </li>--}}
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Các tours du lịch">
+            <a class="nav-link" href="{{ route('host.tours.index') }}">
+                <i class="fa fa-fw fa-list"></i>
+                <span class="nav-link-text">Các tours du lịch</span>
+            </a>
+        </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Địa điểm du lịch">
             <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseAttractions"
                data-parent="#mylistings">

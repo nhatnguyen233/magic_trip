@@ -19,9 +19,8 @@ class CreateToursTable extends Migration
             $table->string('description')->nullable();
             $table->string('vehicle')->nullable();
             $table->double('total_price')->nullable();
-            $table->unsignedBigInteger('accommodation_id')->nullable();
+            $table->string('total_time')->nullable();
             $table->timestamps();
-//            $table->foreign('accommodation_id')->references('id')->on('accommodations');
         });
     }
 

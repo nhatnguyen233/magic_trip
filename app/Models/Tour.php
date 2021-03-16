@@ -14,11 +14,10 @@ class Tour extends Model
         'description',
         'total_price',
         'vehicle',
-        'accommodation_id'
     ];
-
-    public function accommodation()
+    
+    public function infos()
     {
-        return $this->belongsTo(Accommodation::class, 'accommodation_id', 'id');
+        return $this->hasMany(TourInfo::class, 'tour_id', 'id');
     }
 }

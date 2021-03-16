@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTourAttractionsTable extends Migration
+class CreateTourInfosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTourAttractionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tour_attractions', function (Blueprint $table) {
+        Schema::create('tour_infos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('attraction_id')->nullable();
             $table->unsignedBigInteger('tour_id')->nullable();
@@ -38,6 +38,6 @@ class CreateTourAttractionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tour_attractions');
+        Schema::dropIfExists('tour_infos');
     }
 }
