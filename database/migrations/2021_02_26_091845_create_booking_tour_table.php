@@ -17,10 +17,11 @@ class CreateBookingTourTable extends Migration
             $table->id();
             $table->unsignedBigInteger('tour_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->timestamp('date_of_booking')->nullable();
             $table->integer('status')->default(0);
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('tour_id')->references('id')->on('tours');
+//            $table->foreign('user_id')->references('id')->on('users');
+//            $table->foreign('tour_id')->references('id')->on('tours');
         });
     }
 
