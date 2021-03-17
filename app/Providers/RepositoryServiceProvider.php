@@ -17,6 +17,8 @@ use App\Repositories\District\DistrictRepository;
 use App\Repositories\District\DistrictEloquent;
 use App\Repositories\Accommodation\AccommodationEloquent;
 use App\Repositories\Accommodation\AccommodationRepository;
+use App\Repositories\Tour\TourEloquent;
+use App\Repositories\Tour\TourRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -48,6 +50,10 @@ class RepositoryServiceProvider extends ServiceProvider
         [
             'abstract' => AccommodationRepository::class,
             'concrete' => AccommodationEloquent::class,
+        ],
+        [
+            'abstract' => TourRepository::class,
+            'concrete' => TourEloquent::class,
         ],
     ];
 

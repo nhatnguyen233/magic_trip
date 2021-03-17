@@ -20,8 +20,9 @@ class CreateHostsTable extends Migration
             $table->unsignedBigInteger('district_id')->nullable();
             $table->unsignedBigInteger('ward_id')->nullable();
             $table->unsignedBigInteger('country_id')->nullable();
-            $table->integer('level')->nullable();
             $table->unsignedBigInteger('bank_id')->nullable();
+            $table->string('identification')->nullable();
+            $table->integer('level')->nullable();
             $table->timestamps();
 //            $table->foreign('user_id')->references('id')->on('users');
 //            $table->foreign('bank_id')->references('id')->on('banks');

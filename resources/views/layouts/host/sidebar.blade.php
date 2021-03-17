@@ -12,26 +12,11 @@
                 <span class="nav-link-text">Tin nhắn</span>
             </a>
         </li>
-{{--        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Các danh mục">--}}
-{{--            <a class="nav-link" href="{{ route('host.categories.index') }}">--}}
-{{--                <i class="fa fa-fw fa-list"></i>--}}
-{{--                <span class="nav-link-text">Các danh mục</span>--}}
-{{--            </a>--}}
-{{--        </li>--}}
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Địa điểm du lịch">
-            <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseAttractions"
-               data-parent="#mylistings">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Các tours du lịch">
+            <a class="nav-link" href="{{ route('host.tours.index') }}">
                 <i class="fa fa-fw fa-map-marker"></i>
-                <span class="nav-link-text">Địa điểm tham quan</span>
+                <span class="nav-link-text">Các tours du lịch</span>
             </a>
-            <ul class="sidenav-second-level collapse" id="collapseAttractions">
-                <li>
-                    <a href="">Danh sách tham quan</a>
-                </li>
-                <li>
-                    <a href="listings.html">Thống kê <span class="badge badge-pill badge-primary">6</span></a>
-                </li>
-            </ul>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Thông tin cá nhân">
             <a class="nav-link" href="user-profile.html">
