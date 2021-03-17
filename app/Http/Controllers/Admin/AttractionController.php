@@ -62,7 +62,9 @@ class AttractionController extends Controller
     public function store(Create $request)
     {
         $attraction = $this->attractionRepository->createAttraction($request->validated());
-        $this->attractionRepository->updateAttractionImages($request->images, $attraction->id, auth('admin')->id());
+        if($request->images) {
+            $this->attractionRepository->updateAttractionImages($request->images, $attraction->id, auth('admin')->id());
+        }
 
         return redirect()->route('admin.attractions.index')->with('success', 'Tạo địa điểm thành công');
     }
@@ -102,7 +104,9 @@ class AttractionController extends Controller
     public function update(Update $request, Attraction $attraction)
     {
         $this->attractionRepository->updateAttraction($request->validated(),$attraction->id);
-        $this->attractionRepository->updateAttractionImages($request->images, $attraction->id, auth('admin')->id());
+        if($request->images) {
+            $this->attractionRepository->updateAttractionImages($request->images, $attraction->id, auth('admin')->id());
+        }
 
         return redirect()->route('admin.attractions.index')->with('success', 'Cập nhật địa điểm thành công');
     }
