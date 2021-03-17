@@ -56,7 +56,10 @@ class AccommodationController extends Controller
     public function store(Create $request)
     {
         $accommodation = $this->accommodationRepository->createAccommodation($request->validated());
-        $this->accommodationRepository->insertAccommodationImages($request->images, $accommodation->id, auth('admin')->id());
+        if($request->images)
+        {
+            $this->accommodationRepository->insertAccommodationImages($request->images, $accommodation->id, auth('admin')->id());
+        }
 
         return redirect()->route('admin.accommodations.index')->with('success', 'Tạo địa điểm thành công');
     }
