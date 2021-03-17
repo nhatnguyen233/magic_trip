@@ -18,28 +18,28 @@
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 ml-lg-auto">
-                <h5>Useful links</h5>
+                <h5>Liên kết</h5>
                 <ul class="links">
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="login.html">Login</a></li>
-                    <li><a href="register.html">Register</a></li>
-                    <li><a href="blog.html">News &amp; Events</a></li>
-                    <li><a href="contacts.html">Contacts</a></li>
+                    <li><a href="about.html">Về chúng tôi</a></li>
+                    <li><a href="login.html">Đăng nhập</a></li>
+                    <li><a href="register.html">Đăng ký</a></li>
+                    <li><a href="blog.html">Tin tức &amp; Sự kiện</a></li>
+                    <li><a href="contacts.html">Liện</a></li>
                 </ul>
             </div>
             <div class="col-lg-3 col-md-6">
-                <h5>Contact with Us</h5>
+                <h5>Liên hệ với chúng tôi</h5>
                 <ul class="contacts">
-                    <li><a href="tel://61280932400"><i class="ti-mobile"></i> + 61 23 8093 3400</a></li>
-                    <li><a href="mailto:info@Panagea.com"><i class="ti-email"></i> info@Panagea.com</a></li>
+                    <li><a href="tel://84280932400"><i class="ti-mobile"></i> + 84 23 8093 3400</a></li>
+                    <li><a href="mailto:toilanhat233@gmail.com"><i class="ti-email"></i> toilanhat233@gmail.com</a></li>
                 </ul>
                 <div id="newsletter">
-                    <h6>Newsletter</h6>
+                    <h6>Bản tin</h6>
                     <div id="message-newsletter"></div>
                     <form method="post" action="assets/newsletter.php" name="newsletter_form" id="newsletter_form">
                         <div class="form-group">
                             <input type="email" name="email_newsletter" id="email_newsletter" class="form-control"
-                                   placeholder="Your email">
+                                   placeholder="Email của bạn">
                             <input type="submit" value="Submit" id="submit-newsletter">
                         </div>
                     </form>
@@ -66,6 +66,7 @@
                             <select>
                                 <option value="US Dollars" selected>US Dollars</option>
                                 <option value="Euro">Euro</option>
+                                <option value="Viet Nam">VND</option>
                             </select>
                         </div>
                     </li>
@@ -74,9 +75,9 @@
             </div>
             <div class="col-lg-6">
                 <ul id="additional_links">
-                    <li><a href="#0">Terms and conditions</a></li>
-                    <li><a href="#0">Privacy</a></li>
-                    <li><span>© 2019 Panagea</span></li>
+                    <li><a href="#0">Các điều khoản và điều kiện</a></li>
+                    <li><a href="#0">Riêng tư</a></li>
+                    <li><span>© 2021 Nhat Nguyen</span></li>
                 </ul>
             </div>
         </div>

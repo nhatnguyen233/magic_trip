@@ -8,7 +8,7 @@
     <meta name="description"
           content="Panagea - Premium site template for travel agencies, hotels and restaurant listing.">
     <meta name="author" content="Ansonika">
-    <title>Panagea | Premium site template for travel agencies, hotels and restaurant listing.</title>
+    <title>Minh Đức | Đại lý du lịch, khách sạn và danh sách nhà hàng.</title>
 
     <!-- Favicons-->
     <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}" type="image/x-icon">
