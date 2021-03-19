@@ -7,8 +7,8 @@ use App\Models\Accommodation;
 use App\Repositories\Accommodation\AccommodationRepository;
 use App\Repositories\Province\ProvinceRepository;
 use Illuminate\Http\Request;
-use App\Http\Requests\Admin\Accommodation\IndexAccommodation as Index;
-use App\Http\Requests\Admin\Accommodation\CreateAccommodation as Create;
+use App\Http\Requests\Accommodation\IndexAccommodation as Index;
+use App\Http\Requests\Accommodation\CreateAccommodation as Create;
 
 class AccommodationController extends Controller
 {
