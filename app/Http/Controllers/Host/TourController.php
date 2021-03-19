@@ -7,6 +7,7 @@ use App\Models\Tour;
 use App\Repositories\Accommodation\AccommodationRepository;
 use App\Repositories\Attraction\AttractionRepository;
 use App\Repositories\Tour\TourRepository;
+use App\Http\Requests\Tour\CreateTour as Create;
 use Illuminate\Http\Request;
 
 class TourController extends Controller
@@ -54,12 +55,16 @@ class TourController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Create  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Create $request)
     {
-        //
+        $tour = $this->tourRepository->createGeneralTour($request->validated());
+
+        return redirect()->back()
+            ->with('tour', $tour)
+            ->with('success', 'Thêm thông tin chung tour du lịch thành công');
     }
 
     /**
