@@ -23,7 +23,7 @@
     </a>
     <nav id="menu" class="main-menu">
         <ul>
-            <li><span><a href="#0">Home</a></span>
+            <li><span><a href="#0">Trang chủ</a></span>
                 <ul>
                     <li><a href="index.html">Home Default</a></li>
                     <li><a href="index-2.html">Home Slider</a></li>
@@ -78,7 +78,7 @@
                     </li>
                 </ul>
             </li>
-            <li><span><a href="#0">Hotels</a></span>
+            <li><span><a href="#0">Khách sạn</a></span>
                 <ul>
                     <li>
                         <span><a href="#0">Hotel Grid</a></span>
@@ -126,7 +126,7 @@
                     <li><a href="restaurant-detail.html">Restaurant Detail</a></li>
                 </ul>
             </li>
-            <li><span><a href="adventure.html">Adventure</a></span></li>
+            <li><span><a href="adventure.html">Cuộc phiêu lưu</a></span></li>
             <li><span><a href="#0">Pages</a></span>
                 <ul>
                     <li><a href="about.html">About</a></li>
@@ -144,7 +144,7 @@
                     <li><a href="pricing-tables-3.html">Pricing Tables 2 <strong>New!</strong></a></li>
                 </ul>
             </li>
-            <li><span><a href="#0">Extra</a></span>
+            <li><span><a href="#0">Thêm</a></span>
                 <ul>
                     <li><a href="menu-options.html">Menu Position Options</a></li>
                     <li><a href="tour-detail-singlemonth-datepicker.html">Single month Datepicker</a></li>
@@ -162,7 +162,6 @@
                     <li><a href="hamburgers.html">Animated Hamburgers</a></li>
                 </ul>
             </li>
-            <li><span><a href="#0">Buy template</a></span></li>
         </ul>
     </nav>
 </header>

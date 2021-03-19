@@ -4,8 +4,8 @@
     <section class="hero_single version_2">
         <div class="wrapper">
             <div class="container">
-                <h3>Book unique experiences</h3>
-                <p>Expolore top rated tours, hotels and restaurants around the world</p>
+                <h3>Đặt trước những trải nghiệm độc đáo</h3>
+                <p>Khám phá các tour du lịch, khách sạn và nhà hàng được xếp hạng hàng đầu trên khắp thế giới</p>
                 <form>
                     <div class="row no-gutters custom-search-input-2">
                         <div class="col-lg-4">
@@ -50,8 +50,8 @@
     <div class="container container-custom margin_80_0">
         <div class="main_title_2">
             <span><em></em></span>
-            <h2>Our Popular Tours</h2>
-            <p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
+            <h2>Những chuyến tham quan phổ biến của chúng tôi</h2>
+            <p>Những chuyến tham quan kỳ thú, tràn đầy năng lượng giúp cuộc sống thêm sống động</p>
         </div>
         <div id="reccomended" class="owl-carousel owl-theme">
             <div class="item">
@@ -200,7 +200,7 @@
             <!-- /item -->
         </div>
         <!-- /carousel -->
-        <p class="btn_home_align"><a href="tours-grid-isotope.html" class="btn_1 rounded">View all Tours</a></p>
+        <p class="btn_home_align"><a href="tours-grid-isotope.html" class="btn_1 rounded">Tất cả Tours</a></p>
         <hr class="large">
     </div>
     <!-- /container -->
@@ -209,10 +209,25 @@
         <section class="add_bottom_45">
             <div class="main_title_3">
                 <span><em></em></span>
-                <h2>Popular Hotels and Accommodations</h2>
-                <p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
+                <h2>Những khách sạn và chỗ ở phổ biến</h2>
+                <p>Các địa điểm vui chơi lí thú</p>
             </div>
             <div class="row">
+{{--                @foreach($accommodations as $item)--}}
+{{--                    <div class="col-xl-3 col-lg-6 col-md-6">--}}
+{{--                        <a href="hotel-detail.html" class="grid_item">--}}
+{{--                            <figure>--}}
+{{--                                <div class="score"><strong>8.9</strong></div>--}}
+{{--                                <img src="{{ $item->thumbnail_url }}" class="img-fluid" alt="">--}}
+{{--                                <div class="info">--}}
+{{--                                    <div class="cat_star"><i class="icon_star"></i><i class="icon_star"></i><i--}}
+{{--                                            class="icon_star"></i><i class="icon_star"></i></div>--}}
+{{--                                    <h3>{{ $item->name }}</h3>--}}
+{{--                                </div>--}}
+{{--                            </figure>--}}
+{{--                        </a>--}}
+{{--                    </div>--}}
+{{--                @endforeach--}}
                 <div class="col-xl-3 col-lg-6 col-md-6">
                     <a href="hotel-detail.html" class="grid_item">
                         <figure>
@@ -279,8 +294,8 @@
         <section class="add_bottom_45">
             <div class="main_title_3">
                 <span><em></em></span>
-                <h2>Popular Restaurants</h2>
-                <p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
+                <h2>Những nhà hàng được ưa chuộng</h2>
+                <p>Các địa điểm vui chơi lí thú</p>
             </div>
             <div class="row">
                 <div class="col-xl-3 col-lg-6 col-md-6">
@@ -341,10 +356,10 @@
         <div class="banner mb-0">
             <div class="wrapper d-flex align-items-center opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.3)">
                 <div>
-                    <small>Adventure</small>
-                    <h3>Your Perfect<br>Advenure Experience</h3>
-                    <p>Activities and accommodations</p>
-                    <a href="adventure.html" class="btn_1">Read more</a>
+                    <small>Phiêu lưu</small>
+                    <h3>Sự tò mò<br>Kinh nghiệm phiêu lưu</h3>
+                    <p>Các hoạt động và chỗ ở</p>
+                    <a href="adventure.html" class="btn_1">Đọc thêm</a>
                 </div>
             </div>
             <!-- /wrapper -->
@@ -358,8 +373,8 @@
         <div class="container margin_80_55">
             <div class="main_title_2">
                 <span><em></em></span>
-                <h3>News and Events</h3>
-                <p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
+                <h3>Tin tức và sự kiện</h3>
+                <p>Các hoạt động, team building náo nhiệt</p>
             </div>
             <div class="row">
                 <div class="col-lg-6">
