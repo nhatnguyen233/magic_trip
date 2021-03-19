@@ -15,6 +15,7 @@ class CreateToursTable extends Migration
     {
         Schema::create('tours', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('vehicle')->nullable();
@@ -24,6 +25,7 @@ class CreateToursTable extends Migration
             $table->string('thumbnail')->nullable();
             $table->timestamps();
 //            $table->foreign('accommodation_id')->references('id')->on('accommodations');
+//            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

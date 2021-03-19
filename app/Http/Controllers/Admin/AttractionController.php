@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Attraction\CreateAttraction as Create;
-use App\Http\Requests\Admin\Attraction\UpdateAttraction as Update;
+use App\Http\Requests\Attraction\CreateAttraction as Create;
+use App\Http\Requests\Attraction\UpdateAttraction as Update;
 use App\Models\Attraction;
 use App\Repositories\Attraction\AttractionRepository;
 use App\Repositories\Category\CategoryRepository;

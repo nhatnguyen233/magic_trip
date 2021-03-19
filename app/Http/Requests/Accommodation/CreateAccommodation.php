@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Admin\Attraction;
+namespace App\Http\Requests\Accommodation;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 
-class CreateAttraction extends FormRequest
+class CreateAccommodation extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,16 +27,21 @@ class CreateAttraction extends FormRequest
         return [
             'name' => [
                 'required',
-                'unique:attractions,name'
-            ],
-            'title' => [
-                'required',
+                'unique:accommodations,name'
             ],
             'slug' => [
                 'nullable',
             ],
-            'category_id' => [
-                'nullable',
+            'phone' => [
+                'starts_with:0',
+                'digits:10'
+            ],
+            'lowest_price' => [
+                'required',
+            ],
+            'number_of_rooms' => [
+                'required',
+                'numeric'
             ],
             'country_id' => [
                 'nullable',
@@ -49,10 +54,6 @@ class CreateAttraction extends FormRequest
             ],
             'ward_id' => [
                 'nullable',
-            ],
-            'zipcode' => [
-                'nullable',
-                'digits:6',
             ],
             'latitude' => [
                 'nullable',
