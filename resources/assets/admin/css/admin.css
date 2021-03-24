@@ -4,7 +4,7 @@ Theme URI: http://www.ansonika.com/panagea/
 Author: Ansonika
 Author URI: http://themeforest.net/user/Ansonika/
 
-[Table of contents] 
+[Table of contents]
 
 1. SITE STRUCTURE
 - 1.1 Typography
@@ -977,7 +977,7 @@ label.fix_spacing {
 /*-------- 3.5 Select --------*/
 .styled-select select {
   background: transparent;
-  width: 107%;
+  width: 100%;
   padding: 5px;
   padding-left: 15px;
   border: 0;

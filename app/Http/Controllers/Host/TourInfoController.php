@@ -3,26 +3,31 @@
 namespace App\Http\Controllers\Host;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TourInfo\CreateTourInfo as Create;
+use App\Models\TourInfo;
 use App\Models\Tour;
 use App\Repositories\Accommodation\AccommodationRepository;
 use App\Repositories\Attraction\AttractionRepository;
 use App\Repositories\Tour\TourRepository;
-use App\Http\Requests\Tour\CreateTour as Create;
+use App\Repositories\TourInfo\TourInfoRepository;
 use Illuminate\Http\Request;
 
-class TourController extends Controller
+class TourInfoController extends Controller
 {
+    protected $tourInfoRepository;
     protected $tourRepository;
     protected $attractionRepository;
     protected $accommodationRepository;
 
     public function __construct(
         TourRepository $tourRepository,
+        TourInfoRepository $tourInfoRepository,
         AttractionRepository $attractionRepository,
         AccommodationRepository $accommodationRepository
     )
     {
         $this->tourRepository = $tourRepository;
+        $this->tourInfoRepository = $tourInfoRepository;
         $this->attractionRepository = $attractionRepository;
         $this->accommodationRepository = $accommodationRepository;
     }
@@ -35,8 +40,11 @@ class TourController extends Controller
     public function index()
     {
         $tours = $this->tourRepository->all();
+        $infos = $this->tourInfoRepository->all();
+        $accommodations = $this->accommodationRepository->all();
+        $attractions = $this->attractionRepository->all();
 
-        return view('host.tours.index', compact('tours'));
+        return view('host.tours.infos.index', compact('infos', 'tours', 'attractions', 'accommodations'));
     }
 
     /**
@@ -46,33 +54,35 @@ class TourController extends Controller
      */
     public function create()
     {
-        $tours = $this->tourRepository->all();
         $accommodations = $this->accommodationRepository->all();
         $attractions = $this->attractionRepository->all();
 
-        return view('host.tours.create', compact('tours','accommodations', 'attractions'));
+        return view('host.tours.infos.create', compact('accommodations', 'attractions'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Create  $request
+     * @param Create $request
      * @return \Illuminate\Http\Response
      */
     public function store(Create $request)
     {
-        $tour = $this->tourRepository->createGeneralTour($request->validated());
+        $tourInfo = $this->tourInfoRepository->createTourInfo($request->validated());
 
-        return redirect()->route('host.tour-infos.list', $tour->id)->with('tour', $tour);
+        return response()->json([
+            'tourInfo' => $tourInfo,
+            'success' => 'Thêm địa điểm tham quan thành công'
+        ], 200);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Tour  $tour
+     * @param \App\Models\TourInfo $tourInfo
      * @return \Illuminate\Http\Response
      */
-    public function show(Tour $tour)
+    public function show(TourInfo $tourInfo)
     {
         //
     }
@@ -80,26 +90,22 @@ class TourController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Tour  $tour
+     * @param \App\Models\TourInfo $tourInfo
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tour $tour)
+    public function edit(TourInfo $tourInfo)
     {
-        $tours = $this->tourRepository->all();
-        $accommodations = $this->accommodationRepository->all();
-        $attractions = $this->attractionRepository->all();
-
-        return view('host.tours.edit', compact('tours', 'accommodations', 'attractions', 'tour'));
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Tour  $tour
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\TourInfo $tourInfo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tour $tour)
+    public function update(Request $request, TourInfo $tourInfo)
     {
         //
     }
@@ -107,11 +113,26 @@ class TourController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Tour  $tour
+     * @param \App\Models\TourInfo $tourInfo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tour $tour)
+    public function destroy(TourInfo $tourInfo)
     {
         //
+    }
+
+    /**
+     * Display a listing info of tour of the resource.
+     * @param Tour $tour
+     * @return \Illuminate\Http\Response
+     */
+    public function getListTourInfo(Tour $tour)
+    {
+        $tours = $this->tourRepository->all();
+        $infos = $this->tourInfoRepository->findWhere(['tour_id' => $tour->id]);
+        $accommodations = $this->accommodationRepository->all();
+        $attractions = $this->attractionRepository->all();
+
+        return view('host.tours.infos.list', compact('infos', 'tours', 'attractions', 'accommodations'));
     }
 }
