@@ -1,7 +1,7 @@
 <div class="collapse navbar-collapse" id="navbarResponsive">
     <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="{{ route('host.index') }}">
                 <i class="fa fa-fw fa-dashboard"></i>
                 <span class="nav-link-text">Điều phối</span>
             </a>
@@ -15,7 +15,7 @@
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Các tours du lịch">
             <a class="nav-link" href="{{ route('host.tours.index') }}">
                 <i class="fa fa-fw fa-map-marker"></i>
-                <span class="nav-link-text">Các tours du lịch</span>
+                <span class="nav-link-text">Tours du lịch</span>
             </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Thông tin cá nhân">

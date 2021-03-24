@@ -21,9 +21,10 @@ class CreateTourInfosTable extends Migration
             $table->string('title')->nullable();
             $table->string('vehicle')->nullable();
             $table->text('summary')->nullable();
-            $table->timestamp('start_time')->nullable();
-            $table->timestamp('limit_time')->nullable();
+            $table->time('start_time')->nullable();
+            $table->integer('limit_time')->nullable();
             $table->integer('order_number')->nullable();
+            $table->string('thumbnail')->nullable();
             $table->timestamps();
 //            $table->foreign('attraction_id')->references('id')->on('attractions');
 //            $table->foreign('tour_id')->references('id')->on('tours');

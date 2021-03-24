@@ -32,7 +32,7 @@
         @csrf
         <div class="box_general padding_bottom">
             <div class="header_box version_2">
-                <h2><i class="fa fa-file"></i>Thông tin chung tour du lịch</h2>
+                <h2><i class="fa fa-file"></i>Thông tin chung</h2>
             </div>
             <div class="row">
                 <div class="col-md-6">
@@ -104,7 +104,7 @@
                     <div class="form-group">
                         <label>Mô tả</label>
                         <textarea name="description" class="editor" id="description" title="Mô tả thêm">
-                            {{ session()->get('tour')->description ?? old('description') }}
+                            {!! session()->get('tour')->description ?? old('description') !!}
                         </textarea>
                     </div>
                 </div>
@@ -115,132 +115,11 @@
             <button type="submit" class="btn_1 medium" @if(session()->has('tour')) disabled @endif>Save</button>
         </p>
     </form>
-    <form action="{{ route('host.tours.store') }}" method="post" enctype="multipart/form-data" class="container">
-        @csrf
-        <div class="box_general padding_bottom">
-            <div class="header_box version_2">
-                <h2><i class="fa fa-map-marker"></i>Địa điểm du lịch</h2>
-            </div>
-            <div class="tour-attractions mb-3">
-                @if(session()->has('tour'))
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="tour">Tour du lịch<span class="text-danger">*</span></label>
-                            <div class="styled-select">
-                                <select name="tour_id[]" id="tour">
-                                    <option value={{ session()->get('tour')->id }}>
-                                        {{ session()->get('tour')->name }}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endif
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="attraction-tour">Chọn địa điểm</label>
-                            <div class="styled-select">
-                                <select name="attraction_id[]" id="attraction-tour">
-                                    <option selected disabled>---- Chọn địa điểm ----</option>
-                                    @foreach($attractions as $item)
-                                        <option @if(old('attraction_id') == $item->id)
-                                                selected
-                                                @endif
-                                                value={{ $item->id }}>
-                                            {{ $item->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="province-tour">Chọn nơi nghỉ</label>
-                            <div class="styled-select">
-                                <select name="accommodation_id[]" id="province-tour" required>
-                                    <option selected disabled>---- Chọn nơi nghỉ ----</option>
-                                    @foreach($accommodations as $item)
-                                        <option @if(old('accommodation_id') == $item->id)
-                                                selected
-                                                @endif
-                                                value={{ $item->id }}>
-                                            {{ $item->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="title-tour">Tiêu đề hành trình</label>
-                            <input type="text" class="form-control" name="title[]"
-                                   id="title-tour" value="{{ old('title') }}" />
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="order-number-tour">Thứ tự hành trình</label>
-                            <input type="number" class="form-control" name="order_number[]"
-                                   id="order-number-tour" value="{{ old('order_number') }}" />
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="start-time-tour">Thời gian bắt đầu</label>
-                            <input type="text" class="form-control" name="start_time[]"
-                                   id="start-time-tour" value="{{ old('start_time') }}" />
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="limit-time-tour">Khoảng thời gian</label>
-                            <input type="number" class="form-control" name="limit_time[]"
-                                   id="limit-time-tour" value="{{ old('limit_time') }}" />
-                        </div>
-                    </div>
-                </div>
-                <!-- /row-->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="summary-tour">Tóm tắt</label>
-                            <textarea name="summary[]" class="editor" id="summary-tour" title="Mô tả thêm">
-                            {{ old('summary') }}
-                        </textarea>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-            </div>
-            <a title="Thêm hành trình" href="javascript:" onclick="cloneForm(this)"
-               class="btn_1 red add-accommodation-images mt-1">
-                <i class="fa fa-fw fa-plus-circle"></i>Thêm hành trình
-            </a>
-            <a title="Lược bớt" href="javascript:" onclick="clearForm(this)"
-               class="btn_1 gray remove-tour-attractions mt-1">
-                <i class="fa fa-fw fa-times-circle"></i>Lược bớt
-            </a>
-            <!-- /row-->
-        </div>
-        <p>
-            <button type="submit" class="btn_1 medium">Save</button>
-        </p>
-    </form>
 @endsection
 
 @section('script')
     <script src="{{ asset('admin/vendor/dropzone.min.js') }}"></script>
     <script src="{{ asset('admin/vendor/bootstrap-datepicker.js') }}"></script>
-    <script>$('input.date-pick').datepicker();</script>
     <!-- WYSIWYG Editor -->
     <script src="{{ asset('admin/js/editor/summernote-bs4.min.js') }}"></script>
     <script>
@@ -262,6 +141,7 @@
             if (e.currentTarget.files && e.currentTarget.files[0]) {
                 const reader = new FileReader();
                 const imageTarget = e.currentTarget.dataset.target;
+
                 reader.onload = function (e) {
                     $(imageTarget)
                         .attr('src', e.target.result)
@@ -272,16 +152,5 @@
                 reader.readAsDataURL(e.currentTarget.files[0]);
             }
         });
-
-        const cloneForm = (e) => {
-            fileForm = $(".tour-attractions").eq(0).clone();
-            fileForm.insertBefore($(e));
-        }
-
-        function clearForm(e) {
-            if ($('.tour-attractions').length > 1) {
-                $(e).prev().prev('.tour-attractions').remove();
-            }
-        }
     </script>
 @endsection
