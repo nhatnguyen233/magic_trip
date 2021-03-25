@@ -50,8 +50,11 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="lowest-price-accommodation">Mức giá thấp nhất (1 đêm hoặc 1 ngày) <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="lowest_price"
-                               id="lowest-price-accommodation" value="{{ old('lowest_price') }}" required>
+                        <div class="d-flex align-items-center">
+                            <input type="text" class="form-control" name="lowest_price"
+                                   id="lowest-price-accommodation" value="{{ old('lowest_price') }}" required>
+                            <span>&nbsp;(VNĐ)</span>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -251,5 +254,14 @@
                 $(e).prev().prev('.multi-file-images').remove();
             }
         }
+
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".");
+        }
+
+        $('input[name="lowest_price"]').keyup(function (e) {
+            var x = numberWithCommas((e.target.value.toString()).replaceAll('.',''));
+            $(this).val(x);
+        });
     </script>
 @endsection

@@ -39,7 +39,7 @@
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->phone }}</td>
                             <td>{{ $item->address }}</td>
-                            <td>{{ $item->lowest_price }}</td>
+                            <td>{{ number_format($item->lowest_price, 0, '', ',') }} (VNĐ)</td>
                             <td>{{ $item->number_of_rooms }}</td>
                             <td><img src="{{ $item->avatar_url }}" width="100px"/></td>
                             <td>

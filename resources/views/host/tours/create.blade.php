@@ -45,8 +45,11 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="total-price-tour">Tổng chi phí <span class="text-danger">*</span></label>
-                        <input type="number" class="form-control" name="total_price"
-                               id="total-price-tour" value="{{ session()->get('tour')->total_price ?? old('total_price') }}" required>
+                        <div class="d-flex align-items-center">
+                            <input type="text" class="form-control" name="total_price"
+                                   id="total-price-tour" value="{{ session()->get('tour')->total_price ?? old('total_price') }}" required>
+                            <span>&nbsp;(VNĐ)</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -151,6 +154,15 @@
 
                 reader.readAsDataURL(e.currentTarget.files[0]);
             }
+        });
+
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".");
+        }
+
+        $('input[name="total_price"]').keyup(function (e) {
+            var x = numberWithCommas((e.target.value.toString()).replaceAll('.',''));
+            $(this).val(x);
         });
     </script>
 @endsection
