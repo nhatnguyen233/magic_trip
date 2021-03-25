@@ -39,7 +39,7 @@
                         <tr>
                             <td>{{ $item->id }}</td>
                             <td>{{ $item->name }}</td>
-                            <td>{{ $item->total_price }}</td>
+                            <td>{{ number_format($item->total_price, 0, '', ',') }} (VNĐ)</td>
                             <td>{{ $item->total_time }}</td>
                             <td>{{ $item->vehicle }}</td>
                             <td><img src="{{ $item->thumbnail_url }}" width="100px"/></td>

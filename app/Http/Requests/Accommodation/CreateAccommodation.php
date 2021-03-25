@@ -38,6 +38,7 @@ class CreateAccommodation extends FormRequest
             ],
             'lowest_price' => [
                 'required',
+                'numeric',
             ],
             'number_of_rooms' => [
                 'required',
@@ -99,6 +100,7 @@ class CreateAccommodation extends FormRequest
     {
         $this->merge([
             'slug' => Str::slug($this->name),
+            'lowest_price' => doubleval(str_replace('.','',$this->lowest_price)),
         ]);
     }
 }

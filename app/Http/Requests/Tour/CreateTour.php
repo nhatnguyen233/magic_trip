@@ -67,7 +67,7 @@ class CreateTour extends FormRequest
     {
         $this->merge([
             'user_id' => auth('host')->id(),
-            'total_price' => doubleval($this->total_price),
+            'total_price' => doubleval(str_replace('.','',$this->total_price)),
         ]);
     }
 }
