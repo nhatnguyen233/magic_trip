@@ -2,8 +2,23 @@
 
 @section('style')
     <link href="{{ asset('admin/vendor/dropzone.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/cropper.css') }}" rel="stylesheet">
     <!-- WYSIWYG Editor -->
     <link rel="stylesheet" href="{{ asset('admin/js/editor/summernote-bs4.css') }}">
+    <style>
+        .preview {
+            overflow: hidden;
+            width: 160px;
+            height: 160px;
+            margin: 10px;
+            border: 1px solid red;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -91,9 +106,9 @@
                         <div class="d-flex justify-content-between">
                             <div>
                                 <label for="tour-thumbnail">Ảnh thu nhỏ <span class="text-danger">*</span></label>
-                                <input type="file" class="form-control-file preview-image" id="tour-thumbnail"
-                                       data-target="#tour-thumbnail-image" placeholder="Ảnh thumbnail"
-                                       name="thumbnail" />
+                                <input type="file" class="form-control-file" id="tour-thumbnail" placeholder="Ảnh thumbnail" />
+                                <input type="text" class="form-control-file" id="tour-thumbnail"
+                                       placeholder="Ảnh thumbnail" name="thumbnail" hidden="true"/>
                             </div>
                             <div>
                                 <img src="{{ session()->get('tour')->thumbnail_url ?? asset('img/tour_1.jpg') }}" width="130px" id="tour-thumbnail-image" />
@@ -118,13 +133,17 @@
             <button type="submit" class="btn_1 medium" @if(session()->has('tour')) disabled @endif>Save</button>
         </p>
     </form>
+    @include('host.tours.modals._crop_thumbnail_modal')
 @endsection
 
 @section('script')
     <script src="{{ asset('admin/vendor/dropzone.min.js') }}"></script>
     <script src="{{ asset('admin/vendor/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('js/cropper.js') }}"></script>
+    <script src="{{ asset('js/jquery-cropper.min.js') }}"></script>
     <!-- WYSIWYG Editor -->
     <script src="{{ asset('admin/js/editor/summernote-bs4.min.js') }}"></script>
+    <script src="{{ asset('js/tour/create.js') }}"></script>
     <script>
         $('.editor').summernote({
             fontSizes: ['10', '14'],
@@ -155,10 +174,6 @@
                 reader.readAsDataURL(e.currentTarget.files[0]);
             }
         });
-
-        function numberWithCommas(x) {
-            return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".");
-        }
 
         $('input[name="total_price"]').keyup(function (e) {
             var x = numberWithCommas((e.target.value.toString()).replaceAll('.',''));

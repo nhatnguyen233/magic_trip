@@ -77,7 +77,6 @@ class CreateAccommodation extends FormRequest
             ],
             'thumbnail' => [
                 'required',
-                'mimes:jpeg,png,jpg,gif,svg',
                 'max:5120',
             ],
             'images' => [

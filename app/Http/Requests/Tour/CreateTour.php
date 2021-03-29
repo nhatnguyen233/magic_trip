@@ -52,7 +52,6 @@ class CreateTour extends FormRequest
             ],
             'thumbnail' => [
                 'required',
-                'mimes:jpeg,png,jpg,gif,svg',
                 'max:5120',
             ],
         ];
