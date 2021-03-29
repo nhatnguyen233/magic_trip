@@ -3,7 +3,7 @@
         <div data-loader="circle-side"></div>
     </div><!-- /Page Preload -->
     <div id="logo">
-        <a href="index.html">
+        <a href="/">
             <img src="{{ asset('img/logo.svg') }}" width="150" height="36" alt="" class="logo_normal">
             <img src="{{ asset('img/logo_sticky.svg') }}" width="150" height="36" alt="" class="logo_sticky">
         </a>
@@ -25,7 +25,7 @@
         <ul>
             <li><span><a href="#0">Trang chủ</a></span>
                 <ul>
-                    <li><a href="index.html">Home Default</a></li>
+                    <li><a href="/">Home Default</a></li>
                     <li><a href="index-2.html">Home Slider</a></li>
                     <li><a href="index-3.html">Home Video BG</a></li>
                     <li><a href="index-4.html">Home Layer Slider</a></li>
