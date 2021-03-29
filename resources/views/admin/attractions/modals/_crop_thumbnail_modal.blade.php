@@ -16,7 +16,7 @@
                             <img src="" id="sample_thumbnail_image" />
                         </div>
                         <div class="col-md-4 d-flex justify-content-center">
-                            <div class="preview"></div>
+                            <div class="preview" id="preview-thumbnail"></div>
                         </div>
                     </div>
                 </div>

@@ -45,13 +45,11 @@ $(document).ready(function () {
 
     $modalAvatar.on('shown.bs.modal', function() {
         cropper = new Cropper(avatar, {
-            dragMode: 'move',
-            minCropBoxWidth:400,
-            minCropBoxHeight:267,
-            autoCropArea: 0.1,
+            aspectRatio: 1,
+            autoCropArea: 1,
             viewMode: 3,
             cropBoxResizable: false,
-            preview: '.preview'
+            preview: '#preview-avatar'
         });
     }).on('hidden.bs.modal', function(){
         cropper.destroy();
@@ -66,7 +64,7 @@ $(document).ready(function () {
             autoCropArea: 0.1,
             viewMode: 3,
             cropBoxResizable: false,
-            preview: '.preview'
+            preview: '#preview-thumbnail'
         });
     }).on('hidden.bs.modal', function(){
         cropper.destroy();

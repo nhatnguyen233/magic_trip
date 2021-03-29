@@ -213,7 +213,7 @@
                 <p>Các địa điểm vui chơi lí thú</p>
             </div>
             <div class="row">
-{{--                @foreach($accommodations as $item)--}}
+{{--                @foreach($attractions as $item)--}}
 {{--                    <div class="col-xl-3 col-lg-6 col-md-6">--}}
 {{--                        <a href="hotel-detail.html" class="grid_item">--}}
 {{--                            <figure>--}}
