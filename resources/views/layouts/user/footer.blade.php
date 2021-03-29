@@ -2,7 +2,7 @@
     <div class="container margin_60_35">
         <div class="row">
             <div class="col-lg-5 col-md-12 p-r-5">
-                <p><img src="img/logo.svg" width="150" height="36" alt=""></p>
+                <p><img src="{{ asset('img/logo.svg') }}" width="150" height="36" alt=""></p>
                 <p>Mea nibh meis philosophia eu. Duis legimus efficiantur ea sea. Id placerat tacimates definitionem
                     sea, prima quidam vim no. Duo nobis persecuti cu. Nihil facilisi indoctum an vix, ut delectus
                     expetendis vis.</p>
@@ -30,7 +30,7 @@
             <div class="col-lg-3 col-md-6">
                 <h5>Liên hệ với chúng tôi</h5>
                 <ul class="contacts">
-                    <li><a href="tel://84280932400"><i class="ti-mobile"></i> + 84 23 8093 3400</a></li>
+                    <li><a href="tel://84280932400"><i class="ti-mobile"></i> + 84 976 663 241</a></li>
                     <li><a href="mailto:toilanhat233@gmail.com"><i class="ti-email"></i> toilanhat233@gmail.com</a></li>
                 </ul>
                 <div id="newsletter">

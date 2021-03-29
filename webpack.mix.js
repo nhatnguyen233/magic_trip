@@ -24,6 +24,9 @@ mix.copy('resources/assets/js/main.js', 'public/js/front')
     .copy('resources/assets/js/common_scripts.js', 'public/js/front')
     .copy('resources/assets/js/daterangepicker.js', 'public/js/front')
     .copy('resources/assets/js/input_qty.js', 'public/js/front')
+    .copy('resources/assets/js/infobox.js', 'public/js/front')
+    .copy('resources/assets/js/map_single_tour.js', 'public/js/front')
+    .copy('resources/assets/js/jquery.instagramFeed.min.js', 'public/js/front')
     .copy('resources/assets/js/jquery-3.5.1.min.js', 'public/js/front');
 
 mix.copy('resources/assets/other/validate.js', 'public/js/front');

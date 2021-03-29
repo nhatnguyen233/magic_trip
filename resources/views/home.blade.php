@@ -59,14 +59,14 @@
                     <div class="box_grid">
                         <figure>
                             <a href="#0" class="wish_bt"></a>
-                            <a href="tour-detail.html"><img src="{{ $item->thumbnail_url }}" class="img-fluid" alt="" width="800"
+                            <a href="{{ route('tours.show', $item->id) }}"><img src="{{ $item->thumbnail_url }}" class="img-fluid" alt="" width="800"
                                                             height="533">
                                 <div class="read_more"><span>Read more</span></div>
                             </a>
                             <small>Historic</small>
                         </figure>
                         <div class="wrapper">
-                            <h3><a href="tour-detail.html">{{ $item->name }}</a></h3>
+                            <h3><a href="{{ route('tours.show', $item->id) }}">{{ $item->name }}</a></h3>
                             <p>{!! \Illuminate\Support\Str::limit($item->description, 115, '...')  !!}</p>
                             <span class="price">From <strong>{{ number_format($item->total_price, 0, '', ',') }} VNĐ</strong> / 1 người</span>
                         </div>
