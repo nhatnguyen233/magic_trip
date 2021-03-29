@@ -54,6 +54,31 @@
             <p>Những chuyến tham quan kỳ thú, tràn đầy năng lượng giúp cuộc sống thêm sống động</p>
         </div>
         <div id="reccomended" class="owl-carousel owl-theme">
+            @foreach($tours as $item)
+                <div class="item">
+                    <div class="box_grid">
+                        <figure>
+                            <a href="#0" class="wish_bt"></a>
+                            <a href="tour-detail.html"><img src="{{ $item->thumbnail_url }}" class="img-fluid" alt="" width="800"
+                                                            height="533">
+                                <div class="read_more"><span>Read more</span></div>
+                            </a>
+                            <small>Historic</small>
+                        </figure>
+                        <div class="wrapper">
+                            <h3><a href="tour-detail.html">{{ $item->name }}</a></h3>
+                            <p>{!! \Illuminate\Support\Str::limit($item->description, 115, '...')  !!}</p>
+                            <span class="price">From <strong>{{ number_format($item->total_price, 0, '', ',') }} VNĐ</strong> / 1 người</span>
+                        </div>
+                        <ul>
+                            <li><i class="icon_clock_alt"></i> {{ ($item->total_time)/60 }} giờ</li>
+                            <li>
+                                <div class="score"><span>Superb<em>350 Reviews</em></span><strong>8.9</strong></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            @endforeach
             <div class="item">
                 <div class="box_grid">
                     <figure>

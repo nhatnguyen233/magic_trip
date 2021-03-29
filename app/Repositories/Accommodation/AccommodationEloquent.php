@@ -46,13 +46,6 @@ class AccommodationEloquent extends BaseRepository implements AccommodationRepos
                 $params['avatar'] = $fullPath;
             }
 
-            if (isset($params['thumbnail'])) {
-                $fileName = Str::uuid() . '.' . $params['thumbnail']->getClientOriginalExtension();
-                $fullPath = 'accommodations/thumbnails/' . $fileName;
-                Storage::disk('s3')->put($fullPath, file_get_contents($params['thumbnail']), 'public');
-                $params['thumbnail'] = $fullPath;
-            }
-
             $data = array_filter($params, function ($key) {
                 return in_array($key, ['name', 'slug', 'lowest_price', 'phone', 'ward_id', 'number_of_rooms',
                     'description', 'country_id', 'province_id', 'district_id', 'latitude', 'longitude',

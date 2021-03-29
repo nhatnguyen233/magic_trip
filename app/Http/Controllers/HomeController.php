@@ -32,9 +32,10 @@ class HomeController extends Controller
     public function index()
     {
         $accommodations = $this->accommodationRepository->all();
-        $attractions= $this->attractionRepository->all();
+        $attractions = $this->attractionRepository->all();
+        $tours = $this->tourRepository->all();
 
-        return view('home', compact('accommodations', 'attractions'));
+        return view('home', compact('accommodations', 'attractions', 'tours'));
     }
 
     /**

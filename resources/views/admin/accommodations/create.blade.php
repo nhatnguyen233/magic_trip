@@ -3,8 +3,23 @@
 @section('style')
     <link href="{{ asset('admin/vendor/dropzone.css') }}" rel="stylesheet">
     <link href="{{ asset('admin/css/date_picker.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/cropper.css') }}" rel="stylesheet">
     <!-- WYSIWYG Editor -->
     <link rel="stylesheet" href="{{ asset('admin/js/editor/summernote-bs4.css') }}">
+    <style>
+        .preview {
+            overflow: hidden;
+            width: 160px;
+            height: 160px;
+            margin: 10px;
+            border: 1px solid red;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -86,16 +101,33 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="accommodation-avatar">Ảnh chính <span class="text-danger">*</span></label>
-                        <input type="file" class="form-control-file" id="accommodation-avatar" placeholder="Ảnh avatar"
-                               name="avatar" required/>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <label for="accommodation-avatar">Ảnh chính <span class="text-danger">*</span></label>
+                                <input type="file" class="form-control-file preview-image" id="accommodation-avatar"
+                                       data-target="#accommodation-avatar-image" placeholder="Ảnh avatar"
+                                       name="avatar" />
+                            </div>
+                            <div>
+                                <img src="{{ asset('img/tour_1.jpg') }}" width="130px" height="90px" id="accommodation-avatar-image" />
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="accommodation-thumbnail">Ảnh thu nhỏ <span class="text-danger">*</span></label>
-                        <input type="file" class="form-control-file" id="accommodation-thumbnail"
-                               placeholder="Ảnh thumbnail" name="thumbnail" value="{{ old('thumbnail') }}" required/>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <label for="accommodation-thumbnail">Ảnh thu nhỏ <span class="text-danger">*</span></label>
+                                <input type="file" class="form-control-file" id="accommodation-thumbnail"
+                                       placeholder="Ảnh thumbnail" />
+                                <input type="text" class="form-control-file" id="accommodation-thumbnail"
+                                       placeholder="Ảnh thumbnail" name="thumbnail" hidden="true" />
+                            </div>
+                            <div>
+                                <img src="{{ asset('img/tour_1.jpg') }}" width="130px" height="90px" id="accommodation-thumbnail-image" />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -193,14 +225,17 @@
             <button type="submit" class="btn_1 medium">Save</button>
         </p>
     </form>
+    @include('admin.accommodations.modals._crop_thumbnail_modal')
 @endsection
 
 @section('script')
     <script src="{{ asset('admin/vendor/dropzone.min.js') }}"></script>
     <script src="{{ asset('admin/vendor/bootstrap-datepicker.js') }}"></script>
-    <script>$('input.date-pick').datepicker();</script>
+    <script src="{{ asset('js/cropper.js') }}"></script>
+    <script src="{{ asset('js/jquery-cropper.min.js') }}"></script>
     <!-- WYSIWYG Editor -->
     <script src="{{ asset('admin/js/editor/summernote-bs4.min.js') }}"></script>
+    <script src="{{ asset('js/accommodation/create.js') }}"></script>
     <script>
         $('.editor').summernote({
             fontSizes: ['10', '14'],
@@ -214,12 +249,6 @@
             placeholder: 'Mô tả thêm về địa điểm....',
             tabsize: 2,
             height: 200
-        });
-
-        $(document).on('change', '#images', function () {
-            var i = $(this).prev('label').clone();
-            var file = $(this)[0].files[0].name;
-            $(this).prev('label').text(file);
         });
 
         $('#province-accommodation').change(function () {
@@ -237,31 +266,6 @@
                 .catch(error => {
                     console.error('Error:', error);
                 });
-        });
-
-        const cloneFile = (e) => {
-            fileForm = $(".multi-file-images").eq(0).clone();
-            fileForm.find('input').val("");
-            fileForm.find('.custom-file-label').text("Chọn ảnh");
-            fileForm.insertBefore($(e));
-        }
-
-        function clearFile(e) {
-            if ($('.multi-file-images').length == 1) {
-                $(e).prevAll('input').val("");
-                $(e).prevAll('.custom-file-label').text("Chọn ảnh");
-            } else {
-                $(e).prev().prev('.multi-file-images').remove();
-            }
-        }
-
-        function numberWithCommas(x) {
-            return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".");
-        }
-
-        $('input[name="lowest_price"]').keyup(function (e) {
-            var x = numberWithCommas((e.target.value.toString()).replaceAll('.',''));
-            $(this).val(x);
         });
     </script>
 @endsection

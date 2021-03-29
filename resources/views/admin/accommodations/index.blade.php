@@ -30,6 +30,7 @@
                         <th>Giá thấp nhất</th>
                         <th>Số Phòng</th>
                         <th>Ảnh chính</th>
+                        <th>Ảnh thumbnail</th>
                         <th>Hành động</th>
                     </tr>
                     </thead>
@@ -42,6 +43,7 @@
                             <td>{{ number_format($item->lowest_price, 0, '', ',') }} (VNĐ)</td>
                             <td>{{ $item->number_of_rooms }}</td>
                             <td><img src="{{ $item->avatar_url }}" width="100px"/></td>
+                            <td><img src="{{ $item->thumbnail_url }}" width="100px"/></td>
                             <td>
                                 <div class="d-flex justify-content-around">
                                     <a class="btn btn-info text-white" data-toggle="modal" id="showAccommodationDetail"
