@@ -36,9 +36,19 @@ mix.copy('resources/assets/img/', 'public/img/');
 mix.copy('resources/assets/icon_fonts/icon_fonts', 'public/css/front/icon_fonts');
 
 // Admin Page
-mix.copy('resources/assets/admin/css/', 'public/admin/css/');
-mix.copy('resources/assets/admin/vendor/bootstrap/css', 'public/admin/css/');
-mix.copy('resources/assets/admin/vendor/', 'public/admin/vendor/');
-mix.copy('resources/assets/admin/vendor/bootstrap/js', 'public/admin/js/');
-mix.copy('resources/assets/admin/js/', 'public/admin/js/');
-mix.copy('resources/assets/admin/img/', 'public/admin/img/');
+mix.copy('resources/assets/admin/css/', 'public/admin/css/')
+    .copy('resources/assets/admin/vendor/bootstrap/css', 'public/admin/css/')
+    .copy('resources/assets/admin/vendor/', 'public/admin/vendor/')
+    .copy('resources/assets/admin/vendor/bootstrap/js', 'public/admin/js/')
+    .copy('resources/assets/admin/js/', 'public/admin/js/')
+    .copy('resources/assets/admin/img/', 'public/admin/img/')
+    .copy('resources/js/attraction', 'public/js/attraction');
+
+// Cropper Image
+mix.copy('node_modules/cropperjs/dist/cropper.css', 'public/css')
+    .copy('node_modules/cropperjs/dist/cropper.js', 'public/js')
+    .copy('node_modules/jquery-cropper/dist/jquery-cropper.min.js', 'public/js');
+
+// User Page
+mix.copy('resources/assets/js/main.js', 'public/js/front')
+    .copy('resources/assets/js/moment.min.js', 'public/js/front');
