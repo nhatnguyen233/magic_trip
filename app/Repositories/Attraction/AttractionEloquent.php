@@ -39,20 +39,6 @@ class AttractionEloquent extends BaseRepository implements AttractionRepository
         try {
             DB::beginTransaction();
 
-            if (isset($params['avatar'])) {
-                $fileName = Str::uuid() . '.' . $params['avatar']->getClientOriginalExtension();
-                $fullPath = 'attractions/avatars/' . time() . $fileName;
-                Storage::disk('s3')->put($fullPath, file_get_contents($params['avatar']), 'public');
-                $params['avatar'] = $fullPath;
-            }
-
-            if (isset($params['thumbnail'])) {
-                $fileName = Str::uuid() . '.' . $params['thumbnail']->getClientOriginalExtension();
-                $fullPath = 'attractions/thumbnails/' . $fileName;
-                Storage::disk('s3')->put($fullPath, file_get_contents($params['thumbnail']), 'public');
-                $params['thumbnail'] = $fullPath;
-            }
-
             $data = array_filter($params, function ($key) {
                 return in_array($key, ['name', 'slug', 'title', 'category_id', 'ward_id',
                     'description', 'country_id', 'province_id', 'district_id', 'latitude', 'longitude',

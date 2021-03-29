@@ -70,13 +70,9 @@ class CreateAttraction extends FormRequest
             ],
             'avatar' => [
                 'required',
-                'mimes:jpeg,png,jpg,gif,svg',
-                'max:5120',
             ],
             'thumbnail' => [
                 'required',
-                'mimes:jpeg,png,jpg,gif,svg',
-                'max:5120',
             ],
             'images' => [
                 'nullable',

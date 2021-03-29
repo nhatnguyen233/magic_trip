@@ -34,7 +34,7 @@ class AttractionController extends Controller
      */
     public function index()
     {
-        $attractions = $this->attractionRepository->all();
+        $attractions = $this->attractionRepository->orderBy('created_at', 'desc')->all();
 
         return view('admin.attractions.index', compact('attractions'));
     }

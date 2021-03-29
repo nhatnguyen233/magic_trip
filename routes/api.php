@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\DistrictController;
 use App\Http\Controllers\Api\AttractionController;
 use App\Http\Controllers\Api\AttractionImageController;
+use App\Http\Controllers\Api\FileController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,3 +24,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::resource('districts', DistrictController::class)->only(['index', 'show',]);
 Route::resource('attractions', AttractionController::class)->only(['show',]);
 Route::resource('attraction-images', AttractionImageController::class)->only(['show',]);
+Route::post('files/upload-crop-image', [FileController::class,'uploadCropImage'])->name('upload.crop-image');

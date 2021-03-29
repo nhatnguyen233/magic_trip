@@ -3,8 +3,23 @@
 @section('style')
     <link href="{{ asset('admin/vendor/dropzone.css') }}" rel="stylesheet">
     <link href="{{ asset('admin/css/date_picker.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/cropper.css') }}" rel="stylesheet">
     <!-- WYSIWYG Editor -->
     <link rel="stylesheet" href="{{ asset('admin/js/editor/summernote-bs4.css') }}">
+    <style>
+        .preview {
+            overflow: hidden;
+            width: 160px;
+            height: 160px;
+            margin: 10px;
+            border: 1px solid red;
+        }
+
+        img {
+            display: block;
+            width: 100%;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -33,18 +48,18 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="title-attraction">Tiêu đề <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" placeholder="Hồ Đồng Đò yên bình, thơ mộng"
-                               name="title" id="title-attraction" value="{{ old('title') }}" required>
+                        <label for="name-attraction">Tên địa điểm <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="Hồ Đồng Đò"
+                               name="name" id="name-attraction" value="{{ old('name') }}" required>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="name-attraction">Tên địa điểm <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" placeholder="Hồ Đồng Đò"
-                               name="name" id="name-attraction" value="{{ old('name') }}" required>
+                        <label for="title-attraction">Tiêu đề <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="Hồ Đồng Đò yên bình, thơ mộng"
+                               name="title" id="title-attraction" value="{{ old('title') }}" required>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -88,15 +103,19 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="attraction-avatar">Ảnh chính <span class="text-danger">*</span></label>
-                        <input type="file" class="form-control-file" id="attraction-avatar" placeholder="Ảnh avatar"
-                               name="avatar" required/>
+                        <input type="file" class="form-control-file" id="attraction-avatar"
+                               placeholder="Ảnh avatar" required/>
+                        <input type="text" id="attraction-avatar" name="avatar" hidden="true"/>
+                        <img src="{{ asset('img/tour_1.jpg') }}" id="uploaded-attraction-avatar"/>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="attraction-thumbnail">Ảnh thu nhỏ <span class="text-danger">*</span></label>
                         <input type="file" class="form-control-file" id="attraction-thumbnail"
-                               placeholder="Ảnh thumbnail" name="thumbnail" value="{{ old('thumbnail') }}" required/>
+                               placeholder="Ảnh thumbnail" required/>
+                        <input type="text" id="attraction-thumbnail" name="thumbnail" hidden="true"/>
+                        <img src="{{ asset('img/tour_1.jpg') }}" id="uploaded-attraction-thumbnail"/>
                     </div>
                 </div>
             </div>
@@ -205,14 +224,18 @@
             <button type="submit" class="btn_1 medium">Save</button>
         </p>
     </form>
+    @include('admin.attractions.modals._crop_avatar_modal')
+    @include('admin.attractions.modals._crop_thumbnail_modal')
 @endsection
 
 @section('script')
     <script src="{{ asset('admin/vendor/dropzone.min.js') }}"></script>
     <script src="{{ asset('admin/vendor/bootstrap-datepicker.js') }}"></script>
-    <script>$('input.date-pick').datepicker();</script>
+    <script src="{{ asset('js/cropper.js') }}"></script>
+    <script src="{{ asset('js/jquery-cropper.min.js') }}"></script>
     <!-- WYSIWYG Editor -->
     <script src="{{ asset('admin/js/editor/summernote-bs4.min.js') }}"></script>
+    <script src="{{ asset('js/attraction/create.js') }}"></script>
     <script>
       $('.editor').summernote({
         fontSizes: ['10', '14'],
@@ -228,43 +251,21 @@
         height: 200
       });
 
-      $(document).on('change', '#images', function () {
-        var i = $(this).prev('label').clone();
-        var file = $(this)[0].files[0].name;
-        $(this).prev('label').text(file);
-      });
-
       $('#province-attraction').change(function () {
-        var url = new URL('{{ route('api.districts.index') }}');
-        var params = { province:$(this).val() };
-        Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
-        fetch(url)
-            .then(response => response.json())
-            .then(result => {
-              $('#district-attraction').children().remove().end();
-              result.data.forEach(function (data) {
-                $("#district-attraction").append('<option value="' + data.id + '">'+ data.name + '</option>');
+          var url = new URL('{{ route('api.districts.index') }}');
+          var params = { province:$(this).val() };
+          Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+          fetch(url)
+              .then(response => response.json())
+              .then(result => {
+                  $('#district-attraction').children().remove().end();
+                  result.data.forEach(function (data) {
+                      $("#district-attraction").append('<option value="' + data.id + '">'+ data.name + '</option>');
+                  });
+              })
+              .catch(error => {
+                  console.error('Error:', error);
               });
-            })
-            .catch(error => {
-              console.error('Error:', error);
-            });
       });
-
-      const cloneFile = (e) => {
-        fileForm = $(".multi-file-images").eq(0).clone();
-        fileForm.find('input').val("");
-        fileForm.find('.custom-file-label').text("Chọn ảnh");
-        fileForm.insertBefore($(e));
-      }
-
-      function clearFile(e) {
-        if ($('.multi-file-images').length == 1) {
-          $(e).prevAll('input').val("");
-          $(e).prevAll('.custom-file-label').text("Chọn ảnh");
-        } else {
-          $(e).prev().prev('.multi-file-images').remove();
-        }
-      }
     </script>
 @endsection
