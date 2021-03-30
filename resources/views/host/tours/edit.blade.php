@@ -45,9 +45,9 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="total-price-tour">Tổng chi phí <span class="text-danger">*</span></label>
-                        <input type="number" class="form-control" name="total_price"
-                               id="total-price-tour" value="{{ $tour->total_price }}" required>
+                        <label for="price-tour">Tổng chi phí <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" name="price"
+                               id="price-tour" value="{{ $tour->price }}" required>
                     </div>
                 </div>
             </div>
@@ -281,6 +281,11 @@
                 .catch(error => {
                     alert('Thêm địa điểm thất bại');
                 });
+        });
+
+        $('input[name="price"]').keyup(function (e) {
+            var x = numberWithCommas((e.target.value.toString()).replaceAll('.',''));
+            $(this).val(x);
         });
     </script>
 @endsection

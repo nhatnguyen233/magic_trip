@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBookingTourTable extends Migration
+class CreateBookTourTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateBookingTourTable extends Migration
      */
     public function up()
     {
-        Schema::create('booking_tour', function (Blueprint $table) {
+        Schema::create('book_tour', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('tour_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->timestamp('date_of_booking')->nullable();
+            $table->timestamp('date_of_book')->nullable();
+            $table->integer('quantity')->nullable();
+            $table->double('total_price')->nullable();
             $table->integer('status')->default(0);
             $table->timestamps();
 //            $table->foreign('user_id')->references('id')->on('users');
@@ -32,6 +34,6 @@ class CreateBookingTourTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('booking_tour');
+        Schema::dropIfExists('book_tour');
     }
 }

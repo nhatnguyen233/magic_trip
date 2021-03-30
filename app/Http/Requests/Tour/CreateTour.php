@@ -37,7 +37,7 @@ class CreateTour extends FormRequest
             'description' => [
                 'nullable',
             ],
-            'total_price' => [
+            'price' => [
                 'required',
                 'numeric',
             ],
@@ -66,7 +66,7 @@ class CreateTour extends FormRequest
     {
         $this->merge([
             'user_id' => auth('host')->id(),
-            'total_price' => doubleval(str_replace('.','',$this->total_price)),
+            'price' => doubleval(str_replace('.','',$this->price)),
         ]);
     }
 }
