@@ -23,9 +23,14 @@ class User extends Authenticatable
         'email',
         'password',
         'phone_verified_at',
+        'country_id',
+        'province_id',
+        'district_id',
         'address',
         'bank_id',
+        'payment_id',
         'role_id',
+        'postal_code',
         'avatar'
     ];
 
@@ -52,6 +57,31 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function payment()
+    {
+        return $this->belongsTo(Payment::class, 'payment_id', 'id');
+    }
+
+    public function province()
+    {
+        return $this->belongsTo(Province::class, 'province_id', 'id');
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class, 'district_id', 'id');
+    }
+
+    public function country()
+    {
+        return$this->belongsTo(Country::class, 'country_id', 'id');
+    }
+
+    public function bookTours()
+    {
+        return $this->belongsToMany(BookTour::class, 'bills','book_tour_id','user_id');
     }
 
     public function isAdmin()

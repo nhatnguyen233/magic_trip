@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRoomImagesTable extends Migration
+class CreatePaymentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateRoomImagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('room_images', function (Blueprint $table) {
+        Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('room_id');
-            $table->string('url');
+            $table->string('name')->nullable();
+            $table->integer('card_number');
+            $table->integer('expire_month');
+            $table->integer('expire_year');
+            $table->string('security_code');
             $table->timestamps();
-//            $table->foreign('room_id')->references('id')->on('rooms');
         });
     }
 
@@ -29,6 +31,6 @@ class CreateRoomImagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('room_images');
+        Schema::dropIfExists('payments');
     }
 }

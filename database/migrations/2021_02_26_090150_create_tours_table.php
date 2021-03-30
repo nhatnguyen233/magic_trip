@@ -19,8 +19,9 @@ class CreateToursTable extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('vehicle')->nullable();
-            $table->double('total_price')->nullable();
+            $table->double('price')->nullable();
             $table->string('total_time')->nullable();
+            $table->integer('discount')->nullable();
             $table->string('avatar')->nullable();
             $table->string('thumbnail')->nullable();
             $table->timestamps();
