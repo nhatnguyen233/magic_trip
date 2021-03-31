@@ -19,6 +19,7 @@ class AuthController extends Controller
     {
         $this->middleware('auth.' . $this->guardName)->except([
             'showLoginForm',
+            'showRegisterForm',
             'login',
             'redirectToProvider',
         ]);
