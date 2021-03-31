@@ -262,7 +262,7 @@
                 <aside class="col-lg-4" id="sidebar">
                     <div class="box_detail booking">
                         <div class="price">
-                            <h4>{{ number_format($tour->total_price, 0, '', ',') }} VND <small>/ 1 người</small></h4>
+                            <h4>{{ number_format($tour->price, 0, '', ',') }} VND <small>/ 1 người</small></h4>
                             <div class="score"><span>Good<em>350 Reviews</em></span><strong>7.0</strong></div>
                         </div>
                         <div class="form-group input-dates">
