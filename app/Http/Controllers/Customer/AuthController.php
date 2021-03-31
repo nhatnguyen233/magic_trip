@@ -15,4 +15,9 @@ class AuthController extends BaseAuthController
         $this->guardName = 'customer';
         parent::__construct();
     }
+
+    public function showRegisterForm()
+    {
+        return view('customer.register');
+    }
 }

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Customer\TourController;
+use App\Http\Controllers\Customer\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,5 @@ use App\Http\Controllers\Customer\TourController;
 */
 
 Route::get('/',[HomeController::class, 'index']);
+Route::get('/register',[AuthController::class, 'showRegisterForm'])->name('customer.register.form');
 Route::resource('/tours',TourController::class);
