@@ -20,7 +20,8 @@ class UserSeeder extends Seeder
             'email' => 'user@example.com',
             'password' => '123456',
             'address' => 'Hoài Đức, Hà Nội',
-            'role_id' => 1
+            'role_id' => 1,
+            'payment_id' => 1,
         ]);
 
         $host = User::create([
@@ -29,7 +30,8 @@ class UserSeeder extends Seeder
             'email' => 'host@example.com',
             'password' => '123456',
             'address' => 'Quận 1, TP. Hồ Chí Minh',
-            'role_id' => 2
+            'role_id' => 2,
+            'payment_id' => 2,
         ]);
 
         $admin = User::create([
@@ -38,7 +40,8 @@ class UserSeeder extends Seeder
             'email' => 'admin@example.com',
             'password' => '123456',
             'address' => 'Đà Nẵng',
-            'role_id' => 3
+            'role_id' => 3,
+            'payment_id' => 3,
         ]);
     }
 }

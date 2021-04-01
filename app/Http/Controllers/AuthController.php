@@ -22,6 +22,7 @@ class AuthController extends Controller
             'showRegisterForm',
             'login',
             'redirectToProvider',
+            'registerCustomers'
         ]);
 
         $this->middleware('guest:' . $this->guardName)->except([

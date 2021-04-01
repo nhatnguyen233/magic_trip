@@ -1,20 +1,22 @@
 <?php
 
-namespace App\Repositories\User;
+namespace App\Repositories\Payment;
 
 use App\Enums\UserRole;
+use App\Models\Payment;
 use App\Models\User;
+use App\Repositories\Payment\PaymentRepository;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Exceptions\RepositoryException;
 
-class UserRepositoryEloquent extends BaseRepository implements UserRepository
+class PaymentEloquent extends BaseRepository implements PaymentRepository
 {
     public function model()
     {
-        return User::class;
+        return Payment::class;
     }
 
     /**
@@ -26,20 +28,22 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         $this->pushCriteria(app(RequestCriteria::class));
     }
 
-    public function createUserInfo(array $inputs)
+    public function createPaymentInfo(array $inputs)
     {
         try {
             DB::beginTransaction();
-                $user = $this->create(array_merge([
-                    'name' => $inputs['firstname'] . '' .$inputs['lastname'],
-                    'email' => $inputs['email'],
-                    'phone' => $inputs['phone'],
-                    'role_id' => UserRole::CUSTOMER,
-                    'password' => $inputs['password'],
+                $payment = $this->create(array_merge([
+                    'name' => $inputs['name'],
+                    'card_number' => $inputs['card_number'],
+                    'expire_month' => $inputs['expire_month'],
+                    'expire_year' => $inputs['expire_year'],
+                    'ccv' => $inputs['ccv'],
+                    'security_code' => bcrypt('12345678'),
               ]));
                         
             DB::commit();
-            return $user;
+
+            return $payment;
 
      } catch (\Exception $e) {
             Log::error($e);
