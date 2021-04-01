@@ -19,8 +19,6 @@ use App\Http\Controllers\Customer\AuthController;
 Route::get('/',[HomeController::class, 'index']);
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/register',[AuthController::class, 'showRegisterForm'])->name('customer.register.form');
-Route::post('/register',[AuthController::class, 'registerCustomers'])->name('customer.register');
-
 Route::resource('/tours',TourController::class);
 
 Route::middleware('auth.customer')->group(function() {
