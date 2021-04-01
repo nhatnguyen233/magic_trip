@@ -38,7 +38,6 @@
 <div id="page">
 
     @include('layouts.user.header')
-
     <main>
         @yield('content')
     </main>
