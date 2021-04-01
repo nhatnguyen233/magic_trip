@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
-use App\Models\Tour;
+use App\Http\Requests\Review\CreateReview;
+use App\Models\Review;
 use App\Repositories\Review\ReviewRepository;
 use Illuminate\Http\Request;
 
-class TourController extends Controller
+class ReviewController extends Controller
 {
     protected $reviewRepository;
 
@@ -15,6 +16,7 @@ class TourController extends Controller
     {
         $this->reviewRepository = $reviewRepository;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -38,34 +40,36 @@ class TourController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  CreateReview  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateReview $request)
     {
-        //
+        $review = $this->reviewRepository->createReview($request->validated());
+
+        return redirect()->back()
+            ->with('review', $review)
+            ->with('success', 'Đánh giá của bạn đã được ghi lại');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Tour  $tour
+     * @param  \App\Models\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function show(Tour $tour)
+    public function show(Review $review)
     {
-        $reviews = $this->reviewRepository->findWhere(['tour_id' => $tour->id]);
-
-        return view('customer.tours.tour-detail', compact('tour', 'reviews'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Tour  $tour
+     * @param  \App\Models\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tour $tour)
+    public function edit(Review $review)
     {
         //
     }
@@ -74,10 +78,10 @@ class TourController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Tour  $tour
+     * @param  \App\Models\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tour $tour)
+    public function update(Request $request, Review $review)
     {
         //
     }
@@ -85,10 +89,10 @@ class TourController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Tour  $tour
+     * @param  \App\Models\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tour $tour)
+    public function destroy(Review $review)
     {
         //
     }
