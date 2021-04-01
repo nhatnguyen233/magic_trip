@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class AuthController extends BaseAuthController
 {
     protected $service;
-    protected $redirectTo = 'home';
+    protected $redirectTo = '/';
 
     public function __construct()
     {

@@ -10,8 +10,23 @@
     </div>
     <ul id="top_menu">
         <li><a href="cart-1.html" class="cart-menu-btn" title="Cart"><strong>4</strong></a></li>
-        <li><a href="#sign-in-dialog" id="sign-in" class="login" title="Sign In">Sign In</a></li>
         <li><a href="wishlist.html" class="wishlist_bt_top" title="Your wishlist">Your wishlist</a></li>
+        @guest('customer')
+            <li><a href="#sign-in-dialog" id="sign-in" class="login" title="Đăng nhập">Đăng nhập</a></li>
+        @endguest
+        @auth('customer')
+            <div class="btn-group">
+                <button type="button" class="btn btn-outline-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ auth('customer')->user()->name }}
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Tài khoản</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal">
+                        <i class="fa fa-fw fa-sign-out"></i>Đăng xuất</a>
+                </div>
+            </div>
+        @endauth
     </ul>
     <!-- /top_menu -->
     <a href="#menu" class="btn_mobile">
@@ -26,15 +41,6 @@
             <li><span><a href="#0">Trang chủ</a></span>
                 <ul>
                     <li><a href="/">Home Default</a></li>
-                    <li><a href="index-2.html">Home Slider</a></li>
-                    <li><a href="index-3.html">Home Video BG</a></li>
-                    <li><a href="index-4.html">Home Layer Slider</a></li>
-                    <li><a href="index-5.html">Home Search 2</a></li>
-                    <li><a href="index-10.html">Home Search 3 <strong>New!</strong></a></li>
-                    <li><a href="index-7.html">Home Search 4</a></li>
-                    <li><a href="index-6.html">Home GDPR (EU law)</a></li>
-                    <li><a href="index-8.html">Address Autocomplete</a></li>
-                    <li><a href="index-9.html">Home AirBnb</a></li>
                 </ul>
             </li>
             <li><span><a href="#0">Tours</a></span>

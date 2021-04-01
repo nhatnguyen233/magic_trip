@@ -77,6 +77,10 @@ class AuthController extends Controller
     {
         $this->guard()->logout();
 
+        if($this->guardName == 'customer') {
+            return redirect('/');
+        }
+
         return redirect(route($this->guardName . '.login'));
     }
 
