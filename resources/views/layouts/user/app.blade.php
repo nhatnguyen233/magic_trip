@@ -51,44 +51,44 @@
 <!-- Sign In Popup -->
 <div id="sign-in-dialog" class="zoom-anim-dialog mfp-hide">
     <div class="small-dialog-header">
-        <h3>Sign In</h3>
+        <h3>Đăng nhập</h3>
     </div>
-    <form>
+    <form action="{{ route('login') }}" method="POST">
+        @csrf
         <div class="sign-in-wrapper">
-            <a href="#0" class="social_bt facebook">Login with Facebook</a>
-            <a href="#0" class="social_bt google">Login with Google</a>
-            <div class="divider"><span>Or</span></div>
+            <a href="#0" class="social_bt facebook">Đăng nhập với Facebook</a>
+            <a href="#0" class="social_bt google">Đăng nhập với Google</a>
+            <div class="divider"><span>Hoặc</span></div>
             <div class="form-group">
                 <label>Email</label>
                 <input type="email" class="form-control" name="email" id="email">
                 <i class="icon_mail_alt"></i>
             </div>
             <div class="form-group">
-                <label>Password</label>
+                <label>Mật khẩu</label>
                 <input type="password" class="form-control" name="password" id="password" value="">
                 <i class="icon_lock_alt"></i>
             </div>
             <div class="clearfix add_bottom_15">
                 <div class="checkboxes float-left">
-                    <label class="container_check">Remember me
+                    <label class="container_check">Nhớ phiên đăng nhập
                         <input type="checkbox">
                         <span class="checkmark"></span>
                     </label>
                 </div>
-                <div class="float-right mt-1"><a id="forgot" href="javascript:void(0);">Forgot Password?</a></div>
+                <div class="float-right mt-1"><a id="forgot" href="javascript:void(0);">Quên mật khẩu?</a></div>
             </div>
-            <div class="text-center"><input type="submit" value="Log In" class="btn_1 full-width"></div>
+            <div class="text-center"><input type="submit" value="Đăng nhập" class="btn_1 full-width"></div>
             <div class="text-center">
-                Don’t have an account? <a href="{{ route('customer.register.form') }}">Sign up</a>
+                Bạn đã có tài khoản? <a href="{{ route('customer.register.form') }}">Đăng ký</a>
             </div>
             <div id="forgot_pw">
                 <div class="form-group">
-                    <label>Please confirm login email below</label>
+                    <label>Vui lòng xác nhận Email đăng nhập bên dưới</label>
                     <input type="email" class="form-control" name="email_forgot" id="email_forgot">
                     <i class="icon_mail_alt"></i>
                 </div>
-                <p>You will receive an email containing a link allowing you to reset your password to a new preferred
-                    one.</p>
+                <p>Bạn sẽ nhận được một email có chứa một liên kết cho phép bạn đặt lại mật khẩu của mình.</p>
                 <div class="text-center"><input type="submit" value="Reset Password" class="btn_1"></div>
             </div>
         </div>
@@ -96,6 +96,29 @@
     <!--form -->
 </div>
 <!-- /Sign In Popup -->
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="LogoutModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="LogoutModalLabel">Bạn đã sẵn sàng đăng xuất?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Chọn "Đăng xuất" nếu bạn đã sẵn sàng kết thúc phiên đăng nhập của mình.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy bỏ</button>
+                    <button class="btn btn-danger" type="submit">Đăng xuất</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 
 <div id="toTop"></div><!-- Back to top button -->
 
@@ -123,6 +146,10 @@
     $('input[name="dates"]').on('cancel.daterangepicker', function (ev, picker) {
       $(this).val('');
     });
+
+    @if(session()->has('error'))
+        alert('Đăng nhập không thành công!');
+    @endif
   });
 </script>
 
