@@ -97,9 +97,15 @@
                             <div class="row">
                                 <div class="col-lg-3">
                                     <div id="review_summary">
-                                        <strong>8.5</strong>
-                                        <em>Superb</em>
-                                        <small>Based on 4 reviews</small>
+                                        <strong>{{ $average }}</strong>
+                                        @if($average >= 8)
+                                            <em>Tuyệt vời</em>
+                                        @elseif($average >= 5)
+                                            <em>Tốt</em>
+                                        @else
+                                            <em>Bình thường</em>
+                                        @endif
+                                        <small>Dựa trên {{ $reviews->count() }} nhận xét</small>
                                     </div>
                                 </div>
                                 <div class="col-lg-9">
@@ -156,102 +162,88 @@
                         <hr>
 
                         <div class="reviews-container">
-
-                            <div class="review-box clearfix">
-                                <figure class="rev-thumb"><img src="{{ asset('img/avatar1.jpg') }}" alt="">
-                                </figure>
-                                <div class="rev-content">
-                                    <div class="rating">
-                                        <i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i>
+                            @foreach($reviews as $item)
+                                <!-- /review-box -->
+                                    <div class="review-box clearfix">
+                                        <figure class="rev-thumb"><img src="{{ $item->user ? $item->user->avatar_url : asset('img/avatar3.jpg') }}" alt="">
+                                        </figure>
+                                        <div class="rev-content">
+                                            <div class="rating">
+                                                @for($i = 1; $i <= round(($item->rate)/2); $i++)
+                                                    <i class="icon-star voted"></i>
+                                                @endfor
+                                                @for($i = 1; $i <= 5-round(($item->rate)/2); $i++)
+                                                    <i class="icon-star"></i>
+                                                @endfor
+                                            </div>
+                                            <div class="rev-info">
+                                                {{ $item->user ? $item->user->name : $item->customer_name }} {{ date("d-m-Y", strtotime($item->created_at)) }}:
+                                            </div>
+                                            <div class="rev-text">
+                                                <p>
+                                                    {{ $item->content }}
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="rev-info">
-                                        Admin – April 03, 2016:
-                                    </div>
-                                    <div class="rev-text">
-                                        <p>
-                                            Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar hendrerit. Cum sociis natoque penatibus et magnis dis
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /review-box -->
-                            <div class="review-box clearfix">
-                                <figure class="rev-thumb"><img src="{{ asset('img/avatar2.jpg') }}" alt="">
-                                </figure>
-                                <div class="rev-content">
-                                    <div class="rating">
-                                        <i class="icon-star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i>
-                                    </div>
-                                    <div class="rev-info">
-                                        Ahsan – April 01, 2016:
-                                    </div>
-                                    <div class="rev-text">
-                                        <p>
-                                            Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar hendrerit. Cum sociis natoque penatibus et magnis dis
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /review-box -->
-                            <div class="review-box clearfix">
-                                <figure class="rev-thumb"><img src="{{ asset('img/avatar3.jpg') }}" alt="">
-                                </figure>
-                                <div class="rev-content">
-                                    <div class="rating">
-                                        <i class="icon-star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i>
-                                    </div>
-                                    <div class="rev-info">
-                                        Sara – March 31, 2016:
-                                    </div>
-                                    <div class="rev-text">
-                                        <p>
-                                            Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar hendrerit. Cum sociis natoque penatibus et magnis dis
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /review-box -->
+                                    <!-- /review-box -->
+                            @endforeach
                         </div>
                         <!-- /review-container -->
                     </section>
                     <!-- /section -->
                     <hr>
-
+                        @if(session()->has('success'))
+                            <div class="alert alert-success">
+                                {{ session()->get('success') }}
+                            </div>
+                        @endif
                         <div class="add-review">
-                            <h5>Leave a Review</h5>
-                            <form>
+                            <h5>Để lại đánh giá</h5>
+                            <form action="{{ route('reviews.store') }}" method="POST">
+                                @csrf
                                 <div class="row">
+                                    @guest('customer')
                                     <div class="form-group col-md-6">
-                                        <label>Name and Lastname *</label>
-                                        <input type="text" name="name_review" id="name_review" placeholder="" class="form-control">
+                                        <label for="customer_name">Họ và tên <span class="text-danger">*</span></label>
+                                        <input type="text" name="customer_name" id="customer_name"
+                                               value="{{ old('customer_name') }}" placeholder="" class="form-control" required>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label>Email *</label>
-                                        <input type="email" name="email_review" id="email_review" class="form-control">
+                                        <label for="email_review">Email <span class="text-danger">*</span></label>
+                                        <input type="email" name="email" id="email_review"
+                                               value="{{ old('email') }}" class="form-control" required>
                                     </div>
+                                    @endguest
                                     <div class="form-group col-md-6">
-                                        <label>Rating </label>
+                                        <label for="rating_review">Rating <span class="text-danger">*</span></label>
                                         <div class="custom-select-form">
-                                        <select name="rating_review" id="rating_review" class="wide">
-                                            <option value="1">1 (lowest)</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5" selected>5 (medium)</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
-                                            <option value="10">10 (highest)</option>
-                                        </select>
+                                            <select name="rate" id="rating_review" class="wide">
+                                                <option value="1">1 (Chất lượng kém)</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5" selected>5 (Bình thường)</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10 (Cực tốt)</option>
+                                            </select>
                                         </div>
                                     </div>
+                                    <div class="form-group col-md-6" hidden>
+                                        <label>Tour <span class="text-danger">*</span></label>
+                                        <input type="hidden" name="tour_id" id="tour_review" value="{{ $tour->first()->id }}" class="form-control">
+                                    </div>
                                     <div class="form-group col-md-12">
-                                        <label>Your Review</label>
-                                        <textarea name="review_text" id="review_text" class="form-control" style="height:130px;"></textarea>
+                                        <label for="review_content">Đánh giá</label>
+                                        <textarea name="content" id="review_content" class="form-control" style="height:130px;">
+                                            {{ old('content') }}
+                                        </textarea>
                                     </div>
                                     <div class="form-group col-md-12 add_top_20">
-                                        <input type="submit" value="Submit" class="btn_1" id="submit-review">
+                                        <input type="submit" value="Đánh giá" class="btn_1" id="submit-review">
                                     </div>
                                 </div>
                             </form>
@@ -263,21 +255,21 @@
                     <div class="box_detail booking">
                         <div class="price">
                             <h4>{{ number_format($tour->price, 0, '', ',') }} VND <small>/ 1 người</small></h4>
-                            <div class="score"><span>Good<em>350 Reviews</em></span><strong>7.0</strong></div>
+                            <div class="score"><span>Tốt<em>350 đánh giá</em></span><strong>7.0</strong></div>
                         </div>
                         <div class="form-group input-dates">
-                            <input class="form-control" type="text" name="dates" placeholder="When..">
+                            <input class="form-control" type="text" name="dates" placeholder="Thời gian...">
                             <i class="icon_calendar"></i>
                         </div>
                         <div class="panel-dropdown">
-                            <a href="#">Guests <span class="qtyTotal">1</span></a>
+                            <a href="#">Khách <span class="qtyTotal">1</span></a>
                             <div class="panel-dropdown-content right">
                                 <div class="qtyButtons">
-                                    <label>Adults</label>
+                                    <label>Người lớn</label>
                                     <input type="text" name="qtyInput" value="1">
                                 </div>
                                 <div class="qtyButtons">
-                                    <label>Childrens</label>
+                                    <label>Trẻ nhỏ</label>
                                     <input type="text" name="qtyInput" value="0">
                                 </div>
                             </div>

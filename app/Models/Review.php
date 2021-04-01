@@ -10,12 +10,20 @@ class Review extends Model
     use HasFactory;
 
     protected $fillable = [
+        'customer_name',
+        'tour_id',
         'user_id',
         'accommodation_id',
         'room_id',
         'content',
+        'email',
         'rate'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 
     public function images()
     {

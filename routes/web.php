@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Customer\TourController;
 use App\Http\Controllers\Customer\AuthController;
+use App\Http\Controllers\Customer\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,10 +17,12 @@ use App\Http\Controllers\Customer\AuthController;
 |
 */
 
-Route::get('/',[HomeController::class, 'index']);
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/register',[AuthController::class, 'showRegisterForm'])->name('customer.register.form');
+
+Route::get('/',[HomeController::class, 'index']);
 Route::resource('/tours',TourController::class);
+Route::resource('/reviews',ReviewController::class);
 
 Route::middleware('auth.customer')->group(function() {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

@@ -21,6 +21,8 @@ use App\Repositories\Tour\TourEloquent;
 use App\Repositories\Tour\TourRepository;
 use App\Repositories\TourInfo\TourInfoEloquent;
 use App\Repositories\TourInfo\TourInfoRepository;
+use App\Repositories\Review\ReviewEloquent;
+use App\Repositories\Review\ReviewRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -60,6 +62,10 @@ class RepositoryServiceProvider extends ServiceProvider
         [
             'abstract' => TourInfoRepository::class,
             'concrete' => TourInfoEloquent::class,
+        ],
+        [
+            'abstract' => ReviewRepository::class,
+            'concrete' => ReviewEloquent::class,
         ],
     ];
 
