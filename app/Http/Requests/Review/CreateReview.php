@@ -54,4 +54,18 @@ class CreateReview extends FormRequest
             ],
         ];
     }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        if(auth('customer')->check()) {
+            $this->merge([
+                'user_id' => auth('customer')->id()
+            ]);
+        }
+    }
 }

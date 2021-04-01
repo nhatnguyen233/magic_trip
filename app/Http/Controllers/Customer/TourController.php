@@ -56,7 +56,14 @@ class TourController extends Controller
     {
         $reviews = $this->reviewRepository->findWhere(['tour_id' => $tour->id]);
 
-        return view('customer.tours.tour-detail', compact('tour', 'reviews'));
+        if($reviews->count() > 0)
+        {
+            $average = array_sum($reviews->pluck('rate')->toArray())/$reviews->count();
+        } else {
+            $average = 0;
+        }
+
+        return view('customer.tours.tour-detail', compact('tour', 'reviews', 'average'));
     }
 
     /**
