@@ -21,6 +21,8 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/register',[AuthController::class, 'showRegisterForm'])->name('customer.register.form');
 
 Route::get('/',[HomeController::class, 'index']);
+Route::post('/register',[AuthController::class, 'registerCustomers'])->name('customer.register');
+
 Route::resource('/tours',TourController::class);
 Route::resource('/reviews',ReviewController::class);
 

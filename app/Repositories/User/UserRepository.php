@@ -7,4 +7,5 @@ use Prettus\Repository\Contracts\RepositoryInterface;
 interface UserRepository extends RepositoryInterface
 {
     public function updateBaseInfo(array $params, $user);
+    public function createUserInfo(array $params);
 }

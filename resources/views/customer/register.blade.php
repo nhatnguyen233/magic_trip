@@ -1,44 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.user.app')
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description"
-          content="Panagea - Premium site template for travel agencies, hotels and restaurant listing.">
-    <meta name="author" content="Ansonika">
-    <title>Panagea | Đại lý du lịch, khách sạn và danh sách nhà hàng.</title>
+@section('content')
 
-    <!-- Favicons-->
-    <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}" type="image/x-icon">
-    <link rel="apple-touch-icon" type="image/x-icon" href="{{ asset('img/apple-touch-icon-57x57-precomposed.png') }}">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="{{ asset('img/apple-touch-icon-72x72-precomposed.png') }}">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114"
-          href="{{ asset('img/apple-touch-icon-114x114-precomposed.png') }}">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144"
-          href="{{ asset('img/apple-touch-icon-144x144-precomposed.png') }}">
-
-    <!-- GOOGLE WEB FONT -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-          rel="stylesheet">
-
-    <!-- BASE CSS -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/front/style.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/front/vendors.css') }}" rel="stylesheet">
-
-    <!-- YOUR CUSTOM CSS -->
-    <link href="{{ asset('css/front/custom.css') }}" rel="stylesheet">
-    @yield('style')
-</head>
 <body>
-    <div class="container">
+    <br />
+    <br />
+    <br />
+    <br />
+    <div class="container" style="background-color: #fc5b62;">
         <div class="bg_color_1">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <form action="" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('customer.register') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
                             <div class="box_cart">
                                 <div class="message">
                                     <h1>Đăng ký tài khoản</h1>
@@ -55,13 +30,13 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>First name</label>
-                                                <input type="text" class="form-control" id="firstname_booking" name="firstname_booking">
+                                                <input type="text" class="form-control" id="firstname" name="firstname">
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>Last name</label>
-                                                <input type="text" class="form-control" id="lastname_booking" name="lastname_booking">
+                                                <input type="text" class="form-control" id="lastname" name="lastname">
                                             </div>
                                         </div>
                                     </div>
@@ -69,13 +44,13 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>Email</label>
-                                                <input type="email" id="email_booking" name="email_booking" class="form-control">
+                                                <input type="email" id="email" name="email" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label>Confirm email</label>
-                                                <input type="email" id="email_booking_2" name="email_booking_2" class="form-control">
+                                                <label>Password</label>
+                                                <input type="password" id="password" name="password" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -83,7 +58,13 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>Telephone</label>
-                                                <input type="text" id="telephone_booking" name="telephone_booking" class="form-control">
+                                                <input type="text" id="phone" name="phone" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Confirm password</label>
+                                                <input type="password" id="comfirm_password" name="comfirm_password" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -100,7 +81,7 @@
                                 <div class="step">
                                     <div class="form-group">
                                         <label>Tên thẻ</label>
-                                        <input type="text" class="form-control" id="name_card_bookign" name="name_card_bookign">
+                                        <input type="text" class="form-control" id="name" name="name">
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12">
@@ -156,60 +137,77 @@
                                         Địa chỉ liên hệ trực tiếp
                                     </p>
                                 </div>
-                                <div class="step">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label for="country">Quốc gia</label>
-                                                <select name="country" class="form-control" id="country">
-                                                    <option value="" selected>Chọn quốc gia</option>
-                                                    <option value="Europe">Europe</option>
-                                                    <option value="United states">United states</option>
-                                                    <option value="South America">South America</option>
-                                                    <option value="Oceania">Oceania</option>
-                                                    <option value="Asia">Asia</option>
-                                                </select>
-                                            </div>
-                                        </div>
+                                <div class="box_general padding_bottom">
+                                    <div class="header_box version_2">
                                     </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>Street line 1</label>
-                                                <input type="text" id="street_1" name="street_1" class="form-control">
+                                    <div class="box_general padding_bottom">
+                                        <div class="header_box version_2">
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="country-attraction">Chọn quốc gia <span class="text-danger">*</span></label>
+                                                    <div class="styled-select">
+                                                        <select name="country_id" id="country-attraction">
+                                                            <option value="1" selected>Viet Nam</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="province-attraction">Chọn Tỉnh/Thành <span class="text-danger">*</span></label>
+                                                    <div class="styled-select">
+                                                        <select name="province_id" id="province-attraction" required>
+                                                            <option selected disabled>---- Chọn tỉnh/thành ----</option>
+                                                            @foreach($provinces as $item)
+                                                            <option @if(old('province_id')==$item->id)
+                                                                selected
+                                                                @endif
+                                                                value={{ $item->id }}>
+                                                                {{ $item->name }}
+                                                            </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>Street line 2</label>
-                                                <input type="text" id="street_2" name="street_2" class="form-control">
+                                        <!-- /row-->
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="district-attraction">Chọn Xã/Phường <span class="text-danger">*</span></label>
+                                                    <div class="styled-select">
+                                                        <select name="district_id" id="district-attraction" required>
+                                                            <option selected disabled>Chọn quận,huyện</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="zipcode-attraction">Zip Code</label>
+                                                    <input type="text" class="form-control" name="zipcode" id="zipcode-attraction" value="{{ old('zipcode') }}" />
+                                                </div>
                                             </div>
                                         </div>
+                                        <!-- /row-->
+                                        <!-- /row-->
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="address-attraction">Địa chỉ chi tiết</label>
+                                                    <input type="text" class="form-control" name="address" id="address-attraction" placeholder="An Khánh, Hoài Đức, Hà Nội..." value="{{ old('address') }}" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /row-->
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <div class="form-group">
-                                                <label>City</label>
-                                                <input type="text" id="city_booking" name="city_booking" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6">
-                                            <div class="form-group">
-                                                <label>State</label>
-                                                <input type="text" id="state_booking" name="state_booking" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6">
-                                            <div class="form-group">
-                                                <label>Postal code</label>
-                                                <input type="text" id="postal_code" name="postal_code" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--End row -->
+                                    <!-- /row-->
                                 </div>
                                 <div class="d-flex justify-content-center m-2">
-                                    <input type="submit" class="btn btn-danger" value="Tạo tài khoản">
+                                    <button type="submit" class="btn btn-danger" value="Tạo tài khoản">Tạo tài khoản</button>
                                 </div>
                                 <hr>
                                 <!--End step -->
@@ -223,4 +221,22 @@
         </div>
     </div>
 </body>
-
+<script>
+     $('#province-attraction').change(function () {
+          var url = new URL('{{ route('api.districts.index') }}');
+          var params = { province:$(this).val() };
+          Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+          fetch(url)
+              .then(response => response.json())
+              .then(result => {
+                  $('#district-attraction').children().remove().end();
+                  result.data.forEach(function (data) {
+                      $("#district-attraction").append('<option value="' + data.id + '">'+ data.name + '</option>');
+                  });
+              })
+              .catch(error => {
+                  console.error('Error:', error);
+              });
+      });
+</script>
+@endsection
