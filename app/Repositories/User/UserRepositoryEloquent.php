@@ -6,6 +6,8 @@ use App\Enums\UserRole;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Exceptions\RepositoryException;
@@ -26,24 +28,26 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         $this->pushCriteria(app(RequestCriteria::class));
     }
 
-    public function createUserInfo(array $inputs)
+    public function createUserInfo(array $params)
     {
         try {
-            DB::beginTransaction();
-                $user = $this->create(array_merge([
-                    'name' => $inputs['firstname'] . '' .$inputs['lastname'],
-                    'email' => $inputs['email'],
-                    'phone' => $inputs['phone'],
-                    'role_id' => UserRole::CUSTOMER,
-                    'password' => $inputs['password'],
-              ]));
-                        
-            DB::commit();
-            return $user;
+            if (isset($params['avatar'])) {
+                $fileName = Str::uuid() . '.' . $params['avatar']->getClientOriginalExtension();
+                $fullPath = 'customers/avatars/' . $fileName;
+                Storage::disk('s3')->put($fullPath, file_get_contents($params['avatar']), 'public');
+                $params['avatar'] = $fullPath;
+            }
 
-     } catch (\Exception $e) {
+            $data = array_filter($params, function ($key) {
+                return in_array($key, ['name', 'email', 'phone', 'role_id', 'province_id', 'district_id',
+                    'country_id', 'password', 'address', 'avatar', 'postal_code']);
+            }, ARRAY_FILTER_USE_KEY);
+
+            return $this->create($data);
+        } catch (\Exception $e) {
             Log::error($e);
             DB::rollBack();
+            throw $e;
         }
     }
 

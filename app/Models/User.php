@@ -110,6 +110,6 @@ class User extends Authenticatable
 
     public function getAvatarUrlAttribute()
     {
-        return ($this->avatar) ? Storage::disk('s3')->url($this->avatar) : asset('img/avatar3.jpg');
+        return ($this->avatar) ? Storage::disk('s3')->url($this->avatar) : asset('img/anh-dai-dien.jpg');
     }
 }

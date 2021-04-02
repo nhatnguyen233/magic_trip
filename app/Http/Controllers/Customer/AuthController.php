@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\AuthController as BaseAuthController;
+use App\Http\Requests\User\Register;
 use App\Repositories\Payment\PaymentRepository;
 use Illuminate\Http\Request;
 use App\Repositories\Province\ProvinceRepository;
 use App\Repositories\User\UserRepository;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends BaseAuthController
 {
@@ -27,18 +29,17 @@ class AuthController extends BaseAuthController
 
     public function showRegisterForm()
     {
-        $this->viewData['provinces'] = $this->provinceRepository->all();
+        $viewData['provinces'] = $this->provinceRepository->all();
 
-        return view('customer.register', $this->viewData);
+        return view('customer.register', $viewData);
     }
 
-    public function registerCustomers(Request $request)
-    {        
-        if ($this->userRepository->createUserInfo($request->except(['_token'])) && $this->paymentRepository->createPaymentInfo($request->except(['_token']))) {
-            return redirect()->route('customer.home')->with('success', __('messages.create_success'));
-        }
+    public function registerCustomers(Register $request)
+    {
+        $customer = $this->userRepository->createUserInfo($request->validated());
+        Auth::guard('customer')->login($customer);
 
-        return redirect()->back()->with('error', __('messages.create_fail'));
+        return redirect(url('/'))->with('customer', $customer);
     }
 
 }
