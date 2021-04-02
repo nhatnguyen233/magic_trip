@@ -26,6 +26,7 @@ class AuthController extends Controller
 
         $this->middleware('guest:' . $this->guardName)->except([
             'logout',
+            'store'
         ]);
     }
 
