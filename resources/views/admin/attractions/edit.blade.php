@@ -24,6 +24,11 @@
             </ul>
         </div>
     @endif
+    @if(session()->has('success'))
+        <div class="alert alert-success">
+            {{ session()->get('success') }}
+        </div>
+    @endif
     <form action="{{ route('admin.attractions.update', ['attraction' => $attraction->id]) }}" method="post" enctype="multipart/form-data">
         @method('PUT')
         @csrf
@@ -347,7 +352,7 @@
 
       $(document).on('click', '#removeImage', function () {
         var id = $(this).data('id');
-        var url = '{{ Illuminate\Support\Facades\URL::to('/') }}' + '/admincp/attraction-images/' + id;
+        var url = window.location.origin + '/admincp/attraction-images/' + id;
         $('#form-remove-image').attr('action', url);
       });
     </script>

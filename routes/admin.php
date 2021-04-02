@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\AttractionController;
 use App\Http\Controllers\Admin\AttractionImageController;
 use App\Http\Controllers\Admin\AccommodationController;
 use App\Http\Controllers\Admin\CategoriesController;
+use App\Http\Controllers\Admin\AccommodationImageController;
+
 /*
 |--------------------------------------------------------------------------
 | Admin Routes
@@ -27,6 +29,8 @@ Route::middleware('auth.admin')->group(function() {
     Route::resource('/accommodations', AccommodationController::class)
         ->only(['index', 'show', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::resource('/attraction-images', AttractionImageController::class)
+        ->only(['destroy',]);
+    Route::resource('/accommodation-images', AccommodationImageController::class)
         ->only(['destroy',]);
 });
 

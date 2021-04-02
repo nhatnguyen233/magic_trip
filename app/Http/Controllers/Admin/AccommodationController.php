@@ -83,7 +83,9 @@ class AccommodationController extends Controller
      */
     public function edit(Accommodation $accommodation)
     {
-        //
+        $provinces = $this->provinceRepository->all();
+
+        return view('admin.accommodations.edit', compact('accommodation','provinces'));
     }
 
     /**
@@ -95,7 +97,12 @@ class AccommodationController extends Controller
      */
     public function update(Request $request, Accommodation $accommodation)
     {
-        //
+        $this->accommodationRepository->updateAccommodation($request->all(),$accommodation->id);
+        if($request->images) {
+            $this->accommodationRepository->insertAccommodationImages($request->images, $accommodation->id, auth('admin')->id());
+        }
+
+        return redirect()->route('admin.accommodations.index')->with('success', 'Cập nhật thành công');
     }
 
     /**

@@ -71,7 +71,33 @@ class AccommodationEloquent extends BaseRepository implements AccommodationRepos
      */
     public function updateAccommodation(array $params, $id)
     {
+        try {
+            DB::beginTransaction();
+            $accommodation = $this->find($id);
 
+            if (isset($params['avatar'])) {
+                Storage::disk('s3')->delete($accommodation->avatar);
+                $fileName = Str::uuid() . '.' . $params['avatar']->getClientOriginalExtension();
+                $fullPath = 'accommodations/avatars/' . time() . $fileName;
+                Storage::disk('s3')->put($fullPath, file_get_contents($params['avatar']), 'public');
+                $params['avatar'] = $fullPath;
+            }
+
+            $data = array_filter($params, function ($key) {
+                return in_array($key, ['name', 'slug', 'lowest_price', 'phone', 'ward_id', 'number_of_rooms',
+                    'description', 'country_id', 'province_id', 'district_id', 'latitude', 'longitude',
+                    'thumbnail', 'address', 'avatar', 'status']);
+            }, ARRAY_FILTER_USE_KEY);
+
+            $accommodation->update($data);
+            DB::commit();
+
+            return $accommodation;
+        } catch (Exception $exception) {
+            Log::error($exception);
+            DB::rollBack();
+            throw $exception;
+        }
     }
 
     /**
