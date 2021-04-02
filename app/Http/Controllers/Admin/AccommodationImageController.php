@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Customer;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Tour;
-use App\Repositories\Review\ReviewRepository;
+use App\Models\AccommodationImage;
+use App\Repositories\AccommodationImage\AccommodationImageRepository;
 use Illuminate\Http\Request;
 
-class TourController extends Controller
+class AccommodationImageController extends Controller
 {
-    protected $reviewRepository;
+    protected $accommodationImageRepository;
 
-    public function __construct(ReviewRepository $reviewRepository)
+    public function __construct(AccommodationImageRepository $accommodationImageRepository)
     {
-        $this->reviewRepository = $reviewRepository;
+        $this->accommodationImageRepository = $accommodationImageRepository;
     }
     /**
      * Display a listing of the resource.
@@ -49,30 +49,21 @@ class TourController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Tour  $tour
+     * @param  \App\Models\AccommodationImage  $accommodationImage
      * @return \Illuminate\Http\Response
      */
-    public function show(Tour $tour)
+    public function show(AccommodationImage $accommodationImage)
     {
-        $reviews = $this->reviewRepository->findWhere(['tour_id' => $tour->id]);
-
-        if($reviews->count() > 0)
-        {
-            $average = array_sum($reviews->pluck('rate')->toArray())/$reviews->count();
-        } else {
-            $average = 0;
-        }
-
-        return view('customer.tours.tour-detail', compact('tour', 'reviews', 'average'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Tour  $tour
+     * @param  \App\Models\AccommodationImage  $accommodationImage
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tour $tour)
+    public function edit(AccommodationImage $accommodationImage)
     {
         //
     }
@@ -81,10 +72,10 @@ class TourController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Tour  $tour
+     * @param  \App\Models\AccommodationImage  $accommodationImage
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tour $tour)
+    public function update(Request $request, AccommodationImage $accommodationImage)
     {
         //
     }
@@ -92,11 +83,13 @@ class TourController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Tour  $tour
+     * @param  \App\Models\AccommodationImage  $accommodationImage
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tour $tour)
+    public function destroy(AccommodationImage $accommodationImage)
     {
-        //
+        $this->accommodationImageRepository->removeAccommodationImage($accommodationImage->id);
+
+        return redirect()->back()->with('success', 'Xóa ảnh thành công');
     }
 }
