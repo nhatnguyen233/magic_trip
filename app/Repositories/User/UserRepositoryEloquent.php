@@ -30,14 +30,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
     {
         try {
             DB::beginTransaction();
-                $user = $this->create(array_merge([
-                    'name' => $inputs['firstname'] . '' .$inputs['lastname'],
-                    'email' => $inputs['email'],
-                    'phone' => $inputs['phone'],
-                    'role_id' => UserRole::CUSTOMER,
-                    'password' => $inputs['password'],
-              ]));
-                        
+                $user = $this->create($inputs);     
             DB::commit();
             return $user;
 

@@ -191,6 +191,11 @@
                                                     <input type="text" class="form-control" name="zipcode" id="zipcode-attraction" value="{{ old('zipcode') }}" />
                                                 </div>
                                             </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <input type="hidden" class="form-control" name="payment_id" id="payment_id" />
+                                                </div>
+                                            </div>
                                         </div>
                                         <!-- /row-->
                                         <!-- /row-->
@@ -227,16 +232,16 @@
           var params = { province:$(this).val() };
           Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
           fetch(url)
-              .then(response => response.json())
-              .then(result => {
-                  $('#district-attraction').children().remove().end();
-                  result.data.forEach(function (data) {
-                      $("#district-attraction").append('<option value="' + data.id + '">'+ data.name + '</option>');
-                  });
-              })
-              .catch(error => {
-                  console.error('Error:', error);
-              });
-      });
+            .then(response => response.json())
+            .then(result => {
+                $('#district-attraction').children().remove().end();
+                result.data.forEach(function (data) {
+                    $("#district-attraction").append('<option value="' + data.id + '">'+ data.name + '</option>');
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
 </script>
 @endsection
