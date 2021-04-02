@@ -71,7 +71,7 @@ class AttractionEloquent extends BaseRepository implements AttractionRepository
             if (isset($params['avatar'])) {
                 Storage::disk('s3')->delete($attraction->avatar);
                 $fileName = Str::uuid() . '.' . $params['avatar']->getClientOriginalExtension();
-                $fullPath = 'attractions/avatars/' . time() . $fileName;
+                $fullPath = 'attractions/avatars/' . $fileName;
                 Storage::disk('s3')->put($fullPath, file_get_contents($params['avatar']), 'public');
                 $params['avatar'] = $fullPath;
             }
