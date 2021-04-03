@@ -23,6 +23,9 @@ Route::get('/register',[AuthController::class, 'showRegisterForm'])->name('custo
 Route::get('/',[HomeController::class, 'index']);
 Route::post('/register',[AuthController::class, 'registerCustomers'])->name('customer.register');
 
+Route::get('/update-profile/{user}',[AuthController::class, 'updateProfileView'])->name('update-profile');
+Route::post('/update-profile/{user}',[AuthController::class, 'updateProfileUser'])->name('user.update-profile');
+
 Route::resource('/tours',TourController::class);
 Route::resource('/reviews',ReviewController::class);
 

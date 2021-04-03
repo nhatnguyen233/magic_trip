@@ -25,7 +25,7 @@ class PaymentFactory extends Factory
     public function definition()
     {
         return [
-            'name'        => $this->faker->sentence(3),
+            'card_name'        => $this->faker->sentence(3),
             'card_number'=> $this->faker->randomDigit(12),
             'expire_month' => $this->faker->date('m', Carbon::now()),
             'expire_year' => $this->faker->date('Y', Carbon::now()),

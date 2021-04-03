@@ -20,7 +20,7 @@
                     {{ auth('customer')->user()->name }}
                 </button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Tài khoản</a>
+                    <a class="dropdown-item" href="{{ route('update-profile', auth('customer')->user()->id) }}">Tài khoản</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal">
                         <i class="fa fa-fw fa-sign-out"></i>Đăng xuất</a>
