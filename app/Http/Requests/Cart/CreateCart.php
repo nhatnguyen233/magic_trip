@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Cart;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Carbon;
 
 class CreateCart extends FormRequest
 {
@@ -59,6 +60,10 @@ class CreateCart extends FormRequest
                 'required',
                 'after_or_equal:start_time'
             ],
+            'expired_at' => [
+                'required',
+                'after_or_equal:today'
+            ],
             'total_price' => [
                 'nullable',
             ]
@@ -98,6 +103,7 @@ class CreateCart extends FormRequest
             'start_time' => date("Y-m-d", strtotime(explode(" ", $this->dates)[0])),
             'end_time' => date("Y-m-d", strtotime(explode(" ", $this->dates)[2])),
             'total_price' => $this->quantity*$this->price,
+            'expired_at' => Carbon::now()->addWeeks(1),
         ]);
     }
 }
