@@ -42,4 +42,21 @@ class AuthController extends BaseAuthController
         return redirect(url('/'))->with('customer', $customer);
     }
 
+    public function updateProfileView()
+    {
+        $viewData['provinces'] = $this->provinceRepository->all();
+        $viewData['user'] =  $this->userRepository->getUserLoginWithRelation();
+
+        return view('customer.update-profile', $viewData);
+    }
+
+    public function updateProfileUser(Request $request)
+    {
+        if ($this->userRepository->updateBaseInfo($request->except(['_token']))) {
+            return redirect()->back()->with('success', __('messages.update_success'));
+        }
+
+        return redirect()->back()->with('fail', __('messages.update_fail'));
+    }
+
 }

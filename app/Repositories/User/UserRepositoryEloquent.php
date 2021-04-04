@@ -4,6 +4,7 @@ namespace App\Repositories\User;
 
 use App\Enums\UserRole;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -51,8 +52,39 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         }
     }
 
-    public function updateBaseInfo(array $params, $user)
+    public function updateBaseInfo(array $params)
     {
+        try {
+            if (isset($params['avatar'])) {
+                $fileName = Str::uuid() . '.' . $params['avatar']->getClientOriginalExtension();
+                $fullPath = 'customers/avatars/' . $fileName;
+                Storage::disk('s3')->put($fullPath, file_get_contents($params['avatar']), 'public');
+                $params['avatar'] = $fullPath;
+            }
 
+            $userUpdate = $this->model->update([
+                'name' => $params['name'],
+                'email' => $params['email'],
+                'phone' => $params['phone'],
+                'role_id' => UserRole::CUSTOMER,
+                'province_id' => $params['province_id'],
+                'district_id' => $params['district_id'],
+                'country_id' => $params['country_id'],
+                'password' => $params['password'],
+                'address' => $params['address'],
+                'postal_code' => $params['postal_code'],
+            ]);
+            
+            return true;
+        } catch (\Exception $e) {
+            Log::error($e);
+            DB::rollBack();
+            throw $e;
+        }
+    }
+
+    public function getUserLoginWithRelation ()
+    {
+        return $this->model::find(Auth::guard('customer')->user()->id);
     }
 }

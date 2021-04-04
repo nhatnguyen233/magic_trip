@@ -112,4 +112,5 @@ class User extends Authenticatable
     {
         return ($this->avatar) ? Storage::disk('s3')->url($this->avatar) : asset('img/anh-dai-dien.jpg');
     }
+    
 }
