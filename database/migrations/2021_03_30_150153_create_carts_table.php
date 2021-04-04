@@ -23,6 +23,8 @@ class CreateCartsTable extends Migration
             $table->integer('discount')->nullable();
             $table->string('quantity');
             $table->string('thumbnail')->nullable();
+            $table->timestamp('start_time')->nullable();
+            $table->timestamp('end_time')->nullable();
             $table->timestamps();
 //            $table->foreign('tour_id')->references('id')->on('tours');
         });

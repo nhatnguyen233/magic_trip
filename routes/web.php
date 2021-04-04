@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Customer\TourController;
 use App\Http\Controllers\Customer\AuthController;
 use App\Http\Controllers\Customer\ReviewController;
+use App\Http\Controllers\Customer\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,7 @@ Route::post('/register',[AuthController::class, 'registerCustomers'])->name('cus
 
 Route::resource('/tours',TourController::class);
 Route::resource('/reviews',ReviewController::class);
+Route::resource('/cart',CartController::class);
 
 Route::middleware('auth.customer')->group(function() {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

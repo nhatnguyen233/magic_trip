@@ -17,7 +17,8 @@ class CreateBookTourTable extends Migration
             $table->id();
             $table->unsignedBigInteger('tour_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->timestamp('date_of_book')->nullable();
+            $table->timestamp('start_time')->nullable();
+            $table->timestamp('end_time')->nullable();
             $table->integer('quantity')->nullable();
             $table->double('total_price')->nullable();
             $table->integer('status')->default(0);

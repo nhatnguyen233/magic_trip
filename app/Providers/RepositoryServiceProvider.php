@@ -27,9 +27,14 @@ use App\Repositories\Review\ReviewEloquent;
 use App\Repositories\Review\ReviewRepository;
 use App\Repositories\AccommodationImage\AccommodationImageEloquent;
 use App\Repositories\AccommodationImage\AccommodationImageRepository;
+use App\Repositories\Cart\CartRepository;
+use App\Repositories\Cart\CartRepositoryEloquent;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
+    /**
+     * @var \string[][]
+     */
     protected $repositories = [
         [
             'abstract' => UserRepository::class,
@@ -78,6 +83,10 @@ class RepositoryServiceProvider extends ServiceProvider
         [
             'abstract' => PaymentRepository::class,
             'concrete' => PaymentEloquent::class,
+        ],
+        [
+            'abstract' => CartRepository::class,
+            'concrete' => CartRepositoryEloquent::class,
         ]
     ];
 

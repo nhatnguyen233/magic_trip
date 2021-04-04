@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Cart extends Model
 {
@@ -17,11 +18,18 @@ class Cart extends Model
         'discount',
         'quantity',
         'total_price',
-        'thumbnail'
+        'thumbnail',
+        'start_time',
+        'end_time'
     ];
 
     public function tour()
     {
         return $this->belongsTo(Tour::class, 'tour_id', 'id');
+    }
+
+    public function getThumbnailUrlAttribute()
+    {
+        return ($this->thumbnail) ? Storage::disk('s3')->url($this->thumbnail) : asset('img/tour_1.jpg');
     }
 }

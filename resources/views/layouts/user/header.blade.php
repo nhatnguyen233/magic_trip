@@ -9,7 +9,7 @@
         </a>
     </div>
     <ul id="top_menu">
-        <li><a href="cart-1.html" class="cart-menu-btn" title="Cart"><strong>4</strong></a></li>
+        <li><a href="{{ route('cart.index') }}" class="cart-menu-btn" title="Cart"><strong>{{ session()->get('total_item_cart') }}</strong></a></li>
         <li><a href="wishlist.html" class="wishlist_bt_top" title="Your wishlist">Your wishlist</a></li>
         @guest('customer')
             <li><a href="#sign-in-dialog" id="sign-in" class="login" title="Đăng nhập">Đăng nhập</a></li>

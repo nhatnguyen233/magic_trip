@@ -26,5 +26,6 @@ class SessionServiceProvider extends ServiceProvider
     public function boot()
     {
         Session::put('session_token', Str::random());
+        Session::put('total_item_cart', 0);
     }
 }
