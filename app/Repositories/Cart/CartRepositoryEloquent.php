@@ -43,7 +43,7 @@ class CartRepositoryEloquent extends BaseRepository implements CartRepository
 
             $data = array_filter($params, function ($key) {
                 return in_array($key, ['session_token', 'tour_name', 'tour_id', 'price', 'quantity', 'discount',
-                    'thumbnail', 'start_time', 'end_time', 'total_price']);
+                    'thumbnail', 'start_time', 'end_time', 'total_price', 'expired_at']);
             }, ARRAY_FILTER_USE_KEY);
 
             return $this->updateOrCreate([

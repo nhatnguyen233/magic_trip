@@ -20,7 +20,8 @@ class Cart extends Model
         'total_price',
         'thumbnail',
         'start_time',
-        'end_time'
+        'end_time',
+        'expired_at'
     ];
 
     public function tour()

@@ -100,11 +100,12 @@
                                         <input type="text" name="coupon-code" value="" placeholder="Mã ưu đãi của bạn" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <button type="button" class="btn_1 outline">Áp dụng mã ưu đãi</button>
+                                        <button type="button" class="btn_1 outline">Áp dụng mã</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="float-right fix_mobile">
+                                <a href="{{ url()->previous() }}" class="btn_1 outline">Quay lại</a>
                                 <button type="button" class="btn_1 outline">Cập nhật</button>
                             </div>
                         </div>
