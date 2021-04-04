@@ -98,10 +98,12 @@
                                 <div class="col-lg-3">
                                     <div id="review_summary">
                                         <strong>{{ $average }}</strong>
-                                        @if($average >= 8)
+                                        @if($average >= 9)
                                             <em>Tuyệt vời</em>
-                                        @elseif($average >= 5)
+                                        @elseif($average >= 8)
                                             <em>Tốt</em>
+                                        @elseif($average >= 5)
+                                            <em>Khá tốt</em>
                                         @else
                                             <em>Bình thường</em>
                                         @endif
@@ -165,7 +167,7 @@
                             @foreach($reviews as $item)
                                 <!-- /review-box -->
                                     <div class="review-box clearfix">
-                                        <figure class="rev-thumb"><img src="{{ $item->user ? $item->user->avatar_url : asset('img/avatar3.jpg') }}" alt="">
+                                        <figure class="rev-thumb"><img src="{{ $item->user ? $item->user->avatar_url : asset('img/anh-dai-dien.jpg') }}" alt="">
                                         </figure>
                                         <div class="rev-content">
                                             <div class="rating">
@@ -226,9 +228,9 @@
                                                 <option value="5" selected>5 (Bình thường)</option>
                                                 <option value="6">6</option>
                                                 <option value="7">7</option>
-                                                <option value="8">8</option>
+                                                <option value="8">8 (Tốt)</option>
                                                 <option value="9">9</option>
-                                                <option value="10">10 (Cực tốt)</option>
+                                                <option value="10">10 (Tuyệt vời)</option>
                                             </select>
                                         </div>
                                     </div>
@@ -255,28 +257,74 @@
                     <div class="box_detail booking">
                         <div class="price">
                             <h4>{{ number_format($tour->price, 0, '', ',') }} VND <small>/ 1 người</small></h4>
-                            <div class="score"><span>Tốt<em>350 đánh giá</em></span><strong>7.0</strong></div>
-                        </div>
-                        <div class="form-group input-dates">
-                            <input class="form-control" type="text" name="dates" placeholder="Thời gian...">
-                            <i class="icon_calendar"></i>
-                        </div>
-                        <div class="panel-dropdown">
-                            <a href="#">Khách <span class="qtyTotal">1</span></a>
-                            <div class="panel-dropdown-content right">
-                                <div class="qtyButtons">
-                                    <label>Người lớn</label>
-                                    <input type="text" name="qtyInput" value="1">
-                                </div>
-                                <div class="qtyButtons">
-                                    <label>Trẻ nhỏ</label>
-                                    <input type="text" name="qtyInput" value="0">
-                                </div>
+                            <div class="score">
+
+                                <span>  @if($average >= 9)
+                                            Tuyệt vời
+                                        @elseif($average >= 8)
+                                            Tốt
+                                        @elseif($average >= 5)
+                                            Khá tốt
+                                        @else
+                                            Bình thường
+                                        @endif
+                                        <em>{{ $reviews->count() }} đánh giá</em>
+                                </span>
+                                <strong>{{ $average }}</strong>
                             </div>
                         </div>
-                        <a href="cart-1.html" class="btn_1 full-width purchase">Purchase</a>
-                        <a href="wishlist.html" class="btn_1 full-width outline wishlist"><i class="icon_heart"></i> Add to wishlist</a>
-                        <div class="text-center"><small>No money charged in this step</small></div>
+                        @if($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        <form action="{{ route('cart.store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-group" hidden>
+                                <label for="tour_id">Tour</label>
+                                <input type="text" name="tour_id" id="tour_id" value="{{ $tour->id }}"/>
+                            </div>
+                            <div class="form-group" hidden>
+                                <label for="tour_name">Tên Tour</label>
+                                <input type="text" name="tour_name" id="tour_name" value="{{ $tour->tour_name }}"/>
+                            </div>
+                            <div class="form-group" hidden>
+                                <label for="tour_name">Tên Tour</label>
+                                <input type="text" name="tour_name" id="tour_name" value="{{ $tour->name }}"/>
+                            </div>
+                            <div class="form-group" hidden>
+                                <label for="price">Giá</label>
+                                <input type="text" name="price" id="price" value="{{ $tour->price }}"/>
+                            </div>
+                            <div class="form-group" hidden>
+                                <label for="discount">Giảm giá</label>
+                                <input type="text" name="discount" id="discount" value="{{ $tour->discount }}"/>
+                            </div>
+                            <div class="form-group" hidden>
+                                <label for="thumbnail">Ảnh thu nhỏ</label>
+                                <input type="text" name="thumbnail" id="thumbnail" value="{{ $tour->thumbnail }}"/>
+                            </div>
+                            <div class="form-group input-dates">
+                                <input class="form-control" type="text" name="dates" id="dates" placeholder="Thời điểm hoàn hảo" required>
+                                <label for="dates"><i class="icon_calendar"></i></label>
+                            </div>
+                            <div class="panel-dropdown">
+                                <a href="#">Số lượng <span class="qtyTotal">1</span></a>
+                                <div class="panel-dropdown-content right">
+                                    <div class="qtyButtons">
+                                        <label for="quantity">Số lượng</label>
+                                        <input type="text" name="quantity" id="quantity" value="1" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn_1 full-width purchase">Thêm vào giỏ</button>
+                            <a href="wishlist.html" class="btn_1 full-width outline wishlist"><i class="icon_heart"></i> Tour yêu thích</a>
+                            <div class="text-center"><small>Không bị tính phí trong bước này</small></div>
+                        </form>
                     </div>
                     <ul class="share-buttons">
                         <li><a class="fb-share" href="#0"><i class="social_facebook"></i> Share</a></li>

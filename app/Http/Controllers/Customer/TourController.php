@@ -58,7 +58,7 @@ class TourController extends Controller
 
         if($reviews->count() > 0)
         {
-            $average = array_sum($reviews->pluck('rate')->toArray())/$reviews->count();
+            $average = round(array_sum($reviews->pluck('rate')->toArray())/$reviews->count(),1);
         } else {
             $average = 0;
         }
