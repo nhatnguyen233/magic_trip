@@ -6,4 +6,17 @@
                 .mobile-display-name {
                     display: none;
                 }
+                .btn-outline-danger {
+                    margin-top: -6px;
+                    margin-right: -10px;
+                }
+                .mobile-hidden-name {
+                    margin-left: 24px;
+                }
+            }
+            
+            @media only screen and (min-width: 968) {
+                .mobile-hidden-name {
+                    display: none;
+                }
             }
