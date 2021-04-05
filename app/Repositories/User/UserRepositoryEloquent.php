@@ -55,13 +55,14 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
     public function updateBaseInfo(array $params, $userId)
     {
         try {
+            $user = $this->model::find(Auth::guard('customer')->user()->id);
             if (isset($params['avatar'])) {
                 $fileName = Str::uuid() . '.' . $params['avatar']->getClientOriginalExtension();
                 $fullPath = 'customers/avatars/' . $fileName;
                 Storage::disk('s3')->put($fullPath, file_get_contents($params['avatar']), 'public');
                 $params['avatar'] = $fullPath;
             }
-
+          
             $data = array_filter($params, function ($key) {
                 return in_array($key, ['name', 'email', 'phone', 'role_id', 'province_id', 'district_id',
                     'country_id', 'password', 'address', 'avatar', 'postal_code']);

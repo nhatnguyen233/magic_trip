@@ -53,7 +53,7 @@ class AuthController extends BaseAuthController
             return redirect()->back()->with('success', __('messages.update_success'));
         }
 
-        return redirect()->back()->with('fail', __('messages.update_fail'));
+        return redirect()->back()->with('fail', __('message.update_fail'));
     }
 
 }

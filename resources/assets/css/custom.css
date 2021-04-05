@@ -1,3 +1,22 @@
-/*============================================================================================*/
-/* Your custom styles below */
-/*============================================================================================*/
+            /*============================================================================================*/
+            /* Your custom styles below */
+            /*============================================================================================*/
+            
+            @media only screen and (max-width: 600px) {
+                .mobile-display-name {
+                    display: none;
+                }
+                .btn-outline-danger {
+                    margin-top: -6px;
+                    margin-right: -10px;
+                }
+                .mobile-hidden-name {
+                    margin-left: 24px;
+                }
+            }
+            
+            @media only screen and (min-width: 968px) {
+                .mobile-hidden-name {
+                    display: none;
+                }
+            }
