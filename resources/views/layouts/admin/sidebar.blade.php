@@ -12,6 +12,20 @@
                 <span class="nav-link-text">Các danh mục</span>
             </a>
         </li>
+
+        <li class="nav-item {{ (\Request::segment(2) == 'users') ? 'menu-open' : '' }}" data-toggle="tooltip" data-placement="right" title="Khách sạn, nhà nghỉ, homestay">
+            <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseAccommodations"
+               data-parent="#mylistings">
+                <i class="fa fa-fw fa-unlock-alt"></i>
+                <span class="nav-link-text">Quản lí khách hàng</span>
+            </a>
+            <ul class="sidenav-second-level collapse" id="collapseAccommodations">
+                <li>
+                    <a href="{{ route('admin.users.index') }}">Danh Sách Khách Hàng</a>
+                </li>
+            </ul>
+        </li>
+
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Địa điểm du lịch">
             <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseAttractions"
                data-parent="#mylistings">

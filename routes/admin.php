@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AttractionImageController;
 use App\Http\Controllers\Admin\AccommodationController;
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\AccommodationImageController;
+use App\Http\Controllers\Admin\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,7 @@ Route::middleware('auth.admin')->group(function() {
         ->only(['destroy',]);
     Route::resource('/accommodation-images', AccommodationImageController::class)
         ->only(['destroy',]);
+    Route::resource('users', UserController::class);
 });
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('show_login');
