@@ -17,7 +17,7 @@
         @auth('customer')
             <div class="btn-group">
                 <button type="button" class="btn btn-outline-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{ auth('customer')->user()->name }}
+                    <p class="mobile-display-name">{{ auth('customer')->user()->name }}</p>
                 </button>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="{{ route('update-profile', auth('customer')->user()->id) }}">Tài khoản</a>
