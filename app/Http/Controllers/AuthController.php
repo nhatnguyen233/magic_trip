@@ -79,13 +79,19 @@ class AuthController extends Controller
         return $this->guard()->user();
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
         $this->guard()->logout();
 
         if($this->guardName == 'customer') {
             return redirect(URL::previous());
         }
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        $request->session()->flush();
 
         return redirect(route($this->guardName . '.login'));
     }
