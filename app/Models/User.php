@@ -7,7 +7,9 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Contracts\Encryption\DecryptException;
 
 class User extends Authenticatable
 {
@@ -111,6 +113,15 @@ class User extends Authenticatable
     public function getAvatarUrlAttribute()
     {
         return ($this->avatar) ? Storage::disk('s3')->url($this->avatar) : asset('img/anh-dai-dien.jpg');
+    }
+
+    public function getOriginalPassWordAttribute($password)
+    {
+        try {
+            $this->attributes['password'] = Crypt::decrypt($password);
+        } catch (DecryptException $e) {
+            return false;
+        }
     }
     
 }

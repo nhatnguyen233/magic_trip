@@ -55,27 +55,20 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
     public function updateBaseInfo(array $params)
     {
         try {
+            $user = $this->model::find(Auth::guard('customer')->user()->id);
             if (isset($params['avatar'])) {
                 $fileName = Str::uuid() . '.' . $params['avatar']->getClientOriginalExtension();
                 $fullPath = 'customers/avatars/' . $fileName;
                 Storage::disk('s3')->put($fullPath, file_get_contents($params['avatar']), 'public');
                 $params['avatar'] = $fullPath;
             }
-
-            $userUpdate = $this->model->update([
-                'name' => $params['name'],
-                'email' => $params['email'],
-                'phone' => $params['phone'],
-                'role_id' => UserRole::CUSTOMER,
-                'province_id' => $params['province_id'],
-                'district_id' => $params['district_id'],
-                'country_id' => $params['country_id'],
-                'password' => $params['password'],
-                'address' => $params['address'],
-                'postal_code' => $params['postal_code'],
-            ]);
+            $data = array_filter($params, function ($key) {
+                return in_array($key, ['name', 'email', 'phone', 'role_id', 'province_id', 'district_id',
+                    'country_id', 'password', 'address', 'avatar', 'postal_code']);
+            }, ARRAY_FILTER_USE_KEY);
             
-            return true;
+            $user->update($data);
+            
         } catch (\Exception $e) {
             Log::error($e);
             DB::rollBack();
