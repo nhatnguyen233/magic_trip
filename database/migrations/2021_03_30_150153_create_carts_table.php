@@ -16,6 +16,7 @@ class CreateCartsTable extends Migration
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('tour_id');
+            $table->unsignedInteger('payment_id');
             $table->string('session_token');
             $table->string('tour_name');
             $table->double('price');
@@ -27,6 +28,7 @@ class CreateCartsTable extends Migration
             $table->timestamp('end_time')->nullable();
             $table->timestamps();
 //            $table->foreign('tour_id')->references('id')->on('tours');
+//            $table->foreign('payment_id')->references('id')->on('payments');
         });
     }
 

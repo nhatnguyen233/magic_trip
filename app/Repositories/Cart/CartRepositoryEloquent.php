@@ -56,4 +56,17 @@ class CartRepositoryEloquent extends BaseRepository implements CartRepository
             throw $e;
         }
     }
+
+    public function deleteAllCart($session_token)
+    {
+        try {
+            $carts = $this->model->where('session_token', $session_token);
+
+            return $carts->delete();
+        } catch (Exception $e) {
+            Log::error($e);
+            DB::rollBack();
+            throw $e;
+        }
+    }
 }

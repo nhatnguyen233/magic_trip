@@ -6001,21 +6001,25 @@ span.infobox_rate {
     .table.cart-list td:nth-of-type(1):before,
     .table.cart-list td:nth-of-type(2):before,
     .table.cart-list td:nth-of-type(3):before,
-    .table.cart-list td:nth-of-type(4):before {
+    .table.cart-list td:nth-of-type(4):before
+    .table.cart-list td:nth-of-type(5):before{
         font-weight: 600;
         color: #111;
     }
     .table.cart-list td:nth-of-type(1):before {
-        content: "Item";
+        content: "Tour";
     }
     .table.cart-list td:nth-of-type(2):before {
-        content: "Discount";
+        content: "Giá";
     }
     .table.cart-list td:nth-of-type(3):before {
-        content: "Total";
+        content: "Số lượng";
     }
     .table.cart-list td:nth-of-type(4):before {
-        content: "Actions";
+        content: "Tổng tiền";
+    }
+    .table.cart-list td:nth-of-type(5):before {
+        content: "Xóa";
     }
     td.options {
         text-align: left !important;

@@ -52,7 +52,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         }
     }
 
-    public function updateBaseInfo(array $params)
+    public function updateBaseInfo(array $params, $userId)
     {
         try {
             $user = $this->model::find(Auth::guard('customer')->user()->id);
@@ -62,13 +62,15 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
                 Storage::disk('s3')->put($fullPath, file_get_contents($params['avatar']), 'public');
                 $params['avatar'] = $fullPath;
             }
+          
             $data = array_filter($params, function ($key) {
                 return in_array($key, ['name', 'email', 'phone', 'role_id', 'province_id', 'district_id',
                     'country_id', 'password', 'address', 'avatar', 'postal_code']);
             }, ARRAY_FILTER_USE_KEY);
-            
-            $user->update($data);
-            
+
+            $this->update($data, $userId);
+
+            return true;
         } catch (\Exception $e) {
             Log::error($e);
             DB::rollBack();
