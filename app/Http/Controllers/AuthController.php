@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Role;
 use App\Enums\UserRole;
+use Illuminate\Support\Facades\URL;
 
 class AuthController extends Controller
 {
@@ -21,6 +22,7 @@ class AuthController extends Controller
             'showLoginForm',
             'showRegisterForm',
             'login',
+            'create',
             'redirectToProvider',
             'registerCustomers',
             'updateProfileView',
@@ -61,7 +63,7 @@ class AuthController extends Controller
         $credentials['role_id'] = $this->getRoleByGuard();
 
         if ($this->guard()->attempt($credentials, $request->filled('remember'))) {
-            return redirect()->intended($this->redirectPath());
+            return redirect()->intended(URL::previous());
         }
 
         return $this->sendFailedLoginResponse($request);
@@ -82,7 +84,7 @@ class AuthController extends Controller
         $this->guard()->logout();
 
         if($this->guardName == 'customer') {
-            return redirect('/');
+            return redirect(URL::previous());
         }
 
         return redirect(route($this->guardName . '.login'));

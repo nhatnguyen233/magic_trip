@@ -38,7 +38,7 @@
     </a>
     <nav id="menu" class="main-menu">
         <ul>
-            <li><span><a href="#0">Trang chủ</a></span>
+            <li><span><a href="/">Trang chủ</a></span>
                 <ul>
                     <li><a href="/">Home Default</a></li>
                 </ul>

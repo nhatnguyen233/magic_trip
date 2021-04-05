@@ -43,6 +43,7 @@ class AttractionImageEloquent extends BaseRepository implements AttractionImageR
         {
             Log::error($e);
             DB::rollBack();
+            throw $e;
         }
     }
 }

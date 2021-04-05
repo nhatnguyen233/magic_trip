@@ -9,13 +9,17 @@ class BookTour extends Model
 {
     use HasFactory;
 
+    protected $table = "book_tour";
     protected $fillable = [
         'tour_id',
         'user_id',
-        'date_of_booking',
+        'payment_id',
         'quantity',
         'total_price',
-        'status'
+        'start_time',
+        'end_time',
+        'status',
+        'type'
     ];
 
     public function tour()

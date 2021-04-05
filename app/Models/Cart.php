@@ -20,6 +20,7 @@ class Cart extends Model
         'total_price',
         'thumbnail',
         'start_time',
+        'payment_id',
         'end_time',
         'expired_at'
     ];

@@ -29,6 +29,12 @@ class Tour extends Model
         return $this->hasMany(TourInfo::class, 'tour_id', 'id');
     }
 
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'tour_id', 'id');
+    }
+
+
     public function getAvatarUrlAttribute()
     {
         return ($this->avatar) ? Storage::disk('s3')->url($this->avatar) : asset('img/tour_1.jpg');

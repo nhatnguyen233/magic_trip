@@ -29,6 +29,8 @@ use App\Repositories\AccommodationImage\AccommodationImageEloquent;
 use App\Repositories\AccommodationImage\AccommodationImageRepository;
 use App\Repositories\Cart\CartRepository;
 use App\Repositories\Cart\CartRepositoryEloquent;
+use App\Repositories\BookTour\BookTourEloquent;
+use App\Repositories\BookTour\BookTourRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -87,6 +89,10 @@ class RepositoryServiceProvider extends ServiceProvider
         [
             'abstract' => CartRepository::class,
             'concrete' => CartRepositoryEloquent::class,
+        ],
+        [
+            'abstract' => BookTourRepository::class,
+            'concrete' => BookTourEloquent::class,
         ]
     ];
 

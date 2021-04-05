@@ -55,6 +55,9 @@
         </div>
         <div id="reccomended" class="owl-carousel owl-theme">
             @foreach($tours as $item)
+                @php
+                    $average = $item->reviews->count() > 0 ? round(array_sum($item->reviews->pluck('rate')->toArray())/$item->reviews->count(),1) : 0;
+                @endphp
                 <div class="item">
                     <div class="box_grid">
                         <figure>
@@ -73,7 +76,21 @@
                         <ul>
                             <li><i class="icon_clock_alt"></i> {{ ($item->total_time)/60 }} giờ</li>
                             <li>
-                                <div class="score"><span>Superb<em>350 Reviews</em></span><strong>8.9</strong></div>
+                                <div class="score">
+                                    <span>
+                                        @if($average >= 9)
+                                            Tuyệt vời
+                                        @elseif($average >= 8)
+                                            Tốt
+                                        @elseif($average >= 5)
+                                            Khá tốt
+                                        @else
+                                            Bình thường
+                                        @endif
+                                        <em>{{ $item->reviews->count() }} đánh giá</em>
+                                    </span>
+                                    <strong>{{ $average }}</strong>
+                                </div>
                             </li>
                         </ul>
                     </div>

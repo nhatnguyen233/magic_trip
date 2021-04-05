@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\AuthController as BaseAuthController;
 use App\Http\Requests\User\Register;
-use App\Repositories\Payment\PaymentRepository;
 use Illuminate\Http\Request;
 use App\Repositories\Province\ProvinceRepository;
 use App\Repositories\User\UserRepository;
@@ -16,15 +15,13 @@ class AuthController extends BaseAuthController
     protected $redirectTo = '/';
     protected $userRepository;
     protected $provinceRepository;
-    protected $paymentRepository;
 
-    public function __construct(UserRepository $userRepository, ProvinceRepository $provinceRepository, PaymentRepository $paymentRepository)
+    public function __construct(UserRepository $userRepository, ProvinceRepository $provinceRepository)
     {
         $this->guardName = 'customer';
         parent::__construct();
         $this->userRepository = $userRepository;
         $this->provinceRepository = $provinceRepository;
-        $this->paymentRepository = $paymentRepository;
     }
 
     public function showRegisterForm()
@@ -52,7 +49,7 @@ class AuthController extends BaseAuthController
 
     public function updateProfileUser(Request $request)
     {
-        if ($this->userRepository->updateBaseInfo($request->except(['_token']))) {
+        if ($this->userRepository->updateBaseInfo($request->except(['_token']), \auth('customer')->id())) {
             return redirect()->back()->with('success', __('messages.update_success'));
         }
 

@@ -124,7 +124,12 @@
                             <li>Tới ngày <span>{{ date('d-m-Y', strtotime($end_time_max)) }}</span></li>
                             <li>Tổng số lượng <span>{{ $total_quantity }}</span></li>
                         </ul>
-                        <a href="cart-2.html" class="btn_1 full-width purchase">Checkout</a>
+                        @guest('customer')
+                            <a href="#sign-in-dialog"  id="sign-in" title="Đăng nhập" class="btn_1 full-width purchase login">Checkout</a>
+                        @endguest
+                        @auth('customer')
+                            <a href="{{ route('book-tour.create') }}" class="btn_1 full-width purchase">Checkout</a>
+                        @endauth
                         <div class="text-center"><small>Không bị tính phí trong bước này</small></div>
                     </div>
                 </aside>
