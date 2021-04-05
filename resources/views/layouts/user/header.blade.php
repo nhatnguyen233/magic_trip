@@ -17,9 +17,11 @@
         @auth('customer')
             <div class="btn-group">
                 <button type="button" class="btn btn-outline-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <p class="mobile-display-name">{{ auth('customer')->user()->name }}</p>
+                    <span class="mobile-display-name">{{ auth('customer')->user()->name }}</span>
                 </button>
                 <div class="dropdown-menu">
+                    <a class="mobile-hidden-name">
+                        {{ auth('customer')->user()->name }}</a>
                     <a class="dropdown-item" href="{{ route('update-profile', auth('customer')->user()->id) }}">Tài khoản</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal">
