@@ -46,6 +46,18 @@
                                 <h1>Đăng ký tài khoản</h1>
                                 <p>Bạn đã có tài khoản? <a href="#0">Đăng nhập</a></p>
                             </div>
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+                            @if (session('error'))
+                                <div class="alert alert-danger">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    {{ session('error') }}
+                                </div>
+                            @endif
                             <div class="form_title">
                                 <h3><strong>1</strong>Thông tin cá nhân</h3>
                                 <p>
@@ -181,6 +193,18 @@
                                         <div class="form-group">
                                             <label>Mã bưu điện <span class="text-danger">*</span></label>
                                             <input type="text" id="postal_code" name="postal_code" value="{{ old('postal_code') }}" class="form-control" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="form-group">
+                                            <label for="role_id">Role <span class="text-danger">*</span></label>
+                                            <select name="role_id" id="role_id" class="form-control" required>
+                                                <option selected disabled>Chọn Vai Trò</option>
+                                                <option value="2">Host</option>
+                                                <option value="1">Customer</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

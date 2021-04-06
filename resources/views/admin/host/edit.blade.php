@@ -3,10 +3,8 @@
 @section('style')
     <link href="{{ asset('admin/vendor/dropzone.css') }}" rel="stylesheet">
     <link href="{{ asset('admin/css/date_picker.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/cropper.css') }}" rel="stylesheet">
     <!-- WYSIWYG Editor -->
     <link rel="stylesheet" href="{{ asset('admin/js/editor/summernote-bs4.css') }}">
-
     <style>
         .preview {
             overflow: hidden;
@@ -40,7 +38,8 @@
             </ul>
         </div>
     @endif
-    <form action="{{ route('admin.users.store') }}" method="post" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('admin.host.update', $host) }}" enctype="multipart/form-data">
+        @method('PUT')
         @csrf
         <div class="box_general padding_bottom">
             <div class="header_box version_2">
@@ -51,7 +50,7 @@
                     <div class="form-group">
                         <label for="name-attraction">Họ và tên <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" placeholder="Nguyễn Văn A"
-                               name="name" id="name" value="{{ old('name') }}" required>
+                               name="name" id="name" value="{{ isset($host->name) ? $host->name : '' }}" required>
                     </div>
                 </div>
             </div>
@@ -60,14 +59,14 @@
                     <div class="form-group">
                         <label for="title-attraction">Email <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" placeholder="abc@example.com"
-                               name="email" id="email" value="{{ old('email') }}" required>
+                               name="email" id="email" value="{{ isset($host->email) ? $host->email : '' }}" required>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="category-attraction">Mật khẩu <span class="text-danger">*</span></label>
                         <input type="password" class="form-control" placeholder="*************"
-                               name="password" id="password" value="{{ old('password') }}" required>
+                               name="password" id="password" value="{{ isset($host->password) ? $host->password : '' }}" required>
                     </div>
                 </div>
             </div>
@@ -77,14 +76,14 @@
                     <div class="form-group">
                         <label for="latitude-attraction">Điện thoại</label>
                         <input type="text" class="form-control" placeholder="00000000" name="phone"
-                               id="phone" value="{{ old('phone') }}" />
+                               id="phone" value="{{ isset($host->phone) ? $host->phone : '' }}" />
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="longitude-attraction">Xác nhận mật khẩu</label>
                         <input type="password" class="form-control" placeholder="*************" name="password_confirmation"
-                               value="{{ old('password') }}" id="password_confirmation" />
+                               value="{{ isset($host->password) ? $host->password : '' }}" id="password_confirmation" />
                     </div>
                 </div>
             </div>
@@ -92,13 +91,14 @@
             <div class="col-md-12">
                     <div class="form-group">
                     <label for="avatar" class="w-100" style="cursor: pointer">Avatar
-                        <img src="{{ asset('img/anh-dai-dien.jpg') }}" id="avatar-image" />
+                        <img style="width: 400px;" src="{{ !empty($host->getAvatarUrlAttribute()) ? asset($host->getAvatarUrlAttribute()) : ''  }}" id="avatar-image" />
                     </label>
                     <input type="file" class="form-control-file mb-2" id="avatar"
                             placeholder="Ảnh đại diện" name="avatar" hidden/>
                     </div>
                  </div>
             </div>
+        </div>
         <!-- /box_general-->
 
         <div class="box_general padding_bottom">
@@ -123,8 +123,8 @@
                             <select name="province_id" id="province-attraction" required>
                                 <option selected disabled>---- Chọn tỉnh/thành ----</option>
                                 @foreach($provinces as $item)
-                                    <option @if(old('province_id') == $item->id)
-                                                selected
+                                    <option @if($host->province_id == $item->id)
+                                            selected
                                             @endif
                                             value={{ $item->id }}>
                                         {{ $item->name }}
@@ -142,7 +142,7 @@
                         <label for="district-attraction">Chọn Xã/Phường <span class="text-danger">*</span></label>
                         <div class="styled-select">
                             <select name="district_id" id="district-attraction" required>
-                                <option selected disabled>Chọn quận,huyện</option>
+                            <option @if($host->district_id) selected @endif value={{ $host->district_id }}> {{ isset($host->district_id) ? $host->district->name : '' }} </option>
                             </select>
                         </div>
                     </div>
@@ -151,7 +151,7 @@
                     <div class="form-group">
                         <label for="zipcode-attraction">Zip Code</label>
                         <input type="text" class="form-control" name="postal_code"
-                               id="zipcode-attraction" value="{{ old('postal_code') }}" />
+                               id="zipcode-attraction" value="{{ isset($host->postal_code) ? $host->postal_code : '' }}" />
                     </div>
                 </div>
             </div>
@@ -162,24 +162,13 @@
                     <div class="form-group">
                         <label for="address-attraction">Địa chỉ chi tiết</label>
                         <input type="text" class="form-control" name="address" id="address-attraction"
-                               placeholder="An Khánh, Hoài Đức, Hà Nội..." value="{{ old('address') }}" />
+                               placeholder="An Khánh, Hoài Đức, Hà Nội..." value="{{ isset($host->address) ? $host->address : '' }}" />
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12 col-sm-12">
-                    <div class="form-group">
-                        <label for="role_id">Role <span class="text-danger">*</span></label>
-                        <select type="hidden" name="role_id" id="role_id" class="form-control">
-                            <option value="1" selected>Customer</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <!-- /row-->
         </div>
         <p>
-            <button type="submit" class="btn_1 medium">Save</button>
+             <button style="margin-left: 30px" type="submit" class="btn_1 medium">Save</button>
         </p>
     </form>
     @include('admin.attractions.modals._crop_avatar_modal')
@@ -189,11 +178,9 @@
 @section('script')
     <script src="{{ asset('admin/vendor/dropzone.min.js') }}"></script>
     <script src="{{ asset('admin/vendor/bootstrap-datepicker.js') }}"></script>
-    <script src="{{ asset('js/cropper.js') }}"></script>
-    <script src="{{ asset('js/jquery-cropper.min.js') }}"></script>
+    <script>$('input.date-pick').datepicker();</script>
     <!-- WYSIWYG Editor -->
     <script src="{{ asset('admin/js/editor/summernote-bs4.min.js') }}"></script>
-    <script src="{{ asset('js/attraction/create.js') }}"></script>
     <script>
       $('.editor').summernote({
         fontSizes: ['10', '14'],
@@ -207,6 +194,94 @@
         placeholder: 'Mô tả thêm về địa điểm....',
         tabsize: 2,
         height: 200
+      });
+
+      $(document).on('change', '#images', function () {
+        var i = $(this).prev('label').clone();
+        var file = $(this)[0].files[0].name;
+        $(this).prev('label').text(file);
+
+        if ($(this)[0].files[0]) {
+          var reader = new FileReader();
+          reader.onload = imageIsLoaded;
+          reader.readAsDataURL($(this)[0].files[0]);
+        }
+      });
+
+      $(function () {
+        var district = {{ $user->district_id ?? "1" }};
+        var url = new URL('{{ route('api.districts.index') }}');
+        var params = { province:$('#province-attraction').val() };
+        Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+        fetch(url)
+            .then(response => response.json())
+            .then(result => {
+              $('#district-attraction').children().remove().end();
+              result.data.forEach(function (data) {
+                if(district == parseInt(data.id)) {
+                  $("#district-attraction").append('<option value="' + district + '" selected>'+ data.name + '</option>');
+                } else {
+                  $("#district-attraction").append('<option value="' + data.id + '">'+ data.name + '</option>');
+                }
+              });
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+      });
+
+      $('#province-attraction').change(function () {
+        var url = new URL('{{ route('api.districts.index') }}');
+        var params = { province:$(this).val() };
+        Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+        fetch(url)
+            .then(response => response.json())
+            .then(result => {
+              $('#district-attraction').children().remove().end();
+              result.data.forEach(function (data) {
+                $("#district-attraction").append('<option value="' + data.id + '">'+ data.name + '</option>');
+              });
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+      });
+
+      $('.preview-image').change(function (e) {
+        if (e.currentTarget.files && e.currentTarget.files[0]) {
+          const reader = new FileReader();
+          const imageTarget = e.currentTarget.dataset.target;
+          reader.onload = function (e) {
+            $(imageTarget)
+                .attr('src', e.target.result)
+                .width(130)
+                .height('auto');
+          }
+
+          reader.readAsDataURL(e.currentTarget.files[0]);
+        }
+      });
+
+      function imageIsLoaded(e) {
+        var picture = '<div class="col-md-2 col-6">' +
+            '<img src="' + e.target.result + '" style="width:100%;height:100%;" id="attraction-images" />' +
+            '</div>'
+        $(".list-attraction-images").append(picture);
+      }
+
+      function clearFile(e) {
+        if ($('.multi-file-images').length == 1) {
+          $(e).prevAll('input').val("");
+          $(e).prevAll('.custom-file-label').text("Chọn ảnh");
+        } else {
+          $(e).prev().prev('.multi-file-images').remove();
+        }
+      }
+
+      $(document).on('click', '#removeImage', function () {
+        var id = $(this).data('id');
+        var url = window.location.origin + '/admincp/attraction-images/' + id;
+        $('#form-remove-image').attr('action', url);
       });
 
       $('#avatar').change(function (e) {
@@ -223,22 +298,5 @@
         }
     });
 
-
-      $('#province-attraction').change(function () {
-          var url = new URL('{{ route('api.districts.index') }}');
-          var params = { province:$(this).val() };
-          Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
-          fetch(url)
-              .then(response => response.json())
-              .then(result => {
-                  $('#district-attraction').children().remove().end();
-                  result.data.forEach(function (data) {
-                      $("#district-attraction").append('<option value="' + data.id + '">'+ data.name + '</option>');
-                  });
-              })
-              .catch(error => {
-                  console.error('Error:', error);
-              });
-      });
     </script>
 @endsection

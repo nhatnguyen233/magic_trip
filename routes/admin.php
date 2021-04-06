@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\AccommodationController;
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\AccommodationImageController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\HostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,9 @@ Route::middleware('auth.admin')->group(function() {
     Route::resource('/accommodation-images', AccommodationImageController::class)
         ->only(['destroy',]);
     Route::resource('users', UserController::class);
+    Route::resource('host', HostController::class);
+    Route::get('unpprove-host', [HostController::class, 'indexUnpproveHost'])->name('unpprove');
+    Route::get('host-status/{host}', [HostController::class, 'updateApproveStatus'])->name('host.changeStatus');
 });
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('show_login');

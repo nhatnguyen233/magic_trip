@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\Register;
 use App\Models\User;
@@ -22,7 +23,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $viewData['listUsers'] = $this->userRepository->getList();
+        $viewData['listUsers'] = $this->userRepository->getList(UserRole::CUSTOMER);
 
         return view('admin.customers.index', $viewData);
     }
