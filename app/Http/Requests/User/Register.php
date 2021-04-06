@@ -84,7 +84,7 @@ class Register extends FormRequest
     protected function prepareForValidation()
     {
         $this->merge([
-            'role_id' => UserRole::CUSTOMER
+            // 'role_id' => UserRole::CUSTOMER
         ]);
     }
 }
