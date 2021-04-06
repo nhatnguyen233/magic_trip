@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'update_success' => 'update successful',
-    'update_fail' => 'fail to update;',
+    'update_success' => 'Update successful',
+    'update_fail' => 'Fail to update;',
 
 ];

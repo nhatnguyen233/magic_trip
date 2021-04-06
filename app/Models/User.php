@@ -123,5 +123,12 @@ class User extends Authenticatable
             return false;
         }
     }
+
+    public function getFullAddressAttribute()
+    {
+        if (isset($this->district_id) && isset($this->province_id) && isset($this->country_id)) {
+            return $this->district->name . ',' . $this->province->name . ','. $this->country->name;
+        }
+    }
     
 }
