@@ -13,13 +13,13 @@
             </a>
         </li>
 
-        <li class="nav-item {{ (\Request::segment(2) == 'users') ? 'menu-open' : '' }}" data-toggle="tooltip" data-placement="right" title="Khách sạn, nhà nghỉ, homestay">
-            <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseAccommodations"
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Khách sạn, nhà nghỉ, homestay">
+            <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseUsers"
                data-parent="#mylistings">
                 <i class="fa fa-fw fa-unlock-alt"></i>
                 <span class="nav-link-text">Quản lí khách hàng</span>
             </a>
-            <ul class="sidenav-second-level collapse" id="collapseAccommodations">
+            <ul class="sidenav-second-level collapse" id="collapseUsers">
                 <li>
                     <a href="{{ route('admin.users.index') }}">Danh Sách Khách Hàng</a>
                 </li>
@@ -41,6 +41,7 @@
                 </li>
             </ul>
         </li>
+
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Khách sạn, nhà nghỉ, homestay">
             <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseAccommodations"
                data-parent="#mylistings">
@@ -56,6 +57,7 @@
                 </li>
             </ul>
         </li>
+        
     </ul>
     <ul class="navbar-nav sidenav-toggler">
         <li class="nav-item">
