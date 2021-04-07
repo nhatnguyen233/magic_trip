@@ -46,6 +46,26 @@
                 <h2><i class="fa fa-home"></i>Thông tin khách sạn, nhà nghỉ, homestay</h2>
             </div>
             <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="category_id">Loại hình <span class="text-danger">*</span></label>
+                        <div class="styled-select">
+                            <select name="category_id" id="category_id" required>
+                                <option selected disabled>---- Chọn loại hình ----</option>
+                                @foreach($categories as $item)
+                                    <option @if(old('category_id') == $item->id)
+                                                selected
+                                            @endif
+                                            value={{ $item->id }}>
+                                        {{ $item->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="name-accommodation">Tên nơi nghỉ <span class="text-danger">*</span></label>

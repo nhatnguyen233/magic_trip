@@ -10,7 +10,7 @@ interface AccommodationRepository extends RepositoryInterface
 
     public function updateAccommodation(array $params, $id);
 
-    public function removeAccommodation($id);
+    public function removeAccommodation($accommodation);
 
     public function insertAccommodationImages(array $images, $id, $userId);
 }

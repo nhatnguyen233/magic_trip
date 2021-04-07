@@ -42,6 +42,11 @@ class Accommodation extends Model
         return $this->belongsTo(District::class, 'district_id', 'id');
     }
 
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+
     public function country()
     {
         return$this->belongsTo(Country::class, 'country_id', 'id');

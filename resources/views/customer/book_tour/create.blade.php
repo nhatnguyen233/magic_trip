@@ -18,6 +18,22 @@
                     </div>
 
                     <div class="bs-wizard-step active">
+                        <div class="text-center bs-wizard-stepnum">Đặt Tour</div>
+                        <div class="progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                        <a href="{{ route('book-tour.create') }}" class="bs-wizard-dot"></a>
+                    </div>
+
+                    <div class="bs-wizard-step disabled">
+                        <div class="text-center bs-wizard-stepnum">Chờ xác nhận</div>
+                        <div class="progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                        <a href="{{ route('book-tour.index') }}" class="bs-wizard-dot"></a>
+                    </div>
+
+                    <div class="bs-wizard-step disabled">
                         <div class="text-center bs-wizard-stepnum">Thanh toán</div>
                         <div class="progress">
                             <div class="progress-bar"></div>
@@ -102,6 +118,7 @@
                             </tbody>
                         </table>
                         <hr>
+                        @if($carts->count() > 0)
                         {{------------ Thông tin tài khoản khách ------------}}
                         <div class="form_title">
                             <h3><strong>2</strong>Thông tin cá nhân</h3>
@@ -202,6 +219,7 @@
                                 <input type="submit" class="btn btn-danger" value="Cập nhật tài khoản">
                             </div>
                         </form>
+                        @endif
                         <hr>
                         <!--End step -->
                         <div id="policy">
@@ -222,9 +240,11 @@
                             <li>Tới ngày <span>{{ date('d-m-Y', strtotime($end_time_max)) }}</span></li>
                             <li>Tổng số lượng <span>{{ $total_quantity }}</span></li>
                         </ul>
-                        <button type="button" class="btn_1 full-width purchase" data-toggle="modal" data-target="#paymentModalCenter">
-                            Hoàn thành
+                        @if($carts->count() > 0)
+                        <button type="button" class="btn_1 full-width purchase" data-toggle="modal" data-target="#orderModalCenter">
+                            Đặt tour
                         </button>
+                        @endif
                         <a href="{{ url()->previous() }}" class="btn btn-outline-secondary w-100">
                             <span style="font-weight: 600; font-size: 0.875rem">Quay lại</span>
                         </a>
@@ -258,7 +278,7 @@
                 });
         });
 
-        $('#payment-offline').click(function () {
+        $('#order-tour').click(function () {
             var url = window.location.origin + '/book-tour';
             const formData = new FormData();
             formData.append('_token', '{!! csrf_token() !!}');
@@ -269,12 +289,12 @@
             })
                 .then(response => response.json())
                 .then(result => {
-                    alert('Thanh toán thành công');
-                    window.location.href = window.location.origin + '/book-tour/order-finished';
+                    alert('Đặt Tour thành công');
+                    window.location.href = window.location.origin + '/book-tour';
                 })
                 .catch(error => {
                     console.error(error);
-                    alert('Thanh toán thất bại');
+                    alert('Đặt Tour thất bại');
                 });
         });
 
