@@ -24,6 +24,9 @@
                         {{ auth('customer')->user()->name }}</a>
                     <a class="dropdown-item" href="{{ route('update-profile', auth('customer')->user()->id) }}">Tài khoản</a>
                     <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ route('book-tour.index') }}">
+                        <i class="fab fa-first-order"></i>Đơn đặt Tour</a>
+                    <div class="dropdown-divider"></div>
                     <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal">
                         <i class="fa fa-fw fa-sign-out"></i>Đăng xuất</a>
                 </div>

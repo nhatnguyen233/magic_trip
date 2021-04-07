@@ -33,7 +33,17 @@ class BookTourController extends Controller
      */
     public function index()
     {
-        //
+        $viewData['orders'] = $this->bookTourRepository->where('user_id', auth('customer')->id())->paginate(20);
+        $viewData['total_price_all'] = array_sum($viewData['orders']->pluck('total_price')->toArray()); // Tổng số tiền các đơn trong giỏ
+        $viewData['total_quantity'] = array_sum($viewData['orders']->pluck('quantity')->toArray()); // Tổng số lượng
+        $viewData['start_time_min'] = $viewData['orders']->filter(function ($item) {
+            return $item->start_time != null;
+        })->min('start_time');  // Thời điểm bắt đầu sớm nhất trong list giỏ
+        $viewData['end_time_max'] = $viewData['orders']->filter(function ($item) {
+            return $item->end_time != null;
+        })->max('end_time'); // Thời điểm kết thục bắt đầu muộn nhất trong list giỏ
+
+        return view('customer.book_tour.index', $viewData);
     }
 
     /**

@@ -5,7 +5,7 @@
         <div class="wrapper">
             <div class="container">
                 <div class="bs-wizard clearfix">
-                    <div class="bs-wizard-step active">
+                    <div class="bs-wizard-step">
                         <div class="text-center bs-wizard-stepnum">Giỏ</div>
                         <div class="progress">
                             <div class="progress-bar"></div>
@@ -13,7 +13,7 @@
                         <a href="{{ route('cart.index') }}" class="bs-wizard-dot"></a>
                     </div>
 
-                    <div class="bs-wizard-step disabled">
+                    <div class="bs-wizard-step">
                         <div class="text-center bs-wizard-stepnum">Đặt tour</div>
                         <div class="progress">
                             <div class="progress-bar"></div>
@@ -21,7 +21,7 @@
                         <a href="{{ route('book-tour.create') }}" class="bs-wizard-dot"></a>
                     </div>
 
-                    <div class="bs-wizard-step disabled">
+                    <div class="bs-wizard-step active">
                         <div class="text-center bs-wizard-stepnum">Chờ xác nhận</div>
                         <div class="progress">
                             <div class="progress-bar"></div>
@@ -50,7 +50,6 @@
         </div>
     </div>
     <!--/hero_in-->
-
     <div class="bg_color_1">
         <div class="container margin_60_35">
             <div class="row">
@@ -63,30 +62,24 @@
                                     Tour
                                 </th>
                                 <th>
-                                    Giá
-                                </th>
-                                <th>
                                     Số lượng
                                 </th>
                                 <th>
                                     Tổng tiền
                                 </th>
                                 <th>
-                                    Xóa
+                                    Trạng thái
                                 </th>
                             </tr>
                             </thead>
                             <tbody>
-                            @forelse($carts as $item)
+                            @forelse($orders as $item)
                                 <tr>
                                     <td>
                                         <div class="thumb_cart">
-                                            <img src="{{ $item->thumbnail_url }}" alt="Image" style="height:  60px !important;">
+                                            <img src="{{ $item->tour->thumbnail_url }}" alt="Image" style="height:  60px !important;">
                                         </div>
-                                        <span class="item_cart">{{ $item->tour_name }}</span>
-                                    </td>
-                                    <td>
-                                        <strong>{{ number_format($item->price, 0, '', ',') }} VND</strong>
+                                        <span class="item_cart">{{ $item->tour->tour_name }}</span>
                                     </td>
                                     <td>
                                         <input type="number" name="quantity" min="0" value="{{ $item->quantity ?? 0 }}" style="width: 70px"/>
@@ -94,8 +87,11 @@
                                     <td>
                                         <strong>{{ number_format($item->total_price, 0, '', ',') }} VND</strong>
                                     </td>
-                                    <td class="options" style="width:5%; text-align:center;">
-                                        <a href="#"><i class="icon-trash"></i></a>
+                                    <td>
+                                        <span class="text-danger">
+                                            {{ $item->status_name }}
+                                        </span>
+
                                     </td>
                                 </tr>
                             @empty
@@ -109,23 +105,6 @@
                             @endforelse
                             </tbody>
                         </table>
-                        <div class="cart-options clearfix">
-                            <div class="float-left">
-                                <div class="apply-coupon">
-                                    <div class="form-group">
-                                        <input type="text" name="coupon-code" value="" placeholder="Mã ưu đãi của bạn" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="button" class="btn_1 outline">Áp dụng mã</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="float-right fix_mobile">
-                                <a href="{{ url()->previous() }}" class="btn_1 outline">Quay lại</a>
-                                <button type="button" class="btn_1 outline">Cập nhật</button>
-                            </div>
-                        </div>
-                        <!-- /cart-options -->
                     </div>
                 </div>
                 <!-- /col -->
@@ -148,10 +127,7 @@
                             <div class="text-center"><small>Vui lòng đăng nhập để tiếp tục đặt tour du lịch</small></div>
                         @endguest
                         @auth('customer')
-                            <a href="{{ route('book-tour.create') }}" class="btn_1 full-width purchase">Checkout</a>
-                            <a href="{{ url()->previous() }}" class="btn btn-outline-secondary w-100">
-                                <span style="font-weight: 600; font-size: 0.875rem">Quay lại</span>
-                            </a>
+                            <a href="#" class="btn_1 full-width chat">Nhắn tin</a>
                             <div class="text-center"><small>Không bị tính phí trong bước này</small></div>
                         @endauth
                     </div>

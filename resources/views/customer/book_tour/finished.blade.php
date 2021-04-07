@@ -14,11 +14,27 @@
                     </div>
 
                     <div class="bs-wizard-step">
-                        <div class="text-center bs-wizard-stepnum">Thanh toán</div>
+                        <div class="text-center bs-wizard-stepnum">Đặt tour</div>
                         <div class="progress">
                             <div class="progress-bar"></div>
                         </div>
                         <a href="{{ route('book-tour.create') }}" class="bs-wizard-dot"></a>
+                    </div>
+
+                    <div class="bs-wizard-step">
+                        <div class="text-center bs-wizard-stepnum">Chờ xác nhận</div>
+                        <div class="progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                        <a href="{{ route('book-tour.index') }}" class="bs-wizard-dot"></a>
+                    </div>
+
+                    <div class="bs-wizard-step">
+                        <div class="text-center bs-wizard-stepnum">Thanh toán</div>
+                        <div class="progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                        <a href="#" class="bs-wizard-dot"></a>
                     </div>
 
                     <div class="bs-wizard-step active">
@@ -32,7 +48,7 @@
                 <!-- End bs-wizard -->
                 <div id="confirm">
                     <h4>Đặt thành công!</h4>
-                    <p>Bạn sẽ nhận được email xác nhận tại toilanhat233@gmail.com</p>
+                    <p>Bạn sẽ nhận được thông tin về chuyến du lịch sắp tới từ email toilanhat233@gmail.com</p>
                 </div>
             </div>
         </div>
