@@ -34,6 +34,6 @@ Route::resource('/cart',CartController::class);
 
 Route::middleware('auth.customer')->group(function() {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::resource('/book-tour', BookTourController::class)->only(['create', 'store']);
+    Route::resource('/book-tour', BookTourController::class)->only(['index', 'create', 'store']);
     Route::get('/book-tour/order-finished', [BookTourController::class, 'getFinishedOrderPage'])->name('book-tour.order-finished');
 });
