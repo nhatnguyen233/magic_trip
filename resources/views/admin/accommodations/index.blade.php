@@ -25,6 +25,7 @@
                     <thead>
                     <tr>
                         <th>Tên nơi ở</th>
+                        <th>Loại nơi ở</th>
                         <th>Liên hệ</th>
                         <th>Địa chỉ</th>
                         <th>Giá thấp nhất</th>
@@ -38,6 +39,7 @@
                     @foreach($accommodations as $item)
                         <tr>
                             <td>{{ $item->name }}</td>
+                            <td>{{ !empty($item->category->name) ? $item->category->name : '' }}</td>
                             <td>{{ $item->phone }}</td>
                             <td>{{ $item->address }}</td>
                             <td>{{ number_format($item->lowest_price, 0, '', ',') }} (VNĐ)</td>
@@ -68,40 +70,40 @@
         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
     </div>
     <!-- /tables-->
-{{--    @include('admin.accommodations.modals._show_detail_accommodation')--}}
-{{--    @include('admin.accommodations.modals._remove_modal_accommodation')--}}
+    @include('admin.accommodations.modals._show_detail_accommodation')
+    @include('admin.accommodations.modals._remove_modal_accommodation')
 @endsection
 
 @section('script')
     <script src="{{ asset('admin/js/admin-datatables.js') }}"></script>
     <script>
-        {{--$(document).on('click', '#showAccommodationaccommodationDetail', function () {--}}
-        {{--    var id = $(this).data('id');--}}
-        {{--    var url = '{{ Illuminate\Support\Facades\URL::to('/') }}' + '/api/accommodations/' + id;--}}
-        {{--    fetch(url)--}}
-        {{--        .then(response => response.json())--}}
-        {{--        .then(result => {--}}
-        {{--            $('#accommodation-name').val(result.data.name);--}}
-        {{--            $('#accommodation-address').val(result.data.address);--}}
-        {{--            $('#accommodation-latitude').val(result.data.latitude);--}}
-        {{--            $('#accommodation-longitude').val(result.data.longitude);--}}
-        {{--            $('#accommodation-images').children().remove().end();--}}
-        {{--            result.data.images.forEach(function (data) {--}}
-        {{--                $("#accommodation-images").append('<div class="col-md-4">' +--}}
-        {{--                    '<img src="'+ data + '" width="100%" height="100%"/>'--}}
-        {{--                    +'</div>');--}}
-        {{--            });--}}
-        {{--            console.log('Data: ', result.data);--}}
-        {{--        })--}}
-        {{--        .catch(error => {--}}
-        {{--            console.error('Error:', error);--}}
-        {{--        });--}}
-        {{--});--}}
+        $(document).on('click', '#showAccommodationDetail', function () {
+            var id = $(this).data('id');
+            var url = '{{ Illuminate\Support\Facades\URL::to('/') }}' + '/api/accommodations/' + id;
+            fetch(url)
+                .then(response => response.json())
+                .then(result => {
+                    $('#accommodation-name').val(result.data.name);
+                    $('#accommodation-address').val(result.data.address);
+                    $('#accommodation-latitude').val(result.data.latitude);
+                    $('#accommodation-longitude').val(result.data.longitude);
+                    $('#accommodation-images').children().remove().end();
+                    result.data.images.forEach(function (data) {
+                        $("#accommodation-images").append('<div class="col-md-4">' +
+                            '<img src="'+ data + '" width="100%" height="100%"/>'
+                            +'</div>');
+                    });
+                    console.log('Data: ', result.data);
+                })
+                .catch(error => {
+                   console.error('Error:', error);
+            });
+        });
 
-        {{--$(document).on('click', '#removeAccommodation', function () {--}}
-        {{--    var id = $(this).data('id');--}}
-        {{--    var url = '{{ Illuminate\Support\Facades\URL::to('/') }}' + '/admincp/accommodations/' + id;--}}
-        {{--    $('#form-remove-accommodation').attr('action', url);--}}
-        {{--});--}}
+        $(document).on('click', '#removeAccommodation', function () {
+          var id = $(this).data('id');
+          var url = '{{ Illuminate\Support\Facades\URL::to('/') }}' + '/admincp/accommodations/' + id;
+           $('#form-remove-accommodation').attr('action', url);
+        });
     </script>
 @endsection

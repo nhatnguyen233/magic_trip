@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\CatType;
 use App\Http\Controllers\Controller;
 use App\Models\Accommodation;
 use App\Repositories\Accommodation\AccommodationRepository;
@@ -9,19 +10,23 @@ use App\Repositories\Province\ProvinceRepository;
 use Illuminate\Http\Request;
 use App\Http\Requests\Accommodation\IndexAccommodation as Index;
 use App\Http\Requests\Accommodation\CreateAccommodation as Create;
+use App\Repositories\Category\CategoryRepository;
 
 class AccommodationController extends Controller
 {
     protected $accommodationRepository;
     protected $provinceRepository;
+    protected $categoryRepository;
 
     public function __construct(
         AccommodationRepository $accommodationRepository,
-        ProvinceRepository $provinceRepository
+        ProvinceRepository $provinceRepository,
+        CategoryRepository $categoryRepository
     )
     {
         $this->accommodationRepository = $accommodationRepository;
         $this->provinceRepository = $provinceRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -42,9 +47,10 @@ class AccommodationController extends Controller
      */
     public function create()
     {
-        $provinces = $this->provinceRepository->all();
+        $viewData['provinces'] = $this->provinceRepository->all();
+        $viewData['categories'] = $this->categoryRepository->findWhere(['type' => CatType::REST]);
 
-        return view('admin.accommodations.create', compact('provinces'));
+        return view('admin.accommodations.create', $viewData);
     }
 
     /**
@@ -83,9 +89,11 @@ class AccommodationController extends Controller
      */
     public function edit(Accommodation $accommodation)
     {
-        $provinces = $this->provinceRepository->all();
+        $viewData['provinces'] = $this->provinceRepository->all();
+        $viewData['categories'] = $this->categoryRepository->findWhere(['type' => CatType::REST]);
+        $viewData['accommodation'] = $accommodation;
 
-        return view('admin.accommodations.edit', compact('accommodation','provinces'));
+        return view('admin.accommodations.edit', $viewData);
     }
 
     /**
@@ -113,6 +121,11 @@ class AccommodationController extends Controller
      */
     public function destroy(Accommodation $accommodation)
     {
-        //
+        if($this->accommodationRepository->removeAccommodation($accommodation)){
+
+            return redirect()->back()->with('success', __('message.update_success'));
+        }
+
+        return redirect()->back()->with('fail', __('message.update_fail'));
     }
 }
