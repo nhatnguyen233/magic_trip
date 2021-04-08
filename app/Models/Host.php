@@ -4,19 +4,25 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Host extends Model
 {
     use HasFactory;
 
     protected $fillable = [
+        'host_name',
+        'host_mail',
+        'hotline',
+        'description',
         'user_id',
-        'province_id',
-        'district_id',
-        'ward_id',
         'country_id',
         'bank_id',
-        'level',
+        'date_of_establish',
+        'thumbnail',
+        'avatar',
+        'identification',
+        'address',
     ];
 
     public function province()
@@ -42,5 +48,15 @@ class Host extends Model
     public function bank()
     {
         return $this->belongsTo(Bank::class, 'bank_id', 'id');
+    }
+
+    public function getAvatarUrlAttribute()
+    {
+        return ($this->avatar) ? Storage::disk('s3')->url($this->avatar) : asset('img/tour_1.jpg');
+    }
+
+    public function getThumbnailUrlAttribute()
+    {
+        return ($this->thumbnail) ? Storage::disk('s3')->url($this->thumbnail) : asset('img/tour_1.jpg');
     }
 }

@@ -31,6 +31,8 @@ use App\Repositories\Cart\CartRepository;
 use App\Repositories\Cart\CartRepositoryEloquent;
 use App\Repositories\BookTour\BookTourEloquent;
 use App\Repositories\BookTour\BookTourRepository;
+use App\Repositories\Host\HostRepository;
+use App\Repositories\Host\HostRepositoryEloquent;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -93,6 +95,10 @@ class RepositoryServiceProvider extends ServiceProvider
         [
             'abstract' => BookTourRepository::class,
             'concrete' => BookTourEloquent::class,
+        ],
+        [
+            'abstract' => HostRepository::class,
+            'concrete' => HostRepositoryEloquent::class,
         ]
     ];
 

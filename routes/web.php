@@ -23,7 +23,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/register',[AuthController::class, 'showRegisterForm'])->name('customer.register.form');
 
 Route::get('/',[HomeController::class, 'index']);
-Route::post('/register',[AuthController::class, 'registerCustomers'])->name('customer.register');
+Route::post('/register',[AuthController::class, 'register'])->name('customer.register');
 
 Route::get('/update-profile/{user}',[AuthController::class, 'updateProfileView'])->name('update-profile');
 Route::post('/update-profile/{user}',[AuthController::class, 'updateProfileUser'])->name('user.update-profile');

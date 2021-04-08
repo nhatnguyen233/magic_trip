@@ -34,7 +34,7 @@ class TourController extends Controller
      */
     public function index()
     {
-        $tours = $this->tourRepository->all();
+        $tours = $this->tourRepository->findWhere(['user_id'=>auth('host')->id()]);
 
         return view('host.tours.index', compact('tours'));
     }

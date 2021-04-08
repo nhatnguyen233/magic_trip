@@ -19,9 +19,10 @@ class AuthController extends BaseAuthController
     public function __construct(UserRepository $userRepository, ProvinceRepository $provinceRepository)
     {
         $this->guardName = 'customer';
-        parent::__construct();
         $this->userRepository = $userRepository;
         $this->provinceRepository = $provinceRepository;
+
+        parent::__construct();
     }
 
     public function showRegisterForm()
@@ -31,7 +32,7 @@ class AuthController extends BaseAuthController
         return view('customer.register', $viewData);
     }
 
-    public function registerCustomers(Register $request)
+    public function register(Register $request)
     {
         $customer = $this->userRepository->createUserInfo($request->validated());
         Auth::guard('customer')->login($customer);
