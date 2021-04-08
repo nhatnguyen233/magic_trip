@@ -4,7 +4,7 @@
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="#">Quản lí khách hàng</a>
+            <a href="#">Quản lí tài khoản</a>
         </li>
         <li class="breadcrumb-item active">Danh sách</li>
     </ol>
@@ -16,10 +16,10 @@
     <!-- Example DataTables Card-->
     <div class="card mb-3">
         <div class="card-header">
-            <i class="fa fa-table"></i> Danh sách khách hàng
+            <i class="fa fa-table"></i> Danh sách tài khoản
         </div>
         <div class="card-body">
-            <a href="{{ route('admin.users.create') }}" class="btn btn-success mb-3 ml-3">Thêm khách hàng</a>
+            <a href="{{ route('admin.users.create') }}" class="btn btn-success mb-3 ml-3">Thêm tài khoản</a>
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
@@ -29,8 +29,8 @@
                         <th>Email</th>
                         <th>Điện thoại</th>
                         <th>Địa chỉ thường trú</th>
-                        <th>Địa chỉ tạm trú</th>
                         <th>Mã zipcode</th>
+                        <th>Quyền</th>
                         <th>Hành động</th>
                     </tr>
                     </thead>
@@ -42,8 +42,8 @@
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->phone }}</td>
                             <td>{{ $user->address }}</td>
-                            <td>{{ !empty($user->FullAddress) ? $user->FullAddress : '' }}</td>
                             <td>{{ $user->postal_code }}</td>
+                            <td>{{ $user->role_name }}</td>
                             <td>
                                 <div class="d-flex justify-content-around">
                                     <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-warning text-white" data-id="{{ $user->id }}">

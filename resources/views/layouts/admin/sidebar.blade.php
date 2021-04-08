@@ -17,11 +17,11 @@
             <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseUsers"
                data-parent="#mylistings">
                 <i class="fa fa-fw fa-unlock-alt"></i>
-                <span class="nav-link-text">Quản lí khách hàng</span>
+                <span class="nav-link-text">Quản lí tài khoản</span>
             </a>
             <ul class="sidenav-second-level collapse" id="collapseUsers">
                 <li>
-                    <a href="{{ route('admin.users.index') }}">Danh Sách Khách Hàng</a>
+                    <a href="{{ route('admin.users.index') }}">Danh sách</a>
                 </li>
             </ul>
         </li>
@@ -57,7 +57,7 @@
                 </li>
             </ul>
         </li>
-        
+
     </ul>
     <ul class="navbar-nav sidenav-toggler">
         <li class="nav-item">

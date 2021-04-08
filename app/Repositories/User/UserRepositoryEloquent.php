@@ -29,7 +29,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         $limit = $limit ?? config('common.default_per_page');
         $filterable = [];
 
-        $query = $this->where('role_id', UserRole::CUSTOMER)
+        $query = $this->whereIn('role_id', UserRole::asArray())
             ->orderBy('created_at', 'DESC');
 
         return $this->filterPaginate(

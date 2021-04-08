@@ -130,5 +130,22 @@ class User extends Authenticatable
             return $this->district->name . ',' . $this->province->name . ','. $this->country->name;
         }
     }
-    
+
+    public function getRoleNameAttribute()
+    {
+        if(isset($this->role_id))
+        {
+            switch ($this->role_id)
+            {
+                case UserRole::CUSTOMER:
+                    return 'Customer';
+                case UserRole::HOST:
+                    return 'Host';
+                case UserRole::ADMINISTRATOR:
+                    return 'Admin';
+            }
+        }
+
+        return 'Customer';
+    }
 }
