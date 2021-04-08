@@ -37,7 +37,7 @@
                     <tbody>
                     @foreach($listUsers as $user)
                         <tr>
-                            <td><img src="{{ !empty($user->getAvatarUrlAttribute()) ? asset($user->getAvatarUrlAttribute()) : ''  }}" width="60px" height="60px" class="rounded-circle" id="avatar-image" /></td>
+                            <td><img src="{{ $user->avatar_url }}" width="60px" height="60px" class="rounded-circle" id="avatar-image" /></td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->phone }}</td>

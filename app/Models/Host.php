@@ -25,6 +25,11 @@ class Host extends Model
         'address',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
     public function province()
     {
         return $this->belongsTo(Province::class, 'province_id', 'id');
