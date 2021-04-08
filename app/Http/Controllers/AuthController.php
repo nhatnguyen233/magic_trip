@@ -24,7 +24,7 @@ class AuthController extends Controller
             'login',
             'create',
             'redirectToProvider',
-            'registerCustomers',
+            'register',
             'updateProfileView',
             'updateProfileUser'
         ]);

@@ -33,14 +33,14 @@ class PaymentEloquent extends BaseRepository implements PaymentRepository
         try {
             DB::beginTransaction();
                 $payment = $this->create(array_merge([
-                    'name' => $inputs['name'],
+                    'card_name' => $inputs['card_name'],
                     'card_number' => $inputs['card_number'],
                     'expire_month' => $inputs['expire_month'],
                     'expire_year' => $inputs['expire_year'],
                     'ccv' => $inputs['ccv'],
                     'security_code' => bcrypt('12345678'),
               ]));
-                        
+
             DB::commit();
 
             return $payment;
@@ -48,6 +48,7 @@ class PaymentEloquent extends BaseRepository implements PaymentRepository
      } catch (\Exception $e) {
             Log::error($e);
             DB::rollBack();
+            throw $e;
         }
     }
 

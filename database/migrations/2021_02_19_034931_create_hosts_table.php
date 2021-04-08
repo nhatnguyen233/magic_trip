@@ -15,21 +15,23 @@ class CreateHostsTable extends Migration
     {
         Schema::create('hosts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('province_id')->nullable();
-            $table->unsignedBigInteger('district_id')->nullable();
-            $table->unsignedBigInteger('ward_id')->nullable();
+            $table->string('host_name', 100);
+            $table->string('host_mail', 50)->nullable();
+            $table->string('hotline', 13)->nullable();
+            $table->text('description')->nullable();
+            $table->string('address',100)->nullable();
+            $table->string('identification')->nullable();
+            $table->date('date_of_establish')->nullable();
+            $table->string('thumbnail')->nullable();
+            $table->string('avatar')->nullable();
             $table->unsignedBigInteger('country_id')->nullable();
             $table->unsignedBigInteger('bank_id')->nullable();
-            $table->string('identification')->nullable();
-            $table->integer('level')->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->integer('status')->default(0);
             $table->timestamps();
 //            $table->foreign('user_id')->references('id')->on('users');
 //            $table->foreign('bank_id')->references('id')->on('banks');
 //            $table->foreign('country_id')->references('id')->on('countries');
-//            $table->foreign('province_id')->references('id')->on('provinces');
-//            $table->foreign('district_id')->references('id')->on('districts');
-//            $table->foreign('ward_id')->references('id')->on('wards');
         });
     }
 

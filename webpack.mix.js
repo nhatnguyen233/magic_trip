@@ -29,7 +29,9 @@ mix.copy('resources/assets/js/main.js', 'public/js/front')
     .copy('resources/assets/js/jquery.instagramFeed.min.js', 'public/js/front')
     .copy('resources/assets/js/jquery-3.5.1.min.js', 'public/js/front');
 
-mix.copy('resources/assets/other/validate.js', 'public/js/front');
+mix.copy('resources/assets/other/validate.js', 'public/js/front')
+    .copy('node_modules/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css', 'public/tempusdominus-bootstrap-4/')
+    .copy('node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js', 'public/tempusdominus-bootstrap-4/');
 
 mix.copy('resources/assets/css/custom.css', 'public/css/front/custom.css')
     .copy('resources/assets/css/style.css', 'public/css/front/style.css')

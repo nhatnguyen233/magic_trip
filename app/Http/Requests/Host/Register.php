@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\User;
+namespace App\Http\Requests\Host;
 
 use App\Enums\UserRole;
 use Illuminate\Foundation\Http\FormRequest;
@@ -33,14 +33,6 @@ class Register extends FormRequest
                 'required',
                 'exists:countries,id'
             ],
-            'province_id' => [
-                'required',
-                'exists:provinces,id'
-            ],
-            'district_id' => [
-                'nullable',
-                'exists:districts,id'
-            ],
             'phone' => [
                 'required',
             ],
@@ -52,7 +44,7 @@ class Register extends FormRequest
             'email' => [
                 'required',
                 'email:rfc',
-                Rule::unique('users','email')->where('role_id', UserRole::CUSTOMER)
+                Rule::unique('users','email')->where('role_id', UserRole::HOST)
             ],
             'password_confirmation' => [
                 'required_with:password',
@@ -71,8 +63,25 @@ class Register extends FormRequest
             ],
             'role_id' => [
                 'required',
-                'in:1'
-            ]
+                'in:2'
+            ],
+            'host_name' => [
+                'required',
+            ],
+            'date_of_establish' => [
+                'required',
+            ],
+            'hotline' => [
+                'required',
+            ],
+            'host_mail' => [
+                'required',
+                'email:rfc',
+                Rule::unique('hosts','host_mail')
+            ],
+            'status' => [
+                'nullable',
+            ],
         ];
     }
 
@@ -84,7 +93,7 @@ class Register extends FormRequest
     protected function prepareForValidation()
     {
         $this->merge([
-            'role_id' => UserRole::CUSTOMER
+            'role_id' => UserRole::HOST,
         ]);
     }
 }
