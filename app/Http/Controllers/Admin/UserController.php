@@ -24,14 +24,14 @@ class UserController extends Controller
     {
         $viewData['listUsers'] = $this->userRepository->getList();
 
-        return view('admin.customers.index', $viewData);
+        return view('admin.users.index', $viewData);
     }
 
     public function create()
     {
         $viewData['provinces'] = $this->provinceRepository->all();
 
-        return view('admin.customers.create', $viewData);
+        return view('admin.users.create', $viewData);
     }
 
     public function store(Register $request)
@@ -48,7 +48,7 @@ class UserController extends Controller
         $viewData['provinces'] = $this->provinceRepository->all();
         $viewData['user'] =  $user;
 
-        return view('admin.customers.edit',  $viewData);
+        return view('admin.users.edit',  $viewData);
     }
 
     public function update(Request $request)
