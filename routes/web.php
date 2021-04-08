@@ -1,6 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Customer\TourController;
+use App\Http\Controllers\Customer\AuthController;
+use App\Http\Controllers\Customer\ReviewController;
+use App\Http\Controllers\Customer\CartController;
+use App\Http\Controllers\Customer\BookTourController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +19,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/register',[AuthController::class, 'showRegisterForm'])->name('customer.register.form');
+
+Route::get('/',[HomeController::class, 'index']);
+Route::post('/register',[AuthController::class, 'register'])->name('customer.register');
+
+Route::get('/update-profile/{user}',[AuthController::class, 'updateProfileView'])->name('update-profile');
+Route::post('/update-profile/{user}',[AuthController::class, 'updateProfileUser'])->name('user.update-profile');
+
+Route::resource('/tours',TourController::class);
+Route::resource('/reviews',ReviewController::class);
+Route::resource('/cart',CartController::class);
+
+Route::middleware('auth.customer')->group(function() {
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::resource('/book-tour', BookTourController::class)->only(['index', 'create', 'store']);
+    Route::get('/book-tour/order-finished', [BookTourController::class, 'getFinishedOrderPage'])->name('book-tour.order-finished');
 });
