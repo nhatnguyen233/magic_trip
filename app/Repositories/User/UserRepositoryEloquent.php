@@ -14,6 +14,7 @@ use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Exceptions\RepositoryException;
 use App\Repositories\Helpers\FilterTrait;
+use Illuminate\Support\Facades\Hash;
 
 class UserRepositoryEloquent extends BaseRepository implements UserRepository
 {
@@ -125,5 +126,23 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
             DB::rollBack();
             throw $exception;
         }
+    }
+
+    public function getUserSocialNetWork($getInfo, $provider)
+    {
+        $user = User::where('provider_id', $getInfo->id)->first();
+
+        if (!$user) {
+            $user = User::create([
+                'name' => $getInfo->name,
+                'role_id' => UserRole::CUSTOMER,
+                'password' => Hash::make('123456789'),
+                'provider' => $provider,
+                'provider_id' => $getInfo->id,
+                'email' => $getInfo->email,
+            ]);
+        }
+
+        return $user;
     }
 }
