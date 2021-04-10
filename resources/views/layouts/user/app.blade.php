@@ -56,8 +56,8 @@
     <form action="{{ route('login') }}" method="POST">
         @csrf
         <div class="sign-in-wrapper">
-            <a href="#0" class="social_bt facebook">Đăng nhập với Facebook</a>
-            <a href="#0" class="social_bt google">Đăng nhập với Google</a>
+            <a href="{{ route('login.social', ['provider' => 'facebook']) }}" class="social_bt facebook">Đăng nhập với Facebook</a>
+            <a href="{{ route('login.social', ['provider' => 'google']) }}" class="social_bt google">Đăng nhập với Google</a>
             <div class="divider"><span>Hoặc</span></div>
             <div class="form-group">
                 <label>Email</label>

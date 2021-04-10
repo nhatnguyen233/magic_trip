@@ -7,6 +7,7 @@ use App\Http\Controllers\Customer\AuthController;
 use App\Http\Controllers\Customer\ReviewController;
 use App\Http\Controllers\Customer\CartController;
 use App\Http\Controllers\Customer\BookTourController;
+use App\Http\Controllers\Customer\SocialController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,9 @@ use App\Http\Controllers\Customer\BookTourController;
 
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/register',[AuthController::class, 'showRegisterForm'])->name('customer.register.form');
+
+Route::get('/auth/redirect/{provider}', [SocialController::class, 'redirect'])->name('login.social');
+Route::get('/callback/{provider}', [SocialController::class, 'callback'])->name('login.callback');
 
 Route::get('/',[HomeController::class, 'index']);
 Route::post('/register',[AuthController::class, 'register'])->name('customer.register');

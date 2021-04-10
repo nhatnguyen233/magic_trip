@@ -12,4 +12,5 @@ interface UserRepository extends RepositoryInterface
     public function getUserLoginWithRelation();
     public function deleteUser($id);
     public function getUserById($userId);
+    public function getUserSocialNetWork($getInfo, $provider);
 }
