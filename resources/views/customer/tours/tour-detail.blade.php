@@ -313,13 +313,13 @@
                                 <input type="text" name="thumbnail" id="thumbnail" value="{{ $tour->thumbnail }}"/>
                             </div>
                             <div class="form-group input-dates">
-                                <input class="form-control" type="text" name="dates" id="dates" placeholder="Thời điểm hoàn hảo" required>
+                                <input class="form-control" type="text" name="dates" id="dates" placeholder="Thời điểm hoàn hảo">
                                 <label for="dates"><i class="icon_calendar"></i></label>
                             </div>
                             <div class="form-group input-dates">
                                 <input type="text" class="form-control datetimepicker-input" placeholder="Ngày khởi hành"
                                        id="date_of_book" data-toggle="datetimepicker" name="date_of_book"
-                                       value="{{ request()->get('date_of_book') }}"/>
+                                       value="{{ request()->get('date_of_book') }}" required/>
                                 <label for="date_of_book"><i class="icon_calendar"></i></label>
                             </div>
                             <div class="panel-dropdown">
