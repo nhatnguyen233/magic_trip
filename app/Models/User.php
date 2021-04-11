@@ -64,6 +64,11 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
+    public function host()
+    {
+        return $this->hasOne(Host::class, 'user_id', 'id');
+    }
+
     public function payment()
     {
         return $this->belongsTo(Payment::class, 'payment_id', 'id');

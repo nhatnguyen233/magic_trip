@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateServicesTable extends Migration
+class CreateTourImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateServicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('services', function (Blueprint $table) {
+        Schema::create('tour_images', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('icon')->nullable();
-            $table->integer('status')->nullable();
-            $table->unsignedBigInteger('room_id')->nullable();
+            $table->unsignedBigInteger('tour_id');
+            $table->string('url');
             $table->timestamps();
-//            $table->foreign('room_id')->references('id')->on('rooms');
+//            $table->foreign('tour_id')->references('id')->on('tours');
         });
     }
 
@@ -31,6 +29,6 @@ class CreateServicesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('services');
+        Schema::dropIfExists('tour_images');
     }
 }

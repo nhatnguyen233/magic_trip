@@ -39,12 +39,11 @@ class TourInfoController extends Controller
      */
     public function index()
     {
-        $tours = $this->tourRepository->all();
-        $infos = $this->tourInfoRepository->all();
+        $tours = $this->tourRepository->findWhere(['user_id'=>auth('host')->id()]);
         $accommodations = $this->accommodationRepository->all();
         $attractions = $this->attractionRepository->all();
 
-        return view('host.tours.infos.index', compact('infos', 'tours', 'attractions', 'accommodations'));
+        return view('host.tours.infos.index', compact('tours', 'attractions', 'accommodations'));
     }
 
     /**

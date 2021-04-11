@@ -9,7 +9,7 @@ class Bill extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'book_tour_id'];
+    protected $fillable = ['user_id', 'book_tour_id', 'total_price'];
 
     public function user()
     {

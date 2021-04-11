@@ -27,15 +27,9 @@ class CartController extends Controller
     {
         $carts = $this->cartRepository->findWhere(['session_token' => session()->get('session_token')]);
         $total_price_all = array_sum($carts->pluck('total_price')->toArray()); // Tổng số tiền các đơn trong giỏ
-        $total_quantity = array_sum($carts->pluck('quantity')->toArray()); // Tổng số lượng
-        $start_time_min = $carts->filter(function ($item) {
-            return $item->start_time != null;
-        })->min('start_time');  // Thời điểm bắt đầu sớm nhất trong list giỏ
-        $end_time_max = $carts->filter(function ($item) {
-            return $item->end_time != null;
-        })->max('end_time'); // Thời điểm kết thục bắt đầu muộn nhất trong list giỏ
+        $number_of_slots = array_sum($carts->pluck('number_of_slots')->toArray()); // Tổng số lượng
 
-        return view('customer.cart.index',compact('carts','total_price_all', 'start_time_min','end_time_max', 'total_quantity'));
+        return view('customer.cart.index',compact('carts','total_price_all', 'number_of_slots'));
     }
 
     /**
@@ -94,7 +88,17 @@ class CartController extends Controller
      */
     public function update(Request $request, Cart $cart)
     {
-        //
+        if($request->number_of_slots <= 0)
+        {
+            $cart->delete();
+        }
+
+        $cart->update([
+            'total_price' => $request->number_of_slots * $cart->price,
+            'number_of_slots' => $request->number_of_slots
+        ]);
+
+        return redirect()->back()->with('success', 'Cập nhật thành công');
     }
 
     /**

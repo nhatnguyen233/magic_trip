@@ -21,7 +21,6 @@ class Host extends Model
         'date_of_establish',
         'thumbnail',
         'avatar',
-        'identification',
         'address',
     ];
 

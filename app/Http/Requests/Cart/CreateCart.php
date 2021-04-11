@@ -39,7 +39,7 @@ class CreateCart extends FormRequest
                 'required',
                 'numeric'
             ],
-            'quantity' => [
+            'number_of_slots' => [
                 'required',
                 'numeric'
             ],
@@ -52,13 +52,9 @@ class CreateCart extends FormRequest
             'dates' => [
                 'required',
             ],
-            'start_time' => [
+            'date_of_book' => [
                 'required',
                 'after_or_equal:today'
-            ],
-            'end_time' => [
-                'required',
-                'after_or_equal:start_time'
             ],
             'expired_at' => [
                 'required',
@@ -100,9 +96,8 @@ class CreateCart extends FormRequest
 
         $this->merge([
             'session_token' => session()->get('session_token'),
-            'start_time' => date("Y-m-d", strtotime(explode(" ", $this->dates)[0])),
-            'end_time' => date("Y-m-d", strtotime(explode(" ", $this->dates)[2])),
-            'total_price' => $this->quantity*$this->price,
+            'date_of_book' => date("Y-m-d", strtotime($this->date_of_book)),
+            'total_price' => $this->number_of_slots*$this->price,
             'expired_at' => Carbon::now()->addWeeks(1),
         ]);
     }

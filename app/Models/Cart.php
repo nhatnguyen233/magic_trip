@@ -16,10 +16,10 @@ class Cart extends Model
         'tour_name',
         'price',
         'discount',
-        'quantity',
+        'number_of_slots',
         'total_price',
         'thumbnail',
-        'start_time',
+        'date_of_book',
         'payment_id',
         'end_time',
         'expired_at'

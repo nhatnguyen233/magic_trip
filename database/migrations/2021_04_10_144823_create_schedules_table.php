@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBillsTable extends Migration
+class CreateSchedulesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateBillsTable extends Migration
      */
     public function up()
     {
-        Schema::create('bills', function (Blueprint $table) {
+        Schema::create('schedules', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('book_tour_id');
-            $table->double('total_price');
+            $table->unsignedBigInteger('tour_id');
+            $table->timestamp('departure_time');
+            $table->integer('number_max_slots');
             $table->timestamps();
+//            $table->foreign('tour_id')->references('id')->on('tours');
         });
     }
 
@@ -29,6 +30,6 @@ class CreateBillsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bills');
+        Schema::dropIfExists('schedules');
     }
 }

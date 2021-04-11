@@ -15,10 +15,9 @@ class BookTour extends Model
         'tour_id',
         'user_id',
         'payment_id',
-        'quantity',
+        'number_of_slots',
         'total_price',
-        'start_time',
-        'end_time',
+        'date_of_book',
         'status',
         'type'
     ];

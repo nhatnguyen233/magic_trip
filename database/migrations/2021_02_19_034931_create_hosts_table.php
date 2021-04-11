@@ -20,7 +20,6 @@ class CreateHostsTable extends Migration
             $table->string('hotline', 13)->nullable();
             $table->text('description')->nullable();
             $table->string('address',100)->nullable();
-            $table->string('identification')->nullable();
             $table->date('date_of_establish')->nullable();
             $table->string('thumbnail')->nullable();
             $table->string('avatar')->nullable();

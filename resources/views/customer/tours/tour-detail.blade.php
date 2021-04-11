@@ -1,5 +1,9 @@
 @extends('layouts.user.app')
 
+@section('style')
+    <link rel="stylesheet" href="{{ asset('tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.css') }}" />
+@endsection
+
 @section('content')
     <section class="hero_in tours_detail">
         <div class="wrapper">
@@ -312,12 +316,18 @@
                                 <input class="form-control" type="text" name="dates" id="dates" placeholder="Thời điểm hoàn hảo" required>
                                 <label for="dates"><i class="icon_calendar"></i></label>
                             </div>
+                            <div class="form-group input-dates">
+                                <input type="text" class="form-control datetimepicker-input" placeholder="Ngày khởi hành"
+                                       id="date_of_book" data-toggle="datetimepicker" name="date_of_book"
+                                       value="{{ request()->get('date_of_book') }}"/>
+                                <label for="date_of_book"><i class="icon_calendar"></i></label>
+                            </div>
                             <div class="panel-dropdown">
                                 <a href="#">Số lượng <span class="qtyTotal">1</span></a>
                                 <div class="panel-dropdown-content right">
                                     <div class="qtyButtons">
-                                        <label for="quantity">Số lượng</label>
-                                        <input type="text" name="quantity" id="quantity" value="1" required>
+                                        <label for="number_of_slots">Số lượng</label>
+                                        <input type="text" name="number_of_slots" id="number_of_slots" value="1" required>
                                     </div>
                                 </div>
                             </div>
@@ -346,7 +356,8 @@
     <script src="{{ asset('js/front/map_single_tour.js') }}"></script>
     <script src="{{ asset('js/front/infobox.js') }}"></script>
     <script src="{{ asset('js/front/jquery.instagramFeed.min.js') }}"></script>
-
+    <script src="{{ asset('js/front/moment.min.js') }}"></script>
+    <script src="{{ asset('tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.js') }}" crossorigin="anonymous"></script>
     <!-- INSTAGRAM FEED  -->
     <script>
         $(window).on('load', function() {
@@ -363,6 +374,12 @@
                 'items': 12,
                 'items_per_row': 6,
                 'margin': 1
+            });
+        });
+
+        $(function () {
+            $('#date_of_book').datetimepicker({
+                format: 'YYYY-MM-DD'
             });
         });
     </script>
