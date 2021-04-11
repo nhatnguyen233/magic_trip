@@ -41,9 +41,8 @@ class BookTourEloquent extends BaseRepository implements BookTourRepository
                         $this->create([
                             'tour_id' => $item['tour_id'],
                             'user_id' => $userId,
-                            'start_time' => $item['start_time'],
-                            'end_time' => $item['end_time'],
-                            'quantity' => $item['quantity'],
+                            'date_of_book' => $item['date_of_book'],
+                            'number_of_slots' => $item['number_of_slots'],
                             'total_price' => $item['total_price'],
                             'status' => BookingStatus::PENDING
                         ]);

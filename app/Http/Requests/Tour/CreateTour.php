@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Tour;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Str;
 
 class CreateTour extends FormRequest
 {
@@ -28,6 +27,9 @@ class CreateTour extends FormRequest
             'user_id' => [
                 'required'
             ],
+            'host_id' => [
+                'required'
+            ],
             'name' => [
                 'required',
             ],
@@ -35,6 +37,9 @@ class CreateTour extends FormRequest
                 'nullable',
             ],
             'description' => [
+                'nullable',
+            ],
+            'program' => [
                 'nullable',
             ],
             'price' => [
@@ -66,6 +71,7 @@ class CreateTour extends FormRequest
     {
         $this->merge([
             'user_id' => auth('host')->id(),
+            'host_id' => auth('host')->user()->host->id,
             'price' => doubleval(str_replace('.','',$this->price)),
         ]);
     }

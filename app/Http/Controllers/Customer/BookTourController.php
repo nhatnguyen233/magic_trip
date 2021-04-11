@@ -35,13 +35,7 @@ class BookTourController extends Controller
     {
         $viewData['orders'] = $this->bookTourRepository->where('user_id', auth('customer')->id())->paginate(20);
         $viewData['total_price_all'] = array_sum($viewData['orders']->pluck('total_price')->toArray()); // Tổng số tiền các đơn trong giỏ
-        $viewData['total_quantity'] = array_sum($viewData['orders']->pluck('quantity')->toArray()); // Tổng số lượng
-        $viewData['start_time_min'] = $viewData['orders']->filter(function ($item) {
-            return $item->start_time != null;
-        })->min('start_time');  // Thời điểm bắt đầu sớm nhất trong list giỏ
-        $viewData['end_time_max'] = $viewData['orders']->filter(function ($item) {
-            return $item->end_time != null;
-        })->max('end_time'); // Thời điểm kết thục bắt đầu muộn nhất trong list giỏ
+        $viewData['number_of_slots'] = array_sum($viewData['orders']->pluck('number_of_slots')->toArray()); // Tổng số lượng
 
         return view('customer.book_tour.index', $viewData);
     }
@@ -56,13 +50,7 @@ class BookTourController extends Controller
         $data['provinces'] = $this->provinceRepository->all();
         $data['carts'] = $this->cartRepository->findWhere(['session_token' => session()->get('session_token')]);
         $data['total_price_all'] = array_sum($data['carts']->pluck('total_price')->toArray()); // Tổng số tiền các đơn trong giỏ
-        $data['total_quantity'] = array_sum($data['carts']->pluck('quantity')->toArray()); // Tổng số lượng
-        $data['start_time_min'] = $data['carts']->filter(function ($item) {
-            return $item->start_time != null;
-        })->min('start_time');  // Thời điểm bắt đầu sớm nhất trong list giỏ
-        $data['end_time_max'] = $data['carts']->filter(function ($item) {
-            return $item->end_time != null;
-        })->max('end_time'); // Thời điểm kết thục bắt đầu muộn nhất trong list giỏ
+        $data['number_of_slots'] = array_sum($data['carts']->pluck('number_of_slots')->toArray()); // Tổng số lượng
 
         return view('customer.book_tour.create', $data);
     }

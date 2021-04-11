@@ -10,8 +10,9 @@ class Bank extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'short_name'
+        'bank_name',
+        'bank_short_name',
+        'bank_code'
     ];
 
     public function host()

@@ -17,7 +17,8 @@ class BookTourObserver
     {
         Bill::create([
            'user_id' => auth('customer')->id(),
-           'book_tour_id' => $bookTour->id
+           'book_tour_id' => $bookTour->id,
+           'total_price' => $bookTour->total_price
         ]);
     }
 

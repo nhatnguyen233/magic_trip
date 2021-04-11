@@ -62,6 +62,9 @@
                                     Tour
                                 </th>
                                 <th>
+                                    Ngày khởi hành
+                                </th>
+                                <th>
                                     Số lượng
                                 </th>
                                 <th>
@@ -82,10 +85,13 @@
                                         <span class="item_cart">{{ $item->tour->tour_name }}</span>
                                     </td>
                                     <td>
-                                        <input type="number" name="quantity" min="0" value="{{ $item->quantity ?? 0 }}" style="width: 70px"/>
+                                        <strong>{{ date("d-m-Y", strtotime($item->date_of_book)) }}</strong>
                                     </td>
                                     <td>
-                                        <strong>{{ number_format($item->total_price, 0, '', ',') }} VND</strong>
+                                        <input type="number" name="quantity" min="0" value="{{ $item->number_of_slots ?? 0 }}" style="width: 70px"/>
+                                    </td>
+                                    <td>
+                                        <strong>{{ number_format($item->total_price, 0, '', ',') }}đ</strong>
                                     </td>
                                     <td>
                                         <span class="text-danger">
@@ -112,12 +118,11 @@
                 <aside class="col-lg-4" id="sidebar">
                     <div class="box_detail">
                         <div id="total_cart">
-                            Tổng <span class="float-right">{{ number_format($total_price_all, 0, '', ',') }} VND</span>
+                            Tổng <span class="float-right">{{ number_format($total_price_all, 0, '', ',') }}đ</span>
                         </div>
                         <ul class="cart_details">
-                            <li>Từ ngày <span>{{ date('d-m-Y', strtotime($start_time_min)) }}</span></li>
-                            <li>Tới ngày <span>{{ date('d-m-Y', strtotime($end_time_max)) }}</span></li>
-                            <li>Tổng số lượng <span>{{ $total_quantity }}</span></li>
+                            <li>Tour <span>{{ $orders->count() }}</span></li>
+                            <li>Tổng số lượng <span>{{ $number_of_slots }}</span></li>
                         </ul>
                         @guest('customer')
                             <a href="#sign-in-dialog"  id="sign-in" title="Đăng nhập" class="btn_1 full-width purchase login">Đăng nhập</a>
@@ -127,6 +132,7 @@
                             <div class="text-center"><small>Vui lòng đăng nhập để tiếp tục đặt tour du lịch</small></div>
                         @endguest
                         @auth('customer')
+                            <a href="#" class="btn_1 full-width purchase">Thanh toán</a>
                             <a href="#" class="btn_1 full-width chat">Nhắn tin</a>
                             <div class="text-center"><small>Không bị tính phí trong bước này</small></div>
                         @endauth

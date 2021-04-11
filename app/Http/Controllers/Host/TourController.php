@@ -46,7 +46,7 @@ class TourController extends Controller
      */
     public function create()
     {
-        $tours = $this->tourRepository->all();
+        $tours = $this->tourRepository->findWhere(['user_id'=>auth('host')->id()]);
         $accommodations = $this->accommodationRepository->all();
         $attractions = $this->attractionRepository->all();
 
@@ -85,7 +85,7 @@ class TourController extends Controller
      */
     public function edit(Tour $tour)
     {
-        $tours = $this->tourRepository->all();
+        $tours = $this->tourRepository->findWhere(['user_id'=>auth('host')->id()]);
         $accommodations = $this->accommodationRepository->all();
         $attractions = $this->attractionRepository->all();
 

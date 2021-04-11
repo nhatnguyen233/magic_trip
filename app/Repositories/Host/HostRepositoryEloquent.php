@@ -48,7 +48,7 @@ class HostRepositoryEloquent extends BaseRepository implements HostRepository
             }
 
             $data = array_filter($params, function ($key) {
-                return in_array($key, ['user_id', 'country_id', 'identification', 'host_name', 'host_mail', 'hotline',
+                return in_array($key, ['user_id', 'country_id', 'host_name', 'host_mail', 'hotline',
                     'bank_id', 'date_of_establish', 'address', 'avatar', 'thumbnail' , 'description']);
             }, ARRAY_FILTER_USE_KEY);
 

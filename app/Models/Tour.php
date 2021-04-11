@@ -12,8 +12,10 @@ class Tour extends Model
 
     protected $fillable = [
         'user_id',
+        'host_id',
         'name',
         'description',
+        'program',
         'price',
         'discount',
         'vehicle',
@@ -23,6 +25,11 @@ class Tour extends Model
     ];
 
     protected $appends = ['thumbnail_url', 'avatar_url'];
+
+    public function host()
+    {
+        return $this->belongsTo(Host::class, 'host_id', 'id');
+    }
 
     public function infos()
     {
@@ -34,6 +41,10 @@ class Tour extends Model
         return $this->hasMany(Review::class, 'tour_id', 'id');
     }
 
+    public function schedules()
+    {
+        return $this->hasMany(Schedule::class, 'tour_id', 'id');
+    }
 
     public function getAvatarUrlAttribute()
     {

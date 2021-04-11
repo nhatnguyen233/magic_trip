@@ -77,6 +77,9 @@
                                     Tour
                                 </th>
                                 <th>
+                                    Ngày khởi hành
+                                </th>
+                                <th>
                                     Giá
                                 </th>
                                 <th>
@@ -97,13 +100,16 @@
                                         <span class="item_cart">{{ $item->tour_name }}</span>
                                     </td>
                                     <td>
-                                        <strong>{{ number_format($item->price, 0, '', ',') }} VND</strong>
+                                        <strong>{{ date("d-m-Y", strtotime($item->date_of_book)) }}</strong>
                                     </td>
                                     <td>
-                                        <input type="number" name="quantity" min="0" value="{{ $item->quantity ?? 0 }}" style="width: 70px" readonly/>
+                                        <strong>{{ number_format($item->price, 0, '', ',') }}đ</strong>
                                     </td>
                                     <td>
-                                        <strong>{{ number_format($item->total_price, 0, '', ',') }} VND</strong>
+                                        <input type="number" name="quantity" min="0" value="{{ $item->number_of_slots ?? 0 }}" style="width: 70px" readonly/>
+                                    </td>
+                                    <td>
+                                        <strong>{{ number_format($item->total_price, 0, '', ',') }}đ</strong>
                                     </td>
                                 </tr>
                             @empty
@@ -233,12 +239,11 @@
                 <aside class="col-lg-4" id="sidebar">
                     <div class="box_detail">
                         <div id="total_cart">
-                            Tổng <span class="float-right">{{ number_format($total_price_all, 0, '', ',') }} VND</span>
+                            Tổng <span class="float-right">{{ number_format($total_price_all, 0, '', ',') }}đ</span>
                         </div>
                         <ul class="cart_details">
-                            <li>Từ ngày <span>{{ date('d-m-Y', strtotime($start_time_min)) }}</span></li>
-                            <li>Tới ngày <span>{{ date('d-m-Y', strtotime($end_time_max)) }}</span></li>
-                            <li>Tổng số lượng <span>{{ $total_quantity }}</span></li>
+                            <li>Tour <span>{{ $carts->count() }}</span></li>
+                            <li>Số lượng đặt <span>{{ $number_of_slots }}</span></li>
                         </ul>
                         @if($carts->count() > 0)
                         <button type="button" class="btn_1 full-width purchase" data-toggle="modal" data-target="#orderModalCenter">

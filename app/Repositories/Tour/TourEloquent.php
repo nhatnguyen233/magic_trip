@@ -41,7 +41,7 @@ class TourEloquent extends BaseRepository implements TourRepository
             }
 
             $data = array_filter($params, function ($key) {
-                return in_array($key, ['user_id', 'name', 'description', 'price',
+                return in_array($key, ['user_id', 'host_id', 'name', 'description', 'program', 'price',
                     'vehicle', 'total_time', 'avatar', 'thumbnail']);
             }, ARRAY_FILTER_USE_KEY);
 
