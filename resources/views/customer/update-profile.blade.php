@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description"
-          content="Panagea - Premium site template for travel agencies, hotels and restaurant listing.">
+          content="Magic - Premium site template for travel agencies, hotels and restaurant listing.">
     <meta name="author" content="Ansonika">
-    <title>Panagea | Đại lý du lịch, khách sạn và danh sách nhà hàng.</title>
+    <title>MAGIC TRIP | Đại lý du lịch, khách sạn và danh sách nhà hàng.</title>
 
     <!-- Favicons-->
     <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}" type="image/x-icon">
