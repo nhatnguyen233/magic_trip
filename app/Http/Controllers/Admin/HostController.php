@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Host;
-use App\Repositories\Host\HostRepository;
-use App\Enums\StatusHost;
 use App\Enums\UserRole;
-use App\Http\Requests\User\Register;
+use App\Http\Controllers\Controller;
+use App\Repositories\Host\HostRepository;
+use App\Http\Requests\Host\Register;
+use App\Models\Host;
 use App\Models\User;
 use App\Repositories\Province\ProvinceRepository;
 use App\Repositories\User\UserRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class HostController extends Controller
 {
@@ -33,6 +33,8 @@ class HostController extends Controller
      */
     public function index()
     {
+        $viewData['hosts'] = $this->userRepository->findWhere(['role_id' => UserRole::HOST]);
+
         $viewData['hosts'] = $this->hostRepository->all();
 
         return view('admin.hosts.index', $viewData);
@@ -42,53 +44,42 @@ class HostController extends Controller
     {
         $viewData['provinces'] = $this->provinceRepository->all();
 
-        return view('admin.host.create', $viewData);
-    }
-
-    public function indexUnpproveHost()
-    {
-        $viewData['listUnpproveHost'] = $this->userRepository->getList(UserRole::HOST, StatusHost::UNAPPROVE);
-
-        return view('admin.hosts.index-unpprove', $viewData);
+        return view('admin.hosts.create', $viewData);
     }
 
     public function store(Register $request)
     {
-        if($this->userRepository->createUserInfo($request->except(['_token']))) {
+        $user = $this->userRepository->createUserInfo($request->except(['_token']));
+
+        if($this->hostRepository->createHost($request->validated(), $user->id)) {
             return redirect()->route('admin.hosts.index')->with('success', __('message.update_success'));
         }
     }
 
-    public function edit(User $host)
+    public function edit(Host $host)
     {
         $viewData['provinces'] = $this->provinceRepository->all();
+
         $viewData['host'] =  $host;
 
-        return view('admin.host.edit',  $viewData);
+        return view('admin.hosts.edit',  $viewData);
     }
 
     public function update(Request $request)
     {
-        if ($this->userRepository->updateBaseInfo($request->except(['_token']), $request->host)) {
+        if ($this->hostRepository->updateBaseInfo($request->except(['_token']), $request->host)) {
             return redirect()->route('admin.hosts.index')->with('success', __('message.update_success'));
         }
     }
 
-    public function destroy(User $host)
+    public function destroy(Host $host)
     {
-        if($this->userRepository->deleteUser($host)){
+        if($this->hostRepository->deleteHost($host)){
 
             return redirect()->back()->with('success', __('message.update_success'));
         }
 
         return redirect()->back()->with('fail', __('message.update_fail'));
-    }
-
-    public function updateApproveStatus(User $host)
-    {
-        $this->userRepository->approveStatusHost($host);
-
-        return redirect()->back()->with('success', __('message.update_success'));
     }
 
 }
