@@ -33,6 +33,8 @@ use App\Repositories\BookTour\BookTourEloquent;
 use App\Repositories\BookTour\BookTourRepository;
 use App\Repositories\Host\HostRepository;
 use App\Repositories\Host\HostRepositoryEloquent;
+use App\Repositories\Schedule\ScheduleEloquent;
+use App\Repositories\Schedule\ScheduleRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -99,6 +101,10 @@ class RepositoryServiceProvider extends ServiceProvider
         [
             'abstract' => HostRepository::class,
             'concrete' => HostRepositoryEloquent::class,
+        ],
+        [
+            'abstract' => ScheduleRepository::class,
+            'concrete' => ScheduleEloquent::class,
         ]
     ];
 
