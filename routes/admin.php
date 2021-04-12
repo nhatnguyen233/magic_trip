@@ -36,8 +36,6 @@ Route::middleware('auth.admin')->group(function() {
         ->only(['destroy',]);
     Route::resource('users', UserController::class);
     Route::resource('/hosts', HostController::class);
-    Route::get('unpprove-host', [HostController::class, 'indexUnpproveHost'])->name('unpprove');
-    Route::get('host-status/{host}', [HostController::class, 'updateApproveStatus'])->name('host.changeStatus');
 });
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('show_login');
