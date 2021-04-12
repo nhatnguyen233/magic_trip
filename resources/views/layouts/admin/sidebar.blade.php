@@ -24,6 +24,19 @@
                 <span class="nav-link-text">Quản lí Host</span>
             </a>
         </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Khách sạn, nhà nghỉ, homestay">
+            <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseHost"
+               data-parent="#mylistings">
+                <i class="fa fa-fw fa-ticket"></i>
+                <span class="nav-link-text">Quản lí host</span>
+            </a>
+            <ul class="sidenav-second-level collapse" id="collapseHost">
+                <li>
+                    <a href="{{ route('admin.hosts.index') }}">Danh Sách Host</a>
+                </li>
+            </ul>
+        </li>
+
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Địa điểm du lịch">
             <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseAttractions"
                data-parent="#mylistings">

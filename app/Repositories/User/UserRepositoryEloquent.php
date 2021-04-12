@@ -2,6 +2,7 @@
 
 namespace App\Repositories\User;
 
+use App\Enums\StatusHost;
 use App\Enums\UserRole;
 use App\Models\User;
 use Exception;
@@ -25,7 +26,17 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         return User::class;
     }
 
-    public function getList($filters = [], $sorts = [], $relations = [], $limit = 20, $select = ['*'])
+    /**
+     * Boot up the repository, pushing criteria
+     * @throws RepositoryException
+     */
+    
+    public function boot()
+    {
+        $this->pushCriteria(app(RequestCriteria::class));
+    }
+
+    public function getList($role_id, $status,$filters = [], $sorts = [], $relations = [], $limit = 20, $select = ['*'])
     {
         $limit = $limit ?? config('common.default_per_page');
         $filterable = [];
@@ -43,15 +54,6 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         );
     }
 
-    /**
-     * Boot up the repository, pushing criteria
-     * @throws RepositoryException
-     */
-    public function boot()
-    {
-        $this->pushCriteria(app(RequestCriteria::class));
-    }
-
     public function createUserInfo(array $params)
     {
         try {
@@ -64,7 +66,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
 
             $data = array_filter($params, function ($key) {
                 return in_array($key, ['name', 'email', 'phone', 'role_id', 'province_id', 'district_id',
-                    'country_id', 'password', 'address', 'avatar', 'postal_code']);
+                    'country_id', 'password', 'address', 'avatar', 'postal_code', 'status']);
             }, ARRAY_FILTER_USE_KEY);
 
             return $this->create($data);
@@ -101,16 +103,6 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         }
     }
 
-    public function getUserLoginWithRelation ()
-    {
-        return $this->model::find(Auth::guard('customer')->user()->id);
-    }
-
-    public function getUserById($userId)
-    {
-        return $this->model::find($userId);
-    }
-
     public function deleteUser($user)
     {
         try {
@@ -121,7 +113,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
             DB::commit();
 
             return true;
-        } catch (Exception $exception) {
+        } catch (\Exception $exception) {
             Log::error($exception);
             DB::rollBack();
             throw $exception;
@@ -144,5 +136,12 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         }
 
         return $user;
+    }
+    
+    public function approveStatusHost($user)
+    {
+        return $user->update([
+            'status' => StatusHost::APPROVE,
+        ]);
     }
 }
