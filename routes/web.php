@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Customer\AccommodationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Customer\TourController;
@@ -35,6 +36,7 @@ Route::post('/update-profile/{user}',[AuthController::class, 'updateProfileUser'
 Route::resource('/tours',TourController::class);
 Route::resource('/reviews',ReviewController::class);
 Route::resource('/cart',CartController::class);
+Route::resource('/accommodations', AccommodationController::class);
 
 Route::middleware('auth.customer')->group(function() {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

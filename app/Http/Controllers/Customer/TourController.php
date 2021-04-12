@@ -5,15 +5,18 @@ namespace App\Http\Controllers\Customer;
 use App\Http\Controllers\Controller;
 use App\Models\Tour;
 use App\Repositories\Review\ReviewRepository;
+use App\Repositories\Tour\TourRepository;
 use Illuminate\Http\Request;
 
 class TourController extends Controller
 {
     protected $reviewRepository;
+    protected $tourRepository;
 
-    public function __construct(ReviewRepository $reviewRepository)
+    public function __construct(ReviewRepository $reviewRepository, TourRepository $tourRepository)
     {
         $this->reviewRepository = $reviewRepository;
+        $this->tourRepository = $tourRepository;
     }
     /**
      * Display a listing of the resource.
@@ -22,7 +25,9 @@ class TourController extends Controller
      */
     public function index()
     {
-        //
+        $viewData['tours'] = $this->tourRepository->all();
+
+        return view('customer.tours.index', $viewData);
     }
 
     /**

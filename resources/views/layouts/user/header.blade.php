@@ -48,70 +48,9 @@
                     <li><a href="/">Home Default</a></li>
                 </ul>
             </li>
-            <li><span><a href="#0">Tours</a></span>
-                <ul>
-                    <li>
-                        <span><a href="#0">Tours Grid</a></span>
-                        <ul>
-                            <li><a href="tours-grid-isotope.html">Tours Grid Isotope</a></li>
-                            <li><a href="tours-grid-sidebar.html">Tours Grid Sidebar</a></li>
-                            <li><a href="tours-grid-sidebar-2.html">Tours Grid Sidebar 2</a></li>
-                            <li><a href="tours-grid.html">Tours Grid Simple</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <span><a href="#0">Tours List</a></span>
-                        <ul>
-                            <li><a href="tours-list-isotope.html">Tours List Isotope</a></li>
-                            <li><a href="tours-list-sidebar.html">Tours List Sidebar</a></li>
-                            <li><a href="tours-list-sidebar-2.html">Tours List Sidebar 2</a></li>
-                            <li><a href="tours-list.html">Tours List Simple</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="tours-half-screen-map.html">Tours Half Screen Map</a></li>
-                    <li><a href="tour-detail.html">Tour Detail</a></li>
-                    <li><a href="detail-working-contact-form.html">Detail Contact Form <strong>New!</strong></a>
-                    </li>
-                    <li>
-                        <span><a href="#0">Open Street Map</a></span>
-                        <ul>
-                            <li><a href="tours-half-screen-map-leaflet.html">Tours Half Screen Map</a></li>
-                            <li><a href="tours-list-isotope-leaflet.html">Tours Grid Isotope</a></li>
-                            <li><a href="tours-list-sidebar-leaflet.html">Tours Grid Sidebar</a></li>
-                            <li><a href="tours-list-sidebar-2-leaflet.html">Tours Grid Sidebar 2</a></li>
-                            <li><a href="tours-list-leaflet.html">Tours Grid Simple</a></li>
-                            <li><a href="tours-list-isotope-leaflet.html">Tours List Isotope</a></li>
-                            <li><a href="tours-list-sidebar-leaflet.html">Tours List Sidebar</a></li>
-                            <li><a href="tours-list-sidebar-2-leaflet.html">Tours List Sidebar 2</a></li>
-                            <li><a href="tours-list-leaflet.html">Tours List Simple</a></li>
-                            <li><a href="tour-detail-leaflet.html">Tour Detail</a></li>
-                        </ul>
-                    </li>
-                </ul>
+            <li><span><a href="{{ route('tours.index') }}">Tours</a></span>
             </li>
-            <li><span><a href="#0">Khách sạn</a></span>
-                <ul>
-                    <li>
-                        <span><a href="#0">Hotel Grid</a></span>
-                        <ul>
-                            <li><a href="hotels-grid-isotope.html">Hotel Grid Isotope</a></li>
-                            <li><a href="hotels-grid-sidebar.html">Hotel Grid Sidebar</a></li>
-                            <li><a href="hotels-grid-sidebar-2.html">Hotel Grid Sidebar 2</a></li>
-                            <li><a href="hotels-grid.html">Hotel Grid Simple</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <span><a href="#0">Hotel List</a></span>
-                        <ul>
-                            <li><a href="hotels-list-isotope.html">Hotel List Isotope</a></li>
-                            <li><a href="hotels-list-sidebar.html">Hotel List Sidebar</a></li>
-                            <li><a href="hotels-list-sidebar-2.html">Hotel List Sidebar 2</a></li>
-                            <li><a href="hotels-list.html">Hotel List Simple</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="hotels-half-screen-map.html">Hotel Half Screen Map</a></li>
-                    <li><a href="hotel-detail.html">Hotel Detail</a></li>
-                </ul>
+            <li><span><a href="{{ route('accommodations.index') }}">Khách sạn</a></span>
             </li>
             <li><span><a href="#0">Eat &amp; Drink</a></span>
                 <ul>
