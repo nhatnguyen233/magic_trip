@@ -66,7 +66,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
 
             $data = array_filter($params, function ($key) {
                 return in_array($key, ['name', 'email', 'phone', 'role_id', 'province_id', 'district_id',
-                    'country_id', 'password', 'address', 'avatar', 'postal_code', 'status']);
+                    'country_id', 'password', 'address', 'avatar', 'postal_code']);
             }, ARRAY_FILTER_USE_KEY);
 
             return $this->create($data);
@@ -136,12 +136,5 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         }
 
         return $user;
-    }
-    
-    public function approveStatusHost($user)
-    {
-        return $user->update([
-            'status' => StatusHost::APPROVE,
-        ]);
     }
 }
