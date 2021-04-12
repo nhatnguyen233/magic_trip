@@ -73,9 +73,7 @@
                     @empty
                         <tr>
                             <td colspan="7">
-                                <h2 class="text-center mt-4 font-weight-lighter">
-                                    Chưa có địa điểm hành trình
-                                </h2>
+                                <center>Chưa có địa điểm nào được thiết lập cho Tour</center>
                             </td>
                         </tr>
                     @endforelse

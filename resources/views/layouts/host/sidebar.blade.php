@@ -18,6 +18,12 @@
                 <span class="nav-link-text">Tours du lịch</span>
             </a>
         </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Các tours du lịch">
+            <a class="nav-link" href="{{ route('host.schedules.index') }}">
+                <i class="fa fa-fw fa-calendar"></i>
+                <span class="nav-link-text">Thiết lập lịch Tour</span>
+            </a>
+        </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Thông tin cá nhân">
             <a class="nav-link" href="user-profile.html">
                 <i class="fa fa-fw fa-user"></i>

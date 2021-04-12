@@ -5,6 +5,7 @@ use App\Http\Controllers\Host\AuthController;
 use App\Http\Controllers\Host\HomeController;
 use App\Http\Controllers\Host\TourController;
 use App\Http\Controllers\Host\TourInfoController;
+use App\Http\Controllers\Host\ScheduleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,5 +28,6 @@ Route::middleware('auth.host')->group(function() {
     Route::resource('/', HomeController::class)->only(['index', 'show']);;
     Route::resource('/tours', TourController::class);
     Route::resource('/tour-infos', TourInfoController::class);
+    Route::resource('/schedules', ScheduleController::class);
     Route::get('/tour-infos/list/{tour}', [TourInfoController::class, 'getListTourInfo'])->name('tour-infos.list');
 });
