@@ -2600,7 +2600,7 @@ video {
 }
 
 .hero_single.version_2:before {
-    background: url(/img/banner_top_page.jpg) center center no-repeat;
+    background: url(/img/hi.jpeg) center center no-repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -6001,8 +6001,7 @@ span.infobox_rate {
     .table.cart-list td:nth-of-type(1):before,
     .table.cart-list td:nth-of-type(2):before,
     .table.cart-list td:nth-of-type(3):before,
-    .table.cart-list td:nth-of-type(4):before
-    .table.cart-list td:nth-of-type(5):before{
+    .table.cart-list td:nth-of-type(4):before .table.cart-list td:nth-of-type(5):before {
         font-weight: 600;
         color: #111;
     }

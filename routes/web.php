@@ -8,6 +8,7 @@ use App\Http\Controllers\Customer\AuthController;
 use App\Http\Controllers\Customer\ReviewController;
 use App\Http\Controllers\Customer\CartController;
 use App\Http\Controllers\Customer\BookTourController;
+use App\Http\Controllers\Customer\LanguageController;
 use App\Http\Controllers\Customer\SocialController;
 
 /*
@@ -37,6 +38,7 @@ Route::resource('/tours',TourController::class);
 Route::resource('/reviews',ReviewController::class);
 Route::resource('/cart',CartController::class);
 Route::resource('/accommodations', AccommodationController::class);
+Route::get('language/{language}', [LanguageController::class, 'index'])->name('language.index');
 
 Route::middleware('auth.customer')->group(function() {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

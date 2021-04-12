@@ -43,7 +43,7 @@
     </a>
     <nav id="menu" class="main-menu">
         <ul>
-            <li><span><a href="/">Trang chủ</a></span>
+            <li><span><a href="/"> @lang('message.home')</a></span>
                 <ul>
                     <li><a href="/">Home Default</a></li>
                 </ul>
@@ -110,6 +110,12 @@
                     <li><a href="icon-pack-3.html">Icon pack 3</a></li>
                     <li><a href="icon-pack-4.html">Icon pack 4</a></li>
                     <li><a href="hamburgers.html">Animated Hamburgers</a></li>
+                </ul>
+            </li>
+            <li><span><a href="#0"><img src="{{ asset('img/vietnam.png') }}" data-retina="true" alt="" width="45" height="25"></a></span>
+                <ul>
+                    <li><a href="{!! route('language.index', ['en']) !!}"><img src="{{ asset('img/american.jpeg') }}" data-retina="true" alt="" width="45" height="25"></a></li>
+                    <li><a href="{!! route('language.index', ['vi']) !!}"><img src="{{ asset('img/vietnam.png') }}" data-retina="true" alt="" width="45" height="25"></a></li>
                 </ul>
             </li>
         </ul>

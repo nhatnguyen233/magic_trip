@@ -196,19 +196,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12">
-                                        <div class="form-group">
-                                            <label for="role_id">Role <span class="text-danger">*</span></label>
-                                            <select name="role_id" id="role_id" class="form-control" required>
-                                                <option selected disabled>Chọn Vai Trò</option>
-                                                <option value="2">Host</option>
-                                                <option value="1">Customer</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--End row -->
                             </div>
                             <div class="d-flex justify-content-center m-2">
                                 <input type="submit" class="btn btn-danger" value="Tạo tài khoản">
