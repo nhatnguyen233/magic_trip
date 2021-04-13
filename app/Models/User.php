@@ -36,7 +36,7 @@ class User extends Authenticatable
         'postal_code',
         'avatar',
         'provider',
-        'provider_id'
+        'provider_id',
     ];
 
     /**

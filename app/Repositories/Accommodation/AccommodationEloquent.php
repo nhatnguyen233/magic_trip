@@ -157,4 +157,5 @@ class AccommodationEloquent extends BaseRepository implements AccommodationRepos
             throw $exception;
         }
     }
+
 }

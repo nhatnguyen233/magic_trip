@@ -258,14 +258,14 @@
                 <!-- /grid_item -->
                 @foreach($accommodations as $item)
                     <div class="col-xl-3 col-lg-6 col-md-6">
-                        <a href="hotel-detail.html" class="grid_item">
+                        <a href="{{ route('accommodations.show', $item->id) }}" class="grid_item">
                             <figure>
-                                <div class="score"><strong>8.9</strong></div>
+                                <!-- <div class="score"><strong>8.9</strong></div> -->
                                 <img src="{{ $item->thumbnail_url }}" class="img-fluid" alt="">
                                 <div class="info">
                                     <div class="cat_star"><i class="icon_star"></i><i class="icon_star"></i><i
                                             class="icon_star"></i><i class="icon_star"></i></div>
-                                    <h3>{{ $item->name }}</h3>
+                                    <h5><a href="{{ route('accommodations.show', $item->id) }}">{{ $item->name }}</a></h5>
                                 </div>
                             </figure>
                         </a>

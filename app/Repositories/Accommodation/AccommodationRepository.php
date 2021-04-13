@@ -13,4 +13,5 @@ interface AccommodationRepository extends RepositoryInterface
     public function removeAccommodation($accommodation);
 
     public function insertAccommodationImages(array $images, $id, $userId);
+
 }

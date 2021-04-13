@@ -82,6 +82,9 @@ class Register extends FormRequest
             'status' => [
                 'nullable',
             ],
+            'description' => [
+                'nullable',
+            ],
         ];
     }
 

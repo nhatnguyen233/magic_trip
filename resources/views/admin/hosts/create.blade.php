@@ -40,7 +40,7 @@
             </ul>
         </div>
     @endif
-    <form action="{{ route('admin.users.store') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('admin.hosts.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="box_general padding_bottom">
             <div class="header_box version_2">
@@ -167,16 +167,46 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12 col-sm-12">
+                <div class="col-sm-6">
                     <div class="form-group">
-                        <label for="role_id">Role <span class="text-danger">*</span></label>
-                        <select type="hidden" name="role_id" id="role_id" class="form-control">
-                            <option value="1" selected>Customer</option>
-                        </select>
+                        <label for="address">Tên công ty, tổ chức đối tác</label>
+                        <input type="text" id="host_name" name="host_name" value="{{ old('host_name') }}" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="date_of_establish">Ngày thành lập</label>
+                        <input type="text" class="form-control datetimepicker-input" placeholder="Ngày thành lập"
+                                id="date_of_establish" data-toggle="datetimepicker" name="date_of_establish"
+                                value="{{ request()->get('date_of_establish') }}"/>
                     </div>
                 </div>
             </div>
-            <!-- /row-->
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="hotline">Hotline</label>
+                        <input type="text" id="hotline" name="hotline" value="{{ old('hotline') }}" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="host_mail">Địa chỉ Mail</label>
+                            <input type="text" id="host_mail" name="host_mail" value="{{ old('host_mail') }}" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>Mô tả</label>
+                    <textarea name="description" class="editor" value="{{ old('description') }}" id="description" title="Mô tả thêm">
+                    </textarea>
+                </div>
+            </div>
+        </div>
         </div>
         <p>
             <button type="submit" class="btn_1 medium">Save</button>

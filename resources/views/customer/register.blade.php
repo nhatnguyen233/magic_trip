@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description"
-          content="Panagea - Premium site template for travel agencies, hotels and restaurant listing.">
+          content="Magic-trip - Premium site template for travel agencies, hotels and restaurant listing.">
     <meta name="author" content="Ansonika">
-    <title>Panagea | Đại lý du lịch, khách sạn và danh sách nhà hàng.</title>
+    <title>MAGIC TRIP | Đại lý du lịch, khách sạn và danh sách nhà hàng.</title>
 
     <!-- Favicons-->
     <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}" type="image/x-icon">
@@ -46,6 +46,18 @@
                                 <h1>Đăng ký tài khoản</h1>
                                 <p>Bạn đã có tài khoản? <a href="#0">Đăng nhập</a></p>
                             </div>
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+                            @if (session('error'))
+                                <div class="alert alert-danger">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    {{ session('error') }}
+                                </div>
+                            @endif
                             <div class="form_title">
                                 <h3><strong>1</strong>Thông tin cá nhân</h3>
                                 <p>
@@ -184,7 +196,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--End row -->
                             </div>
                             <div class="d-flex justify-content-center m-2">
                                 <input type="submit" class="btn btn-danger" value="Tạo tài khoản">

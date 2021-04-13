@@ -16,5 +16,5 @@ return [
     'update_success' => 'Update successful',
     'update_fail' => 'Fail to update;',
     'register_host' => 'Host đã được đăng kí, hãy chờ admin duyệt;',
-    'home' => 'Home'
+    'home' => 'Trang Chu'
 ];
