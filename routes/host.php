@@ -22,6 +22,7 @@ Route::get('/login', [AuthController::class, 'showLoginForm'])->name('show_login
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/register',[AuthController::class, 'showRegisterForm'])->name('register.form');
 Route::post('/register',[AuthController::class, 'register'])->name('register');
+Route::get('/schedules/tour/{tour}', [ScheduleController::class, 'getTourSchedules'])->name('schedules.tour');
 
 Route::middleware('auth.host')->group(function() {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

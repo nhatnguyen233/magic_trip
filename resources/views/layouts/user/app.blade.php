@@ -133,20 +133,6 @@
 <script>
   $(function () {
     'use strict';
-    $('input[name="dates"]').daterangepicker({
-      autoUpdateInput: false,
-      minDate: new Date(),
-      locale: {
-        cancelLabel: 'Clear'
-      }
-    });
-    $('input[name="dates"]').on('apply.daterangepicker', function (ev, picker) {
-      $(this).val(picker.startDate.format('DD-MM-YYYY') + ' > ' + picker.endDate.format('DD-MM-YYYY'));
-    });
-    $('input[name="dates"]').on('cancel.daterangepicker', function (ev, picker) {
-      $(this).val('');
-    });
-
     @if(session()->has('error'))
         alert('Đăng nhập không thành công!');
     @endif

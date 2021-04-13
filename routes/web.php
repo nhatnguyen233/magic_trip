@@ -35,6 +35,7 @@ Route::post('/update-profile/{user}',[AuthController::class, 'updateProfileUser'
 Route::resource('/tours',TourController::class);
 Route::resource('/reviews',ReviewController::class);
 Route::resource('/cart',CartController::class);
+Route::post('/cart/delete-all',[CartController::class, 'deleteAllCart'])->name('cart.deleteAll');
 
 Route::middleware('auth.customer')->group(function() {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

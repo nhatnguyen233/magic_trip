@@ -7,7 +7,7 @@ use DateTime;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Carbon;
 
-class CreateCart extends FormRequest
+class UpdateCart extends FormRequest
 {
     protected $scheduleRepository;
 
@@ -35,51 +35,28 @@ class CreateCart extends FormRequest
     public function rules()
     {
         return [
-            'session_token' => [
-                'required',
-            ],
-            'tour_name' => [
-                'required',
-            ],
             'tour_id' => [
                 'required',
                 'exists:tours,id',
                 function ($attribute, $value, $fail) {
                     if (isset($value) && isset($this->date_of_book) && isset($this->number_of_slots)) {
                         if ($this->scheduleRepository->checkScheduleFullSlot($value, $this->date_of_book, $this->number_of_slots)) {
-                            $fail('Ngày này đã được đặt hết hoặc không tồn tại!');
+                            $fail('Số lượng cập nhật không hợp lệ');
                         }
                     }
                 },
             ],
-            'price' => [
-                'required',
-                'numeric'
-            ],
             'number_of_slots' => [
-                'required',
+                'nullable',
                 'numeric'
-            ],
-            'discount' => [
-                'nullable',
-            ],
-            'thumbnail' => [
-                'nullable',
-            ],
-            'dates' => [
-                'required',
             ],
             'date_of_book' => [
-                'required',
-                'after_or_equal:today'
+                'nullable',
             ],
             'expired_at' => [
                 'required',
                 'after_or_equal:today'
             ],
-            'total_price' => [
-                'nullable',
-            ]
         ];
     }
 
@@ -93,14 +70,7 @@ class CreateCart extends FormRequest
         if($this->tour_id != null)
         {
             $this->merge([
-                'tour_id' => intval($this->tour_id),
-            ]);
-        }
-
-        if($this->price != null || $this->price >= 0)
-        {
-            $this->merge([
-                'price' => doubleval($this->price),
+                'tour_id' => $this->tour_id
             ]);
         }
 
@@ -111,17 +81,7 @@ class CreateCart extends FormRequest
             ]);
         }
 
-        if($this->date_of_book != null)
-        {
-            $date = DateTime::createFromFormat('d-m-Y', $this->date_of_book);
-            $this->merge([
-                'date_of_book' => $date->format('Y-m-d')
-            ]);
-        }
-
         $this->merge([
-            'session_token' => session()->get('session_token'),
-            'total_price' => $this->number_of_slots*$this->price,
             'expired_at' => Carbon::now()->addWeeks(1),
         ]);
     }

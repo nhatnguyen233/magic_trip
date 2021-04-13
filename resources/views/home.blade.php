@@ -71,10 +71,10 @@
                         <div class="wrapper">
                             <h3><a href="{{ route('tours.show', $item->id) }}">{{ $item->name }}</a></h3>
                             <p>{!! \Illuminate\Support\Str::limit($item->description, 115, '...')  !!}</p>
-                            <span class="price">From <strong>{{ number_format($item->price, 0, '', ',') }} VNĐ</strong> / 1 người</span>
+                            <span class="price">From <strong>{{ number_format($item->price, 0, '', ',') }}đ</strong> / 1 người</span>
                         </div>
                         <ul>
-                            <li><i class="icon_clock_alt"></i> {{ ($item->total_time)/60 }} giờ</li>
+                            <li><i class="icon_clock_alt"></i> {{ ($item->total_time) }} giờ</li>
                             <li>
                                 <div class="score">
                                     <span>
