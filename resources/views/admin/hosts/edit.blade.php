@@ -38,132 +38,52 @@
             </ul>
         </div>
     @endif
-    <form method="POST" action="{{ route('admin.host.update', $host) }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('admin.hosts.update', $host) }}" enctype="multipart/form-data">
         @method('PUT')
         @csrf
-        <div class="box_general padding_bottom">
-            <div class="header_box version_2">
-                <h2><i class="fa fa-file"></i>Thông tin cơ bản</h2>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="name-attraction">Họ và tên <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" placeholder="Nguyễn Văn A"
-                               name="name" id="name" value="{{ isset($host->name) ? $host->name : '' }}" required>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="title-attraction">Email <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" placeholder="abc@example.com"
-                               name="email" id="email" value="{{ isset($host->email) ? $host->email : '' }}" required>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="category-attraction">Mật khẩu <span class="text-danger">*</span></label>
-                        <input type="password" class="form-control" placeholder="*************"
-                               name="password" id="password" value="{{ isset($host->password) ? $host->password : '' }}" required>
-                    </div>
-                </div>
-            </div>
-            <!-- /row-->
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="latitude-attraction">Điện thoại</label>
-                        <input type="text" class="form-control" placeholder="00000000" name="phone"
-                               id="phone" value="{{ isset($host->phone) ? $host->phone : '' }}" />
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="longitude-attraction">Xác nhận mật khẩu</label>
-                        <input type="password" class="form-control" placeholder="*************" name="password_confirmation"
-                               value="{{ isset($host->password) ? $host->password : '' }}" id="password_confirmation" />
-                    </div>
-                </div>
-            </div>
-            <!-- /row-->
-            <div class="col-md-12">
-                    <div class="form-group">
-                    <label for="avatar" class="w-100" style="cursor: pointer">Avatar
-                        <img style="width: 400px;" src="{{ !empty($host->getAvatarUrlAttribute()) ? asset($host->getAvatarUrlAttribute()) : ''  }}" id="avatar-image" />
-                    </label>
-                    <input type="file" class="form-control-file mb-2" id="avatar"
-                            placeholder="Ảnh đại diện" name="avatar" hidden/>
-                    </div>
-                 </div>
-            </div>
-        </div>
-        <!-- /box_general-->
-
         <div class="box_general padding_bottom">
             <div class="header_box version_2">
                 <h2><i class="fa fa-map-marker"></i>Địa chỉ</h2>
             </div>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-sm-6">
                     <div class="form-group">
-                        <label for="country-attraction">Chọn quốc gia <span class="text-danger">*</span></label>
-                        <div class="styled-select">
-                            <select name="country_id" id="country-attraction">
-                                <option value="1" selected>Viet Nam</option>
-                            </select>
-                        </div>
+                        <label for="address">Tên công ty, tổ chức đối tác</label>
+                        <input type="text" id="host_name" name="host_name" value="{{ isset($host->host_name) ? $host->host_name : '' }}" class="form-control">
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-sm-6">
                     <div class="form-group">
-                        <label for="province-attraction">Chọn Tỉnh/Thành <span class="text-danger">*</span></label>
-                        <div class="styled-select">
-                            <select name="province_id" id="province-attraction" required>
-                                <option selected disabled>---- Chọn tỉnh/thành ----</option>
-                                @foreach($provinces as $item)
-                                    <option @if($host->province_id == $item->id)
-                                            selected
-                                            @endif
-                                            value={{ $item->id }}>
-                                        {{ $item->name }}
-                                    </option>
-                                @endforeach
-                            </select>
+                        <label for="date_of_establish">Ngày thành lập</label>
+                        <input type="text" class="form-control datetimepicker-input" placeholder="Ngày thành lập"
+                                id="date_of_establish" data-toggle="datetimepicker" name="date_of_establish"
+                                value="{{ isset($host->date_of_establish) ? $host->date_of_establish : '' }}"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="hotline">Hotline</label>
+                        <input type="text" id="hotline" name="hotline" value="{{ isset($host->hotline) ? $host->hotline : '' }}" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="host_mail">Địa chỉ Mail</label>
+                            <input type="text" id="host_mail" name="host_mail" value="{{ isset($host->host_mail) ? $host->host_mail : '' }}" class="form-control">
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- /row-->
             <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="district-attraction">Chọn Xã/Phường <span class="text-danger">*</span></label>
-                        <div class="styled-select">
-                            <select name="district_id" id="district-attraction" required>
-                            <option @if($host->district_id) selected @endif value={{ $host->district_id }}> {{ isset($host->district_id) ? $host->district->name : '' }} </option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="zipcode-attraction">Zip Code</label>
-                        <input type="text" class="form-control" name="postal_code"
-                               id="zipcode-attraction" value="{{ isset($host->postal_code) ? $host->postal_code : '' }}" />
-                    </div>
-                </div>
-            </div>
-            <!-- /row-->
-            <!-- /row-->
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="address-attraction">Địa chỉ chi tiết</label>
-                        <input type="text" class="form-control" name="address" id="address-attraction"
-                               placeholder="An Khánh, Hoài Đức, Hà Nội..." value="{{ isset($host->address) ? $host->address : '' }}" />
-                    </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>Mô tả</label>
+                    <textarea name="description" class="editor" value="{{ isset($host->description) ? $host->description : '' }}" id="description" title="Mô tả thêm">
+                    {{ isset($host->description) ? $host->description : '' }}
+                    </textarea>
                 </div>
             </div>
         </div>

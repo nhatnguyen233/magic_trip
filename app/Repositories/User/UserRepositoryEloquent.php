@@ -36,7 +36,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         $this->pushCriteria(app(RequestCriteria::class));
     }
 
-    public function getList($role_id, $status,$filters = [], $sorts = [], $relations = [], $limit = 20, $select = ['*'])
+    public function getList($role_id,$filters = [], $sorts = [], $relations = [], $limit = 20, $select = ['*'])
     {
         $limit = $limit ?? config('common.default_per_page');
         $filterable = [];
