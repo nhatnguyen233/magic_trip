@@ -316,7 +316,7 @@
                                 <input class="form-control" type="text" name="dates" id="dates" placeholder="Thời điểm hoàn hảo">
                                 <label for="dates"><i class="icon_calendar"></i></label>
                             </div>
-                            <div class="form-group input-dates">
+                            <div class="form-group input-dates" hidden>
                                 <input type="text" class="form-control datetimepicker-input" placeholder="Ngày khởi hành"
                                        id="date_of_book" data-toggle="datetimepicker" name="date_of_book"
                                        value="{{ request()->get('date_of_book') }}" required/>
@@ -377,9 +377,74 @@
             });
         });
 
+        function formatDate(date) {
+            var d = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+
+            if (month.length < 2)
+                month = '0' + month;
+            if (day.length < 2)
+                day = '0' + day;
+
+            return [year, month, day].join('-');
+        }
+
+        var getDaysArray = function(start, end) {
+            for(var arr=[],dt=new Date(start); dt<=end; dt.setDate(dt.getDate()+1)){
+                arr.push(formatDate(new Date(dt)));
+            }
+            return arr;
+        };
+
         $(function () {
-            $('#date_of_book').datetimepicker({
-                format: 'YYYY-MM-DD'
+            $('input[name="dates"]').daterangepicker({
+                autoUpdateInput: false,
+                minDate: new Date(),
+                locale: {
+                    cancelLabel: 'Clear'
+                }
+            });
+
+            $('input[name="dates"]').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('DD-MM-YYYY') + ' > ' + picker.endDate.format('DD-MM-YYYY'));
+                $('input[name=date_of_book]').parent().attr('hidden', false);
+                var currentYear = new Date().getFullYear()
+                var allDates = getDaysArray(new Date(currentYear + "-01-01"),new Date(currentYear + "-12-31"));
+                var url = new URL('{{ route('host.schedules.tour', $tour->id) }}');
+                var params = { start_time: picker.startDate.format('YYYY-MM-DD'), end_time: picker.endDate.format('YYYY-MM-DD') };
+                Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+                fetch(url)
+                    .then(response => response.json())
+                    .then(result => {
+                        var enableDates = result.data.map(function (x) {
+                            return formatDate(x.departure_time);
+                        });
+
+                        var filtered = allDates.filter(
+                            function(e) {
+                                return this.indexOf(e) < 0;
+                            },
+                            enableDates
+                        );
+
+                        var disabledDates = filtered.map(function (x) {
+                            return moment(x);
+                        });
+
+                        $('#date_of_book').datetimepicker({
+                            format: 'DD-MM-YYYY',
+                            disabledDates: disabledDates
+                        });
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            });
+
+            $('input[name="dates"]').on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
             });
         });
     </script>

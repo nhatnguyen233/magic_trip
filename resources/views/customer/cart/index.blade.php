@@ -61,6 +61,15 @@
                                 {{ session()->get('success') }}
                             </div>
                         @endif
+                            @if($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                         <table class="table table-striped cart-list">
                             <thead>
                             <tr>
@@ -100,12 +109,17 @@
                                         <form action="{{ route('cart.update', $item->id) }}" method="POST">
                                             @method('PUT')
                                             @csrf
+                                            <input type="text" name="tour_id" value="{{ $item->tour_id }}" hidden/>
+                                            <input type="text" name="date_of_book" value="{{ $item->date_of_book }}" hidden/>
                                             <input type="number" name="number_of_slots" min="0" value="{{ $item->number_of_slots ?? 0 }}" style="width: 40px"/>
                                             <button class="text-decoration-none btn btn-sm btn-outline-danger" style="margin-top: -2px">Update</button>
                                         </form>
                                     </td>
                                     <td class="options" style="width:5%; text-align:center;">
-                                        <a href="#"><i class="icon-trash"></i></a>
+                                        <a href="#" data-toggle="modal" id="removeCart"
+                                           data-target="#removeCartModal" data-id="{{ $item->id }}">
+                                            <i class="icon-trash"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @empty
@@ -131,7 +145,8 @@
                                 </div>
                             </div>
                             <div class="float-right fix_mobile">
-                                <button type="button" class="btn_1 outline">Cập nhật</button>
+                                <button type="button" class="btn_1 outline" data-toggle="modal" id="removeAllCart"
+                                        data-target="#removeAllCartModal"> Xóa tất cả</button>
                             </div>
                         </div>
                         <!-- /cart-options -->
@@ -170,9 +185,22 @@
         <!-- /container -->
     </div>
     <!-- /bg_color_1 -->
+    @include('customer.cart.modals._remove_cart_modal')
+    @include('customer.cart.modals._remove_all_cart_modal')
 @endsection
 
 @section('script')
+    <script>
+        $(document).on('click', '#removeCart', function () {
+            var id = $(this).data('id');
+            var url = window.location.origin + '/cart/' + id;
+            $('#form-remove-cart').attr('action', url);
+        });
 
+        $(document).on('click', '#removeAllCart', function () {
+            var url = window.location.origin + '/cart/delete-all';
+            $('#form-remove-all-cart').attr('action', url);
+        });
+    </script>
 @endsection
 

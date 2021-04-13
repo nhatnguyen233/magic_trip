@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Host;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Schedule\CreateSchedule;
 use App\Http\Requests\Schedule\UpdateSchedule;
+use App\Http\Resources\Schedule\ScheduleCollection;
 use App\Models\Schedule;
+use App\Models\Tour;
 use App\Repositories\Schedule\ScheduleRepository;
 use App\Repositories\Tour\TourRepository;
 use Illuminate\Http\Request;
@@ -107,5 +109,17 @@ class ScheduleController extends Controller
         $schedule->delete();
 
         return redirect()->back()->with('success', 'Xóa lịch thành công');
+    }
+
+    /**
+     * Get schedules of tour
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Tour $tour
+     * @return ScheduleCollection
+     */
+    public function getTourSchedules(Request $request, Tour $tour)
+    {
+        return new ScheduleCollection($this->scheduleRepository->getTourSchedules($request->all(), $tour->id));
     }
 }

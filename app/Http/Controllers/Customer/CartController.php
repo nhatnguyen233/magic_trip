@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Cart\CreateCart;
+use App\Http\Requests\Cart\UpdateCart;
 use App\Models\Cart;
 use App\Repositories\Cart\CartRepository;
 use Illuminate\Http\Request;
@@ -82,11 +83,11 @@ class CartController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  UpdateCart $request
      * @param  \App\Models\Cart  $cart
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cart $cart)
+    public function update(UpdateCart $request, Cart $cart)
     {
         if($request->number_of_slots <= 0)
         {
@@ -109,6 +110,22 @@ class CartController extends Controller
      */
     public function destroy(Cart $cart)
     {
-        //
+        $cart->delete();
+        \session()->put('total_item_cart', $this->cartRepository->findWhere(['session_token' => \session()->get('session_token')])->count());
+
+        return redirect()->back()->with('success', 'Xóa thành công');
+    }
+
+    /**
+     * Remove all elements of cart
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteAllCart()
+    {
+        $this->cartRepository->deleteAllCart(\session()->get('session_token'));
+        \session()->put('total_item_cart',$this->cartRepository->findWhere(['session_token' => \session()->get('session_token')])->count());
+
+        return redirect()->back()->with('success', 'Đã xóa hết');
     }
 }

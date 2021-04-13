@@ -37,6 +37,7 @@ Route::post('/update-profile/{user}',[AuthController::class, 'updateProfileUser'
 Route::resource('/tours',TourController::class);
 Route::resource('/reviews',ReviewController::class);
 Route::resource('/cart',CartController::class);
+Route::post('/cart/delete-all',[CartController::class, 'deleteAllCart'])->name('cart.deleteAll');
 Route::resource('/accommodations', AccommodationController::class);
 Route::get('language/{language}', [LanguageController::class, 'index'])->name('language.index');
 
