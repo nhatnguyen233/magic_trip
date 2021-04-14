@@ -37,15 +37,12 @@
                         <div class="tour-description">
                             {!! $tour->description !!}
                         </div>
-                        <br/>
-                        <h3>Instagram photos feed</h3>
-                        <div id="instagram-feed" class="clearfix"></div>
                         <hr>
-
-                        <h3>Chương trình <small>(60 minutes)</small></h3>
+                        <h3>Chương trình <small>({{ $tour->total_time/24 }} ngày)</small></h3>
                         <p>
-                            Iudico omnesque vis at, ius an laboramus adversarium. An eirmod doctus admodum est, vero numquam et mel, an duo modo error. No affert timeam mea, legimus ceteros his in. Aperiri honestatis sit at. Eos aeque fuisset ei, case denique eam ne. Augue invidunt has ad, ullum debitis mea ei, ne aliquip dignissim nec.
+                            {!! $tour->program ?? 'Chưa thiết lập chương trình hoạt động cho chuyến du lịch.'!!}
                         </p>
+                        <h4>Các địa điểm tham quan trong chuyến đi</h4>
                         <ul class="cbp_tmtimeline">
                             @foreach($tour->infos as $item)
                                 <li>
@@ -66,28 +63,6 @@
                                 </li>
                             @endforeach
                         </ul>
-                        <hr>
-                        <p>Mea appareat omittantur eloquentiam ad, nam ei quas <strong>oportere democritum</strong>. Prima causae admodum id est, ei timeam inimicus sed. Sit an meis aliquam, cetero inermis vel ut. An sit illum euismod facilisis, tamquam vulputate pertinacia eum at.</p>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <ul class="bullets">
-                                    <li>Dolorem mediocritatem</li>
-                                    <li>Mea appareat</li>
-                                    <li>Prima causae</li>
-                                    <li>Singulis indoctum</li>
-                                </ul>
-                            </div>
-                            <div class="col-lg-6">
-                                <ul class="bullets">
-                                    <li>Timeam inimicus</li>
-                                    <li>Oportere democritum</li>
-                                    <li>Cetero inermis</li>
-                                    <li>Pertinacia eum</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- /row -->
-
                         <hr>
                         <h3>Vị trí</h3>
                         <div id="map" class="map map_single add_bottom_30"></div>
@@ -240,7 +215,7 @@
                                     </div>
                                     <div class="form-group col-md-6" hidden>
                                         <label>Tour <span class="text-danger">*</span></label>
-                                        <input type="hidden" name="tour_id" id="tour_review" value="{{ $tour->first()->id }}" class="form-control">
+                                        <input type="hidden" name="tour_id" id="tour_review" value="{{ $tour->id }}" class="form-control">
                                     </div>
                                     <div class="form-group col-md-12">
                                         <label for="review_content">Đánh giá</label>

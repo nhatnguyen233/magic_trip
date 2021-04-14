@@ -242,7 +242,7 @@
             <!-- /item -->
         </div>
         <!-- /carousel -->
-        <p class="btn_home_align"><a href="tours-grid-isotope.html" class="btn_1 rounded">Tất cả Tours</a></p>
+        <p class="btn_home_align"><a href="{{ route('tours.grid') }}" class="btn_1 rounded">Tất cả Tours</a></p>
         <hr class="large">
     </div>
     <!-- /container -->

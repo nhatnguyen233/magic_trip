@@ -18,6 +18,7 @@ class TourController extends Controller
         $this->reviewRepository = $reviewRepository;
         $this->tourRepository = $tourRepository;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -25,9 +26,21 @@ class TourController extends Controller
      */
     public function index()
     {
-        $viewData['tours'] = $this->tourRepository->all();
+        $viewData['tours'] = $this->tourRepository->paginate(5);
 
         return view('customer.tours.index', $viewData);
+    }
+
+    /**
+     * Display a grid of tours.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getGridTours()
+    {
+        $viewData['tours'] = $this->tourRepository->paginate(9);
+
+        return view('customer.tours.tour-grid', $viewData);
     }
 
     /**
