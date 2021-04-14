@@ -34,6 +34,9 @@
     <link href="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.css') }}" rel="stylesheet">
     <!-- Your custom styles -->
     <link href="{{ asset('admin/css/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/front/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/front/vendors.css') }}" rel="stylesheet">
     @yield('style')
 </head>
 
