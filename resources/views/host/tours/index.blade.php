@@ -65,9 +65,16 @@
         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
     </div>
     <!-- /tables-->
-{{--    @include('host.tours.modals._remove_category_modal')--}}
+   @include('host.tours.modals._remove_tour_modal')
 @endsection
 
 @section('script')
     <script src="{{ asset('admin/js/admin-datatables.js') }}"></script>
+    <script>
+        $(document).on('click', '#removeTour', function () {
+          var id = $(this).data('id');
+          var url = '{{ Illuminate\Support\Facades\URL::to('/') }}' + '/host/tours/' + id;
+           $('#form-remove-tour').attr('action', url);
+        });
+    </script>
 @endsection
