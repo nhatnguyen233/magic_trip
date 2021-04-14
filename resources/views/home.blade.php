@@ -260,12 +260,12 @@
                     <div class="col-xl-3 col-lg-6 col-md-6">
                         <a href="{{ route('accommodations.show', $item->id) }}" class="grid_item">
                             <figure>
-                                <!-- <div class="score"><strong>8.9</strong></div> -->
+                                <div class="score"><strong>8.9</strong></div>
                                 <img src="{{ $item->thumbnail_url }}" class="img-fluid" alt="">
                                 <div class="info">
                                     <div class="cat_star"><i class="icon_star"></i><i class="icon_star"></i><i
                                             class="icon_star"></i><i class="icon_star"></i></div>
-                                    <h5><a href="{{ route('accommodations.show', $item->id) }}">{{ $item->name }}</a></h5>
+                                    <h3>{{ $item->name }}</h3>
                                 </div>
                             </figure>
                         </a>
@@ -274,7 +274,7 @@
                 <!-- /grid_item -->
             </div>
             <!-- /row -->
-            <a href="hotels-grid-isotope.html"><strong>View all ({{ $accommodations->count() }}) <i
+            <a href="{{ route('accommodations.index') }}"><strong>View all ({{ $accommodations->count() }}) <i
                             class="arrow_carrot-right"></i></strong></a>
         </section>
         <!-- /section -->

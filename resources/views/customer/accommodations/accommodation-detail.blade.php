@@ -1,8 +1,7 @@
 @extends('layouts.user.app')
 
 @section('content')
-<section class="hero_in">
-            <img class="hotels_detail" src="{{ $accommodation->getAvatarUrlAttribute() }}">
+		<section class="hero_in hotels_detail">
 			<div class="wrapper">
 				<div class="container">
 					<h1 class="fadeInUp"><span></span>{{ $accommodation->name }}</h1>
@@ -19,7 +18,6 @@
 			<nav class="secondary_nav sticky_horizontal">
 				<div class="container">
 					<ul class="clearfix">
-                        <h1 class="fadeInUp"><span></span>{{ $accommodation->name }}</h1>
 						<li><a href="#description" class="active">Description</a></li>
 						<li><a href="#reviews">Reviews</a></li>
 						<li><a href="#sidebar">Booking</a></li>

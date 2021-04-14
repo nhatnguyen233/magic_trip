@@ -3,9 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Symfony\Component\HttpFoundation\Session\Session;
 
-class Language
+class Locale
 {
     public function handle($request, Closure $next)
     {

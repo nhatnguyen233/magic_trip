@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
 class LanguageController extends Controller
 {
-    public function index(Request $request, $language)
+    public function index($language)
     {
         if ($language) {
             \Session::put('language', $language);

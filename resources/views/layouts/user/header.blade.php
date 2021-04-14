@@ -112,7 +112,7 @@
                     <li><a href="hamburgers.html">Animated Hamburgers</a></li>
                 </ul>
             </li>
-            <li><span><a href="#0"><img src="{{ asset('img/vietnam.png') }}" data-retina="true" alt="" width="45" height="25"></a></span>
+            <li><span><a href="#0"><img src="{{ (\Request::segment(2) == 'language/vi' ?  asset('img/vietnam.png') : asset('img/american.jpeg')) }}" data-retina="true" alt="" width="45" height="25"></a></span>
                 <ul>
                     <li><a href="{!! route('language.index', ['en']) !!}"><img src="{{ asset('img/american.jpeg') }}" data-retina="true" alt="" width="45" height="25"></a></li>
                     <li><a href="{!! route('language.index', ['vi']) !!}"><img src="{{ asset('img/vietnam.png') }}" data-retina="true" alt="" width="45" height="25"></a></li>
