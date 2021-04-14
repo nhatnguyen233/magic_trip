@@ -35,12 +35,21 @@ class ReviewEloquent extends BaseRepository implements ReviewRepository
         return $this->create($data);
     }
 
-    public function getList($tourId, $filters = [], $sorts = [], $relations = [], $limit = 10, $select = ['*'])
+    public function getList($userId, $filters = [], $sorts = [], $relations = [], $limit = 10, $select = ['*'])
     {
         $limit = $limit ?? config('common.default_per_page');
-        $filterable = [];
+        $filterable = [
+            'tour_name'  => function ($q, $val) {
+                if ($val !== 'ALL') {
+                    return $q->where('tour_id', $val);
+                }
+            },
+        ];
 
-        $query = $this->where(['tour_id' => $tourId])
+        $query = $this->whereHas('tour', function($query) use($userId) {
+                return $query->where(['user_id' => $userId]);
+             })
+
             ->orderBy('created_at', 'DESC');
 
         return $this->filterPaginate(
