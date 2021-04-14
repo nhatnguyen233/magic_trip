@@ -63,6 +63,7 @@ class TourEloquent extends BaseRepository implements TourRepository
             $tour = $this->find($id);
 
             if (isset($params['avatar'])) {
+                Storage::disk('s3')->delete($tour->avatar);
                 $fileName = Str::uuid() . '.' . $params['avatar']->getClientOriginalExtension();
                 $fullPath = 'tours/avatars/' . time() . $fileName;
                 Storage::disk('s3')->put($fullPath, file_get_contents($params['avatar']), 'public');
@@ -70,6 +71,7 @@ class TourEloquent extends BaseRepository implements TourRepository
             }
 
             if (isset($params['thumbnail'])) {
+                Storage::disk('s3')->delete($tour->thumbnail);
                 $fileName = Str::uuid() . '.' . $params['thumbnail']->getClientOriginalExtension();
                 $fullPath = 'tours/thumbnail/' . time() . $fileName;
                 Storage::disk('s3')->put($fullPath, file_get_contents($params['thumbnail']), 'public');
