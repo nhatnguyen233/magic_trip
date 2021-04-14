@@ -94,7 +94,7 @@ class ScheduleEloquent extends BaseRepository implements ScheduleRepository
     {
         return $this->model
             ->join('tours', 'schedules.tour_id', '=', 'tours.id')
-            ->select('schedules.id', 'schedules.tour_id', 'schedules.departure_time', 'schedules.number_max_slots',)
+            ->select('schedules.id', 'schedules.tour_id', 'schedules.departure_time', 'schedules.number_max_slots')
             ->when(isset($params['start_time']), function ($q) use ($params) {
                 $q->whereDate('schedules.departure_time', '>=', date('Y-m-d', strtotime($params['start_time'])));
             })
