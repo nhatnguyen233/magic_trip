@@ -110,4 +110,9 @@ class TourEloquent extends BaseRepository implements TourRepository
             throw $exception;
         }
     }
+
+    public function getTourName()
+    {
+        return $this->orderBy('id', 'DESC')->pluck('name', 'id')->toArray();;
+    }
 }
