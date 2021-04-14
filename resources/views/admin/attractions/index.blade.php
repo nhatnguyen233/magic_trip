@@ -41,7 +41,7 @@
                             <td>{{ $item->title }}</td>
                             <td>{{ (!empty($item->category->name) ? $item->category->name : '') }}</td>
                             <td>{!! $item->description !!}</td>
-                            <td>{{ !empty($item->getFullAddressAttribute() ? $item->getFullAddressAttribute()  : '' ) }}</td>
+                            <td>{{ !empty($item->getFullAddressAttribute()) ? $item->getFullAddressAttribute()  : ''  }}</td>
                             <td><img src="{{ $item->avatar_url }}" width="100px"/></td>
                             <td><img src="{{ $item->thumbnail_url }}" width="100px"/></td>
                             <td>
