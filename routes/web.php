@@ -34,6 +34,7 @@ Route::post('/register',[AuthController::class, 'register'])->name('customer.reg
 Route::get('/update-profile/{user}',[AuthController::class, 'updateProfileView'])->name('update-profile');
 Route::post('/update-profile/{user}',[AuthController::class, 'updateProfileUser'])->name('user.update-profile');
 
+Route::get('/tours-grid',[TourController::class, 'getGridTours'])->name('tours.grid');
 Route::resource('/tours',TourController::class);
 Route::resource('/reviews',ReviewController::class);
 Route::resource('/cart',CartController::class);

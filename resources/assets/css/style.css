@@ -1242,7 +1242,7 @@ header.sticky .hamburger-inner::after {
 }
 
 .hero_in.general:before {
-    background: url(../img/hero_in_bg_2.jpg) center center no-repeat;
+    background: url(/img/hero_in_bg_2.jpg) center center no-repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -1255,7 +1255,7 @@ header.sticky .hamburger-inner::after {
 }
 
 .hero_in.tours:before {
-    background: url(../img/hero_in_bg_1.jpg) center center no-repeat;
+    background: url(/img/hero_in_bg_1.jpg) center center no-repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -1268,7 +1268,7 @@ header.sticky .hamburger-inner::after {
 }
 
 .hero_in.hotels:before {
-    background: url(../img/hero_in_bg_4.jpg) center center no-repeat;
+    background: url(/img/hero_in_bg_4.jpg) center center no-repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -1281,7 +1281,7 @@ header.sticky .hamburger-inner::after {
 }
 
 .hero_in.restaurants:before {
-    background: url(../img/hero_in_bg_5.jpg) center center no-repeat;
+    background: url(/img/hero_in_bg_5.jpg) center center no-repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
