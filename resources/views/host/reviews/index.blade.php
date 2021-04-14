@@ -21,26 +21,37 @@
                 <span>{{ $review->created_at }}</span>
                     <div class="rev-content">
                         <span class="rating">
-                            @for($i = 1; $i <= round(($review->rate)/2); $i++)
+                            @for($i = 1; $i <= $review->rate; $i++)
                             <i class="icon-star voted"></i>
                             @endfor
-                            @for($i = 1; $i <= 5-round(($review->rate)/2); $i++)
+                            @for($i = 1; $i <= 5-$review->rate; $i++)
                                 <i class="icon-star"></i>
                             @endfor
                         </span>
                     </div>
                 </span>
-                <figure class="rev-thumb"><img src="{{ $review->user ? $review->user->avatar_url : asset('img/anh-dai-dien.jpg') }}" alt="">
-                </figure>
-                <h4>{{ $review->customer_name }} <small>{{ !empty($review->user->name) ?  $review->user->name : ''}}</small></h4>
 
-                <p>{{ $review->content }}</p>
+                <img style="border-radius: 50%; height: 100px" src="{{ $review->user ? $review->user->avatar_url : asset('img/anh-dai-dien.jpg') }}" alt="">
+                <h6>{{ $review->customer_name }} <small>{{ !empty($review->user->name) ?  $review->user->name : ''}}</small></h6>
+
+                <span>{{ $review->content }}</span>
                 <p class="inline-popups"><a href="#modal-reply" data-effect="mfp-zoom-in" class="btn_1 gray"><i class="fa fa-fw fa-reply"></i> Reply to this review</a></p>
                 @endforeach
             </li>
         </ul>
     </div>
 </div>
+<!-- <div id="modal-reply" class="white-popup mfp-with-anim mfp-hide">
+    <div class="small-dialog-header">
+        <h3>Reply to review</h3>
+    </div>
+    <div class="message-reply margin-top-0">
+        <div class="form-group">
+            <textarea cols="40" rows="3" class="form-control"></textarea>
+        </div>
+        <button class="btn_1">Reply</button>
+    </div>
+</div> -->
 
 @endsection
 
