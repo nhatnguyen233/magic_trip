@@ -21,24 +21,26 @@
                 <span>{{ $review->created_at }}</span>
                     <div class="rev-content">
                         <span class="rating">
-                            @for($i = 1; $i <= $review->rate; $i++)
-                            <i class="icon-star voted"></i>
+                            @for($i = 1; $i <= round(($review->rate)/2); $i++)
+                                <i class="icon-star voted"></i>
                             @endfor
-                            @for($i = 1; $i <= 5-$review->rate; $i++)
+                            @for($i = 1; $i <= 5-round(($review->rate)/2); $i++)
                                 <i class="icon-star"></i>
                             @endfor
                         </span>
                     </div>
                 </span>
-
-                <img style="border-radius: 50%; height: 100px" src="{{ $review->user ? $review->user->avatar_url : asset('img/anh-dai-dien.jpg') }}" alt="">
-                <h6>{{ $review->customer_name }} <small>{{ !empty($review->user->name) ?  $review->user->name : ''}}</small></h6>
-
-                <span>{{ $review->content }}</span>
-                <p class="inline-popups"><a href="#modal-reply" data-effect="mfp-zoom-in" class="btn_1 gray"><i class="fa fa-fw fa-reply"></i> Reply to this review</a></p>
+                
+                <figure><img src="{{ $review->user ? $review->user->avatar_url : asset('img/anh-dai-dien.jpg') }}" alt=""></figure>
+                <h4>{{ $review->customer_name }} <small>{{ !empty($review->user->name) ?  $review->user->name : ''}}</small></h4>
+                <p>{{ $review->content }}</p>
+				<p class="inline-popups"><a href="#modal-reply" data-effect="mfp-zoom-in" class="btn_1 gray"><i class="fa fa-fw fa-reply"></i> Reply to this review</a></p>
                 @endforeach
             </li>
         </ul>
+        <div class="d-flex justify-content-center">
+            {{ $reviews->links() }}
+        </div>
     </div>
 </div>
 <!-- <div id="modal-reply" class="white-popup mfp-with-anim mfp-hide">
