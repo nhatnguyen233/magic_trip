@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Tour;
+use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Review\ReviewRepository;
 use App\Repositories\Tour\TourRepository;
 use Illuminate\Http\Request;
@@ -12,11 +13,13 @@ class TourController extends Controller
 {
     protected $reviewRepository;
     protected $tourRepository;
+    protected $categoryRepository;
 
-    public function __construct(ReviewRepository $reviewRepository, TourRepository $tourRepository)
+    public function __construct(ReviewRepository $reviewRepository, TourRepository $tourRepository, CategoryRepository $categoryRepository)
     {
         $this->reviewRepository = $reviewRepository;
         $this->tourRepository = $tourRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -39,6 +42,7 @@ class TourController extends Controller
     public function getGridTours()
     {
         $viewData['tours'] = $this->tourRepository->paginate(9);
+        $viewData['categoryNames'] = $this->categoryRepository->getCategoryTourismName();
 
         return view('customer.tours.tour-grid', $viewData);
     }

@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Category;
 
+use App\Enums\CatType;
 use App\Models\Category;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
@@ -25,6 +26,6 @@ class CategoryEloquent extends BaseRepository implements CategoryRepository
 
     public function getCategoryTourismName()
     {
-        return $this->orderBy('id', 'DESC')->pluck('name', 'id')->toArray();;
+        return $this->orderBy('id', 'DESC')->pluck('name', 'id')->find(['type' => CatType::TOURISM])->toArray();;
     }
 }

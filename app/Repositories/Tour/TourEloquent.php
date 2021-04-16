@@ -23,6 +23,34 @@ class TourEloquent extends BaseRepository implements TourRepository
      * Boot up the repository, pushing criteria
      * @throws RepositoryException
      */
+
+    public function getList($filters = [], $sorts = [], $relations = [], $limit = 10, $select = ['*'])
+    {
+        $limit = $limit ?? config('common.default_per_page');
+        $filterable = [
+            'tour_category'  => function ($q, $val) {
+                if ($val !== 'ALL') {
+                    return $q->where('tour_id', $val);
+                }
+            },
+        ];
+
+        $query = $this->whereHas('tour', function($query) use($userId) {
+                return $query->where(['user_id' => $userId]);
+             })
+
+            ->orderBy('created_at', 'DESC');
+
+        return $this->filterPaginate(
+            $query,
+            $limit,
+            $filters,
+            $sorts,
+            $filterable,
+            $select
+        );
+    }
+
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));

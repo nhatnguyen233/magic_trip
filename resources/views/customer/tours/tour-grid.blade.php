@@ -46,6 +46,7 @@
     <div class="container margin_60_35">
         <div class="col-lg-12">
             <div class="row no-gutters custom-search-input-2 inner">
+            {!! Form::open(['route' => 'host.reviews.index', 'method' => 'GET']) !!}
                 <div class="col-lg-4">
                     <div class="form-group">
                         <input class="form-control" type="text" placeholder="Bạn đang tìm tour như nào...">
@@ -59,18 +60,13 @@
                     </div>
                 </div>
                 <div class="col-lg-3">
-                    <select class="wide">
-                        <option>All Categories</option>
-                        <option>Churches</option>
-                        <option>Historic</option>
-                        <option>Museums</option>
-                        <option>Walking tours</option>
-                    </select>
+                    {!! Form::select('tour_name', $tourNames, $filters['tour_name'] ?? NULL, ['class' => 'wide', 'onchange' => 'this.form.submit()']) !!}
                 </div>
                 <div class="col-lg-2">
                     <input type="submit" class="btn_search" value="Tìm">
                 </div>
             </div>
+            {!! Form::close() !!}
             <!-- /row -->
         </div>
         <!-- /custom-search-input-2 -->
