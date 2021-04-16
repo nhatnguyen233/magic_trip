@@ -7,6 +7,7 @@ use App\Http\Controllers\Host\TourController;
 use App\Http\Controllers\Host\TourInfoController;
 use App\Http\Controllers\Host\ScheduleController;
 use App\Http\Controllers\Host\ReviewController;
+use App\Http\Controllers\Host\BookTourController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,7 @@ Route::middleware('auth.host')->group(function() {
     Route::resource('/tours', TourController::class);
     Route::resource('/tour-infos', TourInfoController::class);
     Route::resource('/schedules', ScheduleController::class);
+    Route::resource('/bookings', BookTourController::class);
     Route::get('/tour-infos/list/{tour}', [TourInfoController::class, 'getListTourInfo'])->name('tour-infos.list');
     Route::resource('reviews', ReviewController::class);
 });

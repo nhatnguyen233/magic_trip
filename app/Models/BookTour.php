@@ -27,6 +27,11 @@ class BookTour extends Model
         return $this->belongsTo(Tour::class, 'tour_id', 'id');
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
     public function getStatusNameAttribute()
     {
         if(isset($this->status))
@@ -35,6 +40,8 @@ class BookTour extends Model
             {
                 case BookingStatus::PENDING:
                     return 'Chờ xác nhận';
+                case BookingStatus::APPROVED:
+                    return 'Đã chấp thuận';
                 case BookingStatus::PAID:
                     return 'Đã thanh toán';
                 case BookingStatus::FINISHED:
