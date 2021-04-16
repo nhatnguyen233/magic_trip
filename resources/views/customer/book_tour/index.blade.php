@@ -94,10 +94,19 @@
                                         <strong>{{ number_format($item->total_price, 0, '', ',') }}đ</strong>
                                     </td>
                                     <td>
-                                        <span class="text-danger">
+                                        <span class="@if($item->status == \App\Enums\BookingStatus::PENDING)
+                                                        text-danger
+                                                    @elseif($item->status == \App\Enums\BookingStatus::APPROVED)
+                                                        text-primary
+                                                    @elseif($item->status == \App\Enums\BookingStatus::PAID)
+                                                        text-info
+                                                    @elseif($item->status == \App\Enums\BookingStatus::FINISHED)
+                                                        text-success
+                                                    @elseif($item->status == \App\Enums\BookingStatus::CANCELED)
+
+                                                    @endif">
                                             {{ $item->status_name }}
                                         </span>
-
                                     </td>
                                 </tr>
                             @empty

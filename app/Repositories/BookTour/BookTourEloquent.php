@@ -5,6 +5,9 @@ namespace App\Repositories\BookTour;
 use App\Enums\BookingStatus;
 use App\Enums\BookType;
 use App\Models\BookTour;
+use App\Repositories\Host\HostRepository;
+use App\Repositories\Tour\TourRepository;
+use Illuminate\Container\Container as Application;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Exception;
@@ -14,6 +17,16 @@ use Prettus\Repository\Exceptions\RepositoryException;
 
 class BookTourEloquent extends BaseRepository implements BookTourRepository
 {
+    protected $tourRepository;
+    protected $hostRepository;
+
+    public function __construct(Application $app, TourRepository $tourRepository, HostRepository $hostRepository)
+    {
+        $this->tourRepository = $tourRepository;
+        $this->hostRepository = $hostRepository;
+        parent::__construct($app);
+    }
+
     public function model()
     {
         return BookTour::class;
@@ -27,6 +40,18 @@ class BookTourEloquent extends BaseRepository implements BookTourRepository
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
+    }
+
+    public function getBookTourByHostID($hostID, $params)
+    {
+        $bookings = $this->hostRepository->find($hostID)->bookings;
+
+        if(isset($params['status']))
+        {
+            return $bookings->where('status', $params['status']);
+        }
+
+        return $bookings;
     }
 
     public function createBookTour($userId, $type, $carts)
