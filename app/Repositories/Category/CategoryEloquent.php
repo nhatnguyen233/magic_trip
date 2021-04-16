@@ -22,4 +22,9 @@ class CategoryEloquent extends BaseRepository implements CategoryRepository
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
+
+    public function getCategoryTourismName()
+    {
+        return $this->orderBy('id', 'DESC')->pluck('name', 'id')->toArray();;
+    }
 }
