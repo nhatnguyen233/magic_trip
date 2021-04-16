@@ -1,0 +1,40 @@
+Merge pull request #64 from nhatnguyen233/feature/list_order_tour
+
+Danh sách các tour du lịch đã đặt phía khách
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# Author:    nhatnguyen233 <37479355+nhatnguyen233@users.noreply.github.com>
+# Date:      Wed Apr 7 21:59:56 2021 +0700
+#
+# On branch fixbug/update_accomodation
+# Changes to be committed:
+#	modified:   app/Enums/BookingStatus.php
+#	modified:   app/Http/Controllers/Admin/AccommodationController.php
+#	modified:   app/Http/Controllers/Customer/BookTourController.php
+#	modified:   app/Http/Requests/Accommodation/CreateAccommodation.php
+#	modified:   app/Models/Accommodation.php
+#	modified:   app/Models/BookTour.php
+#	modified:   app/Repositories/Accommodation/AccommodationEloquent.php
+#	modified:   app/Repositories/Accommodation/AccommodationRepository.php
+#	modified:   resources/assets/css/style.css
+#	modified:   resources/views/admin/accommodations/create.blade.php
+#	modified:   resources/views/admin/accommodations/edit.blade.php
+#	modified:   resources/views/admin/accommodations/index.blade.php
+#	new file:   resources/views/admin/accommodations/modals/_remove_modal_accommodation.blade.php
+#	new file:   resources/views/admin/accommodations/modals/_show_detail_accommodation.blade.php
+#	modified:   resources/views/admin/attractions/index.blade.php
+#	modified:   resources/views/customer/book_tour/create.blade.php
+#	modified:   resources/views/customer/book_tour/finished.blade.php
+#	new file:   resources/views/customer/book_tour/index.blade.php
+#	modified:   resources/views/customer/book_tour/modals/_payment_order_modal.blade.php
+#	modified:   resources/views/customer/cart/index.blade.php
+#	modified:   resources/views/layouts/user/header.blade.php
+#	modified:   routes/web.php
+#
+# Untracked files:
+#	.docker/
+#	Makefile
+#	docker-compose.yml
+#
