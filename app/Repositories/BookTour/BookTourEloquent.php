@@ -5,8 +5,8 @@ namespace App\Repositories\BookTour;
 use App\Enums\BookingStatus;
 use App\Enums\BookType;
 use App\Models\BookTour;
+use App\Repositories\Bill\BillRepository;
 use App\Repositories\Host\HostRepository;
-use App\Repositories\Tour\TourRepository;
 use Illuminate\Container\Container as Application;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -17,12 +17,12 @@ use Prettus\Repository\Exceptions\RepositoryException;
 
 class BookTourEloquent extends BaseRepository implements BookTourRepository
 {
-    protected $tourRepository;
+    protected $billRepository;
     protected $hostRepository;
 
-    public function __construct(Application $app, TourRepository $tourRepository, HostRepository $hostRepository)
+    public function __construct(Application $app, BillRepository $billRepository, HostRepository $hostRepository)
     {
-        $this->tourRepository = $tourRepository;
+        $this->billRepository = $billRepository;
         $this->hostRepository = $hostRepository;
         parent::__construct($app);
     }
@@ -63,7 +63,11 @@ class BookTourEloquent extends BaseRepository implements BookTourRepository
                 {
                     foreach ($carts as $item)
                     {
-                        $this->create([
+                        $this->updateOrCreate([
+                            'tour_id' => $item['tour_id'],
+                            'user_id' => $userId,
+                            'date_of_book' => $item['date_of_book']
+                        ],[
                             'tour_id' => $item['tour_id'],
                             'user_id' => $userId,
                             'date_of_book' => $item['date_of_book'],
@@ -82,5 +86,29 @@ class BookTourEloquent extends BaseRepository implements BookTourRepository
             DB::rollBack();
             throw $e;
         }
+    }
+
+    public function payment($userId)
+    {
+        $payment = $this->model->where('user_id', $userId)
+                        ->where( 'status', BookingStatus::APPROVED)
+                        ->update(['status' => BookingStatus::PAID]);
+        $afterPayment = $this->model->where('user_id', $userId)
+                        ->where( 'status', BookingStatus::PAID)
+                        ->get();
+
+        if(isset($afterPayment) && $afterPayment != null)
+        {
+            foreach ($afterPayment as $item)
+            {
+                $this->billRepository->create([
+                    'book_tour_id' => $item->id,
+                    'user_id' => $userId,
+                    'total_price' => $item->total_price,
+                ]);
+            }
+        }
+
+        return $payment;
     }
 }

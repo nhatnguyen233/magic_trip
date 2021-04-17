@@ -12,6 +12,11 @@
         </li>
         <li class="breadcrumb-item active">Đặt Tour</li>
     </ol>
+    @if(session()->has('success'))
+        <div class="alert alert-success">
+            {{ session()->get('success') }}
+        </div>
+    @endif
     <div class="box_general">
         {!! Form::open(['route' => 'host.bookings.index', 'method' => 'GET']) !!}
         <div class="header_box">
@@ -51,16 +56,28 @@
                     <p><a href="#0" class="btn_1 gray"><i class="fa fa-fw fa-envelope"></i> Gửi tin nhắn</a></p>
                     <ul class="buttons">
                         @if($item->status == \App\Enums\BookingStatus::PENDING)
-                        <li><a href="#0" class="btn_1 gray approve"><i class="fa fa-fw fa-check-circle-o"></i> Chấp thuận</a></li>
+                        <li>
+                            <a data-toggle="modal" id="approveBooking" data-target="#approveModal"
+                               class="btn_1 gray approve approve-booking"
+                               data-action="{{ route('host.bookings.approve', $item->id) }}"
+                               data-id="{{ $item->id }}">
+                                <i class="fa fa-fw fa-check-circle-o"></i> Chấp thuận
+                            </a>
+                        </li>
                         <li><a href="#0" class="btn_1 gray delete"><i class="fa fa-fw fa-times-circle-o"></i> Từ chối</a></li>
                         @elseif($item->status == \App\Enums\BookingStatus::APPROVED)
                         <li><a href="#0" class="btn_1 gray delete"><i class="fa fa-fw fa-times-circle-o"></i> Hủy chấp thuận</a></li>
                         @elseif($item->status == \App\Enums\BookingStatus::PAID)
-                        <li><a href="#0" class="btn_1 gray approve"><i class="fa fa-fw fa-check-circle-o"></i> Hoàn thành</a></li>
-                        <li><a href="#0" class="btn_1 gray">Lập hóa đơn</a></li>
+                        <li>
+                            <a data-toggle="modal" id="finishedConfirm" data-target="#finishedConfirmModal"
+                               class="btn_1 gray approve finished-confirm"
+                               data-action="{{ route('host.bookings.finished', $item->id) }}"
+                               data-id="{{ $item->id }}">
+                                <i class="fa fa-fw fa-check-circle-o"></i> Hoàn thành
+                            </a>
+                        </li>
                         @elseif($item->status == \App\Enums\BookingStatus::FINISHED)
                         <li><a href="#0" class="btn_1 gray approve"><i class="fa fa-fw fa-check-circle-o"></i> Gửi mail</a></li>
-                        <li><a href="#0" class="btn_1 gray">Lập hóa đơn</a></li>
                         @elseif($item->status == \App\Enums\BookingStatus::CANCELED)
                             <li><a href="#0" class="btn_1 gray delete"><i class="fa fa-fw fa-times-circle-o"></i> Xóa</a></li>
                         @endif
@@ -77,8 +94,18 @@
     <div class="d-flex justify-content-end">
         {{ $bookings->links() }}
     </div>
+    @include('host.bookings.modals._approve_modal')
+    @include('host.bookings.modals._finished_confirm_modal')
 @endsection
 
 @section('script')
+    <script>
+        $(document).on('click', '#approveBooking', function () {
+            $('#form-approve').attr('action', $(this).attr('data-action'));
+        });
 
+        $(document).on('click', '#finishedConfirm', function () {
+            $('#form-finished-confirm').attr('action', $(this).attr('data-action'));
+        });
+    </script>
 @endsection

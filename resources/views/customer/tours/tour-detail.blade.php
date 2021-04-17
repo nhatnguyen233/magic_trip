@@ -235,7 +235,7 @@
                 <aside class="col-lg-4" id="sidebar">
                     <div class="box_detail booking">
                         <div class="price">
-                            <h4>{{ number_format($tour->price, 0, '', ',') }} VND <small>/ 1 người</small></h4>
+                            <h4>{{ number_format($tour->price, 0, '', ',') }}đ <small>/ 1 người</small></h4>
                             <div class="score">
 
                                 <span>  @if($average >= 9)

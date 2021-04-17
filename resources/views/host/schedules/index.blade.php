@@ -46,6 +46,9 @@
                             <center>Tên tour</center>
                         </th>
                         <th>
+                            <center>Ảnh</center>
+                        </th>
+                        <th>
                             <center>Ngày bắt đầu</center>
                         </th>
                         <th>
@@ -61,6 +64,7 @@
                     <tr>
                         <td><center>{{ $item->tour->id }}</center></td>
                         <td><center>{{ $item->tour->name }}</center></td>
+                        <td><center><img src="{{ $item->tour->thumbnail_url }}" width="80px" height="80px"/></center></td>
                         <td><center>{{ date('d-m-Y', strtotime($item->departure_time)) }}</center></td>
                         <td><center>{{ $item->number_max_slots }}</center></td>
                         <td>
@@ -109,6 +113,10 @@
         $(function () {
             $('#create_departure_time').datetimepicker({
                 format: 'DD-MM-YYYY',
+            });
+
+            $("#create_departure_time").on("change.datetimepicker", function (e) {
+                $(this).datetimepicker('minDate', e.date);
             });
 
             $('#edit_departure_time').datetimepicker({

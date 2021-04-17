@@ -13,7 +13,7 @@
 				</span>
 			</div>
 		</section>
-        
+
 		<div class="bg_color_1">
 			<nav class="secondary_nav sticky_horizontal">
 				<div class="container">
@@ -26,7 +26,7 @@
 			</nav>
 			<div class="container margin_60_35">
 				<div class="row">
-					<div class="col-lg-8">
+					<div class="col-lg-12">
 						<section id="description">
 							<h2>Description</h2>
 							<p>{{ $accommodation->description }}</p>

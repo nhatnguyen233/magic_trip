@@ -21,23 +21,23 @@
                         <a href="{{ route('book-tour.create') }}" class="bs-wizard-dot"></a>
                     </div>
 
-                    <div class="bs-wizard-step">
+                    <div class="bs-wizard-step activ">
                         <div class="text-center bs-wizard-stepnum">Chờ xác nhận</div>
                         <div class="progress">
                             <div class="progress-bar"></div>
                         </div>
-                        <a href="{{ route('book-tour.order-pending') }}" class="bs-wizard-dot"></a>
+                        <a href="{{ route('book-tour.index') }}" class="bs-wizard-dot"></a>
                     </div>
 
-                    <div class="bs-wizard-step">
+                    <div class="bs-wizard-step disabled">
                         <div class="text-center bs-wizard-stepnum">Thanh toán</div>
                         <div class="progress">
                             <div class="progress-bar"></div>
                         </div>
-                        <a href="{{ route('book-tour.order-payment') }}" class="bs-wizard-dot"></a>
+                        <a href="#0" class="bs-wizard-dot"></a>
                     </div>
 
-                    <div class="bs-wizard-step active">
+                    <div class="bs-wizard-step disabled">
                         <div class="text-center bs-wizard-stepnum">Hoàn thành</div>
                         <div class="progress">
                             <div class="progress-bar"></div>
@@ -79,9 +79,9 @@
                                     Trạng thái
                                 </th>
                                 @if($orders->where('status', \App\Enums\BookingStatus::CANCELED)->count() > 0)
-                                <th>
-                                    Xóa
-                                </th>
+                                    <th>
+                                        Xóa
+                                    </th>
                                 @endif
                             </tr>
                             </thead>
@@ -108,10 +108,6 @@
                                                         text-danger
                                                     @elseif($item->status == \App\Enums\BookingStatus::APPROVED)
                                                         text-primary
-                                                    @elseif($item->status == \App\Enums\BookingStatus::PAID)
-                                                        text-info
-                                                    @elseif($item->status == \App\Enums\BookingStatus::FINISHED)
-                                                        text-success
                                                     @elseif($item->status == \App\Enums\BookingStatus::CANCELED)
                                                         text-danger
                                                     @endif">
@@ -119,23 +115,23 @@
                                         </span>
                                     </td>
                                     @if($orders->where('status', \App\Enums\BookingStatus::CANCELED)->count() > 0)
-                                    <td>
-                                        @if($item->status == \App\Enums\BookingStatus::CANCELED || $item->status == \App\Enums\BookingStatus::FINISHED)
-                                        <a href="#" data-toggle="modal" id="removeBooking"
-                                           data-target="#removeBookingModal"
-                                           data-action="{{ route('book-tour.destroy', $item->id) }}"
-                                           data-id="{{ $item->id }}">
-                                            <i class="icon-trash"></i>
-                                        </a>
-                                        @endif
-                                    </td>
+                                        <td>
+                                            @if($item->status == \App\Enums\BookingStatus::CANCELED || $item->status == \App\Enums\BookingStatus::FINISHED)
+                                                <a href="#" data-toggle="modal" id="removeBooking"
+                                                   data-target="#removeBookingModal"
+                                                   data-action="{{ route('book-tour.destroy', $item->id) }}"
+                                                   data-id="{{ $item->id }}">
+                                                    <i class="icon-trash"></i>
+                                                </a>
+                                            @endif
+                                        </td>
                                     @endif
                                 </tr>
                             @empty
                                 <tr>
                                     <td colspan="5">
                                         <h2 class="text-center mt-4 font-weight-lighter">
-                                            Giỏ trống
+                                            Không có đơn nào cần xác nhận
                                         </h2>
                                     </td>
                                 </tr>
@@ -145,15 +141,15 @@
                     </div>
                 </div>
                 <!-- /col -->
+
                 <aside class="col-lg-4" id="sidebar">
                     <div class="box_detail">
                         <div id="total_cart">
                             Tổng <span class="float-right">{{ number_format($total_price_all, 0, '', ',') }}đ</span>
                         </div>
                         <ul class="cart_details">
+                            <li>Tour <span>{{ $orders->where('status', '<>', 4)->count() }}</span></li>
                             <li>Tổng người tham quan <span>{{ $number_of_slots }}</span></li>
-                            <li>Tour đã đặt<span>{{ $orders->where('status', '<>', 4)->count() }}</span></li>
-                            <li>Tour đã hủy <span>{{ $orders->where('status', 4)->count() }}</span></li>
                         </ul>
                         @guest('customer')
                             <a href="#sign-in-dialog"  id="sign-in" title="Đăng nhập" class="btn_1 full-width purchase login">Đăng nhập</a>
@@ -163,7 +159,17 @@
                             <div class="text-center"><small>Vui lòng đăng nhập để tiếp tục đặt tour du lịch</small></div>
                         @endguest
                         @auth('customer')
+                            @if(($orders->where('status', 1)->count() > 0 || $orders->where('status', '<>', 4)->count()) && $orders->where('status', 0)->count() == 0)
+                                <a href="{{ route('book-tour.order-payment') }}" class="btn_1 full-width purchase">Thanh toán</a>
+                            @endif
                             <a href="#" class="btn_1 full-width chat">Nhắn tin</a>
+                            <div class="text-center">
+                                @if($orders->where('status', '>', 1)->count() == $orders->count())
+                                    <small>Các Tour du lịch bạn đặt đã hoàn tất thanh toán</small>
+                                @else
+                                    <small>Vui lòng chờ chúng tôi xác nhận lại thông tin để tiến hành bước tiếp theo</small>
+                                @endif
+                            </div>
                         @endauth
                     </div>
                 </aside>
