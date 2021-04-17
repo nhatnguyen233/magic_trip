@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Customer;
 
+use App\Enums\UserRole;
 use App\Http\Controllers\AuthController as BaseAuthController;
 use App\Http\Requests\User\Register;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Repositories\Province\ProvinceRepository;
 use App\Repositories\User\UserRepository;
@@ -34,16 +36,21 @@ class AuthController extends BaseAuthController
 
     public function register(Register $request)
     {
-        $customer = $this->userRepository->createUserInfo($request->validated());
-        Auth::guard('customer')->login($customer);
+        $customer = $this->userRepository->createUserInfo($request->except(['_token']));
 
-        return redirect(url('/'))->with('customer', $customer);
+        if($customer->role_id == UserRole::CUSTOMER) {
+            Auth::guard('customer')->login($customer);
+
+            return redirect(url('/'))->with('customer', $customer);
+        } elseif($customer->role_id == UserRole::HOST) {
+            return redirect()->back()->with('success', __('message.register_host'));
+        }
     }
 
-    public function updateProfileView()
+    public function updateProfileView(User $user)
     {
         $viewData['provinces'] = $this->provinceRepository->all();
-        $viewData['user'] =  $this->userRepository->getUserLoginWithRelation();
+        $viewData['user'] =  $user;
 
         return view('customer.update-profile', $viewData);
     }

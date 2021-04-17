@@ -8,8 +8,7 @@ interface UserRepository extends RepositoryInterface
 {
     public function updateBaseInfo(array $params, $userId);
     public function createUserInfo(array $params);
-    public function getList();
-    public function getUserLoginWithRelation();
+    public function getList($role_id);
     public function deleteUser($id);
-    public function getUserById($userId);
+    public function getUserSocialNetWork($getInfo, $provider);
 }

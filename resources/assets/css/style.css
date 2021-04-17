@@ -1242,7 +1242,7 @@ header.sticky .hamburger-inner::after {
 }
 
 .hero_in.general:before {
-    background: url(../img/hero_in_bg_2.jpg) center center no-repeat;
+    background: url(/img/hero_in_bg_2.jpg) center center no-repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -1255,7 +1255,7 @@ header.sticky .hamburger-inner::after {
 }
 
 .hero_in.tours:before {
-    background: url(../img/hero_in_bg_1.jpg) center center no-repeat;
+    background: url(/img/hero_in_bg_1.jpg) center center no-repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -1268,7 +1268,7 @@ header.sticky .hamburger-inner::after {
 }
 
 .hero_in.hotels:before {
-    background: url(../img/hero_in_bg_4.jpg) center center no-repeat;
+    background: url(/img/hero_in_bg_4.jpg) center center no-repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -1281,7 +1281,7 @@ header.sticky .hamburger-inner::after {
 }
 
 .hero_in.restaurants:before {
-    background: url(../img/hero_in_bg_5.jpg) center center no-repeat;
+    background: url(/img/hero_in_bg_5.jpg) center center no-repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -1327,7 +1327,7 @@ header.sticky .hamburger-inner::after {
 }
 
 .hero_in.hotels_detail:before {
-    background: url(../img/hero_in_hotels_detail.jpg) center center no-repeat;
+    background: url(/img/hotel1.jpeg) center center no-repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -2600,7 +2600,7 @@ video {
 }
 
 .hero_single.version_2:before {
-    background: url(/img/banner_top_page.jpg) center center no-repeat;
+    background: url(/img/hi.jpeg) center center no-repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -6001,8 +6001,7 @@ span.infobox_rate {
     .table.cart-list td:nth-of-type(1):before,
     .table.cart-list td:nth-of-type(2):before,
     .table.cart-list td:nth-of-type(3):before,
-    .table.cart-list td:nth-of-type(4):before
-    .table.cart-list td:nth-of-type(5):before{
+    .table.cart-list td:nth-of-type(4):before .table.cart-list td:nth-of-type(5):before {
         font-weight: 600;
         color: #111;
     }
@@ -6010,13 +6009,13 @@ span.infobox_rate {
         content: "Tour";
     }
     .table.cart-list td:nth-of-type(2):before {
-        content: "Giá";
+        content: "Ngày khởi hành";
     }
     .table.cart-list td:nth-of-type(3):before {
-        content: "Số lượng";
+        content: "Giá";
     }
     .table.cart-list td:nth-of-type(4):before {
-        content: "Tổng tiền";
+        content: "Số lượng";
     }
     .table.cart-list td:nth-of-type(5):before {
         content: "Xóa";

@@ -3,6 +3,7 @@
 @section('style')
     <!-- WYSIWYG Editor -->
     <link rel="stylesheet" href="{{ asset('admin/js/editor/summernote-bs4.css') }}">
+    <link rel="stylesheet" href="{{ asset('tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.css') }}" />
 @endsection
 
 @section('content')
@@ -24,7 +25,10 @@
             <i class="fa fa-table"></i> Các địa điểm Tour du lịch {{ session()->get('tour')->name ?? ' '}}
         </div>
         <div class="card-body">
-            <a type="button" class="btn btn-success text-white mb-3 ml-3" data-toggle="modal" data-target="#infoModalCenter">
+            <a type="button" class="btn btn-info text-white mb-3 ml-3" href="{{ url()->previous() }}" title="Quay lại">
+                Quay lại
+            </a>
+            <a type="button" class="btn btn-primary text-white mb-3 ml-3" data-toggle="modal" data-target="#infoModalCenter">
                 Thêm địa điểm
             </a>
             <div class="table-responsive">
@@ -69,9 +73,7 @@
                     @empty
                         <tr>
                             <td colspan="7">
-                                <h2 class="text-center mt-4 font-weight-lighter">
-                                    Chưa có địa điểm hành trình
-                                </h2>
+                                <center>Chưa có địa điểm nào được thiết lập cho Tour</center>
                             </td>
                         </tr>
                     @endforelse
@@ -89,6 +91,8 @@
     <script src="{{ asset('admin/js/admin-datatables.js') }}"></script>
     <!-- WYSIWYG Editor -->
     <script src="{{ asset('admin/js/editor/summernote-bs4.min.js') }}"></script>
+    <script src="{{ asset('js/front/moment.min.js') }}"></script>
+    <script src="{{ asset('tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.js') }}" crossorigin="anonymous"></script>
     <script>
         $('.editor').summernote({
             fontSizes: ['10', '14', '16', '18', '22'],
@@ -108,6 +112,11 @@
            @if($infos->count() == 0)
             alert('Vui lòng thêm địa điểm cho Tours du lịch');
            @endif
+
+           $('#start-time').datetimepicker({
+               format: 'HH:mm',
+               stepping: 15
+           });
         });
 
         $('.preview-image').change(function (e) {

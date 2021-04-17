@@ -56,6 +56,20 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="box_cart">
+                        @if(session()->has('success'))
+                            <div class="alert alert-success">
+                                {{ session()->get('success') }}
+                            </div>
+                        @endif
+                            @if($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                         <table class="table table-striped cart-list">
                             <thead>
                             <tr>
@@ -63,13 +77,13 @@
                                     Tour
                                 </th>
                                 <th>
+                                    Ngày khởi hành
+                                </th>
+                                <th>
                                     Giá
                                 </th>
                                 <th>
                                     Số lượng
-                                </th>
-                                <th>
-                                    Tổng tiền
                                 </th>
                                 <th>
                                     Xóa
@@ -86,16 +100,26 @@
                                         <span class="item_cart">{{ $item->tour_name }}</span>
                                     </td>
                                     <td>
-                                        <strong>{{ number_format($item->price, 0, '', ',') }} VND</strong>
+                                        <strong>{{ date("d-m-Y", strtotime($item->date_of_book)) }}</strong>
                                     </td>
                                     <td>
-                                        <input type="number" name="quantity" min="0" value="{{ $item->quantity ?? 0 }}" style="width: 70px"/>
+                                        <strong>{{ number_format($item->price, 0, '', ',') }}đ</strong>
                                     </td>
                                     <td>
-                                        <strong>{{ number_format($item->total_price, 0, '', ',') }} VND</strong>
+                                        <form action="{{ route('cart.update', $item->id) }}" method="POST">
+                                            @method('PUT')
+                                            @csrf
+                                            <input type="text" name="tour_id" value="{{ $item->tour_id }}" hidden/>
+                                            <input type="text" name="date_of_book" value="{{ $item->date_of_book }}" hidden/>
+                                            <input type="number" name="number_of_slots" min="0" value="{{ $item->number_of_slots ?? 0 }}" style="width: 40px"/>
+                                            <button class="text-decoration-none btn btn-sm btn-outline-danger" style="margin-top: -2px">Update</button>
+                                        </form>
                                     </td>
                                     <td class="options" style="width:5%; text-align:center;">
-                                        <a href="#"><i class="icon-trash"></i></a>
+                                        <a href="#" data-toggle="modal" id="removeCart"
+                                           data-target="#removeCartModal" data-id="{{ $item->id }}">
+                                            <i class="icon-trash"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @empty
@@ -121,8 +145,8 @@
                                 </div>
                             </div>
                             <div class="float-right fix_mobile">
-                                <a href="{{ url()->previous() }}" class="btn_1 outline">Quay lại</a>
-                                <button type="button" class="btn_1 outline">Cập nhật</button>
+                                <button type="button" class="btn_1 outline" data-toggle="modal" id="removeAllCart"
+                                        data-target="#removeAllCartModal"> Xóa tất cả</button>
                             </div>
                         </div>
                         <!-- /cart-options -->
@@ -133,12 +157,11 @@
                 <aside class="col-lg-4" id="sidebar">
                     <div class="box_detail">
                         <div id="total_cart">
-                            Tổng <span class="float-right">{{ number_format($total_price_all, 0, '', ',') }} VND</span>
+                            Tổng <span class="float-right">{{ number_format($total_price_all, 0, '', ',') }}đ</span>
                         </div>
                         <ul class="cart_details">
-                            <li>Từ ngày <span>{{ date('d-m-Y', strtotime($start_time_min)) }}</span></li>
-                            <li>Tới ngày <span>{{ date('d-m-Y', strtotime($end_time_max)) }}</span></li>
-                            <li>Tổng số lượng <span>{{ $total_quantity }}</span></li>
+                            <li>Tour <span>{{ $carts->count() }}</span></li>
+                            <li>Số lượng đặt <span>{{ $number_of_slots }}</span></li>
                         </ul>
                         @guest('customer')
                             <a href="#sign-in-dialog"  id="sign-in" title="Đăng nhập" class="btn_1 full-width purchase login">Đăng nhập</a>
@@ -162,9 +185,22 @@
         <!-- /container -->
     </div>
     <!-- /bg_color_1 -->
+    @include('customer.cart.modals._remove_cart_modal')
+    @include('customer.cart.modals._remove_all_cart_modal')
 @endsection
 
 @section('script')
+    <script>
+        $(document).on('click', '#removeCart', function () {
+            var id = $(this).data('id');
+            var url = window.location.origin + '/cart/' + id;
+            $('#form-remove-cart').attr('action', url);
+        });
 
+        $(document).on('click', '#removeAllCart', function () {
+            var url = window.location.origin + '/cart/delete-all';
+            $('#form-remove-all-cart').attr('action', url);
+        });
+    </script>
 @endsection
 

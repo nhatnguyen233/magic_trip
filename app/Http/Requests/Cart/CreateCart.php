@@ -2,11 +2,21 @@
 
 namespace App\Http\Requests\Cart;
 
+use App\Repositories\Schedule\ScheduleRepository;
+use DateTime;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Carbon;
 
 class CreateCart extends FormRequest
 {
+    protected $scheduleRepository;
+
+    public function __construct(ScheduleRepository $scheduleRepository, array $query = [], array $request = [], array $attributes = [], array $cookies = [], array $files = [], array $server = [], $content = null)
+    {
+        $this->scheduleRepository = $scheduleRepository;
+        parent::__construct($query, $request, $attributes, $cookies, $files, $server, $content);
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -33,13 +43,20 @@ class CreateCart extends FormRequest
             ],
             'tour_id' => [
                 'required',
-                'exists:tours,id'
+                'exists:tours,id',
+                function ($attribute, $value, $fail) {
+                    if (isset($value) && isset($this->date_of_book) && isset($this->number_of_slots)) {
+                        if ($this->scheduleRepository->checkScheduleFullSlot($value, $this->date_of_book, $this->number_of_slots)) {
+                            $fail('Ngày này đã được đặt hết hoặc không tồn tại!');
+                        }
+                    }
+                },
             ],
             'price' => [
                 'required',
                 'numeric'
             ],
-            'quantity' => [
+            'number_of_slots' => [
                 'required',
                 'numeric'
             ],
@@ -52,13 +69,9 @@ class CreateCart extends FormRequest
             'dates' => [
                 'required',
             ],
-            'start_time' => [
+            'date_of_book' => [
                 'required',
                 'after_or_equal:today'
-            ],
-            'end_time' => [
-                'required',
-                'after_or_equal:start_time'
             ],
             'expired_at' => [
                 'required',
@@ -91,18 +104,24 @@ class CreateCart extends FormRequest
             ]);
         }
 
-        if($this->quantity != null || $this->price >= 0)
+        if($this->number_of_slots != null || $this->number_of_slots >= 0)
         {
             $this->merge([
-                'quantity' => intval($this->quantity),
+                'number_of_slots' => intval($this->number_of_slots),
+            ]);
+        }
+
+        if($this->date_of_book != null)
+        {
+            $date = DateTime::createFromFormat('d-m-Y', $this->date_of_book);
+            $this->merge([
+                'date_of_book' => $date->format('Y-m-d')
             ]);
         }
 
         $this->merge([
             'session_token' => session()->get('session_token'),
-            'start_time' => date("Y-m-d", strtotime(explode(" ", $this->dates)[0])),
-            'end_time' => date("Y-m-d", strtotime(explode(" ", $this->dates)[2])),
-            'total_price' => $this->quantity*$this->price,
+            'total_price' => $this->number_of_slots*$this->price,
             'expired_at' => Carbon::now()->addWeeks(1),
         ]);
     }

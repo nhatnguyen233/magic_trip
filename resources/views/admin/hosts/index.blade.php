@@ -42,7 +42,7 @@
                             <td>{{ $host->host_mail}}</td>
                             <td>{{ $host->hotline }}</td>
                             <td>{{ $host->date_of_establish }}</td>
-                            <td><a href="{{ route('admin.users.edit', $host->user_id) }}">{{ $host->user->name }}</a></td>
+                            <td><a href="{{ route('admin.users.edit', $host->user_id) }}">{{ isset($host->user->name) ? $host->user->name : '' }}</a></td>
                             <td><img src="{{ $host->avatar_url }}" width="100px" height="100px" id="avatar-image" /></td>
                             <td>
                                 <div class="d-flex justify-content-around">
@@ -64,13 +64,13 @@
         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
     </div>
     <!-- /tables-->
-    @include('admin.attractions.modals._remove_modal_attraction')
+    @include('admin.attractions.modals._remove_modal_host')
 @endsection
 
 @section('script')
     <script src="{{ asset('admin/js/admin-datatables.js') }}"></script>
     <script>
-        $(document).on('click', '#showAttractionDetail', function () {
+        $(document).on('click', '#showHostDetail', function () {
             var id = $(this).data('id');
             var url = '{{ Illuminate\Support\Facades\URL::to('/') }}' + '/api/attractions/' + id;
             fetch(url)
@@ -93,10 +93,10 @@
                 });
         });
 
-        $(document).on('click', '#removeAttraction', function () {
+        $(document).on('click', '#removeHost', function () {
             var id = $(this).data('id');
-            var url = '{{ Illuminate\Support\Facades\URL::to('/') }}' + '/admincp/users/' + id;
-            $('#form-remove-attraction').attr('action', url);
+            var url = '{{ Illuminate\Support\Facades\URL::to('/') }}' + '/admincp/hosts/' + id;
+            $('#form-remove-host').attr('action', url);
         });
     </script>
 @endsection

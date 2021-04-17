@@ -42,6 +42,11 @@ class Accommodation extends Model
         return $this->belongsTo(District::class, 'district_id', 'id');
     }
 
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+
     public function country()
     {
         return$this->belongsTo(Country::class, 'country_id', 'id');
@@ -98,4 +103,12 @@ class Accommodation extends Model
 
         return '';
     }
+
+    public function getFullAddressAttribute()
+    {
+        if (isset($this->district_id) && isset($this->province_id) && isset($this->country_id)) {
+            return $this->district->name . ',' . $this->province->name . ','. $this->country->name;
+        }
+    }
+
 }

@@ -2,18 +2,28 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
-use App\Models\Host;
 use App\Repositories\Host\HostRepository;
+use App\Http\Requests\Host\Register;
+use App\Models\Host;
+use App\Models\User;
+use App\Repositories\Province\ProvinceRepository;
+use App\Repositories\User\UserRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class HostController extends Controller
 {
     protected $hostRepository;
+    protected $userRepository;
+    protected $provinceRepository;
 
-    public function __construct(HostRepository $hostRepository)
+    public function __construct(HostRepository $hostRepository, UserRepository $userRepository, ProvinceRepository $provinceRepository)
     {
         $this->hostRepository = $hostRepository;
+        $this->userRepository = $userRepository;
+        $this->provinceRepository = $provinceRepository;
     }
 
     /**
@@ -23,74 +33,53 @@ class HostController extends Controller
      */
     public function index()
     {
+        $viewData['hosts'] = $this->userRepository->findWhere(['role_id' => UserRole::HOST]);
+
         $viewData['hosts'] = $this->hostRepository->all();
 
         return view('admin.hosts.index', $viewData);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        $viewData['provinces'] = $this->provinceRepository->all();
+
+        return view('admin.hosts.create', $viewData);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(Register $request)
     {
-        //
+        $user = $this->userRepository->createUserInfo($request->except(['_token']));
+
+        if($this->hostRepository->createHost($request->validated(), $user->id)) {
+            return redirect()->route('admin.hosts.index')->with('success', __('message.update_success'));
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Host  $host
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Host $host)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Host  $host
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Host $host)
     {
-        //
+        $viewData['provinces'] = $this->provinceRepository->all();
+
+        $viewData['host'] =  $host;
+
+        return view('admin.hosts.edit',  $viewData);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Host  $host
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Host $host)
+    public function update(Request $request)
     {
-        //
+        if ($this->hostRepository->updateBaseInfo($request->except(['_token']), $request->host)) {
+            return redirect()->route('admin.hosts.index')->with('success', __('message.update_success'));
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Host  $host
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Host $host)
     {
-        //
+        if($this->hostRepository->deleteHost($host)){
+
+            return redirect()->back()->with('success', __('message.update_success'));
+        }
+
+        return redirect()->back()->with('fail', __('message.update_fail'));
     }
+
 }

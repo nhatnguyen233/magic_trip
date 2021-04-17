@@ -108,8 +108,8 @@
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <label for="start-time">Thời gian bắt đầu <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" name="start_time"
-                                                   id="start-time" value="{{ old('start_time') }}" />
+                                            <input type="text" class="form-control datetimepicker-input" id="start-time"
+                                                   data-toggle="datetimepicker" data-target="#start-time" name="start_time"/>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="limit-time">Khoảng thời gian <span class="text-danger">*</span></label>

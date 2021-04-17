@@ -29,4 +29,9 @@ class Review extends Model
     {
         return $this->hasMany(ReviewImage::class, 'review_id', 'id');
     }
+
+    public function tour()
+    {
+        return $this->belongsTo(Tour::class);
+    }
 }

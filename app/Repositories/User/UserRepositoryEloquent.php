@@ -2,6 +2,7 @@
 
 namespace App\Repositories\User;
 
+use App\Enums\StatusHost;
 use App\Enums\UserRole;
 use App\Models\User;
 use Exception;
@@ -14,6 +15,7 @@ use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Exceptions\RepositoryException;
 use App\Repositories\Helpers\FilterTrait;
+use Illuminate\Support\Facades\Hash;
 
 class UserRepositoryEloquent extends BaseRepository implements UserRepository
 {
@@ -24,7 +26,17 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         return User::class;
     }
 
-    public function getList($filters = [], $sorts = [], $relations = [], $limit = 20, $select = ['*'])
+    /**
+     * Boot up the repository, pushing criteria
+     * @throws RepositoryException
+     */
+    
+    public function boot()
+    {
+        $this->pushCriteria(app(RequestCriteria::class));
+    }
+
+    public function getList($role_id,$filters = [], $sorts = [], $relations = [], $limit = 20, $select = ['*'])
     {
         $limit = $limit ?? config('common.default_per_page');
         $filterable = [];
@@ -40,15 +52,6 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
             $filterable,
             $select
         );
-    }
-
-    /**
-     * Boot up the repository, pushing criteria
-     * @throws RepositoryException
-     */
-    public function boot()
-    {
-        $this->pushCriteria(app(RequestCriteria::class));
     }
 
     public function createUserInfo(array $params)
@@ -100,16 +103,6 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         }
     }
 
-    public function getUserLoginWithRelation ()
-    {
-        return $this->model::find(Auth::guard('customer')->user()->id);
-    }
-
-    public function getUserById($userId)
-    {
-        return $this->model::find($userId);
-    }
-
     public function deleteUser($user)
     {
         try {
@@ -120,10 +113,28 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
             DB::commit();
 
             return true;
-        } catch (Exception $exception) {
+        } catch (\Exception $exception) {
             Log::error($exception);
             DB::rollBack();
             throw $exception;
         }
+    }
+
+    public function getUserSocialNetWork($getInfo, $provider)
+    {
+        $user = User::where('provider_id', $getInfo->id)->first();
+
+        if (!$user) {
+            $user = User::create([
+                'name' => $getInfo->name,
+                'role_id' => UserRole::CUSTOMER,
+                'password' => Hash::make('123456789'),
+                'provider' => $provider,
+                'provider_id' => $getInfo->id,
+                'email' => $getInfo->email,
+            ]);
+        }
+
+        return $user;
     }
 }

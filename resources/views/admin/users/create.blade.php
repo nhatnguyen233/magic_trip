@@ -166,6 +166,16 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="form-group">
+                        <label for="role_id">Role <span class="text-danger">*</span></label>
+                        <select type="hidden" name="role_id" id="role_id" class="form-control">
+                            <option value="1" selected>Customer</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
             <!-- /row-->
         </div>
         <p>

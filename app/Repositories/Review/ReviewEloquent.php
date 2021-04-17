@@ -5,10 +5,12 @@ namespace App\Repositories\Review;
 use App\Models\Review;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
+use App\Repositories\Helpers\FilterTrait;
 use Prettus\Repository\Exceptions\RepositoryException;
-
 class ReviewEloquent extends BaseRepository implements ReviewRepository
 {
+    use FilterTrait;
+
     public function model()
     {
         return Review::class;
@@ -31,5 +33,31 @@ class ReviewEloquent extends BaseRepository implements ReviewRepository
         }, ARRAY_FILTER_USE_KEY);
 
         return $this->create($data);
+    }
+
+    public function getList($userId, $filters = [], $sorts = [], $relations = [], $limit = 10, $select = ['*'])
+    {
+        $limit = $limit ?? config('common.default_per_page');
+        $filterable = [
+            'tour_name'  => function ($q, $val) {
+                if ($val !== 'ALL') {
+                    return $q->where('tour_id', $val);
+                }
+            },
+        ];
+
+        $query = $this->whereHas('tour', function($query) use($userId) {
+                return $query->where(['user_id' => $userId]);
+             })
+            ->orderBy('created_at', 'DESC');
+
+        return $this->filterPaginate(
+            $query,
+            $limit,
+            $filters,
+            $sorts,
+            $filterable,
+            $select
+        );
     }
 }

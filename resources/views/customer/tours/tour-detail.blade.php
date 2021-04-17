@@ -1,5 +1,9 @@
 @extends('layouts.user.app')
 
+@section('style')
+    <link rel="stylesheet" href="{{ asset('tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.css') }}" />
+@endsection
+
 @section('content')
     <section class="hero_in tours_detail">
         <div class="wrapper">
@@ -33,15 +37,12 @@
                         <div class="tour-description">
                             {!! $tour->description !!}
                         </div>
-                        <br/>
-                        <h3>Instagram photos feed</h3>
-                        <div id="instagram-feed" class="clearfix"></div>
                         <hr>
-
-                        <h3>Chương trình <small>(60 minutes)</small></h3>
+                        <h3>Chương trình <small>({{ $tour->total_time/24 }} ngày)</small></h3>
                         <p>
-                            Iudico omnesque vis at, ius an laboramus adversarium. An eirmod doctus admodum est, vero numquam et mel, an duo modo error. No affert timeam mea, legimus ceteros his in. Aperiri honestatis sit at. Eos aeque fuisset ei, case denique eam ne. Augue invidunt has ad, ullum debitis mea ei, ne aliquip dignissim nec.
+                            {!! $tour->program ?? 'Chưa thiết lập chương trình hoạt động cho chuyến du lịch.'!!}
                         </p>
+                        <h4>Các địa điểm tham quan trong chuyến đi</h4>
                         <ul class="cbp_tmtimeline">
                             @foreach($tour->infos as $item)
                                 <li>
@@ -62,28 +63,6 @@
                                 </li>
                             @endforeach
                         </ul>
-                        <hr>
-                        <p>Mea appareat omittantur eloquentiam ad, nam ei quas <strong>oportere democritum</strong>. Prima causae admodum id est, ei timeam inimicus sed. Sit an meis aliquam, cetero inermis vel ut. An sit illum euismod facilisis, tamquam vulputate pertinacia eum at.</p>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <ul class="bullets">
-                                    <li>Dolorem mediocritatem</li>
-                                    <li>Mea appareat</li>
-                                    <li>Prima causae</li>
-                                    <li>Singulis indoctum</li>
-                                </ul>
-                            </div>
-                            <div class="col-lg-6">
-                                <ul class="bullets">
-                                    <li>Timeam inimicus</li>
-                                    <li>Oportere democritum</li>
-                                    <li>Cetero inermis</li>
-                                    <li>Pertinacia eum</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- /row -->
-
                         <hr>
                         <h3>Vị trí</h3>
                         <div id="map" class="map map_single add_bottom_30"></div>
@@ -236,7 +215,7 @@
                                     </div>
                                     <div class="form-group col-md-6" hidden>
                                         <label>Tour <span class="text-danger">*</span></label>
-                                        <input type="hidden" name="tour_id" id="tour_review" value="{{ $tour->first()->id }}" class="form-control">
+                                        <input type="hidden" name="tour_id" id="tour_review" value="{{ $tour->id }}" class="form-control">
                                     </div>
                                     <div class="form-group col-md-12">
                                         <label for="review_content">Đánh giá</label>
@@ -256,7 +235,7 @@
                 <aside class="col-lg-4" id="sidebar">
                     <div class="box_detail booking">
                         <div class="price">
-                            <h4>{{ number_format($tour->price, 0, '', ',') }} VND <small>/ 1 người</small></h4>
+                            <h4>{{ number_format($tour->price, 0, '', ',') }}đ <small>/ 1 người</small></h4>
                             <div class="score">
 
                                 <span>  @if($average >= 9)
@@ -309,15 +288,21 @@
                                 <input type="text" name="thumbnail" id="thumbnail" value="{{ $tour->thumbnail }}"/>
                             </div>
                             <div class="form-group input-dates">
-                                <input class="form-control" type="text" name="dates" id="dates" placeholder="Thời điểm hoàn hảo" required>
+                                <input class="form-control" type="text" name="dates" id="dates" placeholder="Thời điểm hoàn hảo">
                                 <label for="dates"><i class="icon_calendar"></i></label>
+                            </div>
+                            <div class="form-group input-dates" hidden>
+                                <input type="text" class="form-control datetimepicker-input" placeholder="Ngày khởi hành"
+                                       id="date_of_book" data-toggle="datetimepicker" name="date_of_book"
+                                       value="{{ request()->get('date_of_book') }}" required/>
+                                <label for="date_of_book"><i class="icon_calendar"></i></label>
                             </div>
                             <div class="panel-dropdown">
                                 <a href="#">Số lượng <span class="qtyTotal">1</span></a>
                                 <div class="panel-dropdown-content right">
                                     <div class="qtyButtons">
-                                        <label for="quantity">Số lượng</label>
-                                        <input type="text" name="quantity" id="quantity" value="1" required>
+                                        <label for="number_of_slots">Số lượng</label>
+                                        <input type="text" name="number_of_slots" id="number_of_slots" value="1" required>
                                     </div>
                                 </div>
                             </div>
@@ -346,7 +331,8 @@
     <script src="{{ asset('js/front/map_single_tour.js') }}"></script>
     <script src="{{ asset('js/front/infobox.js') }}"></script>
     <script src="{{ asset('js/front/jquery.instagramFeed.min.js') }}"></script>
-
+    <script src="{{ asset('js/front/moment.min.js') }}"></script>
+    <script src="{{ asset('tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.js') }}" crossorigin="anonymous"></script>
     <!-- INSTAGRAM FEED  -->
     <script>
         $(window).on('load', function() {
@@ -363,6 +349,77 @@
                 'items': 12,
                 'items_per_row': 6,
                 'margin': 1
+            });
+        });
+
+        function formatDate(date) {
+            var d = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+
+            if (month.length < 2)
+                month = '0' + month;
+            if (day.length < 2)
+                day = '0' + day;
+
+            return [year, month, day].join('-');
+        }
+
+        var getDaysArray = function(start, end) {
+            for(var arr=[],dt=new Date(start); dt<=end; dt.setDate(dt.getDate()+1)){
+                arr.push(formatDate(new Date(dt)));
+            }
+            return arr;
+        };
+
+        $(function () {
+            $('input[name="dates"]').daterangepicker({
+                autoUpdateInput: false,
+                minDate: new Date(),
+                locale: {
+                    cancelLabel: 'Clear'
+                }
+            });
+
+            $('input[name="dates"]').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('DD-MM-YYYY') + ' > ' + picker.endDate.format('DD-MM-YYYY'));
+                $('input[name=date_of_book]').parent().attr('hidden', false);
+                var currentYear = new Date().getFullYear()
+                var allDates = getDaysArray(new Date(currentYear + "-01-01"),new Date(currentYear + "-12-31"));
+                var url = new URL('{{ route('host.schedules.tour', $tour->id) }}');
+                var params = { start_time: picker.startDate.format('YYYY-MM-DD'), end_time: picker.endDate.format('YYYY-MM-DD') };
+                Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+                fetch(url)
+                    .then(response => response.json())
+                    .then(result => {
+                        var enableDates = result.data.map(function (x) {
+                            return formatDate(x.departure_time);
+                        });
+
+                        var filtered = allDates.filter(
+                            function(e) {
+                                return this.indexOf(e) < 0;
+                            },
+                            enableDates
+                        );
+
+                        var disabledDates = filtered.map(function (x) {
+                            return moment(x);
+                        });
+
+                        $('#date_of_book').datetimepicker({
+                            format: 'DD-MM-YYYY',
+                            disabledDates: disabledDates
+                        });
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            });
+
+            $('input[name="dates"]').on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
             });
         });
     </script>

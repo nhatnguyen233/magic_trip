@@ -21,7 +21,6 @@ class Host extends Model
         'date_of_establish',
         'thumbnail',
         'avatar',
-        'identification',
         'address',
     ];
 
@@ -53,6 +52,11 @@ class Host extends Model
     public function bank()
     {
         return $this->belongsTo(Bank::class, 'bank_id', 'id');
+    }
+
+    public function bookings()
+    {
+        return $this->hasManyThrough(BookTour::class, Tour::class, 'host_id', 'tour_id');
     }
 
     public function getAvatarUrlAttribute()

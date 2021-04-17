@@ -46,7 +46,7 @@ class TourController extends Controller
      */
     public function create()
     {
-        $tours = $this->tourRepository->all();
+        $tours = $this->tourRepository->findWhere(['user_id'=>auth('host')->id()]);
         $accommodations = $this->accommodationRepository->all();
         $attractions = $this->attractionRepository->all();
 
@@ -85,7 +85,7 @@ class TourController extends Controller
      */
     public function edit(Tour $tour)
     {
-        $tours = $this->tourRepository->all();
+        $tours = $this->tourRepository->findWhere(['user_id'=>auth('host')->id()]);
         $accommodations = $this->accommodationRepository->all();
         $attractions = $this->attractionRepository->all();
 
@@ -101,7 +101,9 @@ class TourController extends Controller
      */
     public function update(Request $request, Tour $tour)
     {
-        //
+        $tour = $this->tourRepository->updateTour($request->all(), $tour->id);
+
+        return redirect()->route('host.tours.index')->with('success', 'Tạo tour thành công');
     }
 
     /**
@@ -112,6 +114,11 @@ class TourController extends Controller
      */
     public function destroy(Tour $tour)
     {
-        //
+        if($this->tourRepository->removeTour($tour)){
+
+            return redirect()->back()->with('success', __('message.update_success'));
+        }
+
+        return redirect()->back()->with('fail', __('message.update_fail'));
     }
 }

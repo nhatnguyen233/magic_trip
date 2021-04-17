@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description"
-          content="Panagea - Premium site template for travel agencies, hotels and restaurant listing.">
+          content="Magic - Premium site template for travel agencies, hotels and restaurant listing.">
     <meta name="author" content="Ansonika">
-    <title>Panagea | Đại lý du lịch, khách sạn và danh sách nhà hàng.</title>
+    <title>MAGIC TRIP | Đại lý du lịch, khách sạn và danh sách nhà hàng.</title>
 
     <!-- Favicons-->
     <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}" type="image/x-icon">
@@ -56,8 +56,8 @@
     <form action="{{ route('login') }}" method="POST">
         @csrf
         <div class="sign-in-wrapper">
-            <a href="#0" class="social_bt facebook">Đăng nhập với Facebook</a>
-            <a href="#0" class="social_bt google">Đăng nhập với Google</a>
+            <a href="{{ route('login.social', ['provider' => 'facebook']) }}" class="social_bt facebook">Đăng nhập với Facebook</a>
+            <a href="{{ route('login.social', ['provider' => 'google']) }}" class="social_bt google">Đăng nhập với Google</a>
             <div class="divider"><span>Hoặc</span></div>
             <div class="form-group">
                 <label>Email</label>
@@ -133,20 +133,6 @@
 <script>
   $(function () {
     'use strict';
-    $('input[name="dates"]').daterangepicker({
-      autoUpdateInput: false,
-      minDate: new Date(),
-      locale: {
-        cancelLabel: 'Clear'
-      }
-    });
-    $('input[name="dates"]').on('apply.daterangepicker', function (ev, picker) {
-      $(this).val(picker.startDate.format('DD-MM-YYYY') + ' > ' + picker.endDate.format('DD-MM-YYYY'));
-    });
-    $('input[name="dates"]').on('cancel.daterangepicker', function (ev, picker) {
-      $(this).val('');
-    });
-
     @if(session()->has('error'))
         alert('Đăng nhập không thành công!');
     @endif

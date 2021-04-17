@@ -71,10 +71,10 @@
                         <div class="wrapper">
                             <h3><a href="{{ route('tours.show', $item->id) }}">{{ $item->name }}</a></h3>
                             <p>{!! \Illuminate\Support\Str::limit($item->description, 115, '...')  !!}</p>
-                            <span class="price">From <strong>{{ number_format($item->price, 0, '', ',') }} VNĐ</strong> / 1 người</span>
+                            <span class="price">From <strong>{{ number_format($item->price, 0, '', ',') }}đ</strong> / 1 người</span>
                         </div>
                         <ul>
-                            <li><i class="icon_clock_alt"></i> {{ ($item->total_time)/60 }} giờ</li>
+                            <li><i class="icon_clock_alt"></i> {{ ($item->total_time) }} giờ</li>
                             <li>
                                 <div class="score">
                                     <span>
@@ -242,7 +242,7 @@
             <!-- /item -->
         </div>
         <!-- /carousel -->
-        <p class="btn_home_align"><a href="tours-grid-isotope.html" class="btn_1 rounded">Tất cả Tours</a></p>
+        <p class="btn_home_align"><a href="{{ route('tours.grid') }}" class="btn_1 rounded">Tất cả Tours</a></p>
         <hr class="large">
     </div>
     <!-- /container -->
@@ -258,7 +258,7 @@
                 <!-- /grid_item -->
                 @foreach($accommodations as $item)
                     <div class="col-xl-3 col-lg-6 col-md-6">
-                        <a href="hotel-detail.html" class="grid_item">
+                        <a href="{{ route('accommodations.show', $item->id) }}" class="grid_item">
                             <figure>
                                 <div class="score"><strong>8.9</strong></div>
                                 <img src="{{ $item->thumbnail_url }}" class="img-fluid" alt="">
@@ -274,7 +274,7 @@
                 <!-- /grid_item -->
             </div>
             <!-- /row -->
-            <a href="hotels-grid-isotope.html"><strong>View all ({{ $accommodations->count() }}) <i
+            <a href="{{ route('accommodations.index') }}"><strong>View all ({{ $accommodations->count() }}) <i
                             class="arrow_carrot-right"></i></strong></a>
         </section>
         <!-- /section -->

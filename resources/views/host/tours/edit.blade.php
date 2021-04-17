@@ -62,7 +62,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="total-time-tour">Tổng thời gian <span class="text-danger">*</span></label>
-                        <input type="number" class="form-control" name="total_time" placeholder="Đơn vị phút (60 phút)"
+                        <input type="number" class="form-control" name="total_time" placeholder="1, 2, 3 giờ"
                                id="total-time-tour" value="{{ $tour->total_time }}" required>
                     </div>
                 </div>
@@ -101,7 +101,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="form-group">
                         <label>Mô tả</label>
                         <textarea name="description" class="editor" id="description" title="Mô tả thêm">
@@ -109,11 +109,22 @@
                         </textarea>
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Chương trình</label>
+                        <textarea name="program" class="editor" id="program" title="Các chương trình khi tham gia tour">
+                            {!!  $tour->program !!}
+                        </textarea>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- /box_general-->
         <p>
-            <button type="submit" class="btn_1 medium" @if(session()->has('tour')) disabled @endif>Save</button>
+            <button type="submit" class="btn_1 medium" @if(session()->has('tour')) disabled @endif>Lưu</button>
+            <a title="Quay lại" href="{{ url()->previous() }}" class="btn_1 medium gray">
+                Quay lại
+            </a>
         </p>
     </form>
     <!-- Example DataTables Card-->

@@ -3,6 +3,7 @@
 namespace App\Repositories\Host;
 
 use App\Models\Host;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -48,7 +49,7 @@ class HostRepositoryEloquent extends BaseRepository implements HostRepository
             }
 
             $data = array_filter($params, function ($key) {
-                return in_array($key, ['user_id', 'country_id', 'identification', 'host_name', 'host_mail', 'hotline',
+                return in_array($key, ['user_id', 'country_id', 'host_name', 'host_mail', 'hotline',
                     'bank_id', 'date_of_establish', 'address', 'avatar', 'thumbnail' , 'description']);
             }, ARRAY_FILTER_USE_KEY);
 
@@ -56,6 +57,49 @@ class HostRepositoryEloquent extends BaseRepository implements HostRepository
         } catch (\Exception $e) {
             Log::error($e);
             throw $e;
+        }
+    }
+
+    public function updateBaseInfo(array $params, $hostId)
+    {
+        try {
+
+            if (isset($params['avatar'])) {
+                $fileName = Str::uuid() . '.' . $params['avatar']->getClientOriginalExtension();
+                $fullPath = 'hosts/avatars/' . $fileName;
+                Storage::disk('s3')->put($fullPath, file_get_contents($params['avatar']), 'public');
+                $params['avatar'] = $fullPath;
+            }
+
+            $data = array_filter($params, function ($key) {
+                return in_array($key, ['host_name', 'host_mail', 'hotline',
+                    'bank_id', 'date_of_establish', 'description']);
+            }, ARRAY_FILTER_USE_KEY);
+
+            $this->update($data, $hostId);
+
+            return true;
+        } catch (\Exception $e) {
+            Log::error($e);
+            DB::rollBack();
+            throw $e;
+        }
+    }
+
+    public function deleteHost($host)
+    {
+        try {
+            DB::beginTransaction();
+
+            $host->delete();
+
+            DB::commit();
+
+            return true;
+        } catch (\Exception $exception) {
+            Log::error($exception);
+            DB::rollBack();
+            throw $exception;
         }
     }
 }

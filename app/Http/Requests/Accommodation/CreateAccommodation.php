@@ -86,7 +86,10 @@ class CreateAccommodation extends FormRequest
                 'image',
                 'mimes:jpeg,png,jpg,gif,svg',
                 'max:5120'
-            ]
+            ],
+            'category_id' => [
+                'nullable',
+            ],
         ];
     }
 

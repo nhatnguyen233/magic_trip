@@ -34,7 +34,9 @@ class User extends Authenticatable
         'payment_id',
         'role_id',
         'postal_code',
-        'avatar'
+        'avatar',
+        'provider',
+        'provider_id',
     ];
 
     /**
@@ -60,6 +62,11 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function host()
+    {
+        return $this->hasOne(Host::class, 'user_id', 'id');
     }
 
     public function payment()
