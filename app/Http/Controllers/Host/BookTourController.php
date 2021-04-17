@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Host;
 
+use App\Enums\BookingStatus;
 use App\Http\Controllers\Controller;
 use App\Models\BookTour;
 use App\Support\Collection;
@@ -25,7 +26,7 @@ class BookTourController extends Controller
      */
     public function index(Request $request)
     {
-        $viewData['bookings'] = (new Collection($this->bookRepository->getBookTourByHostID(auth('host')->user()->host->id,$request->all())))->paginate(3);
+        $viewData['bookings'] = (new Collection($this->bookRepository->getBookTourByHostID(auth('host')->user()->host->id,$request->all())))->sortByDesc('created_at')->paginate(3);
         $viewData['book_status_names'] = ['all' => 'Tất cả'] + config('bookings.status');
 
         return view('host.bookings.index', $viewData);
@@ -55,10 +56,10 @@ class BookTourController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\BookTour  $bookTour
+     * @param  \App\Models\BookTour  $booking
      * @return \Illuminate\Http\Response
      */
-    public function show(BookTour $bookTour)
+    public function show(BookTour $booking)
     {
         //
     }
@@ -66,10 +67,10 @@ class BookTourController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\BookTour  $bookTour
+     * @param  \App\Models\BookTour  $booking
      * @return \Illuminate\Http\Response
      */
-    public function edit(BookTour $bookTour)
+    public function edit(BookTour $booking)
     {
         //
     }
@@ -78,10 +79,10 @@ class BookTourController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\BookTour  $bookTour
+     * @param  \App\Models\BookTour  $booking
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BookTour $bookTour)
+    public function update(Request $request, BookTour $booking)
     {
         //
     }
@@ -89,11 +90,39 @@ class BookTourController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\BookTour  $bookTour
+     * @param  \App\Models\BookTour  $booking
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BookTour $bookTour)
+    public function destroy(BookTour $booking)
     {
         //
+    }
+
+    /**
+     * Approve bookings resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\BookTour $booking
+     * @return \Illuminate\Http\Response
+     */
+    public function approve(Request $request, BookTour $booking)
+    {
+        $booking->update(['status' => BookingStatus::APPROVED]);
+
+        return redirect()->back()->with('success', 'Chấp thuận lịch đặt thành công');
+    }
+
+    /**
+     * Finished confirm bookings resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\BookTour $booking
+     * @return \Illuminate\Http\Response
+     */
+    public function finishedConfirm(Request $request, BookTour $booking)
+    {
+        $booking->update(['status' => BookingStatus::FINISHED]);
+
+        return redirect()->back()->with('success', 'Xác nhận hoàn thành');
     }
 }

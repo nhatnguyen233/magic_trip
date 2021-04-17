@@ -35,6 +35,8 @@ use App\Repositories\Host\HostRepository;
 use App\Repositories\Host\HostRepositoryEloquent;
 use App\Repositories\Schedule\ScheduleEloquent;
 use App\Repositories\Schedule\ScheduleRepository;
+use App\Repositories\Bill\BillRepository;
+use App\Repositories\Bill\BillRepositoryEloquent;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -105,6 +107,10 @@ class RepositoryServiceProvider extends ServiceProvider
         [
             'abstract' => ScheduleRepository::class,
             'concrete' => ScheduleEloquent::class,
+        ],
+        [
+            'abstract' => BillRepository::class,
+            'concrete' => BillRepositoryEloquent::class,
         ]
     ];
 

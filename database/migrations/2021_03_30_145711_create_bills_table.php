@@ -19,6 +19,7 @@ class CreateBillsTable extends Migration
             $table->unsignedInteger('book_tour_id');
             $table->double('total_price');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

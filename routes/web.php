@@ -44,6 +44,10 @@ Route::get('language/{language}', [LanguageController::class, 'index'])->name('l
 
 Route::middleware('auth.customer')->group(function() {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::resource('/book-tour', BookTourController::class)->only(['index', 'create', 'store']);
+    Route::resource('/book-tour', BookTourController::class)->only(['index', 'create', 'store', 'destroy']);
+    Route::get('/book-tour/order-pending', [BookTourController::class, 'getPendingOrderPage'])->name('book-tour.order-pending');
     Route::get('/book-tour/order-finished', [BookTourController::class, 'getFinishedOrderPage'])->name('book-tour.order-finished');
+    Route::get('/book-tour/order-payment', [BookTourController::class, 'getPaymentOrderPage'])->name('book-tour.order-payment');
+    Route::put('/book-tour/order-payment', [BookTourController::class, 'paymentBooking'])->name('book-tour.payment');
+
 });

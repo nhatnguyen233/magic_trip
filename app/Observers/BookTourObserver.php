@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Enums\BookingStatus;
 use App\Models\BookTour;
 use App\Models\Bill;
 
@@ -15,11 +16,7 @@ class BookTourObserver
      */
     public function created(BookTour $bookTour)
     {
-        Bill::create([
-           'user_id' => auth('customer')->id(),
-           'book_tour_id' => $bookTour->id,
-           'total_price' => $bookTour->total_price
-        ]);
+
     }
 
     /**
@@ -30,7 +27,7 @@ class BookTourObserver
      */
     public function updated(BookTour $bookTour)
     {
-        //
+
     }
 
     /**

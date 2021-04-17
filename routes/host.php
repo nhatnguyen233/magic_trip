@@ -33,6 +33,8 @@ Route::middleware('auth.host')->group(function() {
     Route::resource('/tour-infos', TourInfoController::class);
     Route::resource('/schedules', ScheduleController::class);
     Route::resource('/bookings', BookTourController::class);
+    Route::put('/approve/{booking}', [BookTourController::class, 'approve'])->name('bookings.approve');
+    Route::put('/finished/{booking}', [BookTourController::class, 'finishedConfirm'])->name('bookings.finished');
     Route::get('/tour-infos/list/{tour}', [TourInfoController::class, 'getListTourInfo'])->name('tour-infos.list');
     Route::resource('reviews', ReviewController::class);
 });
