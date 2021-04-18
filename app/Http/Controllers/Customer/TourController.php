@@ -42,7 +42,6 @@ class TourController extends Controller
     public function getGridTours()
     {
         $viewData['tours'] = $this->tourRepository->paginate(9);
-        $viewData['categoryNames'] = $this->categoryRepository->getCategoryTourismName();
 
         return view('customer.tours.tour-grid', $viewData);
     }

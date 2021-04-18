@@ -26,6 +26,6 @@ class CategoryEloquent extends BaseRepository implements CategoryRepository
 
     public function getCategoryTourismName()
     {
-        return $this->orderBy('id', 'DESC')->pluck('name', 'id')->find(['type' => CatType::TOURISM])->toArray();;
+        return $this->where('type')->orderBy('id', 'DESC')->pluck('name', 'id')->toArray();;
     }
 }

@@ -60,4 +60,5 @@ class Tour extends Model
     {
         return ($this->thumbnail) ? Storage::disk('s3')->url($this->thumbnail) : asset('img/tour_1.jpg');
     }
+
 }
