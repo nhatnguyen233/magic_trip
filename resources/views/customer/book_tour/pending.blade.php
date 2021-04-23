@@ -164,8 +164,8 @@
                             @endif
                             <a href="#" class="btn_1 full-width chat">Nhắn tin</a>
                             <div class="text-center">
-                                @if($orders->where('status', '>', 1)->count() == $orders->count())
-                                    <small>Các Tour du lịch bạn đặt đã hoàn tất thanh toán</small>
+                                @if($orders->where('status', 1)->count() == $orders->count())
+                                    <small>Vui lòng bấm thanh toán để tiếp tục đặt Tour</small>
                                 @else
                                     <small>Vui lòng chờ chúng tôi xác nhận lại thông tin để tiến hành bước tiếp theo</small>
                                 @endif
