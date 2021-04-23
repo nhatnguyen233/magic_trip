@@ -1304,7 +1304,7 @@ header.sticky .hamburger-inner::after {
 }
 
 .hero_in.tours_detail:before {
-    background: url(/img/hero_in_tours_detail.jpg) center center no-repeat;
+    background: url(/img/tour_detail.jpg) center center no-repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
