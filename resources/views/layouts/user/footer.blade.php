@@ -3,17 +3,18 @@
         <div class="row">
             <div class="col-lg-5 col-md-12 p-r-5">
                 <p><img src="{{ asset('img/logo.svg') }}" width="150" height="36" alt=""></p>
-                <p>Mea nibh meis philosophia eu. Duis legimus efficiantur ea sea. Id placerat tacimates definitionem
-                    sea, prima quidam vim no. Duo nobis persecuti cu. Nihil facilisi indoctum an vix, ut delectus
-                    expetendis vis.</p>
+                <p class="text-justify">Du lịch trong nước luôn là lựa chọn tuyệt vời. Đường bờ biển dài hơn 3260km, những khu bảo tồn thiên nhiên tuyệt vời,
+                    những thành phố nhộn nhịp, những di tích lịch sử hào hùng, nền văn hóa độc đáo và hấp dẫn, cùng một danh sách dài những món ăn ngon nhất thế giới, Việt Nam có tất cả những điều đó.
+                    Với lịch trình dày, khởi hành đúng thời gian cam kết, Magic là công ty du lịch tín nhất hiện nay tại Việt Nam,
+                    luôn sẵn sàng phục vụ du khách mọi lúc, mọi nơi, đảm bảo tính chuyên nghiệp và chất lượng dịch vụ tốt nhất thị trường.</p>
                 <div class="follow_us">
                     <ul>
                         <li>Follow us</li>
-                        <li><a href="#0"><i class="ti-facebook"></i></a></li>
+                        <li><a href="https://www.facebook.com/nhat.nguyenhuu.233"><i class="ti-facebook"></i></a></li>
                         <li><a href="#0"><i class="ti-twitter-alt"></i></a></li>
                         <li><a href="#0"><i class="ti-google"></i></a></li>
                         <li><a href="#0"><i class="ti-pinterest"></i></a></li>
-                        <li><a href="#0"><i class="ti-instagram"></i></a></li>
+                        <li><a href="https://www.instagram.com/toilanhat__"><i class="ti-instagram"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -22,7 +23,7 @@
                 <ul class="links">
                     <li><a href="about.html">Về chúng tôi</a></li>
                     <li><a href="login.html">Đăng nhập</a></li>
-                    <li><a href="register.html">Đăng ký</a></li>
+                    <li><a href="{{ route('customer.register') }}">Đăng ký</a></li>
                     <li><a href="blog.html">Tin tức &amp; Sự kiện</a></li>
                     <li><a href="contacts.html">Liện</a></li>
                 </ul>
@@ -40,7 +41,7 @@
                         <div class="form-group">
                             <input type="email" name="email_newsletter" id="email_newsletter" class="form-control"
                                    placeholder="Email của bạn">
-                            <input type="submit" value="Submit" id="submit-newsletter">
+                            <input type="submit" value="Gửi" id="submit-newsletter">
                         </div>
                     </form>
                 </div>

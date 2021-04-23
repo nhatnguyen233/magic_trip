@@ -1,27 +1,19 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Customer;
 
-use App\Repositories\Accommodation\AccommodationRepository;
+use App\Http\Controllers\Controller;
+use App\Models\Attraction;
 use App\Repositories\Attraction\AttractionRepository;
-use App\Repositories\Tour\TourRepository;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class AttractionController extends Controller
 {
-    protected $tourRepository;
     protected $attractionRepository;
-    protected $accommodationRepository;
 
-    public function __construct(
-        TourRepository $tourRepository,
-        AttractionRepository $attractionRepository,
-        AccommodationRepository $accommodationRepository
-    )
+    public function __construct(AttractionRepository $attractionRepository)
     {
-        $this->tourRepository = $tourRepository;
         $this->attractionRepository = $attractionRepository;
-        $this->accommodationRepository = $accommodationRepository;
     }
 
     /**
@@ -31,11 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $viewData['accommodations'] = $this->accommodationRepository->all()->take(4);
-        $viewData['attractions'] = $this->attractionRepository->all()->take(4);
-        $viewData['tours'] = $this->tourRepository->all();
-
-        return view('home', $viewData);
+        //
     }
 
     /**
@@ -62,10 +50,10 @@ class HomeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Attraction  $attraction
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Attraction $attraction)
     {
         //
     }
@@ -73,10 +61,10 @@ class HomeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Attraction  $attraction
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Attraction $attraction)
     {
         //
     }
@@ -85,10 +73,10 @@ class HomeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Attraction  $attraction
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Attraction $attraction)
     {
         //
     }
@@ -96,10 +84,10 @@ class HomeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Attraction  $attraction
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Attraction $attraction)
     {
         //
     }
