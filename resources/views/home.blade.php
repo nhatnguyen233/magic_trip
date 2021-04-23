@@ -192,54 +192,6 @@
                 </div>
             </div>
             <!-- /item -->
-            <div class="item">
-                <div class="box_grid">
-                    <figure>
-                        <a href="#0" class="wish_bt"></a>
-                        <a href="tour-detail.html"><img src="{{ asset('img/tour_4.jpg') }}" class="img-fluid" alt="" width="800"
-                                                        height="533">
-                            <div class="read_more"><span>Read more</span></div>
-                        </a>
-                        <small>Museum</small>
-                    </figure>
-                    <div class="wrapper">
-                        <h3><a href="tour-detail.html">Pompidue Museum</a></h3>
-                        <p>Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti cu.</p>
-                        <span class="price">From <strong>$45</strong> /per person</span>
-                    </div>
-                    <ul>
-                        <li><i class="icon_clock_alt"></i> 2h 30min</li>
-                        <li>
-                            <div class="score"><span>Superb<em>350 Reviews</em></span><strong>9.0</strong></div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- /item -->
-            <div class="item">
-                <div class="box_grid">
-                    <figure>
-                        <a href="#0" class="wish_bt"></a>
-                        <a href="tour-detail.html"><img src="{{ asset('img/tour_5.jpg') }}" class="img-fluid" alt="" width="800"
-                                                        height="533">
-                            <div class="read_more"><span>Read more</span></div>
-                        </a>
-                        <small>Walking</small>
-                    </figure>
-                    <div class="wrapper">
-                        <h3><a href="tour-detail.html">Tour Eiffel</a></h3>
-                        <p>Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti cu.</p>
-                        <span class="price">From <strong>$65</strong> /per person</span>
-                    </div>
-                    <ul>
-                        <li><i class="icon_clock_alt"></i> 1h 30min</li>
-                        <li>
-                            <div class="score"><span>Good<em>350 Reviews</em></span><strong>7.5</strong></div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- /item -->
         </div>
         <!-- /carousel -->
         <p class="btn_home_align"><a href="{{ route('tours.grid') }}" class="btn_1 rounded">Tất cả Tours</a></p>
@@ -274,7 +226,7 @@
                 <!-- /grid_item -->
             </div>
             <!-- /row -->
-            <a href="{{ route('accommodations.index') }}"><strong>View all ({{ $accommodations->count() }}) <i
+            <a href="{{ route('accommodations.index') }}"><strong>Tất cả  ({{ $accommodations->count() }}) <i
                             class="arrow_carrot-right"></i></strong></a>
         </section>
         <!-- /section -->
@@ -282,61 +234,26 @@
         <section class="add_bottom_45">
             <div class="main_title_3">
                 <span><em></em></span>
-                <h2>Những nhà hàng được ưa chuộng</h2>
+                <h2>Những địa điểm du lịch nổi bật</h2>
                 <p>Các địa điểm vui chơi lí thú</p>
             </div>
             <div class="row">
+                @foreach($attractions as $item)
                 <div class="col-xl-3 col-lg-6 col-md-6">
-                    <a href="restaurant-detail.html" class="grid_item">
+                    <a href="{{ route('attractions.show', $item->id) }}" class="grid_item">
                         <figure>
                             <div class="score"><strong>8.5</strong></div>
-                            <img src="{{ asset('img/restaurant_1.jpg') }}" class="img-fluid" alt="">
+                            <img src="{{ $item->thumbnail_url }}" class="img-fluid" alt="">
                             <div class="info">
-                                <h3>Da Alfredo</h3>
+                                <h3>{{ $item->name }}</h3>
                             </div>
                         </figure>
                     </a>
                 </div>
-                <!-- /grid_item -->
-                <div class="col-xl-3 col-lg-6 col-md-6">
-                    <a href="restaurant-detail.html" class="grid_item">
-                        <figure>
-                            <div class="score"><strong>7.9</strong></div>
-                            <img src="{{ asset('img/restaurant_2.jpg') }}" class="img-fluid" alt="">
-                            <div class="info">
-                                <h3>Slow Food</h3>
-                            </div>
-                        </figure>
-                    </a>
-                </div>
-                <!-- /grid_item -->
-                <div class="col-xl-3 col-lg-6 col-md-6">
-                    <a href="restaurant-detail.html" class="grid_item">
-                        <figure>
-                            <div class="score"><strong>7.5</strong></div>
-                            <img src="{{ asset('img/restaurant_3.jpg') }}" class="img-fluid" alt="">
-                            <div class="info">
-                                <h3>Bella Napoli</h3>
-                            </div>
-                        </figure>
-                    </a>
-                </div>
-                <!-- /grid_item -->
-                <div class="col-xl-3 col-lg-6 col-md-6">
-                    <a href="restaurant-detail.html" class="grid_item">
-                        <figure>
-                            <div class="score"><strong>9.0</strong></div>
-                            <img src="{{ asset('img/restaurant_4.jpg') }}" class="img-fluid" alt="">
-                            <div class="info">
-                                <h3>Marcus</h3>
-                            </div>
-                        </figure>
-                    </a>
-                </div>
-                <!-- /grid_item -->
+                @endforeach
             </div>
             <!-- /row -->
-            <a href="restaurants-grid-isotope.html"><strong>View all (157) <i
+            <a href="{{ route('attractions.index') }}"><strong>Tất cả ({{ $attractions->count() }}) <i
                             class="arrow_carrot-right"></i></strong></a>
         </section>
         <!-- /section -->
