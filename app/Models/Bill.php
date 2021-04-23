@@ -10,7 +10,7 @@ class Bill extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['user_id', 'book_tour_id', 'total_price'];
+    protected $fillable = ['user_id', 'host_id', 'book_tour_id', 'total_price'];
 
     public function user()
     {

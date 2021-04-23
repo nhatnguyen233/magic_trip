@@ -8,6 +8,7 @@ use App\Http\Controllers\Host\TourInfoController;
 use App\Http\Controllers\Host\ScheduleController;
 use App\Http\Controllers\Host\ReviewController;
 use App\Http\Controllers\Host\BookTourController;
+use App\Http\Controllers\Host\BillController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,9 @@ Route::middleware('auth.host')->group(function() {
     Route::resource('/tour-infos', TourInfoController::class);
     Route::resource('/schedules', ScheduleController::class);
     Route::resource('/bookings', BookTourController::class);
+    Route::resource('/bills', BillController::class);
+    Route::get('/export', [BillController::class, 'getListToExport'])->name('bills.export');
+    Route::get('/export/pdf', [BillController::class, 'createPDF'])->name('bills.export.pdf');
     Route::put('/approve/{booking}', [BookTourController::class, 'approve'])->name('bookings.approve');
     Route::put('/finished/{booking}', [BookTourController::class, 'finishedConfirm'])->name('bookings.finished');
     Route::get('/tour-infos/list/{tour}', [TourInfoController::class, 'getListTourInfo'])->name('tour-infos.list');
