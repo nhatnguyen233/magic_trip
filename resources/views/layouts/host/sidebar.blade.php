@@ -32,16 +32,22 @@
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Các tours du lịch">
             <a class="nav-link" href="{{ route('host.reviews.index') }}">
-                <i class="fa fa-fw fa-list"></i>
+                <i class="fa fa-fw fa-star"></i>
                 <span class="nav-link-text">Đánh giá, nhận xét</span>
             </a>
         </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Thông tin cá nhân">
-            <a class="nav-link" href="user-profile.html">
-                <i class="fa fa-fw fa-user"></i>
-                <span class="nav-link-text">Thông tin cá nhân</span>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Các tours du lịch">
+            <a class="nav-link" href="{{ route('host.bills.index') }}">
+                <i class="fa fa-fw fa-file"></i>
+                <span class="nav-link-text">Lập hóa đơn</span>
             </a>
         </li>
+{{--        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Thông tin cá nhân">--}}
+{{--            <a class="nav-link" href="user-profile.html">--}}
+{{--                <i class="fa fa-fw fa-user"></i>--}}
+{{--                <span class="nav-link-text">Thông tin cá nhân</span>--}}
+{{--            </a>--}}
+{{--        </li>--}}
     </ul>
     <ul class="navbar-nav sidenav-toggler">
         <li class="nav-item">
