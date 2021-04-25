@@ -12,7 +12,12 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Chọn "Đồng ý" bên dưới nếu bạn đã chắc chắn.</div>
+                <div class="modal-body">
+                    Chọn "Đồng ý" bên dưới nếu bạn đã chắc chắn.
+                    <input type="text" name="number_of_slots" id="number-of-slots" hidden/>
+                    <input type="text" name="date_of_book" id="date-of-book" hidden/>
+                    <input type="text" name="tour_id" id="tour-id" hidden/>
+                </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy</button>
                     <button class="btn btn-danger" type="submit">Đồng ý</button>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Host;
 
 use App\Enums\BookingStatus;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BookTour\Approve;
 use App\Models\BookTour;
 use App\Support\Collection;
 use App\Repositories\BookTour\BookTourRepository;
@@ -27,7 +28,7 @@ class BookTourController extends Controller
     public function index(Request $request)
     {
         $viewData['bookings'] = (new Collection($this->bookRepository->getBookTourByHostID(auth('host')->user()->host->id,$request->all())))->sortByDesc('created_at')->paginate(3);
-        $viewData['book_status_names'] = ['all' => 'Tất cả'] + config('bookings.status');
+        $viewData['book_status_names'] = ['' => 'Tất cả'] + config('bookings.status');
 
         return view('host.bookings.index', $viewData);
     }
@@ -101,11 +102,11 @@ class BookTourController extends Controller
     /**
      * Approve bookings resource from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Approve $request
      * @param  \App\Models\BookTour $booking
      * @return \Illuminate\Http\Response
      */
-    public function approve(Request $request, BookTour $booking)
+    public function approve(Approve $request, BookTour $booking)
     {
         $booking->update(['status' => BookingStatus::APPROVED]);
 
