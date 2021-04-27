@@ -1,5 +1,9 @@
 @extends('layouts.user.app')
 
+@section('style')
+    <link href="{{ asset('css/select2.css') }}" rel="stylesheet"/>
+@endsection
+
 @section('content')
     <section class="hero_in hotels">
         <div class="wrapper">
@@ -48,32 +52,37 @@
 
     <div class="container margin_60_35">
         <div class="col-lg-12">
-            <div class="row no-gutters custom-search-input-2 inner">
-                <div class="col-lg-4">
-                    <div class="form-group">
-                        <input class="form-control" type="text" placeholder="Bạn đang tìm tour như nào...">
-                        <i class="icon_search"></i>
+            <form action="" method="GET">
+                @csrf
+                <div class="row no-gutters custom-search-input-2 inner">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="description" value="{{ request()->get('description') }}" placeholder="Bạn đang tìm tour như nào...">
+                            <i class="icon_search"></i>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="address" value="{{ request()->get('address') }}" placeholder="Ở đâu">
+                            <i class="icon_pin_alt"></i>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <select class="wide" name="province_id">
+                            <option value="">All</option>
+                            @foreach($provinces as $province)
+                                <option value="{{ $province->id }}"
+                                        @if(request()->get('province_id') == $province->id)  selected @endif>
+                                    {{ $province->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="submit" class="btn_search" value="Tìm">
                     </div>
                 </div>
-                <div class="col-lg-3">
-                    <div class="form-group">
-                        <input class="form-control" type="text" placeholder="Ở đâu">
-                        <i class="icon_pin_alt"></i>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <select class="wide">
-                        <option>District</option>
-                        <option>All</option>
-                        <option>Paris Centre</option>
-                        <option>La Defanse</option>
-                        <option>Latin Quarter</option>
-                    </select>
-                </div>
-                <div class="col-lg-2">
-                    <input type="submit" class="btn_search" value="Tìm">
-                </div>
-            </div>
+            </form>
             <!-- /row -->
         </div>
         <!-- /custom-search-input-2 -->
@@ -161,6 +170,7 @@
 <script src="{{ asset('js/front/markerclusterer.js') }}"></script>
 <script src="{{ asset('js/front/map_tours.js') }}"></script>
 <script src="{{ asset('js/front/infobox.js') }}"></script>
+<script src="{{ asset('js/select2.js') }}"></script>
 
 <!-- Masonry Filtering -->
 <script src="{{ asset('js/front/isotope.min.js') }}"></script>

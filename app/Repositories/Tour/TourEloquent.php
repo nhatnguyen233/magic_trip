@@ -28,6 +28,32 @@ class TourEloquent extends BaseRepository implements TourRepository
         $this->pushCriteria(app(RequestCriteria::class));
     }
 
+    public function getList($params)
+    {
+        return $this->model
+            ->join('tour_infos', 'tour_infos.tour_id', '=', 'tours.id')
+            ->join('attractions', 'tour_infos.attraction_id', '=', 'attractions.id')
+            ->join('provinces', 'attractions.province_id', '=', 'provinces.id')
+            ->select('tours.id', 'tours.name', 'tours.host_id', 'tours.user_id', 'tours.description',
+                'tours.program', 'tours.vehicle', 'tours.price', 'tours.avatar', 'tours.thumbnail', 'tours.created_at',
+                'tours.updated_at','tours.total_time')
+            ->when(isset($params['description']), function ($q) use ($params) {
+                $q->where('tours.description', 'like', '%' . $params['description'] . '%')
+                    ->orWhere('tours.name', 'like', '%' . $params['description'] . '%');
+            })
+            ->when(isset($params['address']), function ($q) use ($params) {
+                $q->where('attractions.address', 'like', '%' . $params['address'] . '%')
+                    ->orWhere('provinces.name', 'like', '%' . $params['address'] . '%');
+            })
+            ->when(isset($params['province_id']), function ($q) use ($params) {
+                $q->where('provinces.id', $params['province_id']);
+            })
+            ->groupBy('tours.id', 'tours.name', 'tours.host_id', 'tours.user_id', 'tours.description',
+                'tours.program', 'tours.vehicle', 'tours.price', 'tours.avatar', 'tours.thumbnail', 'tours.created_at',
+                'tours.updated_at','tours.total_time')
+            ->get();
+    }
+
     public function createGeneralTour(array $params)
     {
         try {
