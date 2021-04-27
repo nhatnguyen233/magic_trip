@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Cart;
+namespace App\Http\Requests\BookTour;
 
 use App\Repositories\Schedule\ScheduleRepository;
 use DateTime;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Carbon;
 
-class UpdateCart extends FormRequest
+class Approve extends FormRequest
 {
     protected $scheduleRepository;
 
@@ -41,30 +41,16 @@ class UpdateCart extends FormRequest
                 function ($attribute, $value, $fail) {
                     if (isset($value) && isset($this->date_of_book) && isset($this->number_of_slots)) {
                         if ($this->scheduleRepository->checkScheduleFullSlot($value, $this->date_of_book, $this->number_of_slots)) {
-                            $fail('Số lượng cập nhật không hợp lệ');
+                            $fail('Ngày này đã được đặt hết');
                         }
                     }
                 },
             ],
             'number_of_slots' => [
-                'nullable',
-                'numeric',
-                'min:1'
-            ],
-            'adults' => [
-                'nullable',
-                'numeric',
-                'min:0'
-            ],
-            'childrens' => [
-                'nullable',
-                'numeric',
-                'min:0'
+                'required',
+                'numeric'
             ],
             'date_of_book' => [
-                'nullable',
-            ],
-            'expired_at' => [
                 'required',
                 'after_or_equal:today'
             ],
@@ -81,21 +67,7 @@ class UpdateCart extends FormRequest
         if($this->tour_id != null)
         {
             $this->merge([
-                'tour_id' => $this->tour_id
-            ]);
-        }
-
-        if($this->adults != null || $this->adults >= 0)
-        {
-            $this->merge([
-                'adults' => intval($this->adults),
-            ]);
-        }
-
-        if($this->childrens != null || $this->childrens >= 0)
-        {
-            $this->merge([
-                'childrens' => intval($this->childrens),
+                'tour_id' => intval($this->tour_id),
             ]);
         }
 
@@ -105,10 +77,5 @@ class UpdateCart extends FormRequest
                 'number_of_slots' => intval($this->number_of_slots),
             ]);
         }
-
-        $this->merge([
-            'number_of_slots' => intval($this->childrens) + intval($this->adults),
-            'expired_at' => Carbon::now()->addWeeks(1),
-        ]);
     }
 }

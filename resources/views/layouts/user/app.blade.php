@@ -100,23 +100,23 @@
 <!-- Logout Modal-->
 <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="LogoutModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <form action="{{ route('logout') }}" method="POST">
-            @csrf
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="LogoutModalLabel">Bạn đã sẵn sàng đăng xuất?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Chọn "Đăng xuất" nếu bạn đã sẵn sàng kết thúc phiên đăng nhập của mình.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy bỏ</button>
-                    <button class="btn btn-danger" type="submit">Đăng xuất</button>
-                </div>
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="LogoutModalLabel">Bạn đã sẵn sàng đăng xuất?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
             </div>
-        </form>
+            <div class="modal-body">Chọn "Đăng xuất" nếu bạn đã sẵn sàng kết thúc phiên đăng nhập của mình.</div>
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy bỏ</button>
+                <button class="btn btn-danger" type="submit">Đăng xuất</button>
+            </div>
+            </form>
+        </div>
     </div>
 </div>
 
@@ -138,9 +138,6 @@
     @endif
   });
 </script>
-
-<!-- INPUT QUANTITY  -->
-<script src="{{ asset('js/front/input_qty.js') }}"></script>
 
 </body>
 </html>

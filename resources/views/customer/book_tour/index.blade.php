@@ -78,11 +78,9 @@
                                 <th>
                                     Trạng thái
                                 </th>
-                                @if($orders->where('status', \App\Enums\BookingStatus::CANCELED)->count() > 0)
                                 <th>
                                     Xóa
                                 </th>
-                                @endif
                             </tr>
                             </thead>
                             <tbody>
@@ -118,9 +116,8 @@
                                             {{ $item->status_name }}
                                         </span>
                                     </td>
-                                    @if($orders->where('status', \App\Enums\BookingStatus::CANCELED)->count() > 0)
                                     <td>
-                                        @if($item->status == \App\Enums\BookingStatus::CANCELED || $item->status == \App\Enums\BookingStatus::FINISHED)
+                                        @if($item->status == \App\Enums\BookingStatus::CANCELED || $item->status == \App\Enums\BookingStatus::FINISHED || $item->status == \App\Enums\BookingStatus::PENDING)
                                         <a href="#" data-toggle="modal" id="removeBooking"
                                            data-target="#removeBookingModal"
                                            data-action="{{ route('book-tour.destroy', $item->id) }}"
@@ -129,7 +126,6 @@
                                         </a>
                                         @endif
                                     </td>
-                                    @endif
                                 </tr>
                             @empty
                                 <tr>
@@ -152,7 +148,7 @@
                         </div>
                         <ul class="cart_details">
                             <li>Tổng người tham quan <span>{{ $number_of_slots }}</span></li>
-                            <li>Tour đã đặt<span>{{ $orders->where('status', '<>', 4)->count() }}</span></li>
+                            <li>Tour đã đặt<span>{{ $orders->where('status', '>=', 1)->where('status', '<>', 4)->count() }}</span></li>
                             <li>Tour đã hủy <span>{{ $orders->where('status', 4)->count() }}</span></li>
                         </ul>
                         @guest('customer')

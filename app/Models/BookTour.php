@@ -17,10 +17,12 @@ class BookTour extends Model
         'user_id',
         'payment_id',
         'number_of_slots',
+        'adults',
+        'childrens',
         'total_price',
         'date_of_book',
         'status',
-        'type'
+        'type',
     ];
 
     public function tour()

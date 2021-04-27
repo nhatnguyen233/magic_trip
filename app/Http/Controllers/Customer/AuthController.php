@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Customer;
 use App\Enums\UserRole;
 use App\Http\Controllers\AuthController as BaseAuthController;
 use App\Http\Requests\User\Register;
+use App\Http\Requests\User\UpdateProfile;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Repositories\Province\ProvinceRepository;
@@ -55,9 +56,9 @@ class AuthController extends BaseAuthController
         return view('customer.update-profile', $viewData);
     }
 
-    public function updateProfileUser(Request $request)
+    public function updateProfileUser(UpdateProfile $request)
     {
-        if ($this->userRepository->updateBaseInfo($request->except(['_token']), \auth('customer')->id())) {
+        if ($this->userRepository->updateBaseInfo($request->validated(), \auth('customer')->id())) {
             return redirect()->back()->with('success', __('messages.update_success'));
         }
 

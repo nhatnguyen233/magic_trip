@@ -78,11 +78,9 @@
                                 <th>
                                     Trạng thái
                                 </th>
-                                @if($orders->where('status', \App\Enums\BookingStatus::CANCELED)->count() > 0)
-                                    <th>
-                                        Xóa
-                                    </th>
-                                @endif
+                                <th>
+                                    Xóa
+                                </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -114,18 +112,16 @@
                                             {{ $item->status_name }}
                                         </span>
                                     </td>
-                                    @if($orders->where('status', \App\Enums\BookingStatus::CANCELED)->count() > 0)
-                                        <td>
-                                            @if($item->status == \App\Enums\BookingStatus::CANCELED || $item->status == \App\Enums\BookingStatus::FINISHED)
-                                                <a href="#" data-toggle="modal" id="removeBooking"
-                                                   data-target="#removeBookingModal"
-                                                   data-action="{{ route('book-tour.destroy', $item->id) }}"
-                                                   data-id="{{ $item->id }}">
-                                                    <i class="icon-trash"></i>
-                                                </a>
-                                            @endif
-                                        </td>
-                                    @endif
+                                    <td>
+                                        @if($item->status != \App\Enums\BookingStatus::APPROVED)
+                                        <a href="#" data-toggle="modal" id="removeBooking"
+                                           data-target="#removeBookingModal"
+                                           data-action="{{ route('book-tour.destroy', $item->id) }}"
+                                           data-id="{{ $item->id }}">
+                                            <i class="icon-trash"></i>
+                                        </a>
+                                        @endif
+                                    </td>
                                 </tr>
                             @empty
                                 <tr>
@@ -148,7 +144,7 @@
                             Tổng <span class="float-right">{{ number_format($total_price_all, 0, '', ',') }}đ</span>
                         </div>
                         <ul class="cart_details">
-                            <li>Tour <span>{{ $orders->where('status', '<>', 4)->count() }}</span></li>
+                            <li>Tour <span>{{ $orders->where('status', '=', 1)->count() }}</span></li>
                             <li>Tổng người tham quan <span>{{ $number_of_slots }}</span></li>
                         </ul>
                         @guest('customer')
@@ -159,13 +155,13 @@
                             <div class="text-center"><small>Vui lòng đăng nhập để tiếp tục đặt tour du lịch</small></div>
                         @endguest
                         @auth('customer')
-                            @if(($orders->where('status', 1)->count() > 0 || $orders->where('status', '<>', 4)->count()) && $orders->where('status', 0)->count() == 0)
+                            @if(($orders->where('status', 1)->count() > 0 || $orders->where('status', '<>', 4)->count()))
                                 <a href="{{ route('book-tour.order-payment') }}" class="btn_1 full-width purchase">Thanh toán</a>
                             @endif
                             <a href="#" class="btn_1 full-width chat">Nhắn tin</a>
                             <div class="text-center">
-                                @if($orders->where('status', '>', 1)->count() == $orders->count())
-                                    <small>Các Tour du lịch bạn đặt đã hoàn tất thanh toán</small>
+                                @if($orders->where('status', 1)->count() > 0)
+                                    <small>Vui lòng bấm thanh toán để tiếp tục đặt Tour</small>
                                 @else
                                     <small>Vui lòng chờ chúng tôi xác nhận lại thông tin để tiến hành bước tiếp theo</small>
                                 @endif

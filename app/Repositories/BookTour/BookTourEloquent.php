@@ -66,12 +66,15 @@ class BookTourEloquent extends BaseRepository implements BookTourRepository
                         $this->updateOrCreate([
                             'tour_id' => $item['tour_id'],
                             'user_id' => $userId,
-                            'date_of_book' => $item['date_of_book']
+                            'date_of_book' => $item['date_of_book'],
+                            'status' => BookingStatus::PENDING
                         ],[
                             'tour_id' => $item['tour_id'],
                             'user_id' => $userId,
                             'date_of_book' => $item['date_of_book'],
                             'number_of_slots' => $item['number_of_slots'],
+                            'adults' => $item['adults'],
+                            'childrens' => $item['childrens'],
                             'total_price' => $item['total_price'],
                             'status' => BookingStatus::PENDING
                         ]);
@@ -104,6 +107,7 @@ class BookTourEloquent extends BaseRepository implements BookTourRepository
                 $this->billRepository->create([
                     'book_tour_id' => $item->id,
                     'user_id' => $userId,
+                    'host_id' => $item->tour->host_id,
                     'total_price' => $item->total_price,
                 ]);
             }

@@ -5,7 +5,6 @@ namespace App\Repositories\Schedule;
 use App\Models\Schedule;
 use App\Repositories\BookTour\BookTourRepository;
 use Illuminate\Container\Container as Application;
-use Illuminate\Support\Facades\DB;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Exceptions\RepositoryException;
@@ -80,7 +79,12 @@ class ScheduleEloquent extends BaseRepository implements ScheduleRepository
         }
 
         $number_max_slots = $schedules->pluck('number_max_slots')[0];
-        $booked_count = array_sum($this->bookTourRepository->findWhere(['tour_id' => $tour_id, 'date_of_book' => $date])->pluck('number_of_slots')->toArray());
+        $booked = $this->bookTourRepository
+                    ->findWhere(['tour_id' => $tour_id, 'date_of_book' => $date])
+                    ->where('status', '>', 0)
+                    ->pluck('number_of_slots')
+                    ->toArray();
+        $booked_count = array_sum($booked);
 
         if($number_of_booking <= ($number_max_slots - $booked_count))
         {

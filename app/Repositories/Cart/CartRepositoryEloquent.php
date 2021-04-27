@@ -37,13 +37,13 @@ class CartRepositoryEloquent extends BaseRepository implements CartRepository
 
             if($check->count() > 0)
             {
-                $params['number_of_slots'] += intval($check->pluck('number_of_slots')->first());
+//                $params['number_of_slots'] += intval($check->pluck('adults')->first()) + intval($check->pluck('childrens')->first());
                 $params['total_price'] = $params['price'] * $params['number_of_slots'];
             }
 
             $data = array_filter($params, function ($key) {
                 return in_array($key, ['session_token', 'tour_name', 'tour_id', 'price', 'number_of_slots', 'discount',
-                    'thumbnail', 'date_of_book', 'total_price', 'expired_at']);
+                    'thumbnail', 'date_of_book', 'total_price', 'expired_at', 'adults', 'childrens']);
             }, ARRAY_FILTER_USE_KEY);
 
             return $this->updateOrCreate([

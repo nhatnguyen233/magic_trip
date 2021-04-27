@@ -12,6 +12,15 @@
         </li>
         <li class="breadcrumb-item active">Đặt Tour</li>
     </ol>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     @if(session()->has('success'))
         <div class="alert alert-success">
             {{ session()->get('success') }}
@@ -60,6 +69,9 @@
                             <a data-toggle="modal" id="approveBooking" data-target="#approveModal"
                                class="btn_1 gray approve approve-booking"
                                data-action="{{ route('host.bookings.approve', $item->id) }}"
+                               data-number-of-slots="{{ $item->number_of_slots }}"
+                               data-date-of-book="{{ $item->date_of_book }}"
+                               data-tour-id="{{ $item->tour_id }}"
                                data-id="{{ $item->id }}">
                                 <i class="fa fa-fw fa-check-circle-o"></i> Chấp thuận
                             </a>
@@ -101,7 +113,11 @@
 @section('script')
     <script>
         $(document).on('click', '#approveBooking', function () {
+            console.log($(this).attr('data-number-max-slots'));
             $('#form-approve').attr('action', $(this).attr('data-action'));
+            $('#approveModal input[name=number_of_slots]').val($(this).attr('data-number-of-slots'));
+            $('#approveModal input[name=date_of_book]').val($(this).attr('data-date-of-book'));
+            $('#approveModal input[name=tour_id]').val($(this).attr('data-tour-id'));
         });
 
         $(document).on('click', '#finishedConfirm', function () {

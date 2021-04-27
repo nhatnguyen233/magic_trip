@@ -111,8 +111,26 @@
                                             @csrf
                                             <input type="text" name="tour_id" value="{{ $item->tour_id }}" hidden/>
                                             <input type="text" name="date_of_book" value="{{ $item->date_of_book }}" hidden/>
-                                            <input type="number" name="number_of_slots" min="0" value="{{ $item->number_of_slots ?? 0 }}" style="width: 40px"/>
-                                            <button class="text-decoration-none btn btn-sm btn-outline-danger" style="margin-top: -2px">Update</button>
+                                            <div class="cart-panel-dropdown">
+                                                <a href="#"><span class="qtyTotal qty-{{ $item->id }}">{{ $item->number_of_slots }}</span></a>
+                                                <div class="cart-panel-dropdown-content right">
+                                                    <div class="qtyButtons">
+                                                        <label for="adults">Người lớn</label>
+                                                        <div class="qtyDec"></div>
+                                                        <input type="text" name="adults" id="adults" value="{{ $item->adults }}">
+                                                        <div class="qtyInc"></div>
+                                                    </div>
+                                                    <div class="qtyButtons">
+                                                        <label for="childrens">Trẻ nhỏ</label>
+                                                        <div class="qtyDec"></div>
+                                                        <input type="text" name="childrens" id="childrens" value="{{ $item->childrens }}">
+                                                        <div class="qtyInc"></div>
+                                                    </div>
+                                                    <div class="d-flex justify-content-center mb-1">
+                                                        <input type="submit" value="Cập nhật" class="btn btn-danger"/>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </form>
                                     </td>
                                     <td class="options" style="width:5%; text-align:center;">
@@ -161,7 +179,7 @@
                         </div>
                         <ul class="cart_details">
                             <li>Tour <span>{{ $carts->count() }}</span></li>
-                            <li>Số lượng đặt <span>{{ $number_of_slots }}</span></li>
+                            <li>Tổng lượng đặt <span>{{ $number_of_slots }}</span></li>
                         </ul>
                         @guest('customer')
                             <a href="#sign-in-dialog"  id="sign-in" title="Đăng nhập" class="btn_1 full-width purchase login">Đăng nhập</a>
@@ -200,6 +218,39 @@
         $(document).on('click', '#removeAllCart', function () {
             var url = window.location.origin + '/cart/delete-all';
             $('#form-remove-all-cart').attr('action', url);
+        });
+
+        $(function() {
+            $(".qtyDec, .qtyInc").on("click", function() {
+
+                var $button = $(this);
+                var oldValue = $button.parent().find("input").val();
+                var oldTotal = $button.parent().parent().prev().find(".qtyTotal").text();
+
+                console.log(oldValue);
+                console.log($(this).parent().parent().prev().find(".qtyTotal").text());
+                if ($button.hasClass('qtyInc')) {
+                    var newVal = parseFloat(oldValue) + 1;
+                    var newTotalVal = parseFloat(oldTotal) + 1;
+                } else {
+                    // don't allow decrementing below zero
+                    if (oldValue > 0) {
+                        var newVal = parseFloat(oldValue) - 1;
+                        var newTotalVal = parseFloat(oldTotal) - 1;
+                    } else {
+                        newVal = 0;
+                        newTotalVal = 0;
+                    }
+                }
+
+                $button.parent().find("input").val(newVal);
+                $button.parent().parent().prev().find(".qtyTotal").text(newTotalVal);
+                $button.parent().parent().prev().find(".qtyTotal").addClass("rotate-x");
+            });
+
+            function removeAnimation() { $(".qtyTotal").removeClass("rotate-x"); }
+            const counter = document.querySelector(".qtyTotal");
+            counter.addEventListener("animationend", removeAnimation);
         });
     </script>
 @endsection
