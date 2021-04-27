@@ -30,11 +30,13 @@ mix.copy('resources/assets/js/main.js', 'public/js/front')
     .copy('resources/assets/js/markerclusterer.js', 'public/js/front')
     .copy('resources/assets/js/isotope.min.js', 'public/js/front')
     .copy('resources/assets/js/jquery.instagramFeed.min.js', 'public/js/front')
-    .copy('resources/assets/js/jquery-3.5.1.min.js', 'public/js/front')
-    .copy('node_modules/daterangepicker/daterangepicker.css', 'public/daterangepicker/')
-    .copy('node_modules/daterangepicker/daterangepicker.js', 'public/daterangepicker/');
+    .copy('resources/assets/js/jquery-3.5.1.min.js', 'public/js/front');
 
 mix.copy('resources/assets/other/validate.js', 'public/js/front')
+    .copy('node_modules/daterangepicker/daterangepicker.css', 'public/daterangepicker/')
+    .copy('node_modules/daterangepicker/daterangepicker.js', 'public/daterangepicker/')
+    .copy('node_modules/select2/dist/css/select2.css', 'public/css/')
+    .copy('node_modules/select2/dist/js/select2.js', 'public/js/')
     .copy('node_modules/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css', 'public/tempusdominus-bootstrap-4/')
     .copy('node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js', 'public/tempusdominus-bootstrap-4/');
 

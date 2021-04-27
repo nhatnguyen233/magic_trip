@@ -4,29 +4,39 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Tour;
+use App\Repositories\Province\ProvinceRepository;
 use App\Repositories\Review\ReviewRepository;
 use App\Repositories\Tour\TourRepository;
+use App\Support\Collection;
 use Illuminate\Http\Request;
 
 class TourController extends Controller
 {
     protected $reviewRepository;
     protected $tourRepository;
+    protected $provinceRepository;
 
-    public function __construct(ReviewRepository $reviewRepository, TourRepository $tourRepository)
+    public function __construct(
+        ReviewRepository $reviewRepository,
+        TourRepository $tourRepository,
+        ProvinceRepository $provinceRepository
+    )
     {
         $this->reviewRepository = $reviewRepository;
         $this->tourRepository = $tourRepository;
+        $this->provinceRepository = $provinceRepository;
     }
 
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $viewData['tours'] = $this->tourRepository->paginate(5);
+        $viewData['tours'] = (new Collection($this->tourRepository->getList($request->only(['description', 'address', 'province_id']))->sortByDesc('created_at')))->paginate(5);
+        $viewData['provinces'] = $this->provinceRepository->all();
 
         return view('customer.tours.index', $viewData);
     }
@@ -34,11 +44,13 @@ class TourController extends Controller
     /**
      * Display a grid of tours.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function getGridTours()
+    public function getGridTours(Request $request)
     {
-        $viewData['tours'] = $this->tourRepository->paginate(9);
+        $viewData['tours'] = (new Collection($this->tourRepository->getList($request->only(['description', 'address', 'province_id']))->sortByDesc('created_at')))->paginate(9);
+        $viewData['provinces'] = $this->provinceRepository->all();
 
         return view('customer.tours.tour-grid', $viewData);
     }
