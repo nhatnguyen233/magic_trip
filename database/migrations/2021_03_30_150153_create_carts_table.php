@@ -22,7 +22,9 @@ class CreateCartsTable extends Migration
             $table->double('price');
             $table->double('total_price')->nullable();
             $table->integer('discount')->nullable();
-            $table->string('number_of_slots');
+            $table->integer('number_of_slots')->default(0);
+            $table->integer('adults')->default(0);
+            $table->integer('childrens')->default(0);
             $table->string('thumbnail')->nullable();
             $table->timestamp('date_of_book')->nullable();
             $table->timestamps();

@@ -139,8 +139,5 @@
   });
 </script>
 
-<!-- INPUT QUANTITY  -->
-<script src="{{ asset('js/front/input_qty.js') }}"></script>
-
 </body>
 </html>

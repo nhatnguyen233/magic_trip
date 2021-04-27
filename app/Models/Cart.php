@@ -17,6 +17,8 @@ class Cart extends Model
         'price',
         'discount',
         'number_of_slots',
+        'adults',
+        'childrens',
         'total_price',
         'thumbnail',
         'date_of_book',

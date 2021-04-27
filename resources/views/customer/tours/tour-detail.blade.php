@@ -38,15 +38,18 @@
                             {!! $tour->description !!}
                         </div>
                         <hr>
-                        <h3>Chương trình <small>({{ $tour->total_time/24 }} ngày)</small></h3>
+                        <h3>Chương trình <small>({{ round($tour->total_time/24) }} ngày)</small></h3>
                         <p>
                             {!! $tour->program ?? 'Chưa thiết lập chương trình hoạt động cho chuyến du lịch.'!!}
                         </p>
                         <h4>Các địa điểm tham quan trong chuyến đi</h4>
                         <ul class="cbp_tmtimeline">
                             @foreach($tour->infos as $item)
+                                @php
+                                    $start_time = new DateTime($item->start_time);
+                                @endphp
                                 <li>
-                                    <time class="cbp_tmtime" datetime="09:30"><span>{{ $item->limit_time }} min.</span><span>{{ $item->start_time }}</span>
+                                    <time class="cbp_tmtime" datetime="{{ $start_time->format('H:i') }}"><span>{{ $item->limit_time }} min.</span><span>{{ $start_time->format('H:i') }}</span>
                                     </time>
                                     <div class="cbp_tmicon">
                                         {{ $item->order_number }}
@@ -298,11 +301,15 @@
                                 <label for="date_of_book"><i class="icon_calendar"></i></label>
                             </div>
                             <div class="panel-dropdown">
-                                <a href="#">Số lượng <span class="qtyTotal">1</span></a>
+                                <a href="#">Số lượng <span class="qtyTotal">0</span></a>
                                 <div class="panel-dropdown-content right">
                                     <div class="qtyButtons">
-                                        <label for="number_of_slots">Số lượng</label>
-                                        <input type="text" name="number_of_slots" id="number_of_slots" value="1" required>
+                                        <label for="adults">Người lớn</label>
+                                        <input type="text" name="adults" id="adults" value="0">
+                                    </div>
+                                    <div class="qtyButtons">
+                                        <label for="childrens">Trẻ nhỏ</label>
+                                        <input type="text" name="childrens" id="childrens" value="0">
                                     </div>
                                 </div>
                             </div>
@@ -333,6 +340,8 @@
     <script src="{{ asset('js/front/jquery.instagramFeed.min.js') }}"></script>
     <script src="{{ asset('js/front/moment.min.js') }}"></script>
     <script src="{{ asset('tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.js') }}" crossorigin="anonymous"></script>
+    <!-- INPUT QUANTITY  -->
+    <script src="{{ asset('js/front/input_qty.js') }}"></script>
     <!-- INSTAGRAM FEED  -->
     <script>
         $(window).on('load', function() {

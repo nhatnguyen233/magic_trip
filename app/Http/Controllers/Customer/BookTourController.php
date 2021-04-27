@@ -38,8 +38,8 @@ class BookTourController extends Controller
                                 ->where('user_id', auth('customer')->id())
                                 ->orderBy('created_at', 'desc')
                                 ->paginate(20);
-        $viewData['total_price_all'] = array_sum($viewData['orders']->where('status', '<>', BookingStatus::CANCELED)->pluck('total_price')->toArray()); // Tổng số tiền
-        $viewData['number_of_slots'] = array_sum($viewData['orders']->where('status', '<>', BookingStatus::CANCELED)->pluck('number_of_slots')->toArray()); // Tổng số lượng
+        $viewData['total_price_all'] = array_sum($viewData['orders']->where('status', '>=', BookingStatus::APPROVED)->where('status', '<>', BookingStatus::CANCELED)->pluck('total_price')->toArray()); // Tổng số tiền
+        $viewData['number_of_slots'] = array_sum($viewData['orders']->where('status', '>=', BookingStatus::APPROVED)->where('status', '<>', BookingStatus::CANCELED)->pluck('number_of_slots')->toArray()); // Tổng số lượng
 
         return view('customer.book_tour.index', $viewData);
     }
@@ -119,11 +119,14 @@ class BookTourController extends Controller
      */
     public function destroy(BookTour $bookTour)
     {
-        if($bookTour->bills != null)
+        if($bookTour->status != BookingStatus::APPROVED || $bookTour->status != BookingStatus::PAID)
         {
-            $bookTour->bills()->delete();
+            if($bookTour->bills != null)
+            {
+                $bookTour->bills()->delete();
+            }
+            $bookTour->delete();
         }
-        $bookTour->delete();
 
         return redirect()->back()->with('success', 'Xóa thành công');
     }
@@ -141,8 +144,8 @@ class BookTourController extends Controller
             ->whereIn('status', [BookingStatus::PENDING, BookingStatus::APPROVED, BookingStatus::CANCELED])
             ->orderBy('created_at', 'desc')
             ->paginate(20);
-        $viewData['total_price_all'] = array_sum($viewData['orders']->where('status', '<>', BookingStatus::CANCELED)->pluck('total_price')->toArray()); // Tổng số tiền các đơn trong giỏ
-        $viewData['number_of_slots'] = array_sum($viewData['orders']->where('status', '<>', BookingStatus::CANCELED)->pluck('number_of_slots')->toArray()); // Tổng số lượng
+        $viewData['total_price_all'] = array_sum($viewData['orders']->where('status', '>=', BookingStatus::APPROVED)->pluck('total_price')->toArray()); // Tổng số tiền các đơn trong giỏ
+        $viewData['number_of_slots'] = array_sum($viewData['orders']->where('status', '>=', BookingStatus::APPROVED)->pluck('number_of_slots')->toArray()); // Tổng số lượng
 
         return view('customer.book_tour.pending', $viewData);
     }

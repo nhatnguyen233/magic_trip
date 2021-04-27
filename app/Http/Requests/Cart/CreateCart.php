@@ -47,7 +47,7 @@ class CreateCart extends FormRequest
                 function ($attribute, $value, $fail) {
                     if (isset($value) && isset($this->date_of_book) && isset($this->number_of_slots)) {
                         if ($this->scheduleRepository->checkScheduleFullSlot($value, $this->date_of_book, $this->number_of_slots)) {
-                            $fail('Ngày này đã được đặt hết hoặc không tồn tại!');
+                            $fail('Ngày khởi hành này đã được đặt hết hoặc chưa được đăng ký');
                         }
                     }
                 },
@@ -58,7 +58,18 @@ class CreateCart extends FormRequest
             ],
             'number_of_slots' => [
                 'required',
-                'numeric'
+                'numeric',
+                'min:1'
+            ],
+            'adults' => [
+                'nullable',
+                'numeric',
+                'min:0'
+            ],
+            'childrens' => [
+                'nullable',
+                'numeric',
+                'min:0'
             ],
             'discount' => [
                 'nullable',
@@ -104,10 +115,17 @@ class CreateCart extends FormRequest
             ]);
         }
 
-        if($this->number_of_slots != null || $this->number_of_slots >= 0)
+        if($this->adults != null || $this->adults >= 0)
         {
             $this->merge([
-                'number_of_slots' => intval($this->number_of_slots),
+                'adults' => intval($this->adults),
+            ]);
+        }
+
+        if($this->childrens != null || $this->childrens >= 0)
+        {
+            $this->merge([
+                'childrens' => intval($this->childrens),
             ]);
         }
 
@@ -121,7 +139,8 @@ class CreateCart extends FormRequest
 
         $this->merge([
             'session_token' => session()->get('session_token'),
-            'total_price' => $this->number_of_slots*$this->price,
+            'number_of_slots' => intval($this->childrens) + intval($this->adults),
+            'total_price' => $this->price*(intval($this->childrens) + intval($this->adults)),
             'expired_at' => Carbon::now()->addWeeks(1),
         ]);
     }
