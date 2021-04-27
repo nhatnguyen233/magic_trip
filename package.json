@@ -20,5 +20,16 @@
         "resolve-url-loader": "^3.1.0",
         "sass": "^1.32.0",
         "sass-loader": "^8.0.2"
+    },
+    "dependencies": {
+        "cropperjs": "^1.5.11",
+        "daterangepicker": "^3.1.0",
+        "heroku": "^7.2.0",
+        "jquery-cropper": "^1.0.1",
+        "select2": "*",
+        "tempusdominus-bootstrap-4": "^5.39.0"
+    },
+    "engines": {
+        "node": "14.x"
     }
 }
