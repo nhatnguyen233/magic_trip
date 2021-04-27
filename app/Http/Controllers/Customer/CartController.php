@@ -95,8 +95,10 @@ class CartController extends Controller
         }
 
         $cart->update([
+            'adults' => $request->adults,
+            'childrens' => $request->childrens,
+            'number_of_slots' => $request->number_of_slots,
             'total_price' => $request->number_of_slots * $cart->price,
-            'number_of_slots' => $request->number_of_slots
         ]);
 
         return redirect()->back()->with('success', 'Cập nhật thành công');

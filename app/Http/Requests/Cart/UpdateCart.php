@@ -48,7 +48,18 @@ class UpdateCart extends FormRequest
             ],
             'number_of_slots' => [
                 'nullable',
-                'numeric'
+                'numeric',
+                'min:1'
+            ],
+            'adults' => [
+                'nullable',
+                'numeric',
+                'min:0'
+            ],
+            'childrens' => [
+                'nullable',
+                'numeric',
+                'min:0'
             ],
             'date_of_book' => [
                 'nullable',
@@ -74,6 +85,20 @@ class UpdateCart extends FormRequest
             ]);
         }
 
+        if($this->adults != null || $this->adults >= 0)
+        {
+            $this->merge([
+                'adults' => intval($this->adults),
+            ]);
+        }
+
+        if($this->childrens != null || $this->childrens >= 0)
+        {
+            $this->merge([
+                'childrens' => intval($this->childrens),
+            ]);
+        }
+
         if($this->number_of_slots != null || $this->number_of_slots >= 0)
         {
             $this->merge([
@@ -82,6 +107,7 @@ class UpdateCart extends FormRequest
         }
 
         $this->merge([
+            'number_of_slots' => intval($this->childrens) + intval($this->adults),
             'expired_at' => Carbon::now()->addWeeks(1),
         ]);
     }

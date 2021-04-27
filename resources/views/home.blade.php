@@ -27,11 +27,11 @@
                                     <!-- Quantity Buttons -->
                                     <div class="qtyButtons">
                                         <label>Adults</label>
-                                        <input type="text" name="qtyInput" value="1">
+                                        <input type="text" name="adults" value="1">
                                     </div>
                                     <div class="qtyButtons">
                                         <label>Childrens</label>
-                                        <input type="text" name="qtyInput" value="0">
+                                        <input type="text" name="childrens" value="0">
                                     </div>
                                 </div>
                             </div>
@@ -64,7 +64,7 @@
                             <a href="#0" class="wish_bt"></a>
                             <a href="{{ route('tours.show', $item->id) }}"><img src="{{ $item->thumbnail_url }}" class="img-fluid" alt="" width="800"
                                                             height="533">
-                                <div class="read_more"><span>Read more</span></div>
+                                <div class="read_more"><span>Chi tiết</span></div>
                             </a>
                             <small>Historic</small>
                         </figure>
@@ -74,7 +74,7 @@
                             <span class="price">From <strong>{{ number_format($item->price, 0, '', ',') }}đ</strong> / 1 người</span>
                         </div>
                         <ul>
-                            <li><i class="icon_clock_alt"></i> {{ ($item->total_time) }} giờ</li>
+                            <li><i class="icon_clock_alt"></i> {{ round(($item->total_time/24)) }} ngày</li>
                             <li>
                                 <div class="score">
                                     <span>
@@ -366,4 +366,9 @@
         </div>
     </div>
     <!--/call_section-->
+@endsection
+
+@section('script')
+    <!-- INPUT QUANTITY  -->
+    <script src="{{ asset('js/front/input_qty.js') }}"></script>
 @endsection
