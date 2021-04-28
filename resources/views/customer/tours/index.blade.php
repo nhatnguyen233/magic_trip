@@ -53,7 +53,6 @@
     <div class="container margin_60_35">
         <div class="col-lg-12">
             <form action="" method="GET">
-                @csrf
                 <div class="row no-gutters custom-search-input-2 inner">
                     <div class="col-lg-4">
                         <div class="form-group">
@@ -69,7 +68,7 @@
                     </div>
                     <div class="col-lg-3">
                         <select class="wide" name="province_id">
-                            <option value="">All</option>
+                            <option value="">Tất cả</option>
                             @foreach($provinces as $province)
                                 <option value="{{ $province->id }}"
                                         @if(request()->get('province_id') == $province->id)  selected @endif>

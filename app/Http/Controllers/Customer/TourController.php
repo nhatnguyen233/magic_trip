@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Tour\GetList;
 use App\Models\Tour;
 use App\Repositories\Province\ProvinceRepository;
 use App\Repositories\Review\ReviewRepository;
@@ -30,12 +31,12 @@ class TourController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  GetList $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(GetList $request)
     {
-        $viewData['tours'] = (new Collection($this->tourRepository->getList($request->only(['description', 'address', 'province_id']))->sortByDesc('created_at')))->paginate(5);
+        $viewData['tours'] = (new Collection($this->tourRepository->getList($request->validated())->sortByDesc('created_at')))->paginate(5);
         $viewData['provinces'] = $this->provinceRepository->all();
 
         return view('customer.tours.index', $viewData);
@@ -44,12 +45,12 @@ class TourController extends Controller
     /**
      * Display a grid of tours.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  GetList $request
      * @return \Illuminate\Http\Response
      */
-    public function getGridTours(Request $request)
+    public function getGridTours(GetList $request)
     {
-        $viewData['tours'] = (new Collection($this->tourRepository->getList($request->only(['description', 'address', 'province_id']))->sortByDesc('created_at')))->paginate(9);
+        $viewData['tours'] = (new Collection($this->tourRepository->getList($request->validated())->sortByDesc('created_at')))->paginate(9);
         $viewData['provinces'] = $this->provinceRepository->all();
 
         return view('customer.tours.tour-grid', $viewData);

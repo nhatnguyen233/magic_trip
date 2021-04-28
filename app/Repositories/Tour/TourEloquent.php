@@ -34,6 +34,8 @@ class TourEloquent extends BaseRepository implements TourRepository
             ->join('tour_infos', 'tour_infos.tour_id', '=', 'tours.id')
             ->join('attractions', 'tour_infos.attraction_id', '=', 'attractions.id')
             ->join('provinces', 'attractions.province_id', '=', 'provinces.id')
+            ->join('schedules', 'tours.id', '=', 'schedules.tour_id')
+            ->join('categories', 'attractions.category_id', '=', 'categories.id')
             ->select('tours.id', 'tours.name', 'tours.host_id', 'tours.user_id', 'tours.description',
                 'tours.program', 'tours.vehicle', 'tours.price', 'tours.avatar', 'tours.thumbnail', 'tours.created_at',
                 'tours.updated_at','tours.total_time')
@@ -47,6 +49,15 @@ class TourEloquent extends BaseRepository implements TourRepository
             })
             ->when(isset($params['province_id']), function ($q) use ($params) {
                 $q->where('provinces.id', $params['province_id']);
+            })
+            ->when(isset($params['cat_id']), function ($q) use ($params) {
+                $q->where('categories.id', $params['cat_id']);
+            })
+            ->when(isset($params['start_time']), function ($q) use ($params) {
+                $q->whereDate('schedules.departure_time', '>=', date('Y-m-d', strtotime($params['start_time'])));
+            })
+            ->when(isset($params['end_time']), function ($q) use ($params) {
+                $q->whereDate('schedules.departure_time', '<=', date('Y-m-d', strtotime($params['end_time'])));
             })
             ->groupBy('tours.id', 'tours.name', 'tours.host_id', 'tours.user_id', 'tours.description',
                 'tours.program', 'tours.vehicle', 'tours.price', 'tours.avatar', 'tours.thumbnail', 'tours.created_at',
