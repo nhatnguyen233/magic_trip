@@ -6,38 +6,33 @@
             <div class="container">
                 <h3>Đặt trước những trải nghiệm độc đáo</h3>
                 <p>Khám phá các tour du lịch, khách sạn và nhà hàng được xếp hạng hàng đầu trên khắp thế giới</p>
-                <form>
+                <form action="{{ route('tours.grid') }}" method="GET">
                     <div class="row no-gutters custom-search-input-2">
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <input class="form-control" type="text" placeholder="Hotel, City...">
+                                <input class="form-control" name="address" type="text" placeholder="Địa chỉ, tỉnh, thành phố">
                                 <i class="icon_pin_alt"></i>
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <div class="form-group">
-                                <input class="form-control" type="text" name="dates" placeholder="When..">
+                                <input class="form-control" type="text" name="dates" placeholder="Thời điểm mong muốn">
                                 <i class="icon_calendar"></i>
                             </div>
                         </div>
                         <div class="col-lg-3">
-                            <div class="panel-dropdown">
-                                <a href="#">Guests <span class="qtyTotal">1</span></a>
-                                <div class="panel-dropdown-content">
-                                    <!-- Quantity Buttons -->
-                                    <div class="qtyButtons">
-                                        <label>Adults</label>
-                                        <input type="text" name="adults" value="1">
-                                    </div>
-                                    <div class="qtyButtons">
-                                        <label>Childrens</label>
-                                        <input type="text" name="childrens" value="0">
-                                    </div>
-                                </div>
-                            </div>
+                            <select class="wide" name="cat_id">
+                                <option value="">Loại hình du lịch...</option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}"
+                                            @if(request()->get('cat_id') == $category->id)  selected @endif>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="col-lg-2">
-                            <input type="submit" class="btn_search" value="Search">
+                            <input type="submit" class="btn_search" value="Tìm">
                         </div>
                     </div>
                     <!-- /row -->
@@ -356,10 +351,9 @@
                 <div class="block-reveal">
                     <div class="block-vertical"></div>
                     <div class="box_1">
-                        <h3>Enjoy a GREAT travel with us</h3>
-                        <p>Ius cu tamquam persequeris, eu veniam apeirian platonem qui, id aliquip voluptatibus pri.
-                            Ei mea primis ornatus disputationi. Menandri erroribus cu per, duo solet congue ut. </p>
-                        <a href="#0" class="btn_1 rounded">Read more</a>
+                        <h3>Tận hưởng một chuyến du lịch tuyệt vời cùng chúng tôi</h3>
+                        <p>Du lịch khiến một người trở nên khiêm tốn. Bạn sẽ nhận ra bạn chỉ chiếm được một nơi rất nhỏ bé trên thế giới này. </p>
+                        <a href="#0" class="btn_1 rounded">Đọc thêm</a>
                     </div>
                 </div>
             </div>
@@ -370,5 +364,22 @@
 
 @section('script')
     <!-- INPUT QUANTITY  -->
-    <script src="{{ asset('js/front/input_qty.js') }}"></script>
+    <script>
+        $(function () {
+            'use strict';
+            $('input[name="dates"]').daterangepicker({
+                autoUpdateInput: false,
+                minDate: new Date(),
+                locale: {
+                    cancelLabel: 'Clear'
+                }
+            });
+            $('input[name="dates"]').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('DD-MM-YYYY') + ' > ' + picker.endDate.format('DD-MM-YYYY'));
+            });
+            $('input[name="dates"]').on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
+            });
+        });
+    </script>
 @endsection
