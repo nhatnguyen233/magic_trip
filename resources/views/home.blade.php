@@ -32,7 +32,7 @@
                             </select>
                         </div>
                         <div class="col-lg-2">
-                            <input type="submit" class="btn_search" value="Tìm">
+                            <input type="submit" class="btn_search" value="Tìm kiếm">
                         </div>
                     </div>
                     <!-- /row -->
@@ -189,7 +189,7 @@
             <!-- /item -->
         </div>
         <!-- /carousel -->
-        <p class="btn_home_align"><a href="{{ route('tours.grid') }}" class="btn_1 rounded">Tất cả Tours</a></p>
+        <p class="btn_home_align"><a href="{{ route('tours.grid') }}" class="btn_1 rounded">Tất cả</a></p>
         <hr class="large">
     </div>
     <!-- /container -->
