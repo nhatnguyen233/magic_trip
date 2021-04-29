@@ -8,12 +8,29 @@
     <section class="hero_in tours_detail">
         <div class="wrapper">
             <div class="container">
-                <h1 class="fadeInUp"><span></span>{{ $tour->name }}</h1>
+                <h1 class="fadeInUp"><span></span>{!! $tour->description !!}</h1>
             </div>
             <span class="magnific-gallery">
-                <a href="{{ asset('img/gallery/tour_list_1.jpg') }}" class="btn_photos" title="Photo title" data-effect="mfp-zoom-in">View photos</a>
-                <a href="{{ asset('img/gallery/tour_list_2.jpg') }}" title="Photo title" data-effect="mfp-zoom-in"></a>
-                <a href="{{ asset('img/gallery/tour_list_3.jpg') }}" title="Photo title" data-effect="mfp-zoom-in"></a>
+                <a href="{{ $tour->infos->first()->thumbnail_url ?? '' }}" class="btn_photos" title="Ảnh album" data-effect="mfp-zoom-in">Album ảnh</a>
+                @if($tour->infos != null)
+                    @foreach($tour->infos as $key=>$info)
+                        @if($key > 0)
+                            <a href="{{ $info->thumbnail_url }}" title="Ảnh tham khảo" data-effect="mfp-zoom-in"></a>
+                        @endif
+
+                        @if($info->attraction_images != null)
+                        @foreach($info->attraction_images as $value)
+                            <a href="{{ $value }}" title="Ảnh tham khảo" data-effect="mfp-zoom-in"></a>
+                        @endforeach
+                        @endif
+
+                        @if($info->accommodation_images != null)
+                        @foreach($info->accommodation_images as $value)
+                            <a href="{{ $value }}" title="Địa điểm nghỉ ngơi" data-effect="mfp-zoom-in"></a>
+                        @endforeach
+                        @endif
+                    @endforeach
+                @endif
             </span>
         </div>
     </section>

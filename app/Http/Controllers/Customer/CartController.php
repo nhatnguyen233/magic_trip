@@ -51,9 +51,7 @@ class CartController extends Controller
      */
     public function store(CreateCart $request)
     {
-        $cart = $this->cartRepository->findWhere(['session_token' => \session()->get('session_token')]);
         $this->cartRepository->addToCart($request->validated());
-        Session::put('total_item_cart', $cart->count() +1);
 
         return redirect(route('cart.index'));
     }
