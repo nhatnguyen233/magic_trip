@@ -20,6 +20,7 @@ class CreateNewsTable extends Migration
             $table->string('author');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->integer('type')->nullable();
+            $table->string('avatar')->nullable();
             $table->timestamps();
         });
     }
