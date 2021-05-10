@@ -23,7 +23,9 @@ class AttractionController extends Controller
      */
     public function index()
     {
-        //
+        $viewData['attractions'] = $this->attractionRepository->paginate(6);
+
+        return view('customer.attractions.index', $viewData);
     }
 
     /**
