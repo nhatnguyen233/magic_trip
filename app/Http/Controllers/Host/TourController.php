@@ -46,11 +46,11 @@ class TourController extends Controller
      */
     public function create()
     {
-        $tours = $this->tourRepository->findWhere(['user_id'=>auth('host')->id()]);
-        $accommodations = $this->accommodationRepository->all();
-        $attractions = $this->attractionRepository->all();
+        $viewData['tours'] = $this->tourRepository->findWhere(['user_id'=>auth('host')->id()]);
+        $viewData['accommodations'] = $this->accommodationRepository->all();
+        $viewData['attractions'] = $this->attractionRepository->all();
 
-        return view('host.tours.create', compact('tours','accommodations', 'attractions'));
+        return view('host.tours.create', $viewData);
     }
 
     /**
@@ -101,7 +101,7 @@ class TourController extends Controller
      */
     public function update(Request $request, Tour $tour)
     {
-        $tour = $this->tourRepository->updateTour($request->all(), $tour->id);
+        $this->tourRepository->updateTour($request->all(), $tour->id);
 
         return redirect()->route('host.tours.index')->with('success', 'Tạo tour thành công');
     }

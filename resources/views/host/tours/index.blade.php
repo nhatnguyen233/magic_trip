@@ -30,7 +30,6 @@
                         <th>Tổng thời gian</th>
                         <th>Phương tiện chính</th>
                         <th>Ảnh thu nhỏ</th>
-{{--                        <th>Lộ trình</th>--}}
                         <th>Hành động</th>
                     </tr>
                     </thead>
@@ -43,7 +42,6 @@
                             <td>{{ $item->total_time }}</td>
                             <td>{{ $item->vehicle }}</td>
                             <td><img src="{{ $item->thumbnail_url }}" width="100px"/></td>
-{{--                            <td>{{ $item->infos }}</td>--}}
                             <td>
                                 <div class="d-flex justify-content-around">
                                     <a href="{{ route('host.tours.edit', $item->id) }}"

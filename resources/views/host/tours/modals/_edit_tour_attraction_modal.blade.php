@@ -1,17 +1,17 @@
 <!-- Modal -->
-<div class="modal fade" id="infoModalCenter" tabindex="-1" role="dialog" aria-labelledby="infoModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="editInfoModalCenter" tabindex="-1" role="dialog" aria-labelledby="editInfoModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="version_2" id="infoModalLongTitle">
-                    <i class="fa fa-map-marker mr-2" style="color: #ddd;"></i>Thêm địa điểm du lịch
+                <h5 class="version_2" id="editInfoModalCenterTitle">
+                    <i class="fa fa-map-marker mr-2" style="color: #ddd;"></i>Sửa địa điểm hành trình
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="" method="post" enctype="multipart/form-data"
-                  id="tour-infos" class="form-list-info">
+            <form action="" method="post" id="edit-tour-infos" class="edit-form-list-info">
+            @method('PUT')
             @csrf
             <div class="modal-body">
                 <div class="box_general">
@@ -47,13 +47,10 @@
                                 <div class="form-group">
                                     <label for="attraction-tour">Chọn địa điểm <span class="text-danger">*</span></label>
                                     <div class="styled-select">
-                                        <select name="attraction_id" id="tour-attraction" required>
+                                        <select name="attraction_id" id="tour-attraction-edit" required>
                                             <option selected disabled>---- Chọn địa điểm ----</option>
                                             @foreach($attractions as $item)
-                                                <option @if(old('attraction_id') == $item->id)
-                                                        selected
-                                                        @endif
-                                                        value={{ $item->id }}>
+                                                <option value={{ $item->id }}>
                                                     {{ $item->name . ' -' . $item->district->name . ', ' . $item->province->name }}
                                                 </option>
                                             @endforeach
@@ -65,13 +62,10 @@
                                 <div class="form-group">
                                     <label for="tour-accommodation">Chọn nơi nghỉ <span class="text-danger">*</span></label>
                                     <div class="styled-select">
-                                        <select name="accommodation_id" id="tour-accommodation" required>
+                                        <select name="accommodation_id" id="tour-accommodation-edit" required>
                                             <option selected disabled>---- Chọn nơi nghỉ ----</option>
                                             @foreach($accommodations as $item)
-                                                <option @if(old('accommodation_id') == $item->id)
-                                                        selected
-                                                        @endif
-                                                        value={{ $item->id }}>
+                                                <option value={{ $item->id }}>
                                                     {{ $item->name }}
                                                 </option>
                                             @endforeach
@@ -84,15 +78,14 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="order-number">Thứ tự hành trình</label>
-                                    <input type="number" class="form-control" name="order_number" id="order-number"
-                                    value="{{ request()->route('tour')->infos ? request()->route('tour')->infos->count()+1 : old('order_number') }}" readonly/>
+                                    <input type="number" class="form-control" name="order_number" id="order-number" readonly/>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="vehicle-tour-info">Phương tiện</label>
                                     <input type="text" class="form-control" name="vehicle_info"
-                                           id="vehicle-tour-info" value="{{ old('vehicle_info') }}" />
+                                           id="vehicle-tour-info" />
                                 </div>
                             </div>
                         </div>
@@ -107,7 +100,7 @@
                                     <div class="form-group col-md-6">
                                         <label for="limit-time">Khoảng thời gian <span class="text-danger">*</span></label>
                                         <input type="number" class="form-control" name="limit_time"
-                                               id="limit-time" value="{{ old('limit_time') }}" />
+                                               id="limit-time" />
                                     </div>
                                 </div>
                             </div>
