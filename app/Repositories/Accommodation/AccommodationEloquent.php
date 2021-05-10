@@ -47,7 +47,7 @@ class AccommodationEloquent extends BaseRepository implements AccommodationRepos
             }
 
             $data = array_filter($params, function ($key) {
-                return in_array($key, ['name', 'slug', 'category_id','lowest_price', 'phone', 'ward_id', 'number_of_rooms',
+                return in_array($key, ['user_id', 'name', 'slug', 'category_id','lowest_price', 'phone', 'ward_id', 'number_of_rooms',
                     'description', 'country_id', 'province_id', 'district_id', 'latitude', 'longitude',
                     'thumbnail', 'address', 'avatar', 'status']);
             }, ARRAY_FILTER_USE_KEY);

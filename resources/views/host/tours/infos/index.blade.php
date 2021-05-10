@@ -46,9 +46,9 @@
                             <td>{{ $item->order_number }}</td>
                             <td>{{ $item->attraction->name }}</td>
                             <td>{{ $item->accommodation->name }}</td>
-                            <td>{{ $item->title }}</td>
+                            <td>{{ $item->attraction->title }}</td>
                             <td>{{ $item->vehicle }}</td>
-                            <td><img src="{{ $item->thumbnail_url }}" width="100px"/></td>
+                            <td><img src="{{ $item->attraction->thumbnail_url }}" width="100px"/></td>
                             <td>
                                 <div class="d-flex justify-content-around">
                                     <a class="btn btn-info text-white" data-toggle="modal" id="showInfoDetail"
@@ -117,20 +117,6 @@
             }
         });
 
-        $('#info-thumbnail').change(function (e) {
-            if (e.target.files && e.target.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    $('#info-thumbnail-image')
-                        .attr('src', e.target.result)
-                        .width('100%')
-                        .height(250);
-                }
-
-                reader.readAsDataURL(e.currentTarget.files[0]);
-            }
-        });
-
         $(document).on('click', '.create-tour-info', function () {
             var url = window.location.origin + '/host/tour-infos';
             var input = document.getElementById('info-thumbnail');
@@ -141,13 +127,10 @@
             formData.append('tour_id', $('#tour').val());
             formData.append('attraction_id', $('#tour-attraction').val());
             formData.append('accommodation_id', $('#tour-accommodation').val());
-            formData.append('title', $('#tour-title').val());
             formData.append('vehicle', $('#vehicle-tour-info').val());
             formData.append('start_time', $('#start-time').val());
             formData.append('limit_time', $('#limit-time').val());
-            formData.append('summary', $('#tour-info-summary').val());
             formData.append('order_number', $('#order-number').val());
-            formData.append('thumbnail', fileField);
 
             fetch(url, {
                 method: 'POST',
@@ -160,12 +143,10 @@
                 $('#tour').val('');
                 $('#tour-attraction').val('');
                 $('#tour-accommodation').val('');
-                $('#tour-title').val('');
                 $('#vehicle-tour-info').val('');
                 $('#start-time').val('');
                 $('#limit-time').val('');
                 $('#order-number').val('');
-                $('#tour-info-summary').html('');
                 location.reload();
             })
             .catch(error => {

@@ -4,7 +4,7 @@
     <section class="hero_in tours">
         <div class="wrapper">
             <div class="container">
-                <h1 class="fadeInUp"><span></span>Paris tours grid</h1>
+                <h1 class="fadeInUp"><span></span>Danh sách tour du lịch</h1>
             </div>
         </div>
     </section>
@@ -16,11 +16,11 @@
                 <li>
                     <div class="switch-field">
                         <input type="radio" id="all" name="listing_filter" value="all" checked data-filter="*" class="selected">
-                        <label for="all">All</label>
+                        <label for="all">Tất cả</label>
                         <input type="radio" id="popular" name="listing_filter" value="popular" data-filter=".popular">
-                        <label for="popular">Popular</label>
+                        <label for="popular">Ưu chuộng</label>
                         <input type="radio" id="latest" name="listing_filter" value="latest" data-filter=".latest">
-                        <label for="latest">Latest</label>
+                        <label for="latest">Mới nhất</label>
                     </div>
                 </li>
                 <li>
@@ -30,7 +30,7 @@
                     </div>
                 </li>
                 <li>
-                    <a class="btn_map" data-toggle="collapse" href="#collapseMap" aria-expanded="false" aria-controls="collapseMap" data-text-swap="Hide map" data-text-original="View on map">View on map</a>
+                    <a class="btn_map" data-toggle="collapse" href="#collapseMap" aria-expanded="false" aria-controls="collapseMap" data-text-swap="Hide map" data-text-original="View on map">Xem bản đồ</a>
                 </li>
             </ul>
         </div>
@@ -46,7 +46,6 @@
     <div class="container margin_60_35">
         <div class="col-lg-12">
             <form action="" method="GET">
-                @csrf
                 <div class="row no-gutters custom-search-input-2 inner">
                     <div class="col-lg-4">
                         <div class="form-group">
@@ -138,22 +137,22 @@
                 <div class="col-md-4">
                     <a href="#0" class="boxed_list">
                         <i class="pe-7s-help2"></i>
-                        <h4>Need Help? Contact us</h4>
-                        <p>Cum appareat maiestatis interpretaris et, et sit.</p>
+                        <h4>Cần hỗ trợ? Liên hệ chúng tôi</h4>
+                        <p>Vui lòng liên hệ với chúng tôi để được tư vấn về tour du lịch</p>
                     </a>
                 </div>
                 <div class="col-md-4">
                     <a href="#0" class="boxed_list">
                         <i class="pe-7s-wallet"></i>
-                        <h4>Payments</h4>
-                        <p>Qui ea nemore eruditi, magna prima possit eu mei.</p>
+                        <h4>Thanh toán</h4>
+                        <p>Thanh toán đặt tour nhanh gọn, dễ dàng cả online và offline</p>
                     </a>
                 </div>
                 <div class="col-md-4">
                     <a href="#0" class="boxed_list">
                         <i class="pe-7s-note2"></i>
-                        <h4>Cancel Policy</h4>
-                        <p>Hinc vituperata sed ut, pro laudem nonumes ex.</p>
+                        <h4>Hủy chính sách</h4>
+                        <p>Chính sách bao gồm những qui định cơ bản khi khách hàng đặt tour du lịch</p>
                     </a>
                 </div>
             </div>

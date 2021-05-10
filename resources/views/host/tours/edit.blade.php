@@ -4,6 +4,7 @@
     <link href="{{ asset('admin/vendor/dropzone.css') }}" rel="stylesheet">
     <!-- WYSIWYG Editor -->
     <link rel="stylesheet" href="{{ asset('admin/js/editor/summernote-bs4.css') }}">
+    <link rel="stylesheet" href="{{ asset('tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.css') }}" />
 @endsection
 
 @section('content')
@@ -133,7 +134,10 @@
             <i class="fa fa-table"></i> Danh sách các địa điểm du lịch
         </div>
         <div class="card-body">
-            <a type="button" class="btn btn-success text-white mb-3 ml-3" data-toggle="modal" data-target="#infoModalCenter">
+            <a type="button" class="btn btn-success text-white mb-3 ml-3 create-tour-info"
+               data-action="{{ route('host.tour-infos.store') }}"
+               data-toggle="modal"
+               data-target="#infoModalCenter">
                 Thêm địa điểm
             </a>
             <div class="table-responsive">
@@ -151,25 +155,36 @@
                     </thead>
                     <tbody>
                     @forelse($tour->infos as $item)
+                        @php
+                            $start_time = new DateTime($item->start_time);
+                        @endphp
                         <tr>
                             <td>{{ $item->order_number }}</td>
                             <td>{{ $item->attraction->name }}</td>
                             <td>{{ $item->accommodation->name }}</td>
-                            <td>{{ $item->title }}</td>
+                            <td>{{ $item->attraction->title }}</td>
                             <td>{{ $item->vehicle }}</td>
-                            <td><img src="{{ $item->thumbnail_url }}" width="100px"/></td>
+                            <td><img src="{{ $item->attraction->thumbnail_url }}" width="100px"/></td>
                             <td>
                                 <div class="d-flex justify-content-around">
                                     <a class="btn btn-info text-white" data-toggle="modal" id="showInfoDetail"
                                        data-target="#showInfoModal" data-id="{{ $item->id }}">
                                         <i class="fa fa-info-circle"></i>
                                     </a>
-                                    <a href="#"
-                                       class="btn btn-warning text-white" data-id="{{ $item->id }}">
+                                    <a type="button" data-toggle="modal" data-target="#editInfoModalCenter"
+                                       class="btn btn-warning text-white edit-info"
+                                       data-action="{{ route('host.tour-infos.update', $item->id) }}"
+                                       data-vehicle="{{ $item->vehicle }}"
+                                       data-order-number="{{ $item->order_number }}"
+                                       data-start-time="{{ $start_time->format("H:i") }}"
+                                       data-limit-time="{{ $item->limit_time }}"
+                                       data-attraction-id="{{ $item->attraction_id }}"
+                                       data-accommodation-id="{{ $item->accommodation_id }}"
+                                       data-id="{{ $item->id }}">
                                         <i class="fa fa-edit"></i>
                                     </a>
                                     <button class="btn btn-danger" data-toggle="modal" id="removeInfo"
-                                            data-target="#removeInfoModal" data-id="{{ $item->id }}">
+                                            data-target="#removeTourInfoModal" data-id="{{ $item->id }}">
                                         <i class="fa fa-trash-o"></i>
                                     </button>
                                 </div>
@@ -190,6 +205,8 @@
     </div>
     <!-- /tables-->
     @include('host.tours.modals._add_tour_attraction_modal')
+    @include('host.tours.modals._edit_tour_attraction_modal')
+    @include('host.tours.modals._remove_tour_attraction_modal')
 @endsection
 
 @section('script')
@@ -197,6 +214,8 @@
     <script src="{{ asset('admin/vendor/bootstrap-datepicker.js') }}"></script>
     <!-- WYSIWYG Editor -->
     <script src="{{ asset('admin/js/editor/summernote-bs4.min.js') }}"></script>
+    <script src="{{ asset('js/front/moment.min.js') }}"></script>
+    <script src="{{ asset('tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.js') }}" crossorigin="anonymous"></script>
     <script>
         $('.editor').summernote({
             fontSizes: ['10', '14'],
@@ -227,20 +246,6 @@
             }
         });
 
-        $('#info-thumbnail').change(function (e) {
-            if (e.target.files && e.target.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    $('#info-thumbnail-image')
-                        .attr('src', e.target.result)
-                        .width('100%')
-                        .height(290);
-                }
-
-                reader.readAsDataURL(e.currentTarget.files[0]);
-            }
-        });
-
         const cloneForm = (e) => {
             fileForm = $(".tour-attractions").attr('hidden', false);
             fileForm.insertBefore($(e));
@@ -252,51 +257,36 @@
             }
         }
 
-        $(document).on('click', '.create-tour-info', function () {
-            var url = window.location.origin + '/host/tour-infos';
-            var input = document.getElementById('info-thumbnail');
-            const formData = new FormData();
-            const fileField = input.files[0];
+        $('.edit-info').on('click', function () {
+            $('#editInfoModalCenter form').attr('action', $(this).attr('data-action'));
+            $('#editInfoModalCenter input[name=limit_time]').val($(this).attr('data-limit-time'));
+            $('#editInfoModalCenter input[name=start_time]').val($(this).attr('data-start-time'));
+            $('#editInfoModalCenter input[name=vehicle_info]').val($(this).attr('data-vehicle'));
+            $('#editInfoModalCenter input[name=order_number]').val($(this).attr('data-order-number'));
+            $('#editInfoModalCenter #tour-attraction-edit').val($(this).attr('data-attraction-id'));
+            $('#editInfoModalCenter #tour-accommodation-edit').val($(this).attr('data-accommodation-id'));
+        });
 
-            formData.append('_token', '{!! csrf_token() !!}');
-            formData.append('tour_id', $('#tour').val());
-            formData.append('attraction_id', $('#tour-attraction').val());
-            formData.append('accommodation_id', $('#tour-accommodation').val());
-            formData.append('title', $('#tour-title').val());
-            formData.append('vehicle', $('#vehicle-tour-info').val());
-            formData.append('start_time', $('#start-time').val());
-            formData.append('limit_time', $('#limit-time').val());
-            formData.append('summary', $('#tour-info-summary').val());
-            formData.append('order_number', $('#order-number').val());
-            formData.append('thumbnail', fileField);
-
-            fetch(url, {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.json())
-                .then(result => {
-                    alert('Thêm địa điểm thành công');
-                    $('#infoModalCenter').modal('hide');
-                    $('#tour').val('');
-                    $('#tour-attraction').val('');
-                    $('#tour-accommodation').val('');
-                    $('#tour-title').val('');
-                    $('#vehicle-tour-info').val('');
-                    $('#start-time').val('');
-                    $('#limit-time').val('');
-                    $('#order-number').val('');
-                    $('#tour-info-summary').html('');
-                    location.reload();
-                })
-                .catch(error => {
-                    alert('Thêm địa điểm thất bại');
-                });
+        $('.create-tour-info').on('click', function () {
+            $('#infoModalCenter form').attr('action', $(this).attr('data-action'));
         });
 
         $('input[name="price"]').keyup(function (e) {
             var x = numberWithCommas((e.target.value.toString()).replaceAll('.',''));
             $(this).val(x);
+        });
+
+        $(function () {
+            $('#start-time').datetimepicker({
+                format: 'HH:mm',
+                stepping: 15
+            });
+        });
+
+        $(document).on('click', '#removeInfo', function () {
+            var id = $(this).data('id');
+            var url = '{{ Illuminate\Support\Facades\URL::to('/') }}' + '/host/tour-infos/' + id;
+            $('#form-remove-tour-info').attr('action', url);
         });
     </script>
 @endsection

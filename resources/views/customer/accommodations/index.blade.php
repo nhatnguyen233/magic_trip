@@ -4,23 +4,23 @@
 <section class="hero_in hotels">
 			<div class="wrapper">
 				<div class="container">
-					<h1 class="fadeInUp"><span></span>Accommodation</h1>
+					<h1 class="fadeInUp"><span></span>Khách sạn, nhà nghỉ, homestay</h1>
 				</div>
 			</div>
 		</section>
 		<!--/hero_in-->
-		
+
 		<div class="filters_listing sticky_horizontal">
 			<div class="container">
 				<ul class="clearfix">
 					<li>
 						<div class="switch-field">
 							<input type="radio" id="all" name="listing_filter" value="all" checked data-filter="*" class="selected">
-							<label for="all">All</label>
+							<label for="all">Tất cả</label>
 							<input type="radio" id="popular" name="listing_filter" value="popular" data-filter=".popular">
-							<label for="popular">Popular</label>
+							<label for="popular">Phổ biến</label>
 							<input type="radio" id="latest" name="listing_filter" value="latest" data-filter=".latest">
-							<label for="latest">Latest</label>
+							<label for="latest">Mới nhất</label>
 						</div>
 					</li>
 					<li>
@@ -30,14 +30,14 @@
 						</div>
 					</li>
 					<li>
-						<a class="btn_map" data-toggle="collapse" href="#collapseMap" aria-expanded="false" aria-controls="collapseMap" data-text-swap="Hide map" data-text-original="View on map">View on map</a>
+						<a class="btn_map" data-toggle="collapse" href="#collapseMap" aria-expanded="false" aria-controls="collapseMap" data-text-swap="Hide map" data-text-original="View on map">Xem bản đồ</a>
 					</li>
 				</ul>
 			</div>
 			<!-- /container -->
 		</div>
 		<!-- /filters -->
-		
+
 		<div class="collapse" id="collapseMap">
 			<div id="map" class="map"></div>
 		</div>
@@ -47,31 +47,31 @@
 			<div class="row">
 				<aside class="col-lg-3" id="sidebar">
 					<div id="filters_col">
-						<a data-toggle="collapse" href="#collapseFilters" aria-expanded="false" aria-controls="collapseFilters" id="filters_col_bt">Filters </a>
+						<a data-toggle="collapse" href="#collapseFilters" aria-expanded="false" aria-controls="collapseFilters" id="filters_col_bt">Lọc </a>
 						<div class="collapse show" id="collapseFilters">
 							<div class="filter_type">
-								<h6>District</h6>
+								<h6>Quận/Huyện</h6>
 								<ul>
 									<li>
-										<label class="container_check">All <small>(945)</small>
+										<label class="container_check">Tất cả <small>(945)</small>
 								            <input type="checkbox">
 								            <span class="checkmark"></span>
 								        </label>
 									</li>
 									<li>
-										<label class="container_check">La Defanse <small>(45)</small>
+										<label class="container_check">Hà Nội <small>(45)</small>
 								            <input type="checkbox">
 								            <span class="checkmark"></span>
 								        </label>
 									</li>
 									<li>
-										<label class="container_check">Paris Center <small>(30)</small>
+										<label class="container_check">Đà Nẵng <small>(30)</small>
 								            <input type="checkbox">
 								            <span class="checkmark"></span>
 								        </label>
 									</li>
 									<li>
-										<label class="container_check">Latin Quartes<small>(25)</small>
+										<label class="container_check">TP. Hồ Chí Minh<small>(25)</small>
 								            <input type="checkbox">
 								            <span class="checkmark"></span>
 								        </label>
@@ -150,17 +150,17 @@
 									<figure>
 										<a href="#0" class="wish_bt"></a>
 										<a href="{{ route('accommodations.show', $accommodation->id) }}"><img src="{{ $accommodation->getAvatarUrlAttribute() }}" class="img-fluid" alt="" width="800" height="533"><div class="read_more"><span>Read more</span></div></a>
-										<small>Paris Centre</small>
+										<small>{{ $accommodation->district->name }}</small>
 									</figure>
 									<div class="wrapper">
 										<div class="cat_star"><i class="icon_star"></i><i class="icon_star"></i><i class="icon_star"></i><i class="icon_star"></i></div>
 										<h3><a href="{{ route('accommodations.show', $accommodation->id) }}">{{ $accommodation->name }}</a></h3>
-										<p>{{ $accommodation->description }}</p>
-										<span class="price">From <strong>{{ $accommodation->lowest_price }} VND</strong> /per person</span>
+										<p>{!! $accommodation->description !!}</p>
+										<span class="price">Từ <strong>{{ number_format($accommodation->lowest_price, 0, '', ',') }} VND</strong> / 1 người</span>
 									</div>
 									<ul>
-										<li><i class="ti-eye"></i> 164 views</li>
-										<li><div class="score"><span>Superb<em>350 Reviews</em></span><strong>8.9</strong></div></li>
+										<li><i class="ti-eye"></i> 164 lượt xem</li>
+										<li><div class="score"><span>Tuyệt vời<em>350 đánh giá</em></span><strong>8.9</strong></div></li>
 									</ul>
 								</div>
 							</div>
@@ -169,11 +169,11 @@
 						<!-- /row -->
 				</div>
 				<!-- /isotope-wrapper -->
-			
-				<p class="text-center"><a href="#0" class="btn_1 rounded add_top_30">Load more</a></p>
+
+				<p class="text-center"><a href="#0" class="btn_1 rounded add_top_30">Tải thêm</a></p>
 				</div>
 				<!-- /col -->
-			</div>		
+			</div>
 		</div>
 		<!-- /bg_color_1 -->
 @endsection
