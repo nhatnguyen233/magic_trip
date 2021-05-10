@@ -19,7 +19,7 @@
             <i class="fa fa-table"></i> Danh sách các Tour
         </div>
         <div class="card-body">
-            <a href="{{ route('host.tours.create') }}" class="btn btn-success mb-3 ml-3">Thêm tours</a>
+            <a href="{{ route('host.tours.create') }}" class="btn btn-primary mb-3 ml-3">Thêm tours</a>
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>

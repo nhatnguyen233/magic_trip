@@ -40,7 +40,7 @@ class AttractionEloquent extends BaseRepository implements AttractionRepository
             DB::beginTransaction();
 
             $data = array_filter($params, function ($key) {
-                return in_array($key, ['name', 'slug', 'title', 'category_id', 'ward_id',
+                return in_array($key, ['user_id', 'name', 'slug', 'title', 'category_id', 'ward_id',
                     'description', 'country_id', 'province_id', 'district_id', 'latitude', 'longitude',
                     'thumbnail', 'address', 'zipcode', 'avatar']);
             }, ARRAY_FILTER_USE_KEY);

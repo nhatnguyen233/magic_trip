@@ -13,8 +13,20 @@
             </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Các tours du lịch">
-            <a class="nav-link" href="{{ route('host.tours.index') }}">
+            <a class="nav-link" href="{{ route('host.attractions.index') }}">
                 <i class="fa fa-fw fa-map-marker"></i>
+                <span class="nav-link-text">Địa điểm tham quan</span>
+            </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Các tours du lịch">
+            <a class="nav-link" href="{{ route('host.accommodations.index') }}">
+                <i class="fa fa-fw fa-home"></i>
+                <span class="nav-link-text">Địa điểm nghỉ ngơi</span>
+            </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Các tours du lịch">
+            <a class="nav-link" href="{{ route('host.tours.index') }}">
+                <i class="fa fa-fw fa-suitcase"></i>
                 <span class="nav-link-text">Tours du lịch</span>
             </a>
         </li>

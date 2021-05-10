@@ -9,6 +9,10 @@ use App\Http\Controllers\Host\ScheduleController;
 use App\Http\Controllers\Host\ReviewController;
 use App\Http\Controllers\Host\BookTourController;
 use App\Http\Controllers\Host\BillController;
+use App\Http\Controllers\Host\AccommodationController;
+use App\Http\Controllers\Host\AttractionController;
+use App\Http\Controllers\Host\AccommodationImageController;
+use App\Http\Controllers\Host\AttractionImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +39,12 @@ Route::middleware('auth.host')->group(function() {
     Route::resource('/schedules', ScheduleController::class);
     Route::resource('/bookings', BookTourController::class);
     Route::resource('/bills', BillController::class);
+    Route::resource('/attractions', AttractionController::class);
+    Route::resource('/accommodations', AccommodationController::class);
+    Route::resource('/attraction-images', AttractionImageController::class)
+        ->only(['destroy',]);
+    Route::resource('/accommodation-images', AccommodationImageController::class)
+        ->only(['destroy',]);
     Route::get('/export', [BillController::class, 'getListToExport'])->name('bills.export');
     Route::get('/export/pdf', [BillController::class, 'createPDF'])->name('bills.export.pdf');
     Route::put('/approve/{booking}', [BookTourController::class, 'approve'])->name('bookings.approve');
