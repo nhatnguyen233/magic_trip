@@ -61,12 +61,12 @@
                                                             height="533">
                                 <div class="read_more"><span>Chi tiết</span></div>
                             </a>
-                            <small>Historic</small>
+                            <small>{{ $item->infos->first()->attraction->district->name }}</small>
                         </figure>
                         <div class="wrapper">
                             <h3><a href="{{ route('tours.show', $item->id) }}">{{ $item->name }}</a></h3>
                             <p>{!! \Illuminate\Support\Str::limit($item->description, 115, '...')  !!}</p>
-                            <span class="price">From <strong>{{ number_format($item->price, 0, '', ',') }}đ</strong> / 1 người</span>
+                            <span class="price">Từ <strong>{{ number_format($item->price, 0, '', ',') }}đ</strong> / 1 người</span>
                         </div>
                         <ul>
                             <li><i class="icon_clock_alt"></i> {{ round(($item->total_time/24)) }} ngày</li>
@@ -91,102 +91,6 @@
                     </div>
                 </div>
             @endforeach
-            <div class="item">
-                <div class="box_grid">
-                    <figure>
-                        <a href="#0" class="wish_bt"></a>
-                        <a href="tour-detail.html"><img src="{{ asset('img/tour_1.jpg') }}" class="img-fluid" alt="" width="800"
-                                                        height="533">
-                            <div class="read_more"><span>Read more</span></div>
-                        </a>
-                        <small>Historic</small>
-                    </figure>
-                    <div class="wrapper">
-                        <h3><a href="tour-detail.html">Arc Triomphe</a></h3>
-                        <p>Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti cu.</p>
-                        <span class="price">From <strong>$54</strong> /per person</span>
-                    </div>
-                    <ul>
-                        <li><i class="icon_clock_alt"></i> 1h 30min</li>
-                        <li>
-                            <div class="score"><span>Superb<em>350 Reviews</em></span><strong>8.9</strong></div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- /item -->
-            <div class="item">
-                <div class="box_grid">
-                    <figure>
-                        <a href="#0" class="wish_bt"></a>
-                        <a href="tour-detail.html"><img src="{{ asset('img/tour_2.jpg') }}" class="img-fluid" alt="" width="800"
-                                                        height="533">
-                            <div class="read_more"><span>Read more</span></div>
-                        </a>
-                        <small>Churches</small>
-                    </figure>
-                    <div class="wrapper">
-                        <h3><a href="tour-detail.html">Notredam</a></h3>
-                        <p>Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti cu.</p>
-                        <span class="price">From <strong>$124</strong> /per person</span>
-                    </div>
-                    <ul>
-                        <li><i class="icon_clock_alt"></i> 1h 30min</li>
-                        <li>
-                            <div class="score"><span>Good<em>350 Reviews</em></span><strong>7.0</strong></div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- /item -->
-            <div class="item">
-                <div class="box_grid">
-                    <figure>
-                        <a href="#0" class="wish_bt"></a>
-                        <a href="tour-detail.html"><img src="{{ asset('img/tour_3.jpg') }}" class="img-fluid" alt="" width="800"
-                                                        height="533">
-                            <div class="read_more"><span>Read more</span></div>
-                        </a>
-                        <small>Historic</small>
-                    </figure>
-                    <div class="wrapper">
-                        <h3><a href="tour-detail.html">Versailles</a></h3>
-                        <p>Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti cu.</p>
-                        <span class="price">From <strong>$25</strong> /per person</span>
-                    </div>
-                    <ul>
-                        <li><i class="icon_clock_alt"></i> 1h 30min</li>
-                        <li>
-                            <div class="score"><span>Good<em>350 Reviews</em></span><strong>7.0</strong></div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- /item -->
-            <div class="item">
-                <div class="box_grid">
-                    <figure>
-                        <a href="#0" class="wish_bt"></a>
-                        <a href="tour-detail.html"><img src="{{ asset('img/tour_3.jpg') }}" class="img-fluid" alt="" width="800"
-                                                        height="533">
-                            <div class="read_more"><span>Read more</span></div>
-                        </a>
-                        <small>Historic</small>
-                    </figure>
-                    <div class="wrapper">
-                        <h3><a href="tour-detail.html">Versailles</a></h3>
-                        <p>Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti cu.</p>
-                        <span class="price">From <strong>$25</strong> /per person</span>
-                    </div>
-                    <ul>
-                        <li><i class="icon_clock_alt"></i> 1h 30min</li>
-                        <li>
-                            <div class="score"><span>Good<em>350 Reviews</em></span><strong>7.0</strong></div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- /item -->
         </div>
         <!-- /carousel -->
         <p class="btn_home_align"><a href="{{ route('tours.grid') }}" class="btn_1 rounded">Tất cả</a></p>
