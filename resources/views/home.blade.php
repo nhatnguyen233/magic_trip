@@ -125,7 +125,7 @@
                 <!-- /grid_item -->
             </div>
             <!-- /row -->
-            <a href="{{ route('accommodations.index') }}"><strong>Tất cả  ({{ $accommodations->count() }}) <i
+            <a href="{{ route('accommodations.index') }}"><strong>Tất cả  ({{ $total_accommodations }}) <i
                             class="arrow_carrot-right"></i></strong></a>
         </section>
         <!-- /section -->
@@ -152,7 +152,7 @@
                 @endforeach
             </div>
             <!-- /row -->
-            <a href="{{ route('attractions.index') }}"><strong>Tất cả ({{ $attractions->count() }}) <i
+            <a href="{{ route('attractions.index') }}"><strong>Tất cả ({{ $total_attractions }}) <i
                             class="arrow_carrot-right"></i></strong></a>
         </section>
         <!-- /section -->

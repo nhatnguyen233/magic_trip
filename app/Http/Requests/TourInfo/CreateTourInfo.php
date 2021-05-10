@@ -47,6 +47,9 @@ class CreateTourInfo extends FormRequest
             'vehicle' => [
                 'nullable',
             ],
+            'vehicle_info' => [
+                'nullable',
+            ],
             'order_number' => [
                 'nullable',
                 Rule::unique('tour_infos', 'order_number')->where('tour_id', $this->tour_id)
@@ -60,5 +63,20 @@ class CreateTourInfo extends FormRequest
                 'max:5120',
             ],
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        if($this->vehicle_info)
+        {
+            $this->merge([
+                'vehicle' => $this->vehicle_info,
+            ]);
+        }
     }
 }
