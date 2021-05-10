@@ -41,7 +41,8 @@ class TourEloquent extends BaseRepository implements TourRepository
                     ->orWhere('tours.name', 'like', '%' . $params['description'] . '%');
             })
             ->when(isset($params['address']), function ($q) use ($params) {
-                $q->where('attractions.address', 'like', '%' . $params['address'] . '%')
+                $q->join('provinces', 'attractions.province_id', '=', 'provinces.id')
+                   ->where('attractions.address', 'like', '%' . $params['address'] . '%')
                     ->orWhere('provinces.name', 'like', '%' . $params['address'] . '%');
             })
             ->when(isset($params['province_id']), function ($q) use ($params) {
