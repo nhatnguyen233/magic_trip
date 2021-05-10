@@ -59,18 +59,21 @@
                                     $start_time = new DateTime($item->start_time);
                                 @endphp
                                 <li>
-                                    <time class="cbp_tmtime" datetime="{{ $start_time->format('H:i') }}"><span>{{ round($item->limit_time/60,1) }} giờ.</span><span>{{ $start_time->format('H:i') }}</span>
+                                    <time class="cbp_tmtime" datetime="{{ $start_time->format('H:i') }}">
+                                        <span>{{ $item->vehicle }}</span>
+                                        <span>{{ round($item->limit_time/60,1) }} giờ</span>
+                                        <span>{{ $start_time->format('H:i') }}</span>
                                     </time>
                                     <div class="cbp_tmicon">
                                         {{ $item->order_number }}
                                     </div>
                                     <div class="cbp_tmlabel">
                                         <div class="hidden-xs">
-                                            <img src="{{ $item->thumbnail_url }}" alt="" class="rounded-circle thumb_visit">
+                                            <img src="{{ $item->attraction->thumbnail_url }}" alt="" class="rounded-circle thumb_visit">
                                         </div>
-                                        <h4>{{ $item->title }}</h4>
+                                        <h4>{{ $item->attraction->title }}</h4>
                                         <p>
-                                            {!! $item->summary !!}
+                                            {!! $item->attraction->description !!}
                                         </p>
                                     </div>
                                 </li>

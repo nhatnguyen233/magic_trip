@@ -32,7 +32,7 @@ class CreateTourInfo extends FormRequest
                 'required',
             ],
             'accommodation_id' => [
-                'nullable',
+                'required',
             ],
             'title' => [
                 'nullable',
