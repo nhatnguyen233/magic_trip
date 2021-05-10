@@ -36,9 +36,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $viewData['accommodations'] = $this->accommodationRepository->all()->take(4);
-        $viewData['attractions'] = $this->attractionRepository->all()->take(4);
-        $viewData['tours'] = $this->tourRepository->all();
+        $viewData['accommodations'] = $this->accommodationRepository->all()->random(4);
+        $viewData['attractions'] = $this->attractionRepository->all()->random(4);
+        $viewData['tours'] = $this->tourRepository->all()->sortByDesc('created_at');
         $viewData['categories'] = $this->categoryRepository->findWhere(['type' => CatType::TOURISM]);
 
         return view('home', $viewData);

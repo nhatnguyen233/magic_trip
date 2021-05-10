@@ -54,7 +54,7 @@
                                                             selected
                                                             @endif
                                                             value={{ $item->id }}>
-                                                        {{ $item->name }}
+                                                        {{ $item->name . ' -' . $item->district->name . ', ' . $item->province->name }}
                                                     </option>
                                                 @endforeach
                                             </select>

@@ -8,27 +8,20 @@
     <section class="hero_in tours_detail">
         <div class="wrapper">
             <div class="container">
-                <h1 class="fadeInUp"><span></span>{!! $tour->description !!}</h1>
+                <h1 class="fadeInUp"><span></span>{{ $tour->name }}</h1>
             </div>
             <span class="magnific-gallery">
-                <a href="{{ $tour->infos->first()->thumbnail_url ?? '' }}" class="btn_photos" title="Ảnh album" data-effect="mfp-zoom-in">Album ảnh</a>
+                <a href="{{ $tour->avatar_url }}" class="btn_photos" title="Ảnh album" data-effect="mfp-zoom-in">Album ảnh</a>
                 @if($tour->infos != null)
                     @foreach($tour->infos as $key=>$info)
-                        @if($key > 0)
-                            <a href="{{ $info->thumbnail_url }}" title="Ảnh tham khảo" data-effect="mfp-zoom-in"></a>
-                        @endif
-
-                        @if($info->attraction_images != null)
-                        @foreach($info->attraction_images as $value)
-                            <a href="{{ $value }}" title="Ảnh tham khảo" data-effect="mfp-zoom-in"></a>
-                        @endforeach
-                        @endif
-
-                        @if($info->accommodation_images != null)
-                        @foreach($info->accommodation_images as $value)
-                            <a href="{{ $value }}" title="Địa điểm nghỉ ngơi" data-effect="mfp-zoom-in"></a>
-                        @endforeach
-                        @endif
+                    @if($key > 0)
+                    <a href="{{ $info->thumbnail_url }}" title="Ảnh tham khảo" data-effect="mfp-zoom-in"></a>
+                    @endif
+                    @if($info->attraction_images != null)
+                    @foreach($info->attraction_images as $value)
+                    <a href="{{ $value }}" title="Ảnh tham khảo" data-effect="mfp-zoom-in"></a>
+                    @endforeach
+                    @endif
                     @endforeach
                 @endif
             </span>
@@ -66,7 +59,7 @@
                                     $start_time = new DateTime($item->start_time);
                                 @endphp
                                 <li>
-                                    <time class="cbp_tmtime" datetime="{{ $start_time->format('H:i') }}"><span>{{ $item->limit_time }} min.</span><span>{{ $start_time->format('H:i') }}</span>
+                                    <time class="cbp_tmtime" datetime="{{ $start_time->format('H:i') }}"><span>{{ round($item->limit_time/60,1) }} giờ.</span><span>{{ $start_time->format('H:i') }}</span>
                                     </time>
                                     <div class="cbp_tmicon">
                                         {{ $item->order_number }}
@@ -77,7 +70,7 @@
                                         </div>
                                         <h4>{{ $item->title }}</h4>
                                         <p>
-                                            {{ $item->summary }}
+                                            {!! $item->summary !!}
                                         </p>
                                     </div>
                                 </li>
@@ -182,7 +175,7 @@
                                             </div>
                                             <div class="rev-text">
                                                 <p>
-                                                    {{ $item->content }}
+                                                    {!! $item->content !!}
                                                 </p>
                                             </div>
                                         </div>
