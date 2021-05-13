@@ -97,7 +97,9 @@
                                         <div class="thumb_cart">
                                             <img src="{{ $item->thumbnail_url }}" alt="Image" style="height:  60px !important;">
                                         </div>
-                                        <span class="item_cart">{{ $item->tour_name }}</span>
+                                        <span class="item_cart" title="{{ $item->tour_name }}">
+                                            {{ \Illuminate\Support\Str::limit($item->tour_name,20, '...') }}
+                                        </span>
                                     </td>
                                     <td>
                                         <strong>{{ date("d-m-Y", strtotime($item->date_of_book)) }}</strong>
