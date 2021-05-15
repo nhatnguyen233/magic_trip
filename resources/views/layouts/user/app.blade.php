@@ -59,6 +59,20 @@
             <a href="{{ route('login.social', ['provider' => 'facebook']) }}" class="social_bt facebook">Đăng nhập với Facebook</a>
             <a href="{{ route('login.social', ['provider' => 'google']) }}" class="social_bt google">Đăng nhập với Google</a>
             <div class="divider"><span>Hoặc</span></div>
+
+            @if (count($errors) > 0)
+                <div class="alert alert-danger alert-dismissible fade show">
+                    <button type="button" class="close" data-dismiss=".alert">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                        <ul>
+                            @foreach($errors->all() as $errors)
+                                <li>{{ $errors}} </li>
+                            @endforeach
+                        </ul>
+                </div>
+            @endif
+
             <div class="form-group">
                 <label>Email</label>
                 <input type="email" class="form-control" name="email" id="email">
@@ -146,6 +160,14 @@
      page_id="103043011942060">
 </div>
 <!-- COMMON SCRIPTS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    $(document).on("click", "[data-dismiss]", function(e) {
+        e.preventDefault();
+        var $this = $(this);
+        $this.closest($this.attr("data-dismiss")).hide();
+    });
+</script>
 <script src="{{ asset('js/front/common_scripts.js') }}"></script>
 <script src="{{ asset('js/front/main.js') }}"></script>
 <script src="{{ asset('js/front/jquery-3.5.1.min.js') }}"></script>
