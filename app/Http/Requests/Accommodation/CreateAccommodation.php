@@ -25,6 +25,10 @@ class CreateAccommodation extends FormRequest
     public function rules()
     {
         return [
+            'user_id' => [
+                'nullable',
+                'exists:users,id'
+            ],
             'name' => [
                 'required',
                 'unique:accommodations,name'
@@ -100,6 +104,18 @@ class CreateAccommodation extends FormRequest
      */
     protected function prepareForValidation()
     {
+        if(explode('/', url()->current())[3] == "admincp")
+        {
+            $this->merge([
+                'user_id' => auth('admin')->id(),
+            ]);
+        } else if(explode('/', url()->current())[3] == "host")
+        {
+            $this->merge([
+                'user_id' => auth('host')->id(),
+            ]);
+        }
+
         $this->merge([
             'slug' => Str::slug($this->name),
             'lowest_price' => doubleval(str_replace('.','',$this->lowest_price)),

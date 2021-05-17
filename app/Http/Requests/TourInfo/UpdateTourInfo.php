@@ -33,9 +33,6 @@ class UpdateTourInfo extends FormRequest
             'accommodation_id' => [
                 'nullable',
             ],
-            'title' => [
-                'nullable',
-            ],
             'start_time' => [
                 'nullable',
             ],

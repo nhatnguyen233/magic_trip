@@ -19,7 +19,7 @@
             <i class="fa fa-table"></i> Danh sách các Tour
         </div>
         <div class="card-body">
-            <a href="{{ route('host.tours.create') }}" class="btn btn-success mb-3 ml-3">Thêm tours</a>
+            <a href="{{ route('host.tours.create') }}" class="btn btn-primary mb-3 ml-3">Thêm tours</a>
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
@@ -30,7 +30,6 @@
                         <th>Tổng thời gian</th>
                         <th>Phương tiện chính</th>
                         <th>Ảnh thu nhỏ</th>
-{{--                        <th>Lộ trình</th>--}}
                         <th>Hành động</th>
                     </tr>
                     </thead>
@@ -43,7 +42,6 @@
                             <td>{{ $item->total_time }}</td>
                             <td>{{ $item->vehicle }}</td>
                             <td><img src="{{ $item->thumbnail_url }}" width="100px"/></td>
-{{--                            <td>{{ $item->infos }}</td>--}}
                             <td>
                                 <div class="d-flex justify-content-around">
                                     <a href="{{ route('host.tours.edit', $item->id) }}"

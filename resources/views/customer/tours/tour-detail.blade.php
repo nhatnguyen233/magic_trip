@@ -11,9 +11,19 @@
                 <h1 class="fadeInUp"><span></span>{{ $tour->name }}</h1>
             </div>
             <span class="magnific-gallery">
-                <a href="{{ asset('img/gallery/tour_list_1.jpg') }}" class="btn_photos" title="Photo title" data-effect="mfp-zoom-in">View photos</a>
-                <a href="{{ asset('img/gallery/tour_list_2.jpg') }}" title="Photo title" data-effect="mfp-zoom-in"></a>
-                <a href="{{ asset('img/gallery/tour_list_3.jpg') }}" title="Photo title" data-effect="mfp-zoom-in"></a>
+                <a href="{{ $tour->avatar_url }}" class="btn_photos" title="Ảnh album" data-effect="mfp-zoom-in">Album ảnh</a>
+                @if($tour->infos != null)
+                    @foreach($tour->infos as $key=>$info)
+                    @if($key > 0)
+                    <a href="{{ $info->thumbnail_url }}" title="Ảnh tham khảo" data-effect="mfp-zoom-in"></a>
+                    @endif
+                    @if($info->attraction_images != null)
+                    @foreach($info->attraction_images as $value)
+                    <a href="{{ $value }}" title="Ảnh tham khảo" data-effect="mfp-zoom-in"></a>
+                    @endforeach
+                    @endif
+                    @endforeach
+                @endif
             </span>
         </div>
     </section>
@@ -49,18 +59,21 @@
                                     $start_time = new DateTime($item->start_time);
                                 @endphp
                                 <li>
-                                    <time class="cbp_tmtime" datetime="{{ $start_time->format('H:i') }}"><span>{{ $item->limit_time }} min.</span><span>{{ $start_time->format('H:i') }}</span>
+                                    <time class="cbp_tmtime" datetime="{{ $start_time->format('H:i') }}">
+                                        <span>{{ $item->vehicle }}</span>
+                                        <span>{{ round($item->limit_time/60,1) }} giờ</span>
+                                        <span>{{ $start_time->format('H:i') }}</span>
                                     </time>
                                     <div class="cbp_tmicon">
                                         {{ $item->order_number }}
                                     </div>
                                     <div class="cbp_tmlabel">
                                         <div class="hidden-xs">
-                                            <img src="{{ $item->thumbnail_url }}" alt="" class="rounded-circle thumb_visit">
+                                            <img src="{{ $item->attraction->thumbnail_url }}" alt="" class="rounded-circle thumb_visit">
                                         </div>
-                                        <h4>{{ $item->title }}</h4>
+                                        <h4>{{ $item->attraction->title }}</h4>
                                         <p>
-                                            {{ $item->summary }}
+                                            {!! $item->attraction->description !!}
                                         </p>
                                     </div>
                                 </li>
@@ -165,7 +178,7 @@
                                             </div>
                                             <div class="rev-text">
                                                 <p>
-                                                    {{ $item->content }}
+                                                    {!! $item->content !!}
                                                 </p>
                                             </div>
                                         </div>

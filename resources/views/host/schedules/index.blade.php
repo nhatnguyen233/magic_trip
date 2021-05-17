@@ -115,9 +115,9 @@
                 format: 'DD-MM-YYYY',
             });
 
-            $("#create_departure_time").on("change.datetimepicker", function (e) {
-                $(this).datetimepicker('minDate', e.date);
-            });
+            // $("#create_departure_time").on("change.datetimepicker", function (e) {
+            //     $(this).datetimepicker('minDate', e.date);
+            // });
 
             $('#edit_departure_time').datetimepicker({
                 format: 'DD-MM-YYYY',

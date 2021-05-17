@@ -8,7 +8,7 @@
     <section class="hero_in hotels">
         <div class="wrapper">
             <div class="container">
-                <h1 class="fadeInUp"><span></span>TOURS</h1>
+                <h1 class="fadeInUp"><span></span>DANH SÁCH TOUR DU LỊCH</h1>
             </div>
         </div>
     </section>
@@ -21,11 +21,11 @@
                     <div class="switch-field">
                         <input type="radio" id="all" name="listing_filter" value="all" checked data-filter="*"
                                class="selected">
-                        <label for="all">All</label>
+                        <label for="all">Tất cả</label>
                         <input type="radio" id="popular" name="listing_filter" value="popular" data-filter=".popular">
-                        <label for="popular">Popular</label>
+                        <label for="popular">Ưa chuộng</label>
                         <input type="radio" id="latest" name="listing_filter" value="latest" data-filter=".latest">
-                        <label for="latest">Latest</label>
+                        <label for="latest">Mới nhất</label>
                     </div>
                 </li>
                 <li>
@@ -36,8 +36,8 @@
                 </li>
                 <li>
                     <a class="btn_map" data-toggle="collapse" href="#collapseMap" aria-expanded="false"
-                       aria-controls="collapseMap" data-text-swap="Hide map" data-text-original="View on map">View on
-                        map</a>
+                       aria-controls="collapseMap" data-text-swap="Hide map" data-text-original="View on map">Xem bản
+                        đồ</a>
                 </li>
             </ul>
         </div>
@@ -53,7 +53,6 @@
     <div class="container margin_60_35">
         <div class="col-lg-12">
             <form action="" method="GET">
-                @csrf
                 <div class="row no-gutters custom-search-input-2 inner">
                     <div class="col-lg-4">
                         <div class="form-group">
@@ -69,7 +68,7 @@
                     </div>
                     <div class="col-lg-3">
                         <select class="wide" name="province_id">
-                            <option value="">All</option>
+                            <option value="">Tất cả</option>
                             @foreach($provinces as $province)
                                 <option value="{{ $province->id }}"
                                         @if(request()->get('province_id') == $province->id)  selected @endif>
@@ -95,7 +94,7 @@
                     <div class="row no-gutters">
                         <div class="col-lg-5">
                             <figure>
-                                <small>Parirs Centre</small>
+                                <small>{{ $tour->infos->first()->attraction->district->name }}</small>
                                 <a href="{{ route('tours.show', $tour->id) }}"><img src="{{ $tour->thumbnail_url }}"
                                                                                     class="img-fluid" alt="" width="800"
                                                                                     height="533">
@@ -134,7 +133,7 @@
                                     class="price">Từ <strong>{{ number_format($tour->price) }}đ</strong> / 1 người</span>
                             </div>
                             <ul>
-                                <li><i class="ti-eye"></i> 164 views</li>
+                                <li><i class="ti-eye"></i> 164 lượt xem</li>
                                 <li>
                                     <div class="score">
                                         <span>
