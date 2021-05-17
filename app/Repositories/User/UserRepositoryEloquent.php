@@ -122,7 +122,10 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
 
     public function getUserSocialNetWork($getInfo, $provider)
     {
-        $user = User::where('provider_id', $getInfo->id)->first();
+        $user = User::where('provider_id', $getInfo->id)
+                ->where('email', $getInfo->email)
+                ->where('role_id', UserRole::CUSTOMER)
+                ->first();
 
         if (!$user) {
             $user = User::create([
