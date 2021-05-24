@@ -48,7 +48,7 @@
                 <!-- End bs-wizard -->
                 <div id="confirm">
                     <h4>Đặt thành công!</h4>
-                    <p>Bạn sẽ nhận được thông tin về chuyến du lịch sắp tới từ email toilanhat233@gmail.com</p>
+                    <p>Bạn sẽ nhận được thông tin về chuyến du lịch sắp tới từ email magictrip@gmail.com</p>
                 </div>
             </div>
         </div>
