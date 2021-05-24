@@ -32,7 +32,7 @@
                 <h5>Liên hệ với chúng tôi</h5>
                 <ul class="contacts">
                     <li><a href="tel://84280932400"><i class="ti-mobile"></i> + 84 976 663 241</a></li>
-                    <li><a href="mailto:toilanhat233@gmail.com"><i class="ti-email"></i> toilanhat233@gmail.com</a></li>
+                    <li><a href="mailto:magictrip@gmail.com"><i class="ti-email"></i> magictrip@gmail.com</a></li>
                 </ul>
                 <div id="newsletter">
                     <h6>Bản tin</h6>
