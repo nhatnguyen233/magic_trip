@@ -10,7 +10,7 @@ interface EventRepository extends RepositoryInterface
 
     public function createEvent(array $params);
 
-    public function updateTour(array $params, $id);
+    public function updateEvent(array $params, $id);
 
-    public function removeTour($tour);
+    public function removeEvent($tour);
 }

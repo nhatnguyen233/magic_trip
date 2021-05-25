@@ -57,7 +57,9 @@ class AttractionController extends Controller
      */
     public function show(Attraction $attraction)
     {
-        //
+        $viewData['attraction'] = $attraction;
+
+        return view('customer.attractions.attraction-detail', $viewData);
     }
 
     /**

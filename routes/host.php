@@ -13,6 +13,7 @@ use App\Http\Controllers\Host\AccommodationController;
 use App\Http\Controllers\Host\AttractionController;
 use App\Http\Controllers\Host\AccommodationImageController;
 use App\Http\Controllers\Host\AttractionImageController;
+use App\Http\Controllers\Host\EventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,4 +52,5 @@ Route::middleware('auth.host')->group(function() {
     Route::put('/finished/{booking}', [BookTourController::class, 'finishedConfirm'])->name('bookings.finished');
     Route::get('/tour-infos/list/{tour}', [TourInfoController::class, 'getListTourInfo'])->name('tour-infos.list');
     Route::resource('reviews', ReviewController::class);
+    Route::resource('news', EventController::class);
 });

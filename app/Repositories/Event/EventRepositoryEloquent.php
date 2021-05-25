@@ -40,7 +40,7 @@ class EventReposiroryEloquent extends BaseRepository implements EventRepository
 
             if (isset($params['avatar'])) {
                 $fileName = Str::uuid() . '.' . $params['avatar']->getClientOriginalExtension();
-                $fullPath = 'tours/avatars/' . time() . $fileName;
+                $fullPath = 'events/avatars/' . time() . $fileName;
                 Storage::disk('s3')->put($fullPath, file_get_contents($params['avatar']), 'public');
                 $params['avatar'] = $fullPath;
             }
@@ -49,10 +49,10 @@ class EventReposiroryEloquent extends BaseRepository implements EventRepository
                 return in_array($key, ['user_id', 'title', 'description', 'author', 'type']);
             }, ARRAY_FILTER_USE_KEY);
 
-            $tour = $this->create($data);
+            $event = $this->create($data);
             DB::commit();
 
-            return $tour;
+            return $event;
         } catch (Exception $exception) {
             Log::error($exception);
             DB::rollBack();
@@ -60,37 +60,29 @@ class EventReposiroryEloquent extends BaseRepository implements EventRepository
         }
     }
 
-    public function updateTour(array $params, $id)
+    public function updateEvent(array $params, $id)
     {
         try {
             DB::beginTransaction();
-            $tour = $this->find($id);
+            $event = $this->find($id);
 
             if (isset($params['avatar'])) {
-                Storage::disk('s3')->delete($tour->avatar);
+                Storage::disk('s3')->delete($event->avatar);
                 $fileName = Str::uuid() . '.' . $params['avatar']->getClientOriginalExtension();
-                $fullPath = 'tours/avatars/' . time() . $fileName;
+                $fullPath = 'events/avatars/' . time() . $fileName;
                 Storage::disk('s3')->put($fullPath, file_get_contents($params['avatar']), 'public');
                 $params['avatar'] = $fullPath;
             }
 
-            if (isset($params['thumbnail'])) {
-                Storage::disk('s3')->delete($tour->thumbnail);
-                $fileName = Str::uuid() . '.' . $params['thumbnail']->getClientOriginalExtension();
-                $fullPath = 'tours/thumbnail/' . time() . $fileName;
-                Storage::disk('s3')->put($fullPath, file_get_contents($params['thumbnail']), 'public');
-                $params['thumbnail'] = $fullPath;
-            }
-
             $data = array_filter($params, function ($key) {
-                return in_array($key, ['user_id', 'host_id', 'name', 'description', 'program', 'price',
-                    'vehicle', 'total_time', 'avatar', 'thumbnail']);
+                return in_array($key, ['user_id', 'title', 'description', 'author', 'type']);
             }, ARRAY_FILTER_USE_KEY);
 
-            $tour->update($data);
+
+            $event->update($data);
             DB::commit();
 
-            return $tour;
+            return $event;
         } catch (Exception $exception) {
             Log::error($exception);
             DB::rollBack();
@@ -98,12 +90,12 @@ class EventReposiroryEloquent extends BaseRepository implements EventRepository
         }
     }
 
-    public function removeTour($tour)
+    public function removeEvent($event)
     {
         try {
             DB::beginTransaction();
 
-            $tour->delete();
+            $event->delete();
 
             DB::commit();
 
@@ -113,10 +105,5 @@ class EventReposiroryEloquent extends BaseRepository implements EventRepository
             DB::rollBack();
             throw $exception;
         }
-    }
-
-    public function getTourName()
-    {
-        return $this->orderBy('id', 'DESC')->pluck('name', 'id')->toArray();;
     }
 }
