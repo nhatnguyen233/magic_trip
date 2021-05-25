@@ -15,7 +15,7 @@ class EventController extends Controller
     protected $eventRepository;
 
     public function __construct(
-        EventRepository $eventRepository,
+        EventRepository $eventRepository
     )
     {
         $this->eventRepository = $eventRepository;
@@ -89,7 +89,7 @@ class EventController extends Controller
      */
     public function update(Request $request, Event $event)
     {
-        $this->eventRepository->updateEvent($request->all(), $event->id);
+        $this->eventRepository->updateEvent($request->all(), $event);
 
         return redirect()->route('host.news.index')->with('success', 'Update new successfully');
     }
@@ -104,9 +104,9 @@ class EventController extends Controller
     {
         if($this->eventRepository->removeEvent($event)){
 
-            return redirect()->back()->with('success', __('message.update_success'));
+            return redirect()->back()->with('success', 'Delete successfully');
         }
 
-        return redirect()->back()->with('fail', __('message.update_fail'));
+        return redirect()->back()->with('fail', 'Delete fail');
     }
 }

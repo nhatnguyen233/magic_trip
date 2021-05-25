@@ -40,13 +40,13 @@ class EventReposiroryEloquent extends BaseRepository implements EventRepository
 
             if (isset($params['avatar'])) {
                 $fileName = Str::uuid() . '.' . $params['avatar']->getClientOriginalExtension();
-                $fullPath = 'events/avatars/' . time() . $fileName;
+                $fullPath = 'tour/avatars/' . time() . $fileName;
                 Storage::disk('s3')->put($fullPath, file_get_contents($params['avatar']), 'public');
                 $params['avatar'] = $fullPath;
             }
 
             $data = array_filter($params, function ($key) {
-                return in_array($key, ['user_id', 'title', 'description', 'author', 'type']);
+                return in_array($key, ['user_id', 'title', 'description', 'author', 'type', 'avatar']);
             }, ARRAY_FILTER_USE_KEY);
 
             $event = $this->create($data);
@@ -69,13 +69,13 @@ class EventReposiroryEloquent extends BaseRepository implements EventRepository
             if (isset($params['avatar'])) {
                 Storage::disk('s3')->delete($event->avatar);
                 $fileName = Str::uuid() . '.' . $params['avatar']->getClientOriginalExtension();
-                $fullPath = 'events/avatars/' . time() . $fileName;
+                $fullPath = 'tour/avatars/' . time() . $fileName;
                 Storage::disk('s3')->put($fullPath, file_get_contents($params['avatar']), 'public');
                 $params['avatar'] = $fullPath;
             }
 
             $data = array_filter($params, function ($key) {
-                return in_array($key, ['user_id', 'title', 'description', 'author', 'type']);
+                return in_array($key, ['user_id', 'title', 'description', 'author', 'type', 'avatar']);
             }, ARRAY_FILTER_USE_KEY);
 
 

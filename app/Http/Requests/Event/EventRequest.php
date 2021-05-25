@@ -31,14 +31,15 @@ class EventRequest extends FormRequest
             ],
             'title' => [
                 'required',
-                'unique:accommodations,name'
             ],
             'description' => [
-                'nullable',
+                'required',
             ],
             'author' => [
-                'starts_with:0',
-                'digits:10'
+                'required',
+            ],
+            'avatar' => [
+                'required',
             ],
         ];
     }
