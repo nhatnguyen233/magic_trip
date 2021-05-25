@@ -37,6 +37,8 @@ use App\Repositories\Schedule\ScheduleEloquent;
 use App\Repositories\Schedule\ScheduleRepository;
 use App\Repositories\Bill\BillRepository;
 use App\Repositories\Bill\BillRepositoryEloquent;
+use App\Repositories\Event\EventReposiroryEloquent;
+use App\Repositories\Event\EventRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -111,6 +113,10 @@ class RepositoryServiceProvider extends ServiceProvider
         [
             'abstract' => BillRepository::class,
             'concrete' => BillRepositoryEloquent::class,
+        ],
+        [
+            'abstract' => EventRepository::class,
+            'concrete' => EventReposiroryEloquent::class,
         ]
     ];
 
