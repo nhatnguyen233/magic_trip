@@ -87,12 +87,6 @@ class AuthController extends Controller
             return redirect(URL::previous());
         }
 
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        $request->session()->flush();
-
         return redirect(route($this->guardName . '.login'));
     }
 
