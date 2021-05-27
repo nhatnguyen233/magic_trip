@@ -78,7 +78,16 @@
                         </li>
                         <li><a href="#0" class="btn_1 gray delete"><i class="fa fa-fw fa-times-circle-o"></i> Từ chối</a></li>
                         @elseif($item->status == \App\Enums\BookingStatus::APPROVED)
-                        <li><a href="#0" class="btn_1 gray delete"><i class="fa fa-fw fa-times-circle-o"></i> Hủy chấp thuận</a></li>
+                        <li>
+                            <a href="#0" class="btn_1 gray delete"
+                               id="cancelBooking"
+                               data-toggle="modal"
+                               data-target="#cancelModal"
+                               data-action="{{ route('host.bookings.cancel', $item->id) }}">
+                                <i class="fa fa-fw fa-times-circle-o"></i>
+                                Hủy chấp thuận
+                            </a>
+                        </li>
                         @elseif($item->status == \App\Enums\BookingStatus::PAID)
                         <li>
                             <a data-toggle="modal" id="finishedConfirm" data-target="#finishedConfirmModal"
@@ -107,6 +116,7 @@
         {{ $bookings->links() }}
     </div>
     @include('host.bookings.modals._approve_modal')
+    @include('host.bookings.modals._cancel_modal')
     @include('host.bookings.modals._finished_confirm_modal')
 @endsection
 
@@ -122,6 +132,10 @@
 
         $(document).on('click', '#finishedConfirm', function () {
             $('#form-finished-confirm').attr('action', $(this).attr('data-action'));
+        });
+
+        $(document).on('click', '#cancelBooking', function () {
+            $('#form-cancel').attr('action', $(this).attr('data-action'));
         });
     </script>
 @endsection
