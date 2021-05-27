@@ -59,7 +59,8 @@ mix.copy('resources/assets/admin/css/', 'public/admin/css/')
     .copy('resources/js/accommodation', 'public/js/accommodation');
 
 // Host Page
-mix.copy('resources/js/tour', 'public/js/tour');
+mix.copy('resources/js/tour', 'public/js/tour')
+    .copy('resources/js/notifications/notifications.js', 'public/js/notification.js');
 
 // Cropper Image
 mix.copy('node_modules/cropperjs/dist/cropper.css', 'public/css')

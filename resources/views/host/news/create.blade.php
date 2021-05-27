@@ -43,7 +43,7 @@
             {{ session()->get('success') }}
         </div>
     @endif
-    <form action="{{ route('host.news.store') }}" method="post" enctype="multipart/form-data" class="container">
+    <form action="{{ route('host.events.store') }}" method="post" enctype="multipart/form-data" class="container">
         @csrf
         <div class="box_general padding_bottom">
             <div class="header_box version_2">

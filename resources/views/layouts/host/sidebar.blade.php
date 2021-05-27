@@ -25,7 +25,7 @@
             </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Các tours du lịch">
-            <a class="nav-link" href="{{ route('host.news.index') }}">
+            <a class="nav-link" href="{{ route('host.events.index') }}">
                 <i class="fa fa-fw fa-file"></i>
                 <span class="nav-link-news">Quản lí tin tức</span>
             </a>

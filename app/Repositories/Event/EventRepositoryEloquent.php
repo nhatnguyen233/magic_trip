@@ -12,7 +12,7 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Exceptions\RepositoryException;
 use Exception;
 
-class EventReposiroryEloquent extends BaseRepository implements EventRepository
+class EventRepositoryEloquent extends BaseRepository implements EventRepository
 {
     public function model()
     {

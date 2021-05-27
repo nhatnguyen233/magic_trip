@@ -10,6 +10,12 @@ use App\Repositories\Cart\CartRepository;
 use App\Repositories\Province\ProvinceRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Carbon\Carbon;
+use App\Models\User;
+use Illuminate\Notifications\Notification;
+use Pusher\Pusher;
+use App\Notifications\ReceiveOrder;
+use Illuminate\Support\Facades\Auth;
 
 class BookTourController extends Controller
 {
@@ -73,6 +79,28 @@ class BookTourController extends Controller
             $this->cartRepository->deleteAllCart(session()->get('session_token'));
             Session::forget(['session_token', 'total_item_cart']);
         }
+        $receiveNotificationUser = User::where('role_id', "=", config('const.role.admin'))->get();
+            Notification::send($receiveNotificationUser, new ReceiveOrder());
+
+            $data['userName'] = Auth::user()->user_name;
+            $data['orderDate'] = Carbon::now();
+            $data['title'] = trans('messages.order.message');
+            $data['body'] = trans('messages.order.order');
+            $data['avatar'] = config('const.pathDefaultImage.image');
+
+            $options = array(
+                'cluster' => 'ap1',
+                'encrypted' => true
+            );
+
+            $pusher = new Pusher(
+                env('PUSHER_APP_KEY'),
+                env('PUSHER_APP_SECRET'),
+                env('PUSHER_APP_ID'),
+                $options
+            );
+
+            $pusher->trigger('NotificationPusherEvent', 'send-message', $data);
 
         return response()->json(['data' => $books]);
     }

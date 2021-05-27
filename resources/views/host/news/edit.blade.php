@@ -29,7 +29,7 @@
             {{ session()->get('success') }}
         </div>
     @endif
-    <form action="{{ route('host.news.update', $event->id) }}" method="post" enctype="multipart/form-data" class="container">
+    <form action="{{ route('host.events.update', $event->id) }}" method="POST" enctype="multipart/form-data" class="container">
         @method('PUT')
         @csrf
         <div class="box_general padding_bottom">
@@ -75,8 +75,8 @@
                         <label>Mô tả</label>
                         <textarea name="description" class="editor" id="description" title="Mô tả thêm">
                             {!! session()->get('event')->description ?? old('description') !!}
+                            {{ $event->description }}
                         </textarea>
-                        {{ $event->description }}
                     </div>
                 </div>
             </div>
