@@ -1,4 +1,4 @@
-<div class="collapse navbar-collapse" id="navbarResponsive">
+<div style=" margin-bottom: 17.5px" class="collapse navbar-collapse" id="navbarResponsive">
     <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
             <a class="nav-link" href="{{ route('admin.index') }}">
