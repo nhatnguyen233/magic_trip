@@ -4,18 +4,41 @@ namespace App\Http\Controllers\Host;
 
 use App\Http\Controllers\Controller;
 use App\Models\Host;
+use App\Repositories\BookTour\BookTourRepository;
+use App\Repositories\Review\ReviewRepository;
+use App\Repositories\Tour\TourRepository;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    protected $tourRepository;
+    protected $bookRepository;
+    protected $reviewRepository;
+
+    public function __construct(
+        TourRepository $tourRepository,
+        BookTourRepository $bookRepository,
+        ReviewRepository $reviewRepository
+    )
+    {
+        $this->tourRepository = $tourRepository;
+        $this->bookRepository = $bookRepository;
+        $this->reviewRepository = $reviewRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('host.home');
+        $viewData['tours'] = $this->tourRepository->findWhere(['user_id'=>auth('host')->id()]);
+        $viewData['bookings'] = $this->bookRepository->getBookTourByHostID(auth('host')->user()->host->id,$request->all());
+        $viewData['reviews'] = $this->reviewRepository->findWhereIn('tour_id', $viewData['tours']->pluck('id')->toArray());
+
+        return view('host.home', $viewData);
     }
 
     /**
