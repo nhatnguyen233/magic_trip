@@ -49,6 +49,7 @@ Route::middleware('auth.host')->group(function() {
     Route::get('/export', [BillController::class, 'getListToExport'])->name('bills.export');
     Route::get('/export/pdf', [BillController::class, 'createPDF'])->name('bills.export.pdf');
     Route::put('/approve/{booking}', [BookTourController::class, 'approve'])->name('bookings.approve');
+    Route::put('/cancel/{booking}', [BookTourController::class, 'cancel'])->name('bookings.cancel');
     Route::put('/finished/{booking}', [BookTourController::class, 'finishedConfirm'])->name('bookings.finished');
     Route::get('/tour-infos/list/{tour}', [TourInfoController::class, 'getListTourInfo'])->name('tour-infos.list');
     Route::resource('reviews', ReviewController::class);
