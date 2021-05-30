@@ -57,13 +57,13 @@
                 <div class="form-group mt-3">
                    <div class="row">
                        <div class="col-md-12 d-flex flex-column align-items-center">
-                           <button type="submit" class="btn btn-blue text-center custom-button">Đăng nhập</button>
+                           <button type="submit" class="btn btn-blue text-center custom-button">@lang('message.login')</button>
                            <p>
-                                <small>Bạn chưa có tài khoản?
-                                    <a class="text-color-red" href="{{ route('host.register.form') }}">Đăng ký</a>
+                                <small>@lang('message.have_acc')
+                                    <a class="text-color-red" href="{{ route('host.register.form') }}">@lang('message.register')</a>
                                 </small>
                             </p>
-                           <a href="#" class="font-weight-bold text-color">Quên mật khẩu?</a>
+                           <a href="#" class="font-weight-bold text-color">@lang('message.forgot_pass')</a>
                        </div>
                    </div>
                 </div>

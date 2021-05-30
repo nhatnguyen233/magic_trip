@@ -99,7 +99,7 @@ class CartController extends Controller
             'total_price' => $request->number_of_slots * $cart->price,
         ]);
 
-        return redirect()->back()->with('success', 'Cập nhật thành công');
+        return redirect()->back()->with('success', trans('message.update_success'));
     }
 
     /**
@@ -113,7 +113,7 @@ class CartController extends Controller
         $cart->delete();
         \session()->put('total_item_cart', $this->cartRepository->findWhere(['session_token' => \session()->get('session_token')])->count());
 
-        return redirect()->back()->with('success', 'Xóa thành công');
+        return redirect()->back()->with('success', trans('message.delete_success'));
     }
 
     /**
@@ -126,6 +126,6 @@ class CartController extends Controller
         $this->cartRepository->deleteAllCart(\session()->get('session_token'));
         \session()->put('total_item_cart',$this->cartRepository->findWhere(['session_token' => \session()->get('session_token')])->count());
 
-        return redirect()->back()->with('success', 'Đã xóa hết');
+        return redirect()->back()->with('success', trans('message.delete_all'));
     }
 }

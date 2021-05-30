@@ -6,7 +6,7 @@
             <div class="container">
                 <div class="bs-wizard clearfix">
                     <div class="bs-wizard-step">
-                        <div class="text-center bs-wizard-stepnum">Giỏ</div>
+                        <div class="text-center bs-wizard-stepnum">@lang('message.cart')</div>
                         <div class="progress">
                             <div class="progress-bar"></div>
                         </div>
@@ -14,7 +14,7 @@
                     </div>
 
                     <div class="bs-wizard-step">
-                        <div class="text-center bs-wizard-stepnum">Đặt tour</div>
+                        <div class="text-center bs-wizard-stepnum">@lang('message.book_tour')</div>
                         <div class="progress">
                             <div class="progress-bar"></div>
                         </div>
@@ -22,7 +22,7 @@
                     </div>
 
                     <div class="bs-wizard-step">
-                        <div class="text-center bs-wizard-stepnum">Chờ xác nhận</div>
+                        <div class="text-center bs-wizard-stepnum">@lang('message.confirm')</div>
                         <div class="progress">
                             <div class="progress-bar"></div>
                         </div>
@@ -30,7 +30,7 @@
                     </div>
 
                     <div class="bs-wizard-step">
-                        <div class="text-center bs-wizard-stepnum">Thanh toán</div>
+                        <div class="text-center bs-wizard-stepnum">@lang('message.payment')</div>
                         <div class="progress">
                             <div class="progress-bar"></div>
                         </div>
@@ -38,7 +38,7 @@
                     </div>
 
                     <div class="bs-wizard-step active">
-                        <div class="text-center bs-wizard-stepnum">Hoàn thành</div>
+                        <div class="text-center bs-wizard-stepnum">@lang('message.finish')</div>
                         <div class="progress">
                             <div class="progress-bar"></div>
                         </div>
@@ -47,8 +47,8 @@
                 </div>
                 <!-- End bs-wizard -->
                 <div id="confirm">
-                    <h4>Đặt thành công!</h4>
-                    <p>Bạn sẽ nhận được thông tin về chuyến du lịch sắp tới từ email magictrip@gmail.com</p>
+                    <h4>@lang('message.book_success')</h4>
+                    <p>@lang('message.receive_inf')</p>
                 </div>
             </div>
         </div>

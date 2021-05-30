@@ -90,6 +90,6 @@ class AttractionImageController extends Controller
     {
         $this->attractionImageRepository->removeAttractionImage($attractionImage->id);
 
-        return redirect()->back()->with('success', 'Xóa ảnh thành công');
+        return redirect()->back()->with('success', trans('message.delete_success'));
     }
 }

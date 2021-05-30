@@ -39,7 +39,7 @@ class UserController extends Controller
     public function store(Register $request)
     {
         if($this->userRepository->createUserInfo($request->except(['_token']))) {
-            return redirect()->route('admin.users.index')->with('success', __('message.update_success'));
+            return redirect()->route('admin.users.index')->with('success', __('message.create_success'));
         }
 
         return redirect()->back()->with('fail', __('message.update_fail'));

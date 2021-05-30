@@ -52,7 +52,7 @@ class HostController extends Controller
         $user = $this->userRepository->createUserInfo($request->except(['_token']));
 
         if($this->hostRepository->createHost($request->validated(), $user->id)) {
-            return redirect()->route('admin.hosts.index')->with('success', __('message.update_success'));
+            return redirect()->route('admin.hosts.index')->with('success', __('message.create_success'));
         }
     }
 

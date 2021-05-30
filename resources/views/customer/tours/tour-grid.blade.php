@@ -95,7 +95,7 @@
                         <div class="wrapper">
                             <h3><a href="{{ route('tours.show', $item->id) }}">{{ $item->name }}</a></h3>
                             <p>{!! \Illuminate\Support\Str::limit($item->description, 60, '...')  !!}</p>
-                            <span class="price">Từ <strong>{{ number_format($item->price) }}đ</strong> / 1 người</span>
+                            <span class="price">Từ <strong>{{ number_format($item->price) }}đ</strong> / 1 @lang('message.per')</span>
                         </div>
                         <ul>
                             <li><i class="icon_clock_alt"></i> 1h 30min</li>
@@ -103,15 +103,15 @@
                                 <div class="score">
                                      <span>
                                         @if($average >= 9)
-                                             Tuyệt vời
+                                            @lang('message.great')
                                          @elseif($average >= 8)
-                                             Tốt
+                                             @lang('message.good')
                                          @elseif($average >= 5)
-                                             Khá tốt
+                                             @lang('message.average')
                                          @else
-                                             Bình thường
+                                            @lang('message.bad')
                                          @endif
-                                        <em>{{ $item->reviews->count() }} đánh giá</em>
+                                        <em>{{ $item->reviews->count() }} @lang('message.review')</em>
                                     </span>
                                     <strong>{{ $average }}</strong>
                                 </div>

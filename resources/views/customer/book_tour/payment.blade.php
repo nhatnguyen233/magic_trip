@@ -6,7 +6,7 @@
             <div class="container">
                 <div class="bs-wizard clearfix">
                     <div class="bs-wizard-step">
-                        <div class="text-center bs-wizard-stepnum">Giỏ</div>
+                        <div class="text-center bs-wizard-stepnum">@lang('message.cart')</div>
                         <div class="progress">
                             <div class="progress-bar"></div>
                         </div>
@@ -14,7 +14,7 @@
                     </div>
 
                     <div class="bs-wizard-step">
-                        <div class="text-center bs-wizard-stepnum">Đặt tour</div>
+                        <div class="text-center bs-wizard-stepnum">@lang('message.book_tour')</div>
                         <div class="progress">
                             <div class="progress-bar"></div>
                         </div>
@@ -22,7 +22,7 @@
                     </div>
 
                     <div class="bs-wizard-step">
-                        <div class="text-center bs-wizard-stepnum">Chờ xác nhận</div>
+                        <div class="text-center bs-wizard-stepnum">@lang('message.confirm')</div>
                         <div class="progress">
                             <div class="progress-bar"></div>
                         </div>
@@ -30,7 +30,7 @@
                     </div>
 
                     <div class="bs-wizard-step active">
-                        <div class="text-center bs-wizard-stepnum">Thanh toán</div>
+                        <div class="text-center bs-wizard-stepnum">@lang('message.payment')</div>
                         <div class="progress">
                             <div class="progress-bar"></div>
                         </div>
@@ -38,7 +38,7 @@
                     </div>
 
                     <div class="bs-wizard-step disabled">
-                        <div class="text-center bs-wizard-stepnum">Hoàn thành</div>
+                        <div class="text-center bs-wizard-stepnum">@lang('message.finish')</div>
                         <div class="progress">
                             <div class="progress-bar"></div>
                         </div>
@@ -134,7 +134,7 @@
                 <aside class="col-lg-4" id="sidebar">
                     <div class="box_detail">
                         <div id="total_cart">
-                            Tổng <span class="float-right">{{ number_format($total_price_all, 0, '', ',') }}đ</span>
+                        @lang('message.total') <span class="float-right">{{ number_format($total_price_all, 0, '', ',') }}đ</span>
                         </div>
                         <ul class="cart_details">
                             <li>Tour <span>{{ $orders->count() }}</span></li>

@@ -66,7 +66,7 @@ class AttractionController extends Controller
             $this->attractionRepository->updateAttractionImages($request->images, $attraction->id, auth('admin')->id());
         }
 
-        return redirect()->route('admin.attractions.index')->with('success', 'Tạo địa điểm thành công');
+        return redirect()->route('admin.attractions.index')->with('success', trans('message.create_success'));
     }
 
     /**
@@ -108,7 +108,7 @@ class AttractionController extends Controller
             $this->attractionRepository->updateAttractionImages($request->images, $attraction->id, auth('admin')->id());
         }
 
-        return redirect()->route('admin.attractions.index')->with('success', 'Cập nhật địa điểm thành công');
+        return redirect()->route('admin.attractions.index')->with('success', trans('message.update_success'));
     }
 
     /**
@@ -121,6 +121,6 @@ class AttractionController extends Controller
     {
         $this->attractionRepository->removeAttraction($attraction->id);
 
-        return redirect()->back()->with('success', 'Xóa địa điểm thành công');
+        return redirect()->back()->with('success', trans('message.delete_success'));
     }
 }
