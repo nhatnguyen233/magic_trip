@@ -49,7 +49,7 @@ class ReviewController extends Controller
 
         return redirect()->back()
             ->with('review', $review)
-            ->with('success', 'Đánh giá của bạn đã được ghi lại');
+            ->with('success', trans('message.review_success'));
     }
 
     /**

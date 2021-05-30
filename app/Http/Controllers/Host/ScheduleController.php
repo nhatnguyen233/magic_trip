@@ -59,7 +59,7 @@ class ScheduleController extends Controller
     {
         $this->scheduleRepository->createSchedule($request->validated());
 
-        return redirect()->back()->with('success', 'Tạo lịch thành công');
+        return redirect()->back()->with('success', trans('message.create_success'));
     }
 
     /**
@@ -95,7 +95,7 @@ class ScheduleController extends Controller
     {
         $this->scheduleRepository->updateSchedule($request->validated(), $schedule->id);
 
-        return redirect()->back()->with('success', 'Cập nhật lịch thành công');
+        return redirect()->back()->with('success', trans('message.update_success'));
     }
 
     /**
@@ -108,7 +108,7 @@ class ScheduleController extends Controller
     {
         $schedule->delete();
 
-        return redirect()->back()->with('success', 'Xóa lịch thành công');
+        return redirect()->back()->with('success', trans('message.delete_success'));
     }
 
     /**
