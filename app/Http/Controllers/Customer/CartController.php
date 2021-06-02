@@ -51,9 +51,7 @@ class CartController extends Controller
      */
     public function store(CreateCart $request)
     {
-        $cart = $this->cartRepository->findWhere(['session_token' => \session()->get('session_token')]);
         $this->cartRepository->addToCart($request->validated());
-        Session::put('total_item_cart', array_sum($cart->pluck('quantity')->toArray()) +1);
 
         return redirect(route('cart.index'));
     }
@@ -95,8 +93,10 @@ class CartController extends Controller
         }
 
         $cart->update([
+            'adults' => $request->adults,
+            'childrens' => $request->childrens,
+            'number_of_slots' => $request->number_of_slots,
             'total_price' => $request->number_of_slots * $cart->price,
-            'number_of_slots' => $request->number_of_slots
         ]);
 
         return redirect()->back()->with('success', 'Cập nhật thành công');

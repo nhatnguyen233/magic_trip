@@ -7,29 +7,30 @@
 					<h1 class="fadeInUp"><span></span>{{ $accommodation->name }}</h1>
 				</div>
 				<span class="magnific-gallery">
-					<a href="img/gallery/hotel_list_1.jpg" class="btn_photos" title="Photo title" data-effect="mfp-zoom-in">View photos</a>
-					<a href="img/gallery/hotel_list_2.jpg" title="Photo title" data-effect="mfp-zoom-in"></a>
-					<a href="img/gallery/hotel_list_3.jpg" title="Photo title" data-effect="mfp-zoom-in"></a>
+                    <a href="{{ $accommodation->avatar_url }}" class="btn_photos"  data-effect="mfp-zoom-in">Album ảnh</a>
+                    @foreach($accommodation->images as $image)
+                        <a href="{{ $image }}" title="Photo title" data-effect="mfp-zoom-in"></a>
+                    @endforeach
 				</span>
 			</div>
 		</section>
-        
+
 		<div class="bg_color_1">
 			<nav class="secondary_nav sticky_horizontal">
 				<div class="container">
 					<ul class="clearfix">
-						<li><a href="#description" class="active">Description</a></li>
-						<li><a href="#reviews">Reviews</a></li>
+						<li><a href="#description" class="active">Mô tả</a></li>
+						<li><a href="#reviews">Đánh giá</a></li>
 						<li><a href="#sidebar">Booking</a></li>
 					</ul>
 				</div>
 			</nav>
 			<div class="container margin_60_35">
 				<div class="row">
-					<div class="col-lg-8">
+					<div class="col-lg-12">
 						<section id="description">
-							<h2>Description</h2>
-							<p>{{ $accommodation->description }}</p>
+							<h2>Mô tả</h2>
+							<p>{!! $accommodation->description !!}</p>
 							<div class="row">
 								<div class="col-lg-6">
 									<ul class="bullets">
@@ -69,7 +70,7 @@
 											<li><img src="img/hotel_facilites_icon_8.svg" alt="">Hairdryer</li>
 										</ul>
 									</div>
-                                    <address><b>Address:</b> {{ $accommodation->getFullAddressAttribute() }}</address>
+                                    <address><b>Địa chỉ:</b> {{ $accommodation->getFullAddressAttribute() }}</address>
 								</div>
 								<!-- /row -->
 							</div>

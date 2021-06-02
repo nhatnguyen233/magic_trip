@@ -3,30 +3,41 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Tour\GetList;
 use App\Models\Tour;
+use App\Repositories\Province\ProvinceRepository;
 use App\Repositories\Review\ReviewRepository;
 use App\Repositories\Tour\TourRepository;
+use App\Support\Collection;
 use Illuminate\Http\Request;
 
 class TourController extends Controller
 {
     protected $reviewRepository;
     protected $tourRepository;
+    protected $provinceRepository;
 
-    public function __construct(ReviewRepository $reviewRepository, TourRepository $tourRepository)
+    public function __construct(
+        ReviewRepository $reviewRepository,
+        TourRepository $tourRepository,
+        ProvinceRepository $provinceRepository
+    )
     {
         $this->reviewRepository = $reviewRepository;
         $this->tourRepository = $tourRepository;
+        $this->provinceRepository = $provinceRepository;
     }
 
     /**
      * Display a listing of the resource.
      *
+     * @param  GetList $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(GetList $request)
     {
-        $viewData['tours'] = $this->tourRepository->paginate(5);
+        $viewData['tours'] = (new Collection($this->tourRepository->getList($request->validated())->sortByDesc('created_at')))->paginate(5);
+        $viewData['provinces'] = $this->provinceRepository->all();
 
         return view('customer.tours.index', $viewData);
     }
@@ -34,11 +45,13 @@ class TourController extends Controller
     /**
      * Display a grid of tours.
      *
+     * @param  GetList $request
      * @return \Illuminate\Http\Response
      */
-    public function getGridTours()
+    public function getGridTours(GetList $request)
     {
-        $viewData['tours'] = $this->tourRepository->paginate(9);
+        $viewData['tours'] = (new Collection($this->tourRepository->getList($request->validated())->sortByDesc('created_at')))->paginate(9);
+        $viewData['provinces'] = $this->provinceRepository->all();
 
         return view('customer.tours.tour-grid', $viewData);
     }
@@ -72,16 +85,17 @@ class TourController extends Controller
      */
     public function show(Tour $tour)
     {
-        $reviews = $this->reviewRepository->findWhere(['tour_id' => $tour->id]);
+        $viewData['tour'] = $tour;
+        $viewData['reviews'] = $this->reviewRepository->findWhere(['tour_id' => $tour->id]);
 
-        if($reviews->count() > 0)
+        if($viewData['reviews']->count() > 0)
         {
-            $average = round(array_sum($reviews->pluck('rate')->toArray())/$reviews->count(),1);
+            $viewData['average'] = round(array_sum($viewData['reviews']->pluck('rate')->toArray())/$viewData['reviews']->count(),1);
         } else {
-            $average = 0;
+            $viewData['average'] = 0;
         }
 
-        return view('customer.tours.tour-detail', compact('tour', 'reviews', 'average'));
+        return view('customer.tours.tour-detail', $viewData);
     }
 
     /**

@@ -41,19 +41,19 @@
             <div class="row px-3">
                 <input type="password" name="password" placeholder="Password">
             </div>
-            <div class="row px-3 mb-4">
-                <div class="custom-control custom-checkbox custom-control-inline">
-                    <input id="chk1" type="checkbox" name="chk" class="custom-control-input">
+            <div class="form-group mt-3">
+                <div class="row">
+                    <div class="col-md-12 d-flex align-items-center flex-column">
+                        <button type="submit" class="btn btn-blue text-center custom-button">Đăng nhập</button>
+                        <p>
+                            <small>
+                                Bạn chưa có tài khoản?
+                                <a class="text-color-red" href="{{ route('host.register.form') }}">Đăng ký</a>
+                            </small>
+                        </p>
+                        <a href="#" class="font-weight-bold text-color mt-0">Quên mật khẩu?</a>
+                    </div>
                 </div>
-            </div>
-            <div class="row mb-3 px-3">
-                <button type="submit" class="btn btn-blue text-center custom-button">Đăng nhập</button>
-                <span style="font-size: 13px; margin-top: 7px; margin-left: 40px">
-                    <small class="font-weight-bold">Bạn chưa có tài khoản?
-                        <a class="text-color-red" href="{{ route('host.register.form') }}">Đăng ký</a>
-                        <a href="#" class="text-color">Quên mật khẩu</a>
-                    </small>
-                </span>
             </div>
     </form>
 </div>

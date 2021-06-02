@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Customer;
 
+use App\Enums\BookingStatus;
 use App\Http\Controllers\Controller;
 use App\Models\BookTour;
 use App\Repositories\BookTour\BookTourRepository;
@@ -33,9 +34,12 @@ class BookTourController extends Controller
      */
     public function index()
     {
-        $viewData['orders'] = $this->bookTourRepository->where('user_id', auth('customer')->id())->paginate(20);
-        $viewData['total_price_all'] = array_sum($viewData['orders']->pluck('total_price')->toArray()); // Tổng số tiền các đơn trong giỏ
-        $viewData['number_of_slots'] = array_sum($viewData['orders']->pluck('number_of_slots')->toArray()); // Tổng số lượng
+        $viewData['orders'] = $this->bookTourRepository
+                                ->where('user_id', auth('customer')->id())
+                                ->orderBy('created_at', 'desc')
+                                ->paginate(20);
+        $viewData['total_price_all'] = array_sum($viewData['orders']->where('status', '>=', BookingStatus::APPROVED)->where('status', '<>', BookingStatus::CANCELED)->pluck('total_price')->toArray()); // Tổng số tiền
+        $viewData['number_of_slots'] = array_sum($viewData['orders']->where('status', '>=', BookingStatus::APPROVED)->where('status', '<>', BookingStatus::CANCELED)->pluck('number_of_slots')->toArray()); // Tổng số lượng
 
         return view('customer.book_tour.index', $viewData);
     }
@@ -115,7 +119,35 @@ class BookTourController extends Controller
      */
     public function destroy(BookTour $bookTour)
     {
-        //
+        if($bookTour->status != BookingStatus::APPROVED || $bookTour->status != BookingStatus::PAID)
+        {
+            if($bookTour->bills != null)
+            {
+                $bookTour->bills()->delete();
+            }
+            $bookTour->delete();
+        }
+
+        return redirect()->back()->with('success', 'Xóa thành công');
+    }
+
+    /**
+     * Display the finished order page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function getPendingOrderPage()
+    {
+        $viewData['orders'] = $this->bookTourRepository
+            ->where('user_id', auth('customer')->id())
+            ->whereIn('status', [BookingStatus::PENDING, BookingStatus::APPROVED, BookingStatus::CANCELED])
+            ->orderBy('created_at', 'desc')
+            ->paginate(20);
+        $viewData['total_price_all'] = array_sum($viewData['orders']->where('status', '>=', BookingStatus::APPROVED)->pluck('total_price')->toArray()); // Tổng số tiền các đơn trong giỏ
+        $viewData['number_of_slots'] = array_sum($viewData['orders']->where('status', '>=', BookingStatus::APPROVED)->pluck('number_of_slots')->toArray()); // Tổng số lượng
+
+        return view('customer.book_tour.pending', $viewData);
     }
 
     /**
@@ -127,5 +159,37 @@ class BookTourController extends Controller
     public function getFinishedOrderPage()
     {
         return view('customer.book_tour.finished');
+    }
+
+    /**
+     * Display the payment order page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function getPaymentOrderPage()
+    {
+        $viewData['orders'] = $this->bookTourRepository
+                            ->where('user_id', auth('customer')->id())
+                            ->where('status', 1)
+                            ->paginate(20);
+        $viewData['total_price_all'] = array_sum($viewData['orders']->pluck('total_price')->toArray()); // Tổng số tiền các đơn trong giỏ
+        $viewData['number_of_slots'] = array_sum($viewData['orders']->pluck('number_of_slots')->toArray()); // Tổng số lượng
+
+        return view('customer.book_tour.payment', $viewData);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\BookTour  $booking
+     * @return \Illuminate\Http\Response
+     */
+    public function paymentBooking(Request $request)
+    {
+        $this->bookTourRepository->payment(auth('customer')->id());
+
+        return redirect(url('/book-tour/order-finished'));
     }
 }

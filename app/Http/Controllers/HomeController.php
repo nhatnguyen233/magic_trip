@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\CatType;
 use App\Repositories\Accommodation\AccommodationRepository;
 use App\Repositories\Attraction\AttractionRepository;
+use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Tour\TourRepository;
 use Illuminate\Http\Request;
 
@@ -12,16 +14,19 @@ class HomeController extends Controller
     protected $tourRepository;
     protected $attractionRepository;
     protected $accommodationRepository;
+    protected $categoryRepository;
 
     public function __construct(
         TourRepository $tourRepository,
         AttractionRepository $attractionRepository,
-        AccommodationRepository $accommodationRepository
+        AccommodationRepository $accommodationRepository,
+        CategoryRepository $categoryRepository
     )
     {
         $this->tourRepository = $tourRepository;
         $this->attractionRepository = $attractionRepository;
         $this->accommodationRepository = $accommodationRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -31,11 +36,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $accommodations = $this->accommodationRepository->all();
-        $attractions = $this->attractionRepository->all();
-        $tours = $this->tourRepository->all();
+        $viewData['accommodations'] = $this->accommodationRepository->all()->random(4);
+        $viewData['total_accommodations'] = $this->accommodationRepository->all()->count();
+        $viewData['attractions'] = $this->attractionRepository->all()->random(4);
+        $viewData['total_attractions'] = $this->attractionRepository->all()->count();
+        $viewData['tours'] = $this->tourRepository->all()->sortByDesc('created_at');
+        $viewData['categories'] = $this->categoryRepository->findWhere(['type' => CatType::TOURISM]);
 
-        return view('home', compact('accommodations', 'attractions', 'tours'));
+        return view('home', $viewData);
     }
 
     /**

@@ -6,38 +6,33 @@
             <div class="container">
                 <h3>Đặt trước những trải nghiệm độc đáo</h3>
                 <p>Khám phá các tour du lịch, khách sạn và nhà hàng được xếp hạng hàng đầu trên khắp thế giới</p>
-                <form>
+                <form action="{{ route('tours.grid') }}" method="GET">
                     <div class="row no-gutters custom-search-input-2">
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <input class="form-control" type="text" placeholder="Hotel, City...">
+                                <input class="form-control" name="address" type="text" placeholder="Địa chỉ, tỉnh, thành phố">
                                 <i class="icon_pin_alt"></i>
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <div class="form-group">
-                                <input class="form-control" type="text" name="dates" placeholder="When..">
+                                <input class="form-control" type="text" name="dates" placeholder="Thời điểm mong muốn">
                                 <i class="icon_calendar"></i>
                             </div>
                         </div>
                         <div class="col-lg-3">
-                            <div class="panel-dropdown">
-                                <a href="#">Guests <span class="qtyTotal">1</span></a>
-                                <div class="panel-dropdown-content">
-                                    <!-- Quantity Buttons -->
-                                    <div class="qtyButtons">
-                                        <label>Adults</label>
-                                        <input type="text" name="qtyInput" value="1">
-                                    </div>
-                                    <div class="qtyButtons">
-                                        <label>Childrens</label>
-                                        <input type="text" name="qtyInput" value="0">
-                                    </div>
-                                </div>
-                            </div>
+                            <select class="wide" name="cat_id">
+                                <option value="">Loại hình du lịch...</option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}"
+                                            @if(request()->get('cat_id') == $category->id)  selected @endif>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="col-lg-2">
-                            <input type="submit" class="btn_search" value="Search">
+                            <input type="submit" class="btn_search" value="Tìm kiếm">
                         </div>
                     </div>
                     <!-- /row -->
@@ -64,17 +59,17 @@
                             <a href="#0" class="wish_bt"></a>
                             <a href="{{ route('tours.show', $item->id) }}"><img src="{{ $item->thumbnail_url }}" class="img-fluid" alt="" width="800"
                                                             height="533">
-                                <div class="read_more"><span>Read more</span></div>
+                                <div class="read_more"><span>Chi tiết</span></div>
                             </a>
-                            <small>Historic</small>
+                            <small>{{ $item->infos->first()->attraction->district->name }}</small>
                         </figure>
                         <div class="wrapper">
                             <h3><a href="{{ route('tours.show', $item->id) }}">{{ $item->name }}</a></h3>
                             <p>{!! \Illuminate\Support\Str::limit($item->description, 115, '...')  !!}</p>
-                            <span class="price">From <strong>{{ number_format($item->price, 0, '', ',') }}đ</strong> / 1 người</span>
+                            <span class="price">Từ <strong>{{ number_format($item->price, 0, '', ',') }}đ</strong> / 1 người</span>
                         </div>
                         <ul>
-                            <li><i class="icon_clock_alt"></i> {{ ($item->total_time) }} giờ</li>
+                            <li><i class="icon_clock_alt"></i> {{ round(($item->total_time/24)) }} ngày</li>
                             <li>
                                 <div class="score">
                                     <span>
@@ -96,153 +91,9 @@
                     </div>
                 </div>
             @endforeach
-            <div class="item">
-                <div class="box_grid">
-                    <figure>
-                        <a href="#0" class="wish_bt"></a>
-                        <a href="tour-detail.html"><img src="{{ asset('img/tour_1.jpg') }}" class="img-fluid" alt="" width="800"
-                                                        height="533">
-                            <div class="read_more"><span>Read more</span></div>
-                        </a>
-                        <small>Historic</small>
-                    </figure>
-                    <div class="wrapper">
-                        <h3><a href="tour-detail.html">Arc Triomphe</a></h3>
-                        <p>Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti cu.</p>
-                        <span class="price">From <strong>$54</strong> /per person</span>
-                    </div>
-                    <ul>
-                        <li><i class="icon_clock_alt"></i> 1h 30min</li>
-                        <li>
-                            <div class="score"><span>Superb<em>350 Reviews</em></span><strong>8.9</strong></div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- /item -->
-            <div class="item">
-                <div class="box_grid">
-                    <figure>
-                        <a href="#0" class="wish_bt"></a>
-                        <a href="tour-detail.html"><img src="{{ asset('img/tour_2.jpg') }}" class="img-fluid" alt="" width="800"
-                                                        height="533">
-                            <div class="read_more"><span>Read more</span></div>
-                        </a>
-                        <small>Churches</small>
-                    </figure>
-                    <div class="wrapper">
-                        <h3><a href="tour-detail.html">Notredam</a></h3>
-                        <p>Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti cu.</p>
-                        <span class="price">From <strong>$124</strong> /per person</span>
-                    </div>
-                    <ul>
-                        <li><i class="icon_clock_alt"></i> 1h 30min</li>
-                        <li>
-                            <div class="score"><span>Good<em>350 Reviews</em></span><strong>7.0</strong></div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- /item -->
-            <div class="item">
-                <div class="box_grid">
-                    <figure>
-                        <a href="#0" class="wish_bt"></a>
-                        <a href="tour-detail.html"><img src="{{ asset('img/tour_3.jpg') }}" class="img-fluid" alt="" width="800"
-                                                        height="533">
-                            <div class="read_more"><span>Read more</span></div>
-                        </a>
-                        <small>Historic</small>
-                    </figure>
-                    <div class="wrapper">
-                        <h3><a href="tour-detail.html">Versailles</a></h3>
-                        <p>Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti cu.</p>
-                        <span class="price">From <strong>$25</strong> /per person</span>
-                    </div>
-                    <ul>
-                        <li><i class="icon_clock_alt"></i> 1h 30min</li>
-                        <li>
-                            <div class="score"><span>Good<em>350 Reviews</em></span><strong>7.0</strong></div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- /item -->
-            <div class="item">
-                <div class="box_grid">
-                    <figure>
-                        <a href="#0" class="wish_bt"></a>
-                        <a href="tour-detail.html"><img src="{{ asset('img/tour_3.jpg') }}" class="img-fluid" alt="" width="800"
-                                                        height="533">
-                            <div class="read_more"><span>Read more</span></div>
-                        </a>
-                        <small>Historic</small>
-                    </figure>
-                    <div class="wrapper">
-                        <h3><a href="tour-detail.html">Versailles</a></h3>
-                        <p>Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti cu.</p>
-                        <span class="price">From <strong>$25</strong> /per person</span>
-                    </div>
-                    <ul>
-                        <li><i class="icon_clock_alt"></i> 1h 30min</li>
-                        <li>
-                            <div class="score"><span>Good<em>350 Reviews</em></span><strong>7.0</strong></div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- /item -->
-            <div class="item">
-                <div class="box_grid">
-                    <figure>
-                        <a href="#0" class="wish_bt"></a>
-                        <a href="tour-detail.html"><img src="{{ asset('img/tour_4.jpg') }}" class="img-fluid" alt="" width="800"
-                                                        height="533">
-                            <div class="read_more"><span>Read more</span></div>
-                        </a>
-                        <small>Museum</small>
-                    </figure>
-                    <div class="wrapper">
-                        <h3><a href="tour-detail.html">Pompidue Museum</a></h3>
-                        <p>Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti cu.</p>
-                        <span class="price">From <strong>$45</strong> /per person</span>
-                    </div>
-                    <ul>
-                        <li><i class="icon_clock_alt"></i> 2h 30min</li>
-                        <li>
-                            <div class="score"><span>Superb<em>350 Reviews</em></span><strong>9.0</strong></div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- /item -->
-            <div class="item">
-                <div class="box_grid">
-                    <figure>
-                        <a href="#0" class="wish_bt"></a>
-                        <a href="tour-detail.html"><img src="{{ asset('img/tour_5.jpg') }}" class="img-fluid" alt="" width="800"
-                                                        height="533">
-                            <div class="read_more"><span>Read more</span></div>
-                        </a>
-                        <small>Walking</small>
-                    </figure>
-                    <div class="wrapper">
-                        <h3><a href="tour-detail.html">Tour Eiffel</a></h3>
-                        <p>Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti cu.</p>
-                        <span class="price">From <strong>$65</strong> /per person</span>
-                    </div>
-                    <ul>
-                        <li><i class="icon_clock_alt"></i> 1h 30min</li>
-                        <li>
-                            <div class="score"><span>Good<em>350 Reviews</em></span><strong>7.5</strong></div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- /item -->
         </div>
         <!-- /carousel -->
-        <p class="btn_home_align"><a href="{{ route('tours.grid') }}" class="btn_1 rounded">Tất cả Tours</a></p>
+        <p class="btn_home_align"><a href="{{ route('tours.grid') }}" class="btn_1 rounded">Tất cả</a></p>
         <hr class="large">
     </div>
     <!-- /container -->
@@ -274,7 +125,7 @@
                 <!-- /grid_item -->
             </div>
             <!-- /row -->
-            <a href="{{ route('accommodations.index') }}"><strong>View all ({{ $accommodations->count() }}) <i
+            <a href="{{ route('accommodations.index') }}"><strong>Tất cả  ({{ $total_accommodations }}) <i
                             class="arrow_carrot-right"></i></strong></a>
         </section>
         <!-- /section -->
@@ -282,61 +133,26 @@
         <section class="add_bottom_45">
             <div class="main_title_3">
                 <span><em></em></span>
-                <h2>Những nhà hàng được ưa chuộng</h2>
+                <h2>Những địa điểm du lịch nổi bật</h2>
                 <p>Các địa điểm vui chơi lí thú</p>
             </div>
             <div class="row">
+                @foreach($attractions as $item)
                 <div class="col-xl-3 col-lg-6 col-md-6">
-                    <a href="restaurant-detail.html" class="grid_item">
+                    <a href="{{ route('attractions.show', $item->id) }}" class="grid_item">
                         <figure>
                             <div class="score"><strong>8.5</strong></div>
-                            <img src="{{ asset('img/restaurant_1.jpg') }}" class="img-fluid" alt="">
+                            <img src="{{ $item->thumbnail_url }}" class="img-fluid" alt="">
                             <div class="info">
-                                <h3>Da Alfredo</h3>
+                                <h3>{{ $item->name }}</h3>
                             </div>
                         </figure>
                     </a>
                 </div>
-                <!-- /grid_item -->
-                <div class="col-xl-3 col-lg-6 col-md-6">
-                    <a href="restaurant-detail.html" class="grid_item">
-                        <figure>
-                            <div class="score"><strong>7.9</strong></div>
-                            <img src="{{ asset('img/restaurant_2.jpg') }}" class="img-fluid" alt="">
-                            <div class="info">
-                                <h3>Slow Food</h3>
-                            </div>
-                        </figure>
-                    </a>
-                </div>
-                <!-- /grid_item -->
-                <div class="col-xl-3 col-lg-6 col-md-6">
-                    <a href="restaurant-detail.html" class="grid_item">
-                        <figure>
-                            <div class="score"><strong>7.5</strong></div>
-                            <img src="{{ asset('img/restaurant_3.jpg') }}" class="img-fluid" alt="">
-                            <div class="info">
-                                <h3>Bella Napoli</h3>
-                            </div>
-                        </figure>
-                    </a>
-                </div>
-                <!-- /grid_item -->
-                <div class="col-xl-3 col-lg-6 col-md-6">
-                    <a href="restaurant-detail.html" class="grid_item">
-                        <figure>
-                            <div class="score"><strong>9.0</strong></div>
-                            <img src="{{ asset('img/restaurant_4.jpg') }}" class="img-fluid" alt="">
-                            <div class="info">
-                                <h3>Marcus</h3>
-                            </div>
-                        </figure>
-                    </a>
-                </div>
-                <!-- /grid_item -->
+                @endforeach
             </div>
             <!-- /row -->
-            <a href="restaurants-grid-isotope.html"><strong>View all (157) <i
+            <a href="{{ route('attractions.index') }}"><strong>Tất cả ({{ $total_attractions }}) <i
                             class="arrow_carrot-right"></i></strong></a>
         </section>
         <!-- /section -->
@@ -439,14 +255,35 @@
                 <div class="block-reveal">
                     <div class="block-vertical"></div>
                     <div class="box_1">
-                        <h3>Enjoy a GREAT travel with us</h3>
-                        <p>Ius cu tamquam persequeris, eu veniam apeirian platonem qui, id aliquip voluptatibus pri.
-                            Ei mea primis ornatus disputationi. Menandri erroribus cu per, duo solet congue ut. </p>
-                        <a href="#0" class="btn_1 rounded">Read more</a>
+                        <h3>Tận hưởng một chuyến du lịch tuyệt vời cùng chúng tôi</h3>
+                        <p>Du lịch khiến một người trở nên khiêm tốn. Bạn sẽ nhận ra bạn chỉ chiếm được một nơi rất nhỏ bé trên thế giới này. </p>
+                        <a href="#0" class="btn_1 rounded">Đọc thêm</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!--/call_section-->
+@endsection
+
+@section('script')
+    <!-- INPUT QUANTITY  -->
+    <script>
+        $(function () {
+            'use strict';
+            $('input[name="dates"]').daterangepicker({
+                autoUpdateInput: false,
+                minDate: new Date(),
+                locale: {
+                    cancelLabel: 'Clear'
+                }
+            });
+            $('input[name="dates"]').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('DD-MM-YYYY') + ' > ' + picker.endDate.format('DD-MM-YYYY'));
+            });
+            $('input[name="dates"]').on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
+            });
+        });
+    </script>
 @endsection

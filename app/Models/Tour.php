@@ -46,6 +46,11 @@ class Tour extends Model
         return $this->hasMany(Schedule::class, 'tour_id', 'id');
     }
 
+    public function bookTours()
+    {
+        return $this->hasMany(BookTour::class, 'tour_id', 'id');
+    }
+    
     public function getAvatarUrlAttribute()
     {
         return ($this->avatar) ? Storage::disk('s3')->url($this->avatar) : asset('img/tour_1.jpg');

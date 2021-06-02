@@ -54,6 +54,11 @@ class Host extends Model
         return $this->belongsTo(Bank::class, 'bank_id', 'id');
     }
 
+    public function bookings()
+    {
+        return $this->hasManyThrough(BookTour::class, Tour::class, 'host_id', 'tour_id');
+    }
+
     public function getAvatarUrlAttribute()
     {
         return ($this->avatar) ? Storage::disk('s3')->url($this->avatar) : asset('img/tour_1.jpg');

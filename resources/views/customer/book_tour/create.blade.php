@@ -295,7 +295,7 @@
                 .then(response => response.json())
                 .then(result => {
                     alert('Đặt Tour thành công');
-                    window.location.href = window.location.origin + '/book-tour';
+                    window.location.href = window.location.origin + '/book-tour/order-pending';
                 })
                 .catch(error => {
                     console.error(error);

@@ -19,11 +19,14 @@ class CreateBookTourTable extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedInteger('payment_id')->nullable();
             $table->timestamp('date_of_book')->nullable();
-            $table->integer('number_of_slots')->nullable();
+            $table->integer('number_of_slots')->default(0);
+            $table->integer('adults')->default(0);
+            $table->integer('childrens')->default(0);
             $table->double('total_price')->nullable();
             $table->integer('status')->default(0);
             $table->integer('type')->default(0);
             $table->timestamps();
+            $table->softDeletes();
 //            $table->foreign('user_id')->references('id')->on('users');
 //            $table->foreign('tour_id')->references('id')->on('tours');
 //            $table->foreign('payment_id')->references('id')->on('payments');

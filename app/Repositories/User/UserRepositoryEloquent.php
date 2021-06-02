@@ -30,7 +30,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
      * Boot up the repository, pushing criteria
      * @throws RepositoryException
      */
-    
+
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
@@ -88,10 +88,10 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
                 $params['avatar'] = $fullPath;
             }
 
-            $data = array_filter($params, function ($key) {
+            $data = array_filter($params, function ($value, $key) {
                 return in_array($key, ['name', 'email', 'phone', 'role_id', 'province_id', 'district_id',
-                    'country_id', 'password', 'address', 'avatar', 'postal_code']);
-            }, ARRAY_FILTER_USE_KEY);
+                    'country_id', 'old_password', 'password', 'address', 'avatar', 'postal_code',]) && isset($value);
+            }, ARRAY_FILTER_USE_BOTH);
 
             $this->update($data, $userId);
 
@@ -122,7 +122,10 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
 
     public function getUserSocialNetWork($getInfo, $provider)
     {
-        $user = User::where('provider_id', $getInfo->id)->first();
+        $user = User::where('provider_id', $getInfo->id)
+                ->where('email', $getInfo->email)
+                ->where('role_id', UserRole::CUSTOMER)
+                ->first();
 
         if (!$user) {
             $user = User::create([

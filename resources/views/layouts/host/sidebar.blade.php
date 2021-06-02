@@ -7,14 +7,26 @@
             </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">
-            <a class="nav-link" href="messages.html">
+            <a class="nav-link" href="#">
                 <i class="fa fa-fw fa-envelope-open"></i>
                 <span class="nav-link-text">Tin nhắn</span>
             </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Các tours du lịch">
-            <a class="nav-link" href="{{ route('host.tours.index') }}">
+            <a class="nav-link" href="{{ route('host.attractions.index') }}">
                 <i class="fa fa-fw fa-map-marker"></i>
+                <span class="nav-link-text">Địa điểm tham quan</span>
+            </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Các tours du lịch">
+            <a class="nav-link" href="{{ route('host.accommodations.index') }}">
+                <i class="fa fa-fw fa-home"></i>
+                <span class="nav-link-text">Địa điểm nghỉ ngơi</span>
+            </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Các tours du lịch">
+            <a class="nav-link" href="{{ route('host.tours.index') }}">
+                <i class="fa fa-fw fa-suitcase"></i>
                 <span class="nav-link-text">Tours du lịch</span>
             </a>
         </li>
@@ -24,18 +36,30 @@
                 <span class="nav-link-text">Thiết lập lịch Tour</span>
             </a>
         </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Bookings">
+            <a class="nav-link" href="{{ route('host.bookings.index') }}">
+                <i class="fa fa-fw fa-calendar-check-o"></i>
+                <span class="nav-link-text">Quản lý Bookings</span>
+            </a>
+        </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Các tours du lịch">
             <a class="nav-link" href="{{ route('host.reviews.index') }}">
-                <i class="fa fa-fw fa-list"></i>
-                <span class="nav-link-text">Xem đánh giá tour</span>
+                <i class="fa fa-fw fa-star"></i>
+                <span class="nav-link-text">Đánh giá, nhận xét</span>
             </a>
         </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Thông tin cá nhân">
-            <a class="nav-link" href="user-profile.html">
-                <i class="fa fa-fw fa-user"></i>
-                <span class="nav-link-text">Thông tin cá nhân</span>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Các tours du lịch">
+            <a class="nav-link" href="{{ route('host.bills.index') }}">
+                <i class="fa fa-fw fa-file"></i>
+                <span class="nav-link-text">Lập hóa đơn</span>
             </a>
         </li>
+{{--        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Thông tin cá nhân">--}}
+{{--            <a class="nav-link" href="user-profile.html">--}}
+{{--                <i class="fa fa-fw fa-user"></i>--}}
+{{--                <span class="nav-link-text">Thông tin cá nhân</span>--}}
+{{--            </a>--}}
+{{--        </li>--}}
     </ul>
     <ul class="navbar-nav sidenav-toggler">
         <li class="nav-item">

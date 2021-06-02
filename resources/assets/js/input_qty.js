@@ -1,14 +1,20 @@
 // Quantity buttons
 	function qtySum(){
-    var arr = document.getElementsByName('number_of_slots');
-    var tot=0;
-    for(var i=0;i<arr.length;i++){
-        if(parseInt(arr[i].value))
-            tot += parseInt(arr[i].value);
-    }
+    var adults = document.getElementsByName('adults');
+    var childrens = document.getElementsByName('childrens');
 
+    var number_of_adults = 0;
+    for(var i=0;i<adults.length;i++){
+        if(parseInt(adults[i].value))
+            number_of_adults += parseInt(adults[i].value);
+    }
+    var number_of_childrens = 0;
+    for(var j=0;j<childrens.length;j++){
+        if(parseInt(childrens[j].value))
+            number_of_childrens += parseInt(childrens[j].value);
+    }
     var cardQty = document.querySelector(".qtyTotal");
-    cardQty.innerHTML = tot;
+        cardQty.innerHTML = parseInt(number_of_adults) + parseInt(number_of_childrens);
 	}
 	qtySum();
 

@@ -32,7 +32,7 @@ class CreateTourInfo extends FormRequest
                 'required',
             ],
             'accommodation_id' => [
-                'nullable',
+                'required',
             ],
             'title' => [
                 'nullable',
@@ -45,6 +45,9 @@ class CreateTourInfo extends FormRequest
                 'nullable',
             ],
             'vehicle' => [
+                'nullable',
+            ],
+            'vehicle_info' => [
                 'nullable',
             ],
             'order_number' => [
@@ -60,5 +63,20 @@ class CreateTourInfo extends FormRequest
                 'max:5120',
             ],
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        if($this->vehicle_info)
+        {
+            $this->merge([
+                'vehicle' => $this->vehicle_info,
+            ]);
+        }
     }
 }
