@@ -30,10 +30,23 @@
 <body>
 <div class="row px-3 justify-content-center mt-4 mb-5 border-line"></div>
 <div style="margin: 0 auto;" class="col-lg-4 content-form-login ml-10">
-    <div style="margin: 0 auto; width:250px; margin-top: 50px" class="justify-content-center"><img src="{{ asset('img/logo_sticky.svg') }}"></div>
+    <div style="margin: 0 auto; width:250px; margin-top: 50px; margin-bottom: 30px" class="justify-content-center"><img src="{{ asset('img/logo_sticky.svg') }}"></div>
+
+    @if (count($errors) > 0)
+        <div class="alert alert-danger alert-dismissible fade show">
+            <button type="button" class="close" data-dismiss=".alert">
+                <span aria-hidden="true">&times;</span>
+            </button>
+                <ul>
+                    @foreach($errors->all() as $errors)
+                        <li>{{ $errors}} </li>
+                    @endforeach
+                </ul>
+        </div>
+    @endif
+    
     <form action="{{ route('host.login') }}" method="POST">
         @csrf
-            <div class="row px-3 justify-content-center mt-4 mb-5 border-line"></div>
             <div class="row px-3">
                 <input class="mb-4" type="text" name="email" placeholder="Email">
                 <i class="icon_mail_alt"></i>
@@ -41,22 +54,30 @@
             <div class="row px-3">
                 <input type="password" name="password" placeholder="Password">
             </div>
-            <div class="row px-3 mb-4">
-                <div class="custom-control custom-checkbox custom-control-inline">
-                    <input id="chk1" type="checkbox" name="chk" class="custom-control-input">
+            <div class="form-group mt-3">
+                <div class="row">
+                    <div class="col-md-12 d-flex align-items-center flex-column">
+                        <button type="submit" class="btn btn-blue text-center custom-button">@lang('message.login')</button>
+                        <p>
+                            <small>
+                                @lang('message.have_acc')
+                                <a class="text-color-red" href="{{ route('host.register.form') }}">@lang('message.register')</a>
+                            </small>
+                        </p>
+                        <a href="#" class="font-weight-bold text-color mt-0">@lang('message.forgot_pass')</a>
+                    </div>
                 </div>
-            </div>
-            <div class="row mb-3 px-3">
-                <button type="submit" class="btn btn-blue text-center custom-button">Đăng nhập</button>
-                <span style="font-size: 13px; margin-top: 7px; margin-left: 40px">
-                    <small class="font-weight-bold">Bạn chưa có tài khoản?
-                        <a class="text-color-red" href="{{ route('host.register.form') }}">Đăng ký</a>
-                        <a href="#" class="text-color">Quên mật khẩu</a>
-                    </small>
-                </span>
             </div>
     </form>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    $(document).on("click", "[data-dismiss]", function(e) {
+        e.preventDefault();
+        var $this = $(this);
+        $this.closest($this.attr("data-dismiss")).hide();
+    });
+</script>
 <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

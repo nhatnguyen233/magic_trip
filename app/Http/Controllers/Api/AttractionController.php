@@ -92,6 +92,6 @@ class AttractionController extends Controller
     {
         $this->attractionRepository->removeAttraction($attraction->id);
 
-        return redirect()->back()->with('success', 'Xóa địa điểm thành công');
+        return redirect()->back()->with('success', trans('message.delete_success'));
     }
 }

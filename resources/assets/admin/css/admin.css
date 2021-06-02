@@ -807,7 +807,7 @@ label.fix_spacing {
   color: #ffc107;
 }
 
-.unread, .read, .pending, .cancel, .approved {
+.unread, .read, .pending, .cancel, .approved, .paid, .finished {
   background-color: #dc3545;
   -webkit-border-radius: 50px;
   -moz-border-radius: 50px;
@@ -829,11 +829,19 @@ label.fix_spacing {
 }
 
 .read, .approved {
+  background-color: #fd7e14;
+}
+
+.finished {
   background-color: #28a745;
 }
 
 .pending {
-  background-color: #fd7e14;
+  background-color: #eedd15;
+}
+
+.paid {
+    background-color: #03fcfc;
 }
 
 /* text-based popup styling */

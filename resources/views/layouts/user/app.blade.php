@@ -51,36 +51,36 @@
 <!-- Sign In Popup -->
 <div id="sign-in-dialog" class="zoom-anim-dialog mfp-hide">
     <div class="small-dialog-header">
-        <h3>Đăng nhập</h3>
+        <h3>@lang('message.login')</h3>
     </div>
     <form action="{{ route('login') }}" method="POST">
         @csrf
         <div class="sign-in-wrapper">
-            <a href="{{ route('login.social', ['provider' => 'facebook']) }}" class="social_bt facebook">Đăng nhập với Facebook</a>
-            <a href="{{ route('login.social', ['provider' => 'google']) }}" class="social_bt google">Đăng nhập với Google</a>
-            <div class="divider"><span>Hoặc</span></div>
+            <a href="{{ route('login.social', ['provider' => 'facebook']) }}" class="social_bt facebook">@lang('message.login_fb')</a>
+            <a href="{{ route('login.social', ['provider' => 'google']) }}" class="social_bt google">@lang('message.login_gg')</a>
+            <div class="divider"><span>@lang('message.or')</span></div>
             <div class="form-group">
                 <label>Email</label>
                 <input type="email" class="form-control" name="email" id="email">
                 <i class="icon_mail_alt"></i>
             </div>
             <div class="form-group">
-                <label>Mật khẩu</label>
+                <label>@lang('message.password')</label>
                 <input type="password" class="form-control" name="password" id="password" value="">
                 <i class="icon_lock_alt"></i>
             </div>
             <div class="clearfix add_bottom_15">
                 <div class="checkboxes float-left">
-                    <label class="container_check">Nhớ phiên đăng nhập
+                    <label class="container_check">@lang('message.remember_me')
                         <input type="checkbox">
                         <span class="checkmark"></span>
                     </label>
                 </div>
-                <div class="float-right mt-1"><a id="forgot" href="javascript:void(0);">Quên mật khẩu?</a></div>
+                <div class="float-right mt-1"><a id="forgot" href="javascript:void(0);">@lang('message.forgot_pass')</a></div>
             </div>
-            <div class="text-center"><input type="submit" value="Đăng nhập" class="btn_1 full-width"></div>
+            <div class="text-center"><input type="submit" value="Login" class="btn_1 full-width"></div>
             <div class="text-center">
-                Bạn đã có tài khoản? <a href="{{ route('customer.register.form') }}">Đăng ký</a>
+            @lang('message.have_acc') <a href="{{ route('customer.register.form') }}">@lang('message.register')</a>
             </div>
             <div id="forgot_pw">
                 <div class="form-group">
@@ -100,29 +100,60 @@
 <!-- Logout Modal-->
 <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="LogoutModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <form action="{{ route('logout') }}" method="POST">
-            @csrf
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="LogoutModalLabel">Bạn đã sẵn sàng đăng xuất?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Chọn "Đăng xuất" nếu bạn đã sẵn sàng kết thúc phiên đăng nhập của mình.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy bỏ</button>
-                    <button class="btn btn-danger" type="submit">Đăng xuất</button>
-                </div>
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="LogoutModalLabel">Bạn đã sẵn sàng đăng xuất?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
             </div>
-        </form>
+            <div class="modal-body">Chọn "Đăng xuất" nếu bạn đã sẵn sàng kết thúc phiên đăng nhập của mình.</div>
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy bỏ</button>
+                <button class="btn btn-danger" type="submit">Đăng xuất</button>
+            </div>
+            </form>
+        </div>
     </div>
 </div>
 
 <div id="toTop"></div><!-- Back to top button -->
+<!-- Messenger Plugin chat Code -->
+<div id="fb-root"></div>
+<script>
+    window.fbAsyncInit = function() {
+        FB.init({
+            xfbml            : true,
+            version          : 'v10.0'
+        });
+    };
 
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<!-- Your Plugin chat code -->
+<div class="fb-customerchat"
+     attribution="page_inbox"
+     page_id="103043011942060">
+</div>
 <!-- COMMON SCRIPTS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    $(document).on("click", "[data-dismiss]", function(e) {
+        e.preventDefault();
+        var $this = $(this);
+        $this.closest($this.attr("data-dismiss")).hide();
+    });
+</script>
 <script src="{{ asset('js/front/common_scripts.js') }}"></script>
 <script src="{{ asset('js/front/main.js') }}"></script>
 <script src="{{ asset('js/front/jquery-3.5.1.min.js') }}"></script>
@@ -138,9 +169,6 @@
     @endif
   });
 </script>
-
-<!-- INPUT QUANTITY  -->
-<script src="{{ asset('js/front/input_qty.js') }}"></script>
 
 </body>
 </html>

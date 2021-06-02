@@ -67,7 +67,7 @@ class AccommodationController extends Controller
             $this->accommodationRepository->insertAccommodationImages($request->images, $accommodation->id, auth('admin')->id());
         }
 
-        return redirect()->route('admin.accommodations.index')->with('success', 'Tạo địa điểm thành công');
+        return redirect()->route('admin.accommodations.index')->with('success', __('message.create_success'));
     }
 
     /**
@@ -110,7 +110,7 @@ class AccommodationController extends Controller
             $this->accommodationRepository->insertAccommodationImages($request->images, $accommodation->id, auth('admin')->id());
         }
 
-        return redirect()->route('admin.accommodations.index')->with('success', 'Cập nhật thành công');
+        return redirect()->route('admin.accommodations.index')->with('success', __('message.update_success'));
     }
 
     /**

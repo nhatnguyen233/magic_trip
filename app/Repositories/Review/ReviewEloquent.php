@@ -49,7 +49,6 @@ class ReviewEloquent extends BaseRepository implements ReviewRepository
         $query = $this->whereHas('tour', function($query) use($userId) {
                 return $query->where(['user_id' => $userId]);
              })
-
             ->orderBy('created_at', 'DESC');
 
         return $this->filterPaginate(

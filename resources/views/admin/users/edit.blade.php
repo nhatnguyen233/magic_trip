@@ -29,6 +29,11 @@
         </li>
         <li class="breadcrumb-item active">Thêm</li>
     </ol>
+    @if(session()->has('success'))
+        <div class="alert alert-success">
+            {{ session()->get('success') }}
+        </div>
+    @endif
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -64,9 +69,9 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="category-attraction">Mật khẩu <span class="text-danger">*</span></label>
-                        <input type="password" class="form-control" placeholder="*************"
-                               name="password" id="password" value="{{ isset($user->password) ? $user->password : '' }}" required>
+                        <label for="old_password">Mật khẩu</label>
+                        <input type="password" class="form-control" name="old_password"
+                               id="old_password" value="" >
                     </div>
                 </div>
             </div>
@@ -81,9 +86,9 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="longitude-attraction">Xác nhận mật khẩu</label>
-                        <input type="password" class="form-control" placeholder="*************" name="password_confirmation"
-                               value="{{ isset($user->password) ? $user->password : '' }}" id="password_confirmation" />
+                        <label for="new_password">Mật khẩu mới</label>
+                        <input type="password" class="form-control" name="password"
+                               value="" id="new_password" />
                     </div>
                 </div>
             </div>
@@ -91,7 +96,7 @@
             <div class="col-md-12">
                     <div class="form-group">
                     <label for="avatar" class="w-100" style="cursor: pointer">Avatar
-                        <img style="width: 400px;" src="{{ !empty($user->getAvatarUrlAttribute()) ? asset($user->getAvatarUrlAttribute()) : ''  }}" id="avatar-image" />
+                        <img style="width: 400px;" src="{{ $user->avatar_url }}" id="avatar-image" />
                     </label>
                     <input type="file" class="form-control-file mb-2" id="avatar"
                             placeholder="Ảnh đại diện" name="avatar" hidden/>

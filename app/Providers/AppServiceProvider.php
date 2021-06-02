@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Cart;
+use App\Observers\CartObserver;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
@@ -15,8 +17,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         if ($this->app->environment('local')) {
-            $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
-            $this->app->register(TelescopeServiceProvider::class);
+
         }
     }
 
@@ -27,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Cart::observe(CartObserver::class);
         Paginator::useBootstrap();
     }
 }

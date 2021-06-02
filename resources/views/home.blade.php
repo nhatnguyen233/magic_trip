@@ -4,40 +4,35 @@
     <section class="hero_single version_2">
         <div class="wrapper">
             <div class="container">
-                <h3>Đặt trước những trải nghiệm độc đáo</h3>
-                <p>Khám phá các tour du lịch, khách sạn và nhà hàng được xếp hạng hàng đầu trên khắp thế giới</p>
-                <form>
+                <h3>@lang('message.header_title')</h3>
+                <p>@lang('message.header_des')</p>
+                <form action="{{ route('tours.grid') }}" method="GET">
                     <div class="row no-gutters custom-search-input-2">
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <input class="form-control" type="text" placeholder="Hotel, City...">
+                                <input class="form-control" name="address" type="text" placeholder="Hotel, City...">
                                 <i class="icon_pin_alt"></i>
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <div class="form-group">
-                                <input class="form-control" type="text" name="dates" placeholder="When..">
+                                <input class="form-control" type="text" name="dates" placeholder="When...">
                                 <i class="icon_calendar"></i>
                             </div>
                         </div>
                         <div class="col-lg-3">
-                            <div class="panel-dropdown">
-                                <a href="#">Guests <span class="qtyTotal">1</span></a>
-                                <div class="panel-dropdown-content">
-                                    <!-- Quantity Buttons -->
-                                    <div class="qtyButtons">
-                                        <label>Adults</label>
-                                        <input type="text" name="qtyInput" value="1">
-                                    </div>
-                                    <div class="qtyButtons">
-                                        <label>Childrens</label>
-                                        <input type="text" name="qtyInput" value="0">
-                                    </div>
-                                </div>
-                            </div>
+                            <select class="wide" name="cat_id">
+                                <option value="">@lang('message.type')</option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}"
+                                            @if(request()->get('cat_id') == $category->id)  selected @endif>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="col-lg-2">
-                            <input type="submit" class="btn_search" value="Search">
+                            <input type="submit" class="btn_search" value="Tìm kiếm">
                         </div>
                     </div>
                     <!-- /row -->
@@ -50,8 +45,8 @@
     <div class="container container-custom margin_80_0">
         <div class="main_title_2">
             <span><em></em></span>
-            <h2>Những chuyến tham quan phổ biến của chúng tôi</h2>
-            <p>Những chuyến tham quan kỳ thú, tràn đầy năng lượng giúp cuộc sống thêm sống động</p>
+            <h2>@lang('message.popular_tour')</h2>
+            <p>@lang('message.tour_des')</p>
         </div>
         <div id="reccomended" class="owl-carousel owl-theme">
             @foreach($tours as $item)
@@ -64,30 +59,30 @@
                             <a href="#0" class="wish_bt"></a>
                             <a href="{{ route('tours.show', $item->id) }}"><img src="{{ $item->thumbnail_url }}" class="img-fluid" alt="" width="800"
                                                             height="533">
-                                <div class="read_more"><span>Read more</span></div>
+                                <div class="read_more"><span>Chi tiết</span></div>
                             </a>
-                            <small>Historic</small>
+                            <small>{{ $item->infos->first()->attraction->district->name }}</small>
                         </figure>
                         <div class="wrapper">
                             <h3><a href="{{ route('tours.show', $item->id) }}">{{ $item->name }}</a></h3>
                             <p>{!! \Illuminate\Support\Str::limit($item->description, 115, '...')  !!}</p>
-                            <span class="price">From <strong>{{ number_format($item->price, 0, '', ',') }}đ</strong> / 1 người</span>
+                            <span class="price">From <strong>{{ number_format($item->price, 0, '', ',') }}đ</strong> / 1 @lang('message.per')</span>
                         </div>
                         <ul>
-                            <li><i class="icon_clock_alt"></i> {{ ($item->total_time) }} giờ</li>
+                            <li><i class="icon_clock_alt"></i> {{ round(($item->total_time/24)) }} @lang('message.day')</li>
                             <li>
                                 <div class="score">
                                     <span>
                                         @if($average >= 9)
-                                            Tuyệt vời
+                                            @lang('message.great')
                                         @elseif($average >= 8)
-                                            Tốt
+                                            @lang('message.good')
                                         @elseif($average >= 5)
-                                            Khá tốt
+                                            @lang('message.average')
                                         @else
-                                            Bình thường
+                                            @lang('message.bad')
                                         @endif
-                                        <em>{{ $item->reviews->count() }} đánh giá</em>
+                                        <em>{{ $item->reviews->count() }} @lang('message.review')</em>
                                     </span>
                                     <strong>{{ $average }}</strong>
                                 </div>
@@ -192,57 +187,9 @@
                 </div>
             </div>
             <!-- /item -->
-            <div class="item">
-                <div class="box_grid">
-                    <figure>
-                        <a href="#0" class="wish_bt"></a>
-                        <a href="tour-detail.html"><img src="{{ asset('img/tour_4.jpg') }}" class="img-fluid" alt="" width="800"
-                                                        height="533">
-                            <div class="read_more"><span>Read more</span></div>
-                        </a>
-                        <small>Museum</small>
-                    </figure>
-                    <div class="wrapper">
-                        <h3><a href="tour-detail.html">Pompidue Museum</a></h3>
-                        <p>Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti cu.</p>
-                        <span class="price">From <strong>$45</strong> /per person</span>
-                    </div>
-                    <ul>
-                        <li><i class="icon_clock_alt"></i> 2h 30min</li>
-                        <li>
-                            <div class="score"><span>Superb<em>350 Reviews</em></span><strong>9.0</strong></div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- /item -->
-            <div class="item">
-                <div class="box_grid">
-                    <figure>
-                        <a href="#0" class="wish_bt"></a>
-                        <a href="tour-detail.html"><img src="{{ asset('img/tour_5.jpg') }}" class="img-fluid" alt="" width="800"
-                                                        height="533">
-                            <div class="read_more"><span>Read more</span></div>
-                        </a>
-                        <small>Walking</small>
-                    </figure>
-                    <div class="wrapper">
-                        <h3><a href="tour-detail.html">Tour Eiffel</a></h3>
-                        <p>Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti cu.</p>
-                        <span class="price">From <strong>$65</strong> /per person</span>
-                    </div>
-                    <ul>
-                        <li><i class="icon_clock_alt"></i> 1h 30min</li>
-                        <li>
-                            <div class="score"><span>Good<em>350 Reviews</em></span><strong>7.5</strong></div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- /item -->
         </div>
         <!-- /carousel -->
-        <p class="btn_home_align"><a href="{{ route('tours.grid') }}" class="btn_1 rounded">Tất cả Tours</a></p>
+        <p class="btn_home_align"><a href="{{ route('tours.grid') }}" class="btn_1 rounded">@lang('message.all')</a></p>
         <hr class="large">
     </div>
     <!-- /container -->
@@ -251,8 +198,8 @@
         <section class="add_bottom_45">
             <div class="main_title_3">
                 <span><em></em></span>
-                <h2>Những khách sạn và chỗ ở phổ biến</h2>
-                <p>Các địa điểm vui chơi lí thú</p>
+                <h2>@lang('message.popular_hotel')</h2>
+                <p>@lang('message.hotel_des')</p>
             </div>
             <div class="row">
                 <!-- /grid_item -->
@@ -274,7 +221,7 @@
                 <!-- /grid_item -->
             </div>
             <!-- /row -->
-            <a href="{{ route('accommodations.index') }}"><strong>View all ({{ $accommodations->count() }}) <i
+            <a href="{{ route('accommodations.index') }}"><strong>@lang('message.all')  ({{ $accommodations->count() }}) <i
                             class="arrow_carrot-right"></i></strong></a>
         </section>
         <!-- /section -->
@@ -282,61 +229,26 @@
         <section class="add_bottom_45">
             <div class="main_title_3">
                 <span><em></em></span>
-                <h2>Những nhà hàng được ưa chuộng</h2>
-                <p>Các địa điểm vui chơi lí thú</p>
+                <h2>@lang('message.popular_attraction')</h2>
+                <p>@lang('message.attraction_des')</p>
             </div>
             <div class="row">
+                @foreach($attractions as $item)
                 <div class="col-xl-3 col-lg-6 col-md-6">
-                    <a href="restaurant-detail.html" class="grid_item">
+                    <a href="{{ route('attractions.show', $item->id) }}" class="grid_item">
                         <figure>
                             <div class="score"><strong>8.5</strong></div>
-                            <img src="{{ asset('img/restaurant_1.jpg') }}" class="img-fluid" alt="">
+                            <img src="{{ $item->thumbnail_url }}" class="img-fluid" alt="">
                             <div class="info">
-                                <h3>Da Alfredo</h3>
+                                <h3>{{ $item->name }}</h3>
                             </div>
                         </figure>
                     </a>
                 </div>
-                <!-- /grid_item -->
-                <div class="col-xl-3 col-lg-6 col-md-6">
-                    <a href="restaurant-detail.html" class="grid_item">
-                        <figure>
-                            <div class="score"><strong>7.9</strong></div>
-                            <img src="{{ asset('img/restaurant_2.jpg') }}" class="img-fluid" alt="">
-                            <div class="info">
-                                <h3>Slow Food</h3>
-                            </div>
-                        </figure>
-                    </a>
-                </div>
-                <!-- /grid_item -->
-                <div class="col-xl-3 col-lg-6 col-md-6">
-                    <a href="restaurant-detail.html" class="grid_item">
-                        <figure>
-                            <div class="score"><strong>7.5</strong></div>
-                            <img src="{{ asset('img/restaurant_3.jpg') }}" class="img-fluid" alt="">
-                            <div class="info">
-                                <h3>Bella Napoli</h3>
-                            </div>
-                        </figure>
-                    </a>
-                </div>
-                <!-- /grid_item -->
-                <div class="col-xl-3 col-lg-6 col-md-6">
-                    <a href="restaurant-detail.html" class="grid_item">
-                        <figure>
-                            <div class="score"><strong>9.0</strong></div>
-                            <img src="{{ asset('img/restaurant_4.jpg') }}" class="img-fluid" alt="">
-                            <div class="info">
-                                <h3>Marcus</h3>
-                            </div>
-                        </figure>
-                    </a>
-                </div>
-                <!-- /grid_item -->
+                @endforeach
             </div>
             <!-- /row -->
-            <a href="restaurants-grid-isotope.html"><strong>View all (157) <i
+            <a href="{{ route('attractions.index') }}"><strong>@lang('message.all') ({{ $attractions->count() }}) <i
                             class="arrow_carrot-right"></i></strong></a>
         </section>
         <!-- /section -->
@@ -344,10 +256,10 @@
         <div class="banner mb-0">
             <div class="wrapper d-flex align-items-center opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.3)">
                 <div>
-                    <small>Phiêu lưu</small>
-                    <h3>Sự tò mò<br>Kinh nghiệm phiêu lưu</h3>
-                    <p>Các hoạt động và chỗ ở</p>
-                    <a href="adventure.html" class="btn_1">Đọc thêm</a>
+                    <small>@lang('message.adventure')</small>
+                    <h3>@lang('message.curiosity')<br>@lang('message.experience')</h3>
+                    <p>@lang('message.activity')</p>
+                    <a href="adventure.html" class="btn_1">@lang('message.read_more')</a>
                 </div>
             </div>
             <!-- /wrapper -->
@@ -361,8 +273,8 @@
         <div class="container margin_80_55">
             <div class="main_title_2">
                 <span><em></em></span>
-                <h3>Tin tức và sự kiện</h3>
-                <p>Các hoạt động, team building náo nhiệt</p>
+                <h3>@lang('message.news') &amp; @lang('message.event')</h3>
+                <p>@lang('message.news_des')</p>
             </div>
             <div class="row">
                 <div class="col-lg-6">
@@ -439,14 +351,35 @@
                 <div class="block-reveal">
                     <div class="block-vertical"></div>
                     <div class="box_1">
-                        <h3>Enjoy a GREAT travel with us</h3>
-                        <p>Ius cu tamquam persequeris, eu veniam apeirian platonem qui, id aliquip voluptatibus pri.
-                            Ei mea primis ornatus disputationi. Menandri erroribus cu per, duo solet congue ut. </p>
-                        <a href="#0" class="btn_1 rounded">Read more</a>
+                        <h3>@lang('message.intro_title')</h3>
+                        <p>@lang('message.intro_des')</p>
+                        <a href="#0" class="btn_1 rounded">@lang('message.read_more')</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!--/call_section-->
+@endsection
+
+@section('script')
+    <!-- INPUT QUANTITY  -->
+    <script>
+        $(function () {
+            'use strict';
+            $('input[name="dates"]').daterangepicker({
+                autoUpdateInput: false,
+                minDate: new Date(),
+                locale: {
+                    cancelLabel: 'Clear'
+                }
+            });
+            $('input[name="dates"]').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('DD-MM-YYYY') + ' > ' + picker.endDate.format('DD-MM-YYYY'));
+            });
+            $('input[name="dates"]').on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
+            });
+        });
+    </script>
 @endsection

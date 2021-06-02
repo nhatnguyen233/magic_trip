@@ -11,6 +11,7 @@ use App\Repositories\Attraction\AttractionRepository;
 use App\Repositories\Tour\TourRepository;
 use App\Repositories\TourInfo\TourInfoRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class TourInfoController extends Controller
 {
@@ -69,10 +70,8 @@ class TourInfoController extends Controller
     {
         $tourInfo = $this->tourInfoRepository->createTourInfo($request->validated());
 
-        return response()->json([
-            'tourInfo' => $tourInfo,
-            'success' => 'Thêm địa điểm tham quan thành công'
-        ], 200);
+        return redirect()->back()->with('success', 'Thêm địa điểm tham quan thành công')
+                                ->with('tourInfo', $tourInfo);
     }
 
     /**
@@ -106,7 +105,17 @@ class TourInfoController extends Controller
      */
     public function update(Request $request, TourInfo $tourInfo)
     {
-        //
+        $tourInfo->update([
+            'tour_id' => $request->get('tour_id'),
+            'attraction_id' => $request->get('attraction_id'),
+            'accommodation_id' => $request->get('accommodation_id'),
+            'order_number' => $request->get('order_number'),
+            'vehicle' => $request->get('vehicle_info'),
+            'start_time' => $request->get('start_time'),
+            'limit_time' => $request->get('limit_time'),
+        ]);
+
+        return redirect()->back()->with('success', 'Cập nhật địa điểm hành trình thành công');
     }
 
     /**
@@ -117,7 +126,10 @@ class TourInfoController extends Controller
      */
     public function destroy(TourInfo $tourInfo)
     {
-        //
+        Storage::disk('s3')->delete($tourInfo->thumbnail);
+        $tourInfo->delete();
+
+        return redirect()->back()->with('success', 'Xóa địa điểm hành trình thành công');
     }
 
     /**

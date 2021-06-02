@@ -62,6 +62,11 @@ class AuthController extends Controller
 //        $credentials['is_active'] = true;
         $credentials['role_id'] = $this->getRoleByGuard();
 
+        $this->validate($request, [
+            'email'   => 'required|email',
+            'password'  => 'required|alphaNum|min:6'
+           ]);
+
         if ($this->guard()->attempt($credentials, $request->filled('remember'))) {
             return redirect()->intended(URL::previous());
         }

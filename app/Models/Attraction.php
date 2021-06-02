@@ -11,6 +11,7 @@ class Attraction extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'name',
         'slug',
         'title',
@@ -29,6 +30,11 @@ class Attraction extends Model
     ];
 
     protected $appends = ['thumbnail_url', 'avatar_url'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 
     public function category()
     {
@@ -80,5 +86,12 @@ class Attraction extends Model
     public function getThumbnailUrlAttribute()
     {
         return ($this->thumbnail) ? Storage::disk('s3')->url($this->thumbnail) : asset('img/tour_1.jpg');
+    }
+
+    public function getFullAddressAttribute()
+    {
+        if (isset($this->district_id) && isset($this->province_id) && isset($this->country_id)) {
+            return $this->district->name . ',' . $this->province->name . ','. $this->country->name;
+        }
     }
 }

@@ -6,7 +6,7 @@
             <div class="container">
                 <div class="bs-wizard clearfix">
                     <div class="bs-wizard-step">
-                        <div class="text-center bs-wizard-stepnum">Giỏ</div>
+                        <div class="text-center bs-wizard-stepnum">@lang('message.cart')</div>
                         <div class="progress">
                             <div class="progress-bar"></div>
                         </div>
@@ -14,31 +14,31 @@
                     </div>
 
                     <div class="bs-wizard-step">
-                        <div class="text-center bs-wizard-stepnum">Đặt tour</div>
+                        <div class="text-center bs-wizard-stepnum">@lang('message.book_tour')</div>
                         <div class="progress">
                             <div class="progress-bar"></div>
                         </div>
                         <a href="{{ route('book-tour.create') }}" class="bs-wizard-dot"></a>
                     </div>
 
+                    <div class="bs-wizard-step">
+                        <div class="text-center bs-wizard-stepnum">@lang('message.confirm')</div>
+                        <div class="progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                        <a href="{{ route('book-tour.order-pending') }}" class="bs-wizard-dot"></a>
+                    </div>
+
+                    <div class="bs-wizard-step">
+                        <div class="text-center bs-wizard-stepnum">@lang('message.payment')</div>
+                        <div class="progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                        <a href="{{ route('book-tour.order-payment') }}" class="bs-wizard-dot"></a>
+                    </div>
+
                     <div class="bs-wizard-step active">
-                        <div class="text-center bs-wizard-stepnum">Chờ xác nhận</div>
-                        <div class="progress">
-                            <div class="progress-bar"></div>
-                        </div>
-                        <a href="{{ route('book-tour.index') }}" class="bs-wizard-dot"></a>
-                    </div>
-
-                    <div class="bs-wizard-step disabled">
-                        <div class="text-center bs-wizard-stepnum">Thanh toán</div>
-                        <div class="progress">
-                            <div class="progress-bar"></div>
-                        </div>
-                        <a href="#0" class="bs-wizard-dot"></a>
-                    </div>
-
-                    <div class="bs-wizard-step disabled">
-                        <div class="text-center bs-wizard-stepnum">Hoàn thành</div>
+                        <div class="text-center bs-wizard-stepnum">@lang('message.finish')</div>
                         <div class="progress">
                             <div class="progress-bar"></div>
                         </div>
@@ -55,6 +55,11 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="box_cart">
+                        @if(session()->has('success'))
+                            <div class="alert alert-success">
+                                {{ session()->get('success') }}
+                            </div>
+                        @endif
                         <table class="table table-striped cart-list">
                             <thead>
                             <tr>
@@ -62,16 +67,22 @@
                                     Tour
                                 </th>
                                 <th>
-                                    Ngày khởi hành
+                                @lang('message.departure_day')
                                 </th>
                                 <th>
-                                    Số lượng
+                                @lang('message.guest')
                                 </th>
                                 <th>
-                                    Tổng tiền
+                                @lang('message.total_price')
                                 </th>
                                 <th>
-                                    Trạng thái
+                                @lang('message.status')
+                                </th>
+                                <th>
+                                @lang('message.delete')
+                                </th>
+                                <th>
+                                    Xóa
                                 </th>
                             </tr>
                             </thead>
@@ -94,17 +105,36 @@
                                         <strong>{{ number_format($item->total_price, 0, '', ',') }}đ</strong>
                                     </td>
                                     <td>
-                                        <span class="text-danger">
+                                        <span class="@if($item->status == \App\Enums\BookingStatus::PENDING)
+                                                        text-danger
+                                                    @elseif($item->status == \App\Enums\BookingStatus::APPROVED)
+                                                        text-primary
+                                                    @elseif($item->status == \App\Enums\BookingStatus::PAID)
+                                                        text-info
+                                                    @elseif($item->status == \App\Enums\BookingStatus::FINISHED)
+                                                        text-success
+                                                    @elseif($item->status == \App\Enums\BookingStatus::CANCELED)
+                                                        text-danger
+                                                    @endif">
                                             {{ $item->status_name }}
                                         </span>
-
+                                    </td>
+                                    <td>
+                                        @if($item->status == \App\Enums\BookingStatus::CANCELED || $item->status == \App\Enums\BookingStatus::FINISHED || $item->status == \App\Enums\BookingStatus::PENDING)
+                                        <a href="#" data-toggle="modal" id="removeBooking"
+                                           data-target="#removeBookingModal"
+                                           data-action="{{ route('book-tour.destroy', $item->id) }}"
+                                           data-id="{{ $item->id }}">
+                                            <i class="icon-trash"></i>
+                                        </a>
+                                        @endif
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
                                     <td colspan="5">
                                         <h2 class="text-center mt-4 font-weight-lighter">
-                                            Giỏ trống
+                                        @lang('message.empty_cart')
                                         </h2>
                                     </td>
                                 </tr>
@@ -114,15 +144,15 @@
                     </div>
                 </div>
                 <!-- /col -->
-
                 <aside class="col-lg-4" id="sidebar">
                     <div class="box_detail">
                         <div id="total_cart">
-                            Tổng <span class="float-right">{{ number_format($total_price_all, 0, '', ',') }}đ</span>
+                        @lang('message.total') <span class="float-right">{{ number_format($total_price_all, 0, '', ',') }}đ</span>
                         </div>
                         <ul class="cart_details">
-                            <li>Tour <span>{{ $orders->count() }}</span></li>
-                            <li>Tổng số lượng <span>{{ $number_of_slots }}</span></li>
+                            <li>Tổng người tham quan <span>{{ $number_of_slots }}</span></li>
+                            <li>Tour đã đặt<span>{{ $orders->where('status', '>=', 1)->where('status', '<>', 4)->count() }}</span></li>
+                            <li>Tour đã hủy <span>{{ $orders->where('status', 4)->count() }}</span></li>
                         </ul>
                         @guest('customer')
                             <a href="#sign-in-dialog"  id="sign-in" title="Đăng nhập" class="btn_1 full-width purchase login">Đăng nhập</a>
@@ -132,9 +162,7 @@
                             <div class="text-center"><small>Vui lòng đăng nhập để tiếp tục đặt tour du lịch</small></div>
                         @endguest
                         @auth('customer')
-                            <a href="#" class="btn_1 full-width purchase">Thanh toán</a>
                             <a href="#" class="btn_1 full-width chat">Nhắn tin</a>
-                            <div class="text-center"><small>Không bị tính phí trong bước này</small></div>
                         @endauth
                     </div>
                 </aside>
@@ -144,9 +172,14 @@
         <!-- /container -->
     </div>
     <!-- /bg_color_1 -->
+    @include('customer.book_tour.modals._remove_booking_modal')
 @endsection
 
 @section('script')
-
+    <script>
+        $(document).on('click', '#removeBooking', function () {
+            $('#form-remove-booking').attr('action', $(this).attr('data-action'));
+        });
+    </script>
 @endsection
 

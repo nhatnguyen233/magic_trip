@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Bill extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
-    protected $fillable = ['user_id', 'book_tour_id', 'total_price'];
+    protected $fillable = ['user_id', 'host_id', 'book_tour_id', 'total_price'];
 
     public function user()
     {

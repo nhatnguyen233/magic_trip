@@ -11,6 +11,7 @@ class Accommodation extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'name',
         'slug',
         'description',
@@ -31,6 +32,11 @@ class Accommodation extends Model
     ];
 
     protected $appends = ['thumbnail_url', 'avatar_url'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 
     public function province()
     {

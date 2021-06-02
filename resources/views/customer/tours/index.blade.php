@@ -1,10 +1,14 @@
 @extends('layouts.user.app')
 
+@section('style')
+    <link href="{{ asset('css/select2.css') }}" rel="stylesheet"/>
+@endsection
+
 @section('content')
     <section class="hero_in hotels">
         <div class="wrapper">
             <div class="container">
-                <h1 class="fadeInUp"><span></span>TOURS</h1>
+                <h1 class="fadeInUp"><span></span>DANH SÁCH TOUR DU LỊCH</h1>
             </div>
         </div>
     </section>
@@ -17,11 +21,11 @@
                     <div class="switch-field">
                         <input type="radio" id="all" name="listing_filter" value="all" checked data-filter="*"
                                class="selected">
-                        <label for="all">All</label>
+                        <label for="all">Tất cả</label>
                         <input type="radio" id="popular" name="listing_filter" value="popular" data-filter=".popular">
-                        <label for="popular">Popular</label>
+                        <label for="popular">Ưa chuộng</label>
                         <input type="radio" id="latest" name="listing_filter" value="latest" data-filter=".latest">
-                        <label for="latest">Latest</label>
+                        <label for="latest">Mới nhất</label>
                     </div>
                 </li>
                 <li>
@@ -32,8 +36,8 @@
                 </li>
                 <li>
                     <a class="btn_map" data-toggle="collapse" href="#collapseMap" aria-expanded="false"
-                       aria-controls="collapseMap" data-text-swap="Hide map" data-text-original="View on map">View on
-                        map</a>
+                       aria-controls="collapseMap" data-text-swap="Hide map" data-text-original="View on map">Xem bản
+                        đồ</a>
                 </li>
             </ul>
         </div>
@@ -48,32 +52,36 @@
 
     <div class="container margin_60_35">
         <div class="col-lg-12">
-            <div class="row no-gutters custom-search-input-2 inner">
-                <div class="col-lg-4">
-                    <div class="form-group">
-                        <input class="form-control" type="text" placeholder="Bạn đang tìm tour như nào...">
-                        <i class="icon_search"></i>
+            <form action="" method="GET">
+                <div class="row no-gutters custom-search-input-2 inner">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="description" value="{{ request()->get('description') }}" placeholder="What are you looking for...">
+                            <i class="icon_search"></i>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="address" value="{{ request()->get('address') }}" placeholder="Where">
+                            <i class="icon_pin_alt"></i>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <select class="wide" name="province_id">
+                            <option value="">@lang('message.all')</option>
+                            @foreach($provinces as $province)
+                                <option value="{{ $province->id }}"
+                                        @if(request()->get('province_id') == $province->id)  selected @endif>
+                                    {{ $province->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="submit" class="btn_search" value="Tìm">
                     </div>
                 </div>
-                <div class="col-lg-3">
-                    <div class="form-group">
-                        <input class="form-control" type="text" placeholder="Ở đâu">
-                        <i class="icon_pin_alt"></i>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <select class="wide">
-                        <option>District</option>
-                        <option>All</option>
-                        <option>Paris Centre</option>
-                        <option>La Defanse</option>
-                        <option>Latin Quarter</option>
-                    </select>
-                </div>
-                <div class="col-lg-2">
-                    <input type="submit" class="btn_search" value="Tìm">
-                </div>
-            </div>
+            </form>
             <!-- /row -->
         </div>
         <!-- /custom-search-input-2 -->
@@ -86,11 +94,11 @@
                     <div class="row no-gutters">
                         <div class="col-lg-5">
                             <figure>
-                                <small>Parirs Centre</small>
+                                <small>{{ $tour->infos->first()->attraction->district->name }}</small>
                                 <a href="{{ route('tours.show', $tour->id) }}"><img src="{{ $tour->thumbnail_url }}"
                                                                                     class="img-fluid" alt="" width="800"
                                                                                     height="533">
-                                    <div class="read_more"><span>Đọc thêm</span></div>
+                                    <div class="read_more"><span>@lang('message.read_more')</span></div>
                                 </a>
                             </figure>
                         </div>
@@ -122,23 +130,23 @@
                                 <h3><a href="{{ route('tours.show', $tour->id) }}">{{ $tour->name }}</a></h3>
                                 <p>{!! \Illuminate\Support\Str::limit($tour->description, 115, '...')  !!}</p>
                                 <span
-                                    class="price">Từ <strong>{{ number_format($tour->price) }}đ</strong> / 1 người</span>
+                                    class="price">From <strong>{{ number_format($tour->price) }}đ</strong> / 1 @lang('message.per')</span>
                             </div>
                             <ul>
-                                <li><i class="ti-eye"></i> 164 views</li>
+                                <li><i class="ti-eye"></i> 164 lượt xem</li>
                                 <li>
                                     <div class="score">
                                         <span>
                                         @if($average >= 9)
-                                                Tuyệt vời
+                                                @lang('message.great')
                                             @elseif($average >= 8)
-                                                Tốt
+                                                @lang('message.good')
                                             @elseif($average >= 5)
-                                                Khá tốt
+                                                @lang('message.average')
                                             @else
-                                                Bình thường
+                                                @lang('message.bad')
                                             @endif
-                                        <em>{{ $tour->reviews->count() }} đánh giá</em>
+                                        <em>{{ $tour->reviews->count() }} @lang('message.review')</em>
                                         </span>
                                         <strong>{{ $average }}</strong>
                                     </div>
@@ -161,6 +169,7 @@
 <script src="{{ asset('js/front/markerclusterer.js') }}"></script>
 <script src="{{ asset('js/front/map_tours.js') }}"></script>
 <script src="{{ asset('js/front/infobox.js') }}"></script>
+<script src="{{ asset('js/select2.js') }}"></script>
 
 <!-- Masonry Filtering -->
 <script src="{{ asset('js/front/isotope.min.js') }}"></script>

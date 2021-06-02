@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\Register;
+use App\Http\Requests\User\UpdateProfile;
 use App\Models\User;
 use App\Repositories\Province\ProvinceRepository;
 use App\Repositories\User\UserRepository;
@@ -38,7 +39,7 @@ class UserController extends Controller
     public function store(Register $request)
     {
         if($this->userRepository->createUserInfo($request->except(['_token']))) {
-            return redirect()->route('admin.users.index')->with('success', __('message.update_success'));
+            return redirect()->route('admin.users.index')->with('success', __('message.create_success'));
         }
 
         return redirect()->back()->with('fail', __('message.update_fail'));
@@ -52,9 +53,9 @@ class UserController extends Controller
         return view('admin.users.edit',  $viewData);
     }
 
-    public function update(Request $request)
+    public function update(UpdateProfile $request)
     {
-        if ($this->userRepository->updateBaseInfo($request->except(['_token']), $request->user)) {
+        if ($this->userRepository->updateBaseInfo($request->validated(), $request->user)) {
             return redirect()->route('admin.users.index')->with('success', __('message.update_success'));
         }
 

@@ -8,12 +8,29 @@
     <section class="hero_in tours_detail">
         <div class="wrapper">
             <div class="container">
-                <h1 class="fadeInUp"><span></span>{{ $tour->name }}</h1>
+                <h1 class="fadeInUp"><span></span>{!! $tour->description !!}</h1>
             </div>
             <span class="magnific-gallery">
-                <a href="{{ asset('img/gallery/tour_list_1.jpg') }}" class="btn_photos" title="Photo title" data-effect="mfp-zoom-in">View photos</a>
-                <a href="{{ asset('img/gallery/tour_list_2.jpg') }}" title="Photo title" data-effect="mfp-zoom-in"></a>
-                <a href="{{ asset('img/gallery/tour_list_3.jpg') }}" title="Photo title" data-effect="mfp-zoom-in"></a>
+                <a href="{{ $tour->infos->first()->thumbnail_url ?? '' }}" class="btn_photos" title="Ảnh album" data-effect="mfp-zoom-in">Albums</a>
+                @if($tour->infos != null)
+                    @foreach($tour->infos as $key=>$info)
+                        @if($key > 0)
+                            <a href="{{ $info->thumbnail_url }}" title="Ảnh tham khảo" data-effect="mfp-zoom-in"></a>
+                        @endif
+
+                        @if($info->attraction_images != null)
+                        @foreach($info->attraction_images as $value)
+                            <a href="{{ $value }}" title="Ảnh tham khảo" data-effect="mfp-zoom-in"></a>
+                        @endforeach
+                        @endif
+
+                        @if($info->accommodation_images != null)
+                        @foreach($info->accommodation_images as $value)
+                            <a href="{{ $value }}" title="Địa điểm nghỉ ngơi" data-effect="mfp-zoom-in"></a>
+                        @endforeach
+                        @endif
+                    @endforeach
+                @endif
             </span>
         </div>
     </section>
@@ -23,9 +40,9 @@
         <nav class="secondary_nav sticky_horizontal">
             <div class="container">
                 <ul class="clearfix">
-                    <li><a href="#description" class="active">Mô tả</a></li>
-                    <li><a href="#reviews">Đánh giá</a></li>
-                    <li><a href="#sidebar">Đặt Tour</a></li>
+                    <li><a href="#description" class="active">@lang('message.description')</a></li>
+                    <li><a href="#reviews">@lang('message.review')</a></li>
+                    <li><a href="#sidebar">@lang('message.book_tour')</a></li>
                 </ul>
             </div>
         </nav>
@@ -33,31 +50,34 @@
             <div class="row">
                 <div class="col-lg-8">
                     <section id="description">
-                        <h2>Mô tả</h2>
+                        <h2>@lang('message.description')</h2>
                         <div class="tour-description">
                             {!! $tour->description !!}
                         </div>
                         <hr>
-                        <h3>Chương trình <small>({{ $tour->total_time/24 }} ngày)</small></h3>
+                        <h3>@lang('message.program')<small>({{ round($tour->total_time/24) }} @lang('message.day'))</small></h3>
                         <p>
                             {!! $tour->program ?? 'Chưa thiết lập chương trình hoạt động cho chuyến du lịch.'!!}
                         </p>
-                        <h4>Các địa điểm tham quan trong chuyến đi</h4>
+                        <h4>@lang('message.schedule')</h4>
                         <ul class="cbp_tmtimeline">
                             @foreach($tour->infos as $item)
+                                @php
+                                    $start_time = new DateTime($item->start_time);
+                                @endphp
                                 <li>
-                                    <time class="cbp_tmtime" datetime="09:30"><span>{{ $item->limit_time }} min.</span><span>{{ $item->start_time }}</span>
+                                    <time class="cbp_tmtime" datetime="{{ $start_time->format('H:i') }}"><span>{{ $item->limit_time }} min.</span><span>{{ $start_time->format('H:i') }}</span>
                                     </time>
                                     <div class="cbp_tmicon">
                                         {{ $item->order_number }}
                                     </div>
                                     <div class="cbp_tmlabel">
                                         <div class="hidden-xs">
-                                            <img src="{{ $item->thumbnail_url }}" alt="" class="rounded-circle thumb_visit">
+                                            <img src="{{ $item->attraction->thumbnail_url }}" alt="" class="rounded-circle thumb_visit">
                                         </div>
-                                        <h4>{{ $item->title }}</h4>
+                                        <h4>{{ $item->attraction->title }}</h4>
                                         <p>
-                                            {{ $item->summary }}
+                                            {!! $item->attraction->description !!}
                                         </p>
                                     </div>
                                 </li>
@@ -71,20 +91,20 @@
                     <!-- /section -->
 
                     <section id="reviews">
-                        <h2>Đánh giá</h2>
+                        <h2>@lang('message.review')</h2>
                         <div class="reviews-container">
                             <div class="row">
                                 <div class="col-lg-3">
                                     <div id="review_summary">
                                         <strong>{{ $average }}</strong>
                                         @if($average >= 9)
-                                            <em>Tuyệt vời</em>
+                                            <em>@lang('message.great')</em>
                                         @elseif($average >= 8)
-                                            <em>Tốt</em>
+                                            <em>@lang('message.good')</em>
                                         @elseif($average >= 5)
-                                            <em>Khá tốt</em>
+                                            <em>@lang('message.average')</em>
                                         @else
-                                            <em>Bình thường</em>
+                                            <em>@lang('message.bad')</em>
                                         @endif
                                         <small>Dựa trên {{ $reviews->count() }} nhận xét</small>
                                     </div>
@@ -162,7 +182,7 @@
                                             </div>
                                             <div class="rev-text">
                                                 <p>
-                                                    {{ $item->content }}
+                                                    {!! $item->content !!}
                                                 </p>
                                             </div>
                                         </div>
@@ -180,13 +200,13 @@
                             </div>
                         @endif
                         <div class="add-review">
-                            <h5>Để lại đánh giá</h5>
+                            <h5>@lang('message.write_review')</h5>
                             <form action="{{ route('reviews.store') }}" method="POST">
                                 @csrf
                                 <div class="row">
                                     @guest('customer')
                                     <div class="form-group col-md-6">
-                                        <label for="customer_name">Họ và tên <span class="text-danger">*</span></label>
+                                        <label for="customer_name">@lang('message.fullname')<span class="text-danger">*</span></label>
                                         <input type="text" name="customer_name" id="customer_name"
                                                value="{{ old('customer_name') }}" placeholder="" class="form-control" required>
                                     </div>
@@ -218,13 +238,13 @@
                                         <input type="hidden" name="tour_id" id="tour_review" value="{{ $tour->id }}" class="form-control">
                                     </div>
                                     <div class="form-group col-md-12">
-                                        <label for="review_content">Đánh giá</label>
+                                        <label for="review_content">@lang('message.review')</label>
                                         <textarea name="content" id="review_content" class="form-control" style="height:130px;">
                                             {{ old('content') }}
                                         </textarea>
                                     </div>
                                     <div class="form-group col-md-12 add_top_20">
-                                        <input type="submit" value="Đánh giá" class="btn_1" id="submit-review">
+                                        <input type="submit" value="Review" class="btn_1" id="submit-review">
                                     </div>
                                 </div>
                             </form>
@@ -235,19 +255,19 @@
                 <aside class="col-lg-4" id="sidebar">
                     <div class="box_detail booking">
                         <div class="price">
-                            <h4>{{ number_format($tour->price, 0, '', ',') }} VND <small>/ 1 người</small></h4>
+                            <h4>{{ number_format($tour->price, 0, '', ',') }}đ <small>/ 1 @lang('message.per')</small></h4>
                             <div class="score">
 
                                 <span>  @if($average >= 9)
-                                            Tuyệt vời
+                                            @lang('message.great')
                                         @elseif($average >= 8)
-                                            Tốt
+                                            @lang('message.good')
                                         @elseif($average >= 5)
-                                            Khá tốt
+                                            @lang('message.average')
                                         @else
-                                            Bình thường
+                                            @lang('message.bad')
                                         @endif
-                                        <em>{{ $reviews->count() }} đánh giá</em>
+                                        <em>{{ $reviews->count() }} @lang('message.review')</em>
                                 </span>
                                 <strong>{{ $average }}</strong>
                             </div>
@@ -298,17 +318,21 @@
                                 <label for="date_of_book"><i class="icon_calendar"></i></label>
                             </div>
                             <div class="panel-dropdown">
-                                <a href="#">Số lượng <span class="qtyTotal">1</span></a>
+                                <a href="#">@lang('message.guest') <span class="qtyTotal">0</span></a>
                                 <div class="panel-dropdown-content right">
                                     <div class="qtyButtons">
-                                        <label for="number_of_slots">Số lượng</label>
-                                        <input type="text" name="number_of_slots" id="number_of_slots" value="1" required>
+                                        <label for="adults">@lang('message.adult')</label>
+                                        <input type="text" name="adults" id="adults" value="0">
+                                    </div>
+                                    <div class="qtyButtons">
+                                        <label for="childrens">@lang('message.child')</label>
+                                        <input type="text" name="childrens" id="childrens" value="0">
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn_1 full-width purchase">Thêm vào giỏ</button>
-                            <a href="wishlist.html" class="btn_1 full-width outline wishlist"><i class="icon_heart"></i> Tour yêu thích</a>
-                            <div class="text-center"><small>Không bị tính phí trong bước này</small></div>
+                            <button type="submit" class="btn_1 full-width purchase">@lang('message.add_cart')</button>
+                            <a href="wishlist.html" class="btn_1 full-width outline wishlist"><i class="icon_heart"></i> @lang('message.add_wishlist')</a>
+                            <div class="text-center"><small>@lang('message.no_charge')</small></div>
                         </form>
                     </div>
                     <ul class="share-buttons">
@@ -333,6 +357,8 @@
     <script src="{{ asset('js/front/jquery.instagramFeed.min.js') }}"></script>
     <script src="{{ asset('js/front/moment.min.js') }}"></script>
     <script src="{{ asset('tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.js') }}" crossorigin="anonymous"></script>
+    <!-- INPUT QUANTITY  -->
+    <script src="{{ asset('js/front/input_qty.js') }}"></script>
     <!-- INSTAGRAM FEED  -->
     <script>
         $(window).on('load', function() {

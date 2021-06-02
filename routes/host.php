@@ -7,6 +7,13 @@ use App\Http\Controllers\Host\TourController;
 use App\Http\Controllers\Host\TourInfoController;
 use App\Http\Controllers\Host\ScheduleController;
 use App\Http\Controllers\Host\ReviewController;
+use App\Http\Controllers\Host\BookTourController;
+use App\Http\Controllers\Host\BillController;
+use App\Http\Controllers\Host\AccommodationController;
+use App\Http\Controllers\Host\AttractionController;
+use App\Http\Controllers\Host\AccommodationImageController;
+use App\Http\Controllers\Host\AttractionImageController;
+use App\Http\Controllers\Host\EventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +38,19 @@ Route::middleware('auth.host')->group(function() {
     Route::resource('/tours', TourController::class);
     Route::resource('/tour-infos', TourInfoController::class);
     Route::resource('/schedules', ScheduleController::class);
+    Route::resource('/bookings', BookTourController::class);
+    Route::resource('/bills', BillController::class);
+    Route::resource('/attractions', AttractionController::class);
+    Route::resource('/accommodations', AccommodationController::class);
+    Route::resource('/attraction-images', AttractionImageController::class)
+        ->only(['destroy',]);
+    Route::resource('/accommodation-images', AccommodationImageController::class)
+        ->only(['destroy',]);
+    Route::get('/export', [BillController::class, 'getListToExport'])->name('bills.export');
+    Route::get('/export/pdf', [BillController::class, 'createPDF'])->name('bills.export.pdf');
+    Route::put('/approve/{booking}', [BookTourController::class, 'approve'])->name('bookings.approve');
+    Route::put('/finished/{booking}', [BookTourController::class, 'finishedConfirm'])->name('bookings.finished');
     Route::get('/tour-infos/list/{tour}', [TourInfoController::class, 'getListTourInfo'])->name('tour-infos.list');
     Route::resource('reviews', ReviewController::class);
+    Route::resource('news', EventController::class);
 });
