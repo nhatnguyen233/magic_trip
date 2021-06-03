@@ -30,7 +30,7 @@ class EventController extends Controller
     {
         $viewData['events'] = $this->eventRepository->findWhere(['user_id'=>auth('host')->id()]);
 
-        return view('host.news.index',$viewData);
+        return view('host.news.index', $viewData);
     }
 
     /**
@@ -53,7 +53,7 @@ class EventController extends Controller
     {
         $viewData['event'] = $this->eventRepository->createEvent($request->all());
 
-        return redirect()->route('host.news.index')->with('success', 'Create new successfully');
+        return redirect()->route('host.events.index')->with('success', 'Create new successfully');
     }
 
     /**
@@ -89,9 +89,9 @@ class EventController extends Controller
      */
     public function update(Request $request, Event $event)
     {
-        $this->eventRepository->updateEvent($request->all(), $event);
+        $this->eventRepository->updateEvent($request->all(), $event->id);
 
-        return redirect()->route('host.news.index')->with('success', 'Update new successfully');
+        return redirect()->route('host.events.index')->with('success', 'Update new successfully');
     }
 
     /**

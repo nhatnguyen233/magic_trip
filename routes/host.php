@@ -53,5 +53,5 @@ Route::middleware('auth.host')->group(function() {
     Route::put('/finished/{booking}', [BookTourController::class, 'finishedConfirm'])->name('bookings.finished');
     Route::get('/tour-infos/list/{tour}', [TourInfoController::class, 'getListTourInfo'])->name('tour-infos.list');
     Route::resource('reviews', ReviewController::class);
-    Route::resource('news', EventController::class);
+    Route::resource('events', EventController::class);
 });
