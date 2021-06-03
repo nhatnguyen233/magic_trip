@@ -54,15 +54,16 @@
                     <div class="form-group">
                         <label for="name-tour">Tên Tour<span class="text-danger">*</span></label>
                         <input type="text" class="form-control" placeholder="Trở lại thanh xuân..."
-                               name="name" id="name-tour" value="{{ session()->get('tour')->name ?? old('name') }}" required>
+                               name="name" id="name-tour" value="{{ session()->get('tour')->name ?? old('name') }}" >
                     </div>
                 </div>
+
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="price-tour">Chi phí <span class="text-danger">*</span></label>
                         <div class="d-flex align-items-center">
                             <input type="text" class="form-control" name="price"
-                                   id="price-tour" value="{{ session()->get('tour')->price ?? old('price') }}" required>
+                                   id="price-tour" value="{{ session()->get('tour')->price ?? old('price') }}">
                             <span>&nbsp;(VNĐ)</span>
                         </div>
                     </div>
@@ -73,14 +74,14 @@
                     <div class="form-group">
                         <label for="vehicle-tour">Phương tiện chính <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" placeholder="Xe máy, ôtô, thuyền..."
-                               name="vehicle" id="vehicle-tour" value="{{ session()->get('tour')->vehicle ?? old('vehicle') }}" required>
+                               name="vehicle" id="vehicle-tour" value="{{ session()->get('tour')->vehicle ?? old('vehicle') }}">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="total-time-tour">Tổng thời gian <span class="text-danger">*</span></label>
                         <input type="number" class="form-control" name="total_time" placeholder="1, 2, 3 giờ"
-                               id="total-time-tour" value="{{ session()->get('tour')->total_time ?? old('total_time') }}" required>
+                               id="total-time-tour" value="{{ session()->get('tour')->total_time ?? old('total_time') }}">
                     </div>
                 </div>
             </div>

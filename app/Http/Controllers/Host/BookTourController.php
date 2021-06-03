@@ -114,9 +114,23 @@ class BookTourController extends Controller
     }
 
     /**
+     * Approve bookings resource from storage.
+     *
+     * @param  Request $request
+     * @param  \App\Models\BookTour $booking
+     * @return \Illuminate\Http\Response
+     */
+    public function cancel(Request $request, BookTour $booking)
+    {
+        $booking->update(['status' => BookingStatus::PENDING]);
+
+        return redirect()->back()->with('success', 'Hủy chấp nhận lịch đặt thành công');
+    }
+
+    /**
      * Finished confirm bookings resource from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request $request
      * @param  \App\Models\BookTour $booking
      * @return \Illuminate\Http\Response
      */
