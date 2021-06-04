@@ -45,12 +45,12 @@
                         <div class="box_cart">
                             <div class="message">
                                 <h1>Đăng ký đối tác thành viên</h1>
-                                <p>Bạn đã có tài khoản? <a href="#0">Đăng nhập</a></p>
+                                <p>@lang('message.have_acc') <a href="#0">@lang('message.login')</a></p>
                             </div>
                             <div class="form_title">
-                                <h3><strong>1</strong>Thông tin cá nhân</h3>
+                                <h3><strong>1</strong>@lang('message.per_inf')</h3>
                                 <p>
-                                    Họ tên, địa chỉ, email, số điện thoại
+                                @lang('message.list_per_inf')
                                 </p>
                             </div>
                             <div class="step">
@@ -62,7 +62,7 @@
                                         <input type="file" class="form-control-file mb-2" id="avatar"
                                                placeholder="Ảnh đại diện" name="avatar" hidden/>
                                     </div>
-                                    <h6 class="mt-2 mb-2">Ảnh đại diện</h6>
+                                    <h6 class="mt-2 mb-2">@lang('message.avatar')</h6>
                                 </div>
                                 @if($errors->any())
                                     <div class="alert alert-danger">
@@ -76,7 +76,7 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label for="name">Họ và Tên <span class="text-danger">*</span></label>
+                                            <label for="name">@lang('message.fullname') <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required>
                                         </div>
                                     </div>
@@ -90,7 +90,7 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label for="passwordInput">Mật khẩu <span class="text-danger">*</span></label>
+                                            <label for="passwordInput">@lang('message.password') <span class="text-danger">*</span></label>
                                             <div class="input-group" id="show_hide_password">
                                                 <input type="password" class="form-control" name="password" id="passwordInput"
                                                        value="{{ old('password') }}" placeholder="Mật khẩu" required />
@@ -106,14 +106,14 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label for="phone">Điện thoại <span class="text-danger">*</span></label>
+                                            <label for="phone">@lang('message.phone') <span class="text-danger">*</span></label>
                                             <input type="text" id="phone" name="phone" class="form-control"
                                                    value="{{ old('phone') }}" required>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label for="password_confirmation">Xác nhận mật khẩu</label>
+                                            <label for="password_confirmation">@lang('message.confirm_pass')</label>
                                             <div class="input-group" id="show_hide_confirm_password">
                                                 <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" value="{{ old('password') }}" placeholder="Nhập lại mật khẩu" required />
                                                 <div class="input-group-append">
@@ -131,7 +131,7 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label for="address">Địa chỉ thường trú</label>
+                                            <label for="address">@lang('message.address')</label>
                                             <input type="text" id="address" name="address" value="{{ old('address') }}" class="form-control">
                                         </div>
                                     </div>
@@ -139,7 +139,7 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label for="country">Quốc gia</label>
+                                            <label for="country">@lang('message.country')</label>
                                             <select name="country_id" class="form-control" id="country">
                                                 <option value="1" selected>Việt Nam</option>
                                             </select>
@@ -147,7 +147,7 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label for="province">Tỉnh/Thành phố <span class="text-danger">*</span></label>
+                                            <label for="province">@lang('message.city') <span class="text-danger">*</span></label>
                                             <select name="province_id" id="province" class="form-control" required>
                                                 <option selected disabled>Chọn Tỉnh/Thành phố</option>
                                                 @foreach($provinces as $item)
@@ -165,7 +165,7 @@
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-group">
-                                            <label for="district">Quận/Huyện <span class="text-danger">*</span></label>
+                                            <label for="district">@lang('message.district') <span class="text-danger">*</span></label>
                                             <select name="district_id" id="district" class="form-control" required>
                                                 <option selected disabled>Chọn Quận/Huyện</option>
                                             </select>
@@ -173,7 +173,7 @@
                                     </div>
                                     <div class="col-md-6 col-sm-6">
                                         <div class="form-group">
-                                            <label>Mã bưu điện <span class="text-danger">*</span></label>
+                                            <label>@lang('message.zip_code') <span class="text-danger">*</span></label>
                                             <input type="text" id="postal_code" name="postal_code" value="{{ old('postal_code') }}" class="form-control" required>
                                         </div>
                                     </div>
@@ -182,22 +182,22 @@
                             </div>
                             <hr>
                             <div class="form_title">
-                                <h3><strong>2</strong>Thông tin công ty, tổ chức du lịch đối tác</h3>
+                                <h3><strong>2</strong>@lang('message.company_inf')</h3>
                                 <p>
-                                    Tên công ty, ngày thành lập...
+                                @lang('message.list_comp_inf')
                                 </p>
                             </div>
                             <div class="step">
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label for="address">Tên công ty, tổ chức đối tác</label>
+                                            <label for="address">@lang('message.company_name')</label>
                                             <input type="text" id="host_name" name="host_name" value="{{ old('host_name') }}" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label for="date_of_establish">Ngày thành lập</label>
+                                            <label for="date_of_establish">@lang('message.founded_date')</label>
                                             <input type="text" class="form-control datetimepicker-input" placeholder="Ngày thành lập"
                                                    id="date_of_establish" data-toggle="datetimepicker" name="date_of_establish"
                                                    value="{{ request()->get('date_of_establish') }}"/>
@@ -214,7 +214,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <div class="form-group">
-                                                <label for="host_mail">Địa chỉ Mail</label>
+                                                <label for="host_mail">@lang('message.mail_address')</label>
                                                 <input type="text" id="host_mail" name="host_mail" value="{{ old('host_mail') }}" class="form-control">
                                             </div>
                                         </div>

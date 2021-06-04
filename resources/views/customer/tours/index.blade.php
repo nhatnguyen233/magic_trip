@@ -56,19 +56,19 @@
                 <div class="row no-gutters custom-search-input-2 inner">
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <input class="form-control" type="text" name="description" value="{{ request()->get('description') }}" placeholder="Bạn đang tìm tour như nào...">
+                            <input class="form-control" type="text" name="description" value="{{ request()->get('description') }}" placeholder="What are you looking for...">
                             <i class="icon_search"></i>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="form-group">
-                            <input class="form-control" type="text" name="address" value="{{ request()->get('address') }}" placeholder="Ở đâu">
+                            <input class="form-control" type="text" name="address" value="{{ request()->get('address') }}" placeholder="Where">
                             <i class="icon_pin_alt"></i>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <select class="wide" name="province_id">
-                            <option value="">Tất cả</option>
+                            <option value="">@lang('message.all')</option>
                             @foreach($provinces as $province)
                                 <option value="{{ $province->id }}"
                                         @if(request()->get('province_id') == $province->id)  selected @endif>
@@ -98,7 +98,7 @@
                                 <a href="{{ route('tours.show', $tour->id) }}"><img src="{{ $tour->thumbnail_url }}"
                                                                                     class="img-fluid" alt="" width="800"
                                                                                     height="533">
-                                    <div class="read_more"><span>Đọc thêm</span></div>
+                                    <div class="read_more"><span>@lang('message.read_more')</span></div>
                                 </a>
                             </figure>
                         </div>
@@ -130,7 +130,7 @@
                                 <h3><a href="{{ route('tours.show', $tour->id) }}">{{ $tour->name }}</a></h3>
                                 <p>{!! \Illuminate\Support\Str::limit($tour->description, 115, '...')  !!}</p>
                                 <span
-                                    class="price">Từ <strong>{{ number_format($tour->price) }}đ</strong> / 1 người</span>
+                                    class="price">From <strong>{{ number_format($tour->price) }}đ</strong> / 1 @lang('message.per')</span>
                             </div>
                             <ul>
                                 <li><i class="ti-eye"></i> 164 lượt xem</li>
@@ -138,15 +138,15 @@
                                     <div class="score">
                                         <span>
                                         @if($average >= 9)
-                                                Tuyệt vời
+                                                @lang('message.great')
                                             @elseif($average >= 8)
-                                                Tốt
+                                                @lang('message.good')
                                             @elseif($average >= 5)
-                                                Khá tốt
+                                                @lang('message.average')
                                             @else
-                                                Bình thường
+                                                @lang('message.bad')
                                             @endif
-                                        <em>{{ $tour->reviews->count() }} đánh giá</em>
+                                        <em>{{ $tour->reviews->count() }} @lang('message.review')</em>
                                         </span>
                                         <strong>{{ $average }}</strong>
                                     </div>

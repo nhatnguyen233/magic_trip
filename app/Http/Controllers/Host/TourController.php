@@ -103,7 +103,7 @@ class TourController extends Controller
     {
         $this->tourRepository->updateTour($request->all(), $tour->id);
 
-        return redirect()->route('host.tours.index')->with('success', 'Tạo tour thành công');
+        return redirect()->route('host.tours.index')->with('success', trans('message.create_success'));
     }
 
     /**

@@ -10,7 +10,7 @@
             <div class="container">
                 <div class="bs-wizard clearfix">
                     <div class="bs-wizard-step">
-                        <div class="text-center bs-wizard-stepnum">Giỏ</div>
+                        <div class="text-center bs-wizard-stepnum">@lang('message.cart')</div>
                         <div class="progress">
                             <div class="progress-bar"></div>
                         </div>
@@ -18,7 +18,7 @@
                     </div>
 
                     <div class="bs-wizard-step active">
-                        <div class="text-center bs-wizard-stepnum">Đặt Tour</div>
+                        <div class="text-center bs-wizard-stepnum">@lang('message.book_tour')</div>
                         <div class="progress">
                             <div class="progress-bar"></div>
                         </div>
@@ -26,7 +26,7 @@
                     </div>
 
                     <div class="bs-wizard-step disabled">
-                        <div class="text-center bs-wizard-stepnum">Chờ xác nhận</div>
+                        <div class="text-center bs-wizard-stepnum">@lang('message.confirm')</div>
                         <div class="progress">
                             <div class="progress-bar"></div>
                         </div>
@@ -34,7 +34,7 @@
                     </div>
 
                     <div class="bs-wizard-step disabled">
-                        <div class="text-center bs-wizard-stepnum">Thanh toán</div>
+                        <div class="text-center bs-wizard-stepnum">@lang('message.payment')</div>
                         <div class="progress">
                             <div class="progress-bar"></div>
                         </div>
@@ -42,7 +42,7 @@
                     </div>
 
                     <div class="bs-wizard-step disabled">
-                        <div class="text-center bs-wizard-stepnum">Hoàn thành</div>
+                        <div class="text-center bs-wizard-stepnum">@lang('message.finish')</div>
                         <div class="progress">
                             <div class="progress-bar"></div>
                         </div>
@@ -61,13 +61,13 @@
                 <div class="col-lg-8">
                     <div class="box_cart">
                         <div class="message">
-                            <p>Bạn muốn thanh toán sau khi nhận được hàng? <a href="#0">Click here</a></p>
+                            <p>@lang('message.pay_confirm') <a href="#0">Click here</a></p>
                         </div>
                         {{------------ Giỏ ------------}}
                         <div class="form_title mb-4">
-                            <h3><strong>1</strong>Kiểm tra lại các Tour bạn muốn đặt</h3>
+                            <h3><strong>1</strong>@lang('message.check_tour')</h3>
                             <p>
-                                Danh sách các Tour có trong giỏ
+                            @lang('message.list_tour')
                             </p>
                         </div>
                         <table class="table table-striped cart-list">
@@ -77,16 +77,16 @@
                                     Tour
                                 </th>
                                 <th>
-                                    Ngày khởi hành
+                                @lang('message.departure_day')
                                 </th>
                                 <th>
-                                    Giá
+                                @lang('message.price')
                                 </th>
                                 <th>
-                                    Số lượng
+                                @lang('message.guest')
                                 </th>
                                 <th>
-                                    Tổng tiền
+                                @lang('message.total_price')
                                 </th>
                             </tr>
                             </thead>
@@ -116,7 +116,7 @@
                                 <tr>
                                     <td colspan="5">
                                         <h2 class="text-center mt-4 font-weight-lighter">
-                                            Giỏ trống
+                                        @lang('message.empty_cart')
                                         </h2>
                                     </td>
                                 </tr>
@@ -127,9 +127,9 @@
                         @if($carts->count() > 0)
                         {{------------ Thông tin tài khoản khách ------------}}
                         <div class="form_title">
-                            <h3><strong>2</strong>Thông tin cá nhân</h3>
+                            <h3><strong>2</strong>@lang('message.per_inf')</h3>
                             <p>
-                                Họ tên, địa chỉ, email, số điện thoại
+                            @lang('message.list_per_inf')
                             </p>
                         </div>
                         <form action="{{ route('user.update-profile', auth('customer')->id()) }}" method="POST" enctype="multipart/form-data">
@@ -152,7 +152,7 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label for="name">Họ và Tên <span class="text-danger">*</span></label>
+                                            <label for="name">@lang('message.fullname') <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="name" name="name" value="{{ auth('customer')->user()->name }}" required>
                                         </div>
                                     </div>
@@ -166,13 +166,13 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label for="address">Địa chỉ thường trú</label>
+                                            <label for="address">@lang('message.address')</label>
                                             <input type="text" id="address" name="address" value="{{ auth('customer')->user()->address }}" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label for="phone">Điện thoại <span class="text-danger">*</span></label>
+                                            <label for="phone">@lang('message.phone') <span class="text-danger">*</span></label>
                                             <input type="text" id="phone" name="phone" class="form-control"
                                                    value="{{ auth('customer')->user()->phone }}" required>
                                         </div>
@@ -181,7 +181,7 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label for="country">Quốc gia</label>
+                                            <label for="country">@lang('message.country')</label>
                                             <select name="country_id" class="form-control" id="country">
                                                 <option value="1" selected>Việt Nam</option>
                                             </select>
@@ -189,7 +189,7 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label for="province">Tỉnh/Thành phố <span class="text-danger">*</span></label>
+                                            <label for="province">@lang('message.city') <span class="text-danger">*</span></label>
                                             <select name="province_id" id="province" class="form-control" required>
                                                 <option selected disabled>Chọn Tỉnh/Thành phố</option>
                                                 @foreach($provinces as $item)
@@ -207,7 +207,7 @@
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-group">
-                                            <label for="district">Quận/Huyện <span class="text-danger">*</span></label>
+                                            <label for="district">@lang('message.district') <span class="text-danger">*</span></label>
                                             <select name="district_id" id="district" class="form-control" required>
                                                 <option selected disabled>Chọn Quận/Huyện</option>
                                             </select>
@@ -215,7 +215,7 @@
                                     </div>
                                     <div class="col-md-6 col-sm-6">
                                         <div class="form-group">
-                                            <label>Mã bưu điện <span class="text-danger">*</span></label>
+                                            <label>@lang('message.zip_code') <span class="text-danger">*</span></label>
                                             <input type="text" id="postal_code" name="postal_code" value="{{ auth('customer')->user()->postal_code }}" class="form-control" required>
                                         </div>
                                     </div>
@@ -239,21 +239,21 @@
                 <aside class="col-lg-4" id="sidebar">
                     <div class="box_detail">
                         <div id="total_cart">
-                            Tổng <span class="float-right">{{ number_format($total_price_all, 0, '', ',') }}đ</span>
+                        @lang('message.total') <span class="float-right">{{ number_format($total_price_all, 0, '', ',') }}đ</span>
                         </div>
                         <ul class="cart_details">
                             <li>Tour <span>{{ $carts->count() }}</span></li>
-                            <li>Số lượng đặt <span>{{ $number_of_slots }}</span></li>
+                            <li>@lang('message.total_order') <span>{{ $number_of_slots }}</span></li>
                         </ul>
                         @if($carts->count() > 0)
                         <button type="button" class="btn_1 full-width purchase" data-toggle="modal" data-target="#orderModalCenter">
-                            Đặt tour
+                        @lang('message.book_tour')
                         </button>
                         @endif
                         <a href="{{ url()->previous() }}" class="btn btn-outline-secondary w-100">
-                            <span style="font-weight: 600; font-size: 0.875rem">Quay lại</span>
+                            <span style="font-weight: 600; font-size: 0.875rem">@lang('message.back')</span>
                         </a>
-                        <div class="text-center"><small>Không bị tính phí trong bước này</small></div>
+                        <div class="text-center"><small>@lang('message.no_charge')</small></div>
                     </div>
                 </aside>
             </div>

@@ -12,7 +12,7 @@
         <li><a href="{{ route('cart.index') }}" class="cart-menu-btn" title="Cart"><strong>{{ session()->get('total_item_cart') }}</strong></a></li>
         <li><a href="wishlist.html" class="wishlist_bt_top" title="Your wishlist">Your wishlist</a></li>
         @guest('customer')
-            <li><a href="#sign-in-dialog" id="sign-in" class="login" title="Đăng nhập">Đăng nhập</a></li>
+            <li><a href="#sign-in-dialog" id="sign-in" class="login" title="Đăng nhập">@lang('message.login')</a></li>
         @endguest
         @auth('customer')
             <div class="btn-group">
@@ -22,13 +22,13 @@
                 <div class="dropdown-menu">
                     <a class="mobile-hidden-name">
                         {{ auth('customer')->user()->name }}</a>
-                    <a class="dropdown-item" href="{{ route('update-profile', auth('customer')->user()->id) }}">Tài khoản</a>
+                    <a class="dropdown-item" href="{{ route('update-profile', auth('customer')->user()->id) }}">@lang('message.account')</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ route('book-tour.index') }}">
-                        <i class="fab fa-first-order"></i>Tour của bạn</a>
+                        <i class="fab fa-first-order"></i>@lang('message.your_cart')</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal">
-                        <i class="fa fa-fw fa-sign-out"></i>Đăng xuất</a>
+                        <i class="fa fa-fw fa-sign-out"></i>@lang('message.logout')</a>
                 </div>
             </div>
         @endauth
@@ -48,11 +48,11 @@
                     <li><a href="/">Home Default</a></li>
                 </ul>
             </li>
-            <li><span><a href="{{ route('tours.index') }}">Tours</a></span>
+            <li><span><a href="{{ route('tours.index') }}">@lang('message.tour')</a></span>
             </li>
-            <li><span><a href="{{ route('accommodations.index') }}">Khách sạn</a></span>
+            <li><span><a href="{{ route('accommodations.index') }}">@lang('message.hotel')</a></span>
             </li>
-            <li><span><a href="#0">Eat &amp; Drink</a></span>
+            <li><span><a href="#0">@lang('message.eat') &amp; @lang('message.drink')</a></span>
                 <ul>
                     <li>
                         <span><a href="#0">Restaurant Grid</a></span>
@@ -76,8 +76,8 @@
                     <li><a href="restaurant-detail.html">Restaurant Detail</a></li>
                 </ul>
             </li>
-            <li><span><a href="adventure.html">Cuộc phiêu lưu</a></span></li>
-            <li><span><a href="#0">Pages</a></span>
+            <li><span><a href="adventure.html">@lang('message.adventure')</a></span></li>
+            <li><span><a href="#0">@lang('message.page')</a></span>
                 <ul>
                     <li><a href="about.html">About</a></li>
                     <li><a href="media-gallery.html">Media gallery</a></li>
@@ -94,7 +94,7 @@
                     <li><a href="pricing-tables-3.html">Pricing Tables 2 <strong>New!</strong></a></li>
                 </ul>
             </li>
-            <li><span><a href="#0">Thêm</a></span>
+            <li><span><a href="#0">@lang('message.extra')</a></span>
                 <ul>
                     <li><a href="menu-options.html">Menu Position Options</a></li>
                     <li><a href="tour-detail-singlemonth-datepicker.html">Single month Datepicker</a></li>

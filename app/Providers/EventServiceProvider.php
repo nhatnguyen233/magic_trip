@@ -30,5 +30,6 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         BookTour::observe(BookTourObserver::class);
+        NotificationPusherEvent::class;
     }
 }

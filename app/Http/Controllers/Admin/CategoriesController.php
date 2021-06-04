@@ -51,7 +51,7 @@ class CategoriesController extends Controller
     {
         $this->categoryRepository->create($request->all());
 
-        return redirect()->route('admin.categories.index')->with('success', 'Thêm danh mục thành công');
+        return redirect()->route('admin.categories.index')->with('success', trans('message.create_success'));
     }
 
     /**
@@ -89,7 +89,7 @@ class CategoriesController extends Controller
     {
         $category->update($request->all());
 
-        return redirect()->route('admin.categories.index')->with('success', 'Cập nhật danh mục thành công');
+        return redirect()->route('admin.categories.index')->with('success', trans('message.update_success'));
     }
 
     /**
@@ -102,6 +102,6 @@ class CategoriesController extends Controller
     {
         $this->categoryRepository->delete($category->id);
 
-        return redirect()->back()->with('success', 'Xóa danh mục thành công');
+        return redirect()->back()->with('success', trans('message.delete_success'));
     }
 }

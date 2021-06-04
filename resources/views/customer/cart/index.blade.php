@@ -6,7 +6,7 @@
             <div class="container">
                 <div class="bs-wizard clearfix">
                     <div class="bs-wizard-step active">
-                        <div class="text-center bs-wizard-stepnum">Giỏ</div>
+                        <div class="text-center bs-wizard-stepnum">@lang('message.cart')</div>
                         <div class="progress">
                             <div class="progress-bar"></div>
                         </div>
@@ -14,7 +14,7 @@
                     </div>
 
                     <div class="bs-wizard-step disabled">
-                        <div class="text-center bs-wizard-stepnum">Đặt tour</div>
+                        <div class="text-center bs-wizard-stepnum">@lang('message.book_tour')</div>
                         <div class="progress">
                             <div class="progress-bar"></div>
                         </div>
@@ -22,7 +22,7 @@
                     </div>
 
                     <div class="bs-wizard-step disabled">
-                        <div class="text-center bs-wizard-stepnum">Chờ xác nhận</div>
+                        <div class="text-center bs-wizard-stepnum">@lang('message.confirm')</div>
                         <div class="progress">
                             <div class="progress-bar"></div>
                         </div>
@@ -30,7 +30,7 @@
                     </div>
 
                     <div class="bs-wizard-step disabled">
-                        <div class="text-center bs-wizard-stepnum">Thanh toán</div>
+                        <div class="text-center bs-wizard-stepnum">@lang('message.payment')</div>
                         <div class="progress">
                             <div class="progress-bar"></div>
                         </div>
@@ -38,7 +38,7 @@
                     </div>
 
                     <div class="bs-wizard-step disabled">
-                        <div class="text-center bs-wizard-stepnum">Hoàn thành</div>
+                        <div class="text-center bs-wizard-stepnum">@lang('message.finish')</div>
                         <div class="progress">
                             <div class="progress-bar"></div>
                         </div>
@@ -77,16 +77,16 @@
                                     Tour
                                 </th>
                                 <th>
-                                    Ngày khởi hành
+                                    @lang('message.departure_day')
                                 </th>
                                 <th>
-                                    Giá
+                                    @lang('message.price')
                                 </th>
                                 <th>
-                                    Số lượng
+                                    @lang('message.guest')
                                 </th>
                                 <th>
-                                    Xóa
+                                    @lang('message.delete')
                                 </th>
                             </tr>
                             </thead>
@@ -117,13 +117,13 @@
                                                 <a href="#"><span class="qtyTotal qty-{{ $item->id }}">{{ $item->number_of_slots }}</span></a>
                                                 <div class="cart-panel-dropdown-content right">
                                                     <div class="qtyButtons">
-                                                        <label for="adults">Người lớn</label>
+                                                        <label for="adults">@lang('message.adult')</label>
                                                         <div class="qtyDec"></div>
                                                         <input type="text" name="adults" id="adults" value="{{ $item->adults }}">
                                                         <div class="qtyInc"></div>
                                                     </div>
                                                     <div class="qtyButtons">
-                                                        <label for="childrens">Trẻ nhỏ</label>
+                                                        <label for="childrens">@lang('message.child')</label>
                                                         <div class="qtyDec"></div>
                                                         <input type="text" name="childrens" id="childrens" value="{{ $item->childrens }}">
                                                         <div class="qtyInc"></div>
@@ -146,7 +146,7 @@
                                 <tr>
                                     <td colspan="5">
                                         <h2 class="text-center mt-4 font-weight-lighter">
-                                            Giỏ trống
+                                            @lang('message.empty_cart')
                                         </h2>
                                     </td>
                                 </tr>
@@ -157,16 +157,16 @@
                             <div class="float-left">
                                 <div class="apply-coupon">
                                     <div class="form-group">
-                                        <input type="text" name="coupon-code" value="" placeholder="Mã ưu đãi của bạn" class="form-control">
+                                        <input type="text" name="coupon-code" value="" placeholder="Your coupon" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <button type="button" class="btn_1 outline">Áp dụng mã</button>
+                                        <button type="button" class="btn_1 outline">@lang('message.apply_coupon')</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="float-right fix_mobile">
                                 <button type="button" class="btn_1 outline" data-toggle="modal" id="removeAllCart"
-                                        data-target="#removeAllCartModal"> Xóa tất cả</button>
+                                        data-target="#removeAllCartModal"> @lang('message.delete_all')</button>
                             </div>
                         </div>
                         <!-- /cart-options -->
@@ -177,25 +177,25 @@
                 <aside class="col-lg-4" id="sidebar">
                     <div class="box_detail">
                         <div id="total_cart">
-                            Tổng <span class="float-right">{{ number_format($total_price_all, 0, '', ',') }}đ</span>
+                        @lang('message.total') <span class="float-right">{{ number_format($total_price_all, 0, '', ',') }}đ</span>
                         </div>
                         <ul class="cart_details">
                             <li>Tour <span>{{ $carts->count() }}</span></li>
-                            <li>Tổng lượng đặt <span>{{ $number_of_slots }}</span></li>
+                            <li>@lang('message.total_order') <span>{{ $number_of_slots }}</span></li>
                         </ul>
                         @guest('customer')
                             <a href="#sign-in-dialog"  id="sign-in" title="Đăng nhập" class="btn_1 full-width purchase login">Đăng nhập</a>
                             <a href="{{ url()->previous() }}" class="btn btn-outline-secondary w-100">
-                                <span style="font-weight: 600; font-size: 0.875rem">Quay lại</span>
+                                <span style="font-weight: 600; font-size: 0.875rem">@lang('message.back')</span>
                             </a>
                             <div class="text-center"><small>Vui lòng đăng nhập để tiếp tục đặt tour du lịch</small></div>
                         @endguest
                         @auth('customer')
                             <a href="{{ route('book-tour.create') }}" class="btn_1 full-width purchase">Checkout</a>
                             <a href="{{ url()->previous() }}" class="btn btn-outline-secondary w-100">
-                                <span style="font-weight: 600; font-size: 0.875rem">Quay lại</span>
+                                <span style="font-weight: 600; font-size: 0.875rem">@lang('message.back')</span>
                             </a>
-                            <div class="text-center"><small>Không bị tính phí trong bước này</small></div>
+                            <div class="text-center"><small>@lang('message.no_charge')</small></div>
                         @endauth
                     </div>
                 </aside>

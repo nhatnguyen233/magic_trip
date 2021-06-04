@@ -90,6 +90,6 @@ class AccommodationImageController extends Controller
     {
         $this->accommodationImageRepository->removeAccommodationImage($accommodationImage->id);
 
-        return redirect()->back()->with('success', 'Xóa ảnh thành công');
+        return redirect()->back()->with('success', trans('message.delete_success'));
     }
 }

@@ -43,13 +43,13 @@
                     @csrf
                     <div class="box_cart">
                         <div class="message">
-                            <h1>Thông tin tài khoản</h1>
-                            <p>Cập nhật lại mật khẩu? <a href="#0">Quên mật khẩu?</a></p>
+                            <h1>@lang('message.acc_inf')</h1>
+                            <p>@lang('message.update_pass') <a href="#0">@lang('message.forgot_pass')</a></p>
                         </div>
                         <div class="form_title">
-                            <h3><strong>1</strong>Thông tin cá nhân</h3>
+                            <h3><strong>1</strong>@lang('message.per_inf')</h3>
                             <p>
-                                Họ tên, địa chỉ, email, số điện thoại
+                            @lang('message.list_per_inf')
                             </p>
                         </div>
                         <div class="step">
@@ -61,7 +61,7 @@
                                     <input type="file" class="form-control-file mb-2" id="avatar"
                                            placeholder="Ảnh đại diện" name="avatar" hidden/>
                                 </div>
-                                <h6 class="mt-2 mb-2">Ảnh đại diện</h6>
+                                <h6 class="mt-2 mb-2">@lang('message.avatar')</h6>
                             </div>
                             @if(session()->has('success'))
                                 <div class="alert alert-success">
@@ -80,7 +80,7 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label for="name">Họ và Tên <span class="text-danger">*</span></label>
+                                        <label for="name">@lang('message.fullname') <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="name" name="name" value="{{ isset($user->name) ? $user->name : '' }}" required>
                                     </div>
                                 </div>
@@ -94,7 +94,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="passwordInput">Mật khẩu cũ <span class="text-danger">*</span></label>
+                                        <label for="passwordInput">@lang('message.pass_old') <span class="text-danger">*</span></label>
                                         <div class="input-group" id="show_hide_password">
                                             <input type="password" class="form-control" name="old_password" id="passwordInput"
                                                    value="" placeholder="Mật khẩu" />
@@ -110,14 +110,14 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="phone">Điện thoại <span class="text-danger">*</span></label>
+                                        <label for="phone">@lang('message.phone') <span class="text-danger">*</span></label>
                                         <input type="text" id="phone" name="phone" class="form-control"
                                                value="{{ isset($user->phone) ? $user->phone : '' }}" required>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="new_password">Mật khẩu mới</label>
+                                        <label for="new_password">@lang('message.pass_new')</label>
                                         <div class="input-group" id="show_hide_new_password">
                                             <input type="password" class="form-control" name="password"
                                                    id="new_password" value="" placeholder="Nhập mật khẩu mới" />
@@ -134,7 +134,7 @@
                         <hr>
                         <!--End step -->
                         <div class="form_title">
-                            <h3><strong>2</strong>Địa chỉ</h3>
+                            <h3><strong>2</strong>@lang('message.address')</h3>
                             <p>
                                 Địa chỉ liên hệ trực tiếp
                             </p>
@@ -151,7 +151,7 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="country">Quốc gia</label>
+                                        <label for="country">@lang('message.country')</label>
                                         <select name="country_id" class="form-control" id="country">
                                             <option value="{{ isset($user->country_id) ? $user->country_id : '' }}" selected>Việt Nam</option>
                                         </select>
@@ -159,7 +159,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="province">Tỉnh/Thành phố <span class="text-danger">*</span></label>
+                                        <label for="province">@lang('message.city') <span class="text-danger">*</span></label>
                                         <select name="province_id" id="province" class="form-control" required>
                                             <option selected disabled>Chọn Tỉnh/Thành phố</option>
                                                 @foreach($provinces as $item)
@@ -177,7 +177,7 @@
                             <div class="row">
                                 <div class="col-md-6 col-sm-12">
                                     <div class="form-group">
-                                        <label for="district">Quận/Huyện <span class="text-danger">*</span></label>
+                                        <label for="district">@lang('message.district')<span class="text-danger">*</span></label>
                                         <select name="district_id" id="district" class="form-control" required>
                                             <option @if($user->district_id) selected @endif value={{ $user->district_id }}> {{ isset($user->district_id) ? $user->district->name : '' }} </option>
                                         </select>
@@ -185,7 +185,7 @@
                                 </div>
                                 <div class="col-md-6 col-sm-6">
                                     <div class="form-group">
-                                        <label>Mã bưu điện <span class="text-danger">*</span></label>
+                                        <label>@lang('message.zip_code') <span class="text-danger">*</span></label>
                                         <input type="text" id="postal_code" name="postal_code" value="{{ isset($user->postal_code) ? $user->postal_code : '' }}" class="form-control" required>
                                     </div>
                                 </div>

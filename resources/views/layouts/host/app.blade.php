@@ -101,6 +101,7 @@
 <!-- Custom scripts for all pages-->
 <script src="{{ asset('admin/js/admin.js') }}"></script>
 <script src="{{ asset('js/common.js') }}"></script>
+<script src="{{ mix('/js/notification.js') }}"></script>
 <!-- Custom scripts for this page-->
 @yield('script')
 </body>

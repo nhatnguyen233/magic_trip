@@ -1,4 +1,4 @@
-<div class="collapse navbar-collapse" id="navbarResponsive">
+<div style=" margin-bottom: 17.5px" class="collapse navbar-collapse" id="navbarResponsive">
     <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
             <a class="nav-link" href="{{ route('host.index') }}">
@@ -22,6 +22,12 @@
             <a class="nav-link" href="{{ route('host.accommodations.index') }}">
                 <i class="fa fa-fw fa-home"></i>
                 <span class="nav-link-text">Địa điểm nghỉ ngơi</span>
+            </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Các tours du lịch">
+            <a class="nav-link" href="{{ route('host.events.index') }}">
+                <i class="fa fa-fw fa-file"></i>
+                <span class="nav-link-news">Quản lí tin tức</span>
             </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Các tours du lịch">
