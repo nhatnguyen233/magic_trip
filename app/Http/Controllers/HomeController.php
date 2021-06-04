@@ -6,6 +6,7 @@ use App\Enums\CatType;
 use App\Repositories\Accommodation\AccommodationRepository;
 use App\Repositories\Attraction\AttractionRepository;
 use App\Repositories\Category\CategoryRepository;
+use App\Repositories\Event\EventRepository;
 use App\Repositories\Tour\TourRepository;
 use Illuminate\Http\Request;
 
@@ -15,18 +16,21 @@ class HomeController extends Controller
     protected $attractionRepository;
     protected $accommodationRepository;
     protected $categoryRepository;
+    protected $eventRepository;
 
     public function __construct(
         TourRepository $tourRepository,
         AttractionRepository $attractionRepository,
         AccommodationRepository $accommodationRepository,
-        CategoryRepository $categoryRepository
+        CategoryRepository $categoryRepository,
+        EventRepository $eventRepository
     )
     {
         $this->tourRepository = $tourRepository;
         $this->attractionRepository = $attractionRepository;
         $this->accommodationRepository = $accommodationRepository;
         $this->categoryRepository = $categoryRepository;
+        $this->eventRepository = $eventRepository;
     }
 
     /**
@@ -42,6 +46,7 @@ class HomeController extends Controller
         $viewData['total_attractions'] = $this->attractionRepository->all()->count();
         $viewData['tours'] = $this->tourRepository->all()->sortByDesc('created_at');
         $viewData['categories'] = $this->categoryRepository->findWhere(['type' => CatType::TOURISM]);
+        $viewData['events'] = $this->eventRepository->paginate(4);
 
         return view('home', $viewData);
     }

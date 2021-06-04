@@ -11,6 +11,7 @@ use App\Http\Controllers\Customer\LanguageController;
 use App\Http\Controllers\Customer\SocialController;
 use App\Http\Controllers\Customer\AccommodationController;
 use App\Http\Controllers\Customer\AttractionController;
+use App\Http\Controllers\Customer\EventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,7 @@ Route::resource('/reviews',ReviewController::class);
 Route::resource('/cart',CartController::class);
 Route::resource('/accommodations', AccommodationController::class);
 Route::resource('/attractions', AttractionController::class);
+Route::resource('/events', EventController::class);
 
 Route::middleware('auth.customer')->group(function() {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
