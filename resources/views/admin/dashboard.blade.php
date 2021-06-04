@@ -16,7 +16,7 @@
                     <div class="card-body-icon">
                         <i class="fa fa-fw fa-envelope-open"></i>
                     </div>
-                    <div class="mr-5"><h5>26 New Messages!</h5></div>
+                    <div class="mr-5"><h5>0 New Messages!</h5></div>
                 </div>
                 <a class="card-footer text-white clearfix small z-1" href="messages.html">
                     <span class="float-left">View Details</span>
@@ -32,7 +32,7 @@
                     <div class="card-body-icon">
                         <i class="fa fa-fw fa-star"></i>
                     </div>
-                    <div class="mr-5"><h5>11 New Reviews!</h5></div>
+                    <div class="mr-5"><h5>2 New Reviews!</h5></div>
                 </div>
                 <a class="card-footer text-white clearfix small z-1" href="reviews.html">
                     <span class="float-left">View Details</span>
@@ -48,7 +48,7 @@
                     <div class="card-body-icon">
                         <i class="fa fa-fw fa-calendar-check-o"></i>
                     </div>
-                    <div class="mr-5"><h5>10 New Bookings!</h5></div>
+                    <div class="mr-5"><h5>2 New Register!</h5></div>
                 </div>
                 <a class="card-footer text-white clearfix small z-1" href="bookings.html">
                     <span class="float-left">View Details</span>
@@ -64,7 +64,7 @@
                     <div class="card-body-icon">
                         <i class="fa fa-fw fa-heart"></i>
                     </div>
-                    <div class="mr-5"><h5>10 New Bookmarks!</h5></div>
+                    <div class="mr-5"><h5>10 Active Hosting!</h5></div>
                 </div>
                 <a class="card-footer text-white clearfix small z-1" href="bookmarks.html">
                     <span class="float-left">View Details</span>

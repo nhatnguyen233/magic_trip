@@ -129,35 +129,32 @@
                 <h6 class="dropdown-header">New Alerts:</h6>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">
-                  <span class="text-success">
+                  <span class="text-danger">
                     <strong>
-                      <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
+                      <i class="fa fa-long-arrow-down fa-fw"></i>New Hosting Register</strong>
                   </span>
-                    <span class="small float-right text-muted">11:21 AM</span>
-                    <div class="dropdown-message small">This is an automated server response message. All systems
-                        are online.
+                    <span class="small float-right text-muted">21:30 PM</span>
+                    <div class="dropdown-message small">
                     </div>
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">
                   <span class="text-danger">
                     <strong>
-                      <i class="fa fa-long-arrow-down fa-fw"></i>Status Update</strong>
+                      <i class="fa fa-long-arrow-down fa-fw"></i>New Hosting Register</strong>
                   </span>
-                    <span class="small float-right text-muted">11:21 AM</span>
-                    <div class="dropdown-message small">This is an automated server response message. All systems
-                        are online.
+                    <span class="small float-right text-muted">21:30 PM</span>
+                    <div class="dropdown-message small">
                     </div>
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">
-                  <span class="text-success">
+                  <span class="text-danger">
                     <strong>
-                      <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
+                      <i class="fa fa-long-arrow-down fa-fw"></i>New Hosting Registerr</strong>
                   </span>
-                    <span class="small float-right text-muted">11:21 AM</span>
-                    <div class="dropdown-message small">This is an automated server response message. All systems
-                        are online.
+                    <span class="small float-right text-muted">21:30 PM</span>
+                    <div class="dropdown-message small">
                     </div>
                 </a>
                 <div class="dropdown-divider"></div>
