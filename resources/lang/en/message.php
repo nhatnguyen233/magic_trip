@@ -140,5 +140,5 @@ return [
     'bill' => 'Bills',
     'list_tour' => 'List of tours',
     'add_tour' => 'Add tours',
-    
+    'add_list' => 'Add list',
 ];
